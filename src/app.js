@@ -126,9 +126,20 @@ buildHomeCards = function(){
         <p>${s.short}</p>
         <div class="stats"><span>7 chapters</span><span>4 exams + 150 old tasks</span><span>${days} days to 14 Dec</span></div>
       </div>
-    </div>`).join('') + `<div class="subj-card soon"><div class="banner" style="background:var(--tile-banner)">${homeIcon('stat')}</div><div class="body"><span class="tag" style="background:var(--bg2);color:var(--ink-soft)">STATISTICS</span><h3>Statistics</h3><p>The other half of "Quantitative Analytics II". Not added yet.</p><div class="stats"><span>coming later</span></div></div></div>`;
+    </div>`).join('') + M2_UPCOMING.map(u=>`<div class="subj-card soon"><div class="banner" style="background:var(--tile-banner)">${homeIcon(u.icon)}</div><div class="body"><span class="tag" style="background:var(--bg2);color:var(--ink-soft)">${u.tag}</span><h3>${esc(u.label)}</h3><p>${esc(u.note)}</p><div class="stats"><span>${u.date}</span><span>coming later</span></div></div></div>`).join('');
 };
+// S2/2 written exams without material yet — shown as placeholder cards with their exam slot
+const M2_UPCOMING = [
+  {label:'Statistics', tag:'STATISTICS', icon:'stat', date:'Mon 14 Dec · 09:00–12:00', note:'Second half of "Quantitative Analytics II", same slot as Math II.'},
+  {label:'Basic Principles of Marketing', tag:'MARKETING', icon:'mkt', date:'Wed 16 Dec · 13:30–16:00', note:'Shares the exam slot with Consumer Behaviour.'},
+  {label:'Fundamentals of Consumer Behaviour', tag:'CONSUMER BEHAVIOUR', icon:'mkt', date:'Wed 16 Dec · 13:30–16:00', note:'Shares the exam slot with Marketing.'},
+  {label:'Decision Theory & Investments', tag:'DECISION THEORY', icon:'stat', date:'Fri 18 Dec · 09:00–10:30', note:'Written exam, 90 minutes.'},
+  {label:'Bookkeeping & Accounting', tag:'ACCOUNTING', icon:'acc', date:'Mon 21 Dec · 09:00–12:00', note:'Shares the exam slot with Financial Statement Analysis.'},
+  {label:'Financial Statement Analysis', tag:'FSA', icon:'acc', date:'Mon 21 Dec · 09:00–12:00', note:'Shares the exam slot with Bookkeeping & Accounting.'}
+];
 homeIcon = function(id){
+  if(id==='mkt') return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M3 11v2l13 5V6L3 11z"/><path d="M16 9a3 3 0 0 1 0 6"/><path d="M6 13.5V18h3v-3.4"/></svg>';
+  if(id==='acc') return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>';
   if(id==='stat') return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>';
   return '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M7 4H4v16h3M17 4h3v16h-3"/><path d="M9 9h2M13 9h2M9 15h2M13 15h2"/></svg>';
 };
@@ -310,7 +321,7 @@ function buildM2Home(){
       </div>
       <div class="page-body">
         <div class="exam-card">
-          <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">14 Dec 2026 · ${days} days</span></div>
+          <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">Mon 14 Dec 2026 · 09:00–12:00 · ${days} days</span></div>
           <div class="exam-grid">
             <div class="exam-col">
               <div class="exam-label">Quantitative Analytics II · 180 points (two 90-min exams)</div>
