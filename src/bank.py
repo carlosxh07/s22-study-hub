@@ -88,8 +88,8 @@ for s in segs:
     q=crop(s['start'], s['sol'] or s['end'])
     a=crop(s['sol'], s['end']) if s['sol'] else None
     ent={'id':slug,'exam':s['exam'],'n':s['n']}
-    if q: q=squeeze(q); q.save(f"{OUT}/{slug}-q.png",optimize=True); ent['q']=f"bank/{slug}-q.png"; ent['qh']=q.height
-    if a: a=squeeze(a); a.save(f"{OUT}/{slug}-a.png",optimize=True); ent['a']=f"bank/{slug}-a.png"
+    if q: q=squeeze(q).quantize(16); q.save(f"{OUT}/{slug}-q.png",optimize=True); ent['q']=f"bank/{slug}-q.png"; ent['qh']=q.height
+    if a: a=squeeze(a).quantize(16); a.save(f"{OUT}/{slug}-a.png",optimize=True); ent['a']=f"bank/{slug}-a.png"
     meta.append(ent)
 json.dump(meta,open('bank_meta.json','w'),indent=0)
 print(len(meta))

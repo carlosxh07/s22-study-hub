@@ -886,3 +886,22 @@ function buildM2Drill(){
 }
 function matTexN(A){ return `\\begin{pmatrix}${A.map(r=>r.join(' & ')).join(' \\\\ ')}\\end{pmatrix}`; }
 function sgn(v){ return v<0 ? `- ${Math.abs(v)}` : `+ ${v}`; }
+
+/* ============================================================ LAZY PAGE BUILDING ============================================================ */
+// Pages are registered at start-up but only built (HTML, KaTeX, flashcards…) on their first visit,
+// so start-up stays fast no matter how many subjects the hub gets.
+const lazyPages = {};
+registerPage = function(id, buildFn){
+  if(registeredPages[id]) return;
+  registeredPages[id] = true;
+  const div = document.createElement('div');
+  div.className = 'page';
+  div.id = 'page-'+id;
+  dynPages.appendChild(div);
+  lazyPages[id] = ()=>{ delete lazyPages[id]; buildFn(div); };
+};
+const __navToEager = navTo;
+navTo = function(pageId){
+  if(lazyPages[pageId]) lazyPages[pageId]();
+  return __navToEager(pageId);
+};
