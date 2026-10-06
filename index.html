@@ -885,10 +885,16 @@ body.hl-armed .hl-container{cursor:text;}
   body.print-cheat #page-bk-cheat .page-header{display:none;}
   body.print-cheat #page-bk-cheat{position:absolute;left:0;top:0;width:100%;}
 }
+/* ---------- auto-update banner ---------- */
+#hub-update-bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;gap:12px;align-items:center;padding:10px 12px 10px 18px;border-radius:18px;font-size:.84rem;color:var(--ink);background:var(--panel);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--line);box-shadow:var(--shadow-sm);max-width:calc(100vw - 32px);}
+#hub-update-bar .btn{padding:7px 14px;}
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 </head>
 <body>
 <div id="app">
@@ -5714,6 +5720,32 @@ hlIslandEl();
 updateHlIslandVisibility();
 selectSubject('m2', false);
 navTo('home');
+
+
+/* ============================================================ AUTO-UPDATE ============================================================ */
+// Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
+// If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
+const HUB_BUILD = '20261006122146';
+let hubHiddenAt = 0;
+async function hubCheckUpdate(silent){
+  try{
+    const r = await fetch(location.pathname + '?v=' + Date.now(), {cache:'no-store'});
+    const m = (await r.text()).match(/const HUB_BUILD = '(\d+)'/);
+    if(!m || m[1]===HUB_BUILD) return;
+    if(silent){ location.reload(); return; }
+    if(document.getElementById('hub-update-bar')) return;
+    const bar = document.createElement('div'); bar.id = 'hub-update-bar';
+    bar.innerHTML = 'A new version of the hub is online. <button class="btn" onclick="location.reload()">Update now</button>';
+    document.body.appendChild(bar);
+  }catch(e){}
+}
+hubCheckUpdate(true);
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){ hubHiddenAt = Date.now(); return; }
+  // back after 10+ minutes away → reload straight away; shorter → just offer the update
+  hubCheckUpdate(hubHiddenAt && Date.now()-hubHiddenAt > 10*60*1000);
+});
+setInterval(()=>hubCheckUpdate(false), 60*60*1000);
 
 </script>
 <div id="support-modal" role="dialog" aria-modal="true" aria-labelledby="sm-title">

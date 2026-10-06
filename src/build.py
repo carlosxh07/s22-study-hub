@@ -28,7 +28,9 @@ head += '\n' + open(os.path.join(HERE, 'extra.css'), encoding='utf-8').read() + 
 head = re.sub(r'<title>.*?</title>', '<title>S2/2 Study Hub</title>', head)
 katex = ('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">\n'
          '<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>\n')
-head += '\n' + katex + L[head_end]
+nocache = ('<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n'
+           '<meta http-equiv="Pragma" content="no-cache">\n<meta http-equiv="Expires" content="0">\n')
+head += '\n' + katex + nocache + L[head_end]
 
 body = '\n'.join(L[head_end+1:script_start])
 reps = [
@@ -65,6 +67,34 @@ const SUBJECTS = [
 """
 data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js'))
 app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js'))
+import time
+BUILD_ID = time.strftime('%Y%m%d%H%M%S')
+autoupdate = """
+/* ============================================================ AUTO-UPDATE ============================================================ */
+// Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
+// If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
+const HUB_BUILD = '""" + BUILD_ID + """';
+let hubHiddenAt = 0;
+async function hubCheckUpdate(silent){
+  try{
+    const r = await fetch(location.pathname + '?v=' + Date.now(), {cache:'no-store'});
+    const m = (await r.text()).match(/const HUB_BUILD = '(\\d+)'/);
+    if(!m || m[1]===HUB_BUILD) return;
+    if(silent){ location.reload(); return; }
+    if(document.getElementById('hub-update-bar')) return;
+    const bar = document.createElement('div'); bar.id = 'hub-update-bar';
+    bar.innerHTML = 'A new version of the hub is online. <button class="btn" onclick="location.reload()">Update now</button>';
+    document.body.appendChild(bar);
+  }catch(e){}
+}
+hubCheckUpdate(true);
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){ hubHiddenAt = Date.now(); return; }
+  // back after 10+ minutes away → reload straight away; shorter → just offer the update
+  hubCheckUpdate(hubHiddenAt && Date.now()-hubHiddenAt > 10*60*1000);
+});
+setInterval(()=>hubCheckUpdate(false), 60*60*1000);
+"""
 init = """
 /* ============================================================ INIT ============================================================ */
 buildM2Home();
@@ -83,7 +113,7 @@ selectSubject('m2', false);
 navTo('home');
 """
 tail = '\n'.join(L[i_script_end:])
-html = '\n'.join([head, body, L[script_start], engine_a, subjects, data, engine_b, app, init, tail])
+html = '\n'.join([head, body, L[script_start], engine_a, subjects, data, engine_b, app, init, autoupdate, tail])
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 open(OUT, 'w', encoding='utf-8').write(html)
 print('wrote', OUT, len(html)//1024, 'KB')
