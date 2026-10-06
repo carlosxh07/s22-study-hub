@@ -41,8 +41,8 @@ for a, b in reps:
     assert a in body, a
     body = body.replace(a, b)
 body = re.sub(r'(<div class="kicker">Semester 2 · Block 2</div>\s*<h1>Your Study Hub</h1>\s*<p>)(.*?)(</p>)',
-              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab.\3', body, flags=re.S)
-body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1Built from the real slides, exercises and 27 past exams (2005–2025). Newest exams first — they are the most relevant.\3', body, flags=re.S)
+              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer.\3', body, flags=re.S)
+body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1Built from the real slides, exercises and past exams. Math II: newest exams first — they are the most relevant.\3', body, flags=re.S)
 
 engine_a = '\n'.join(L[i_theme:i_subj])            # theme, icons, helpers
 engine_b = '\n'.join(L[i_route:i_obpages])         # routing … flashcards, quiz, cheat, topic builder
@@ -59,17 +59,19 @@ for a, b in patches:
 
 subjects = """/* ============================================================ SUBJECT META ============================================================ */
 const SUBJECTS = [
-  {id:'m2', label:'Mathematics II — Linear Algebra', short:'Vectors, matrices, Gauss, inverse, determinants, optimization and the simplex method.', color:'m2'}
+  {id:'m2', label:'Mathematics II — Linear Algebra', short:'Vectors, matrices, Gauss, inverse, determinants, optimization and the simplex method.', color:'m2'},
+  {id:'bk', label:'Bookkeeping & Accounting', short:'Double-entry bookkeeping, VAT, valuation, depreciation, deferrals and provisions under German GAAP.', color:'bk'}
 ];
 """
-data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js'))
-app = open(os.path.join(HERE, 'app.js'), encoding='utf-8').read()
+data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js'))
 init = """
 /* ============================================================ INIT ============================================================ */
 buildM2Home();
 M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
 buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
+buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();

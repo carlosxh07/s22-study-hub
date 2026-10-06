@@ -363,7 +363,7 @@ function buildM2Home(){
       </div>`;
   });
 }
-lectureMasteryHtml = (function(base){ return function(){ return base('m2'); }; })(lectureMasteryHtml);
+lectureMasteryHtml = (function(base){ return function(subj){ return base(subj||'m2'); }; })(lectureMasteryHtml);
 
 /* ============================================================ CHEAT SHEET ============================================================ */
 function buildM2Cheat(){
