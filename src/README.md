@@ -10,3 +10,5 @@
 - `engine-s21.html` — frozen copy of the S2/1 hub; `build.py` takes CSS, highlighter, search, flashcards, quiz and plan from it
 - `data_bk.js` — Bookkeeping (Prof. Cloer): 14 chapter pages, cheat sheet, booking entry trainer tasks
 - `app_bk.js` — Bookkeeping pages + wrappers that make sidebar, search, home, radar and plan work for both subjects
+- `data_st.js` — Statistics: 8 chapters (ST_TOPICS), ST_CHEAT, ST_TTABLE (Table IV exactly as handout)
+- `app_st.js` — Statistics pages: home, Random Drills (ST_KINDS generators), Data Lab, Distribution & CI Calculator, Tables II/IV + wrappers for sidebar/search/home/radar/plan
