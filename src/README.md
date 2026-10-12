@@ -12,3 +12,5 @@
 - `app_bk.js` — Bookkeeping pages + wrappers that make sidebar, search, home, radar and plan work for both subjects
 - `data_st.js` — Statistics: 8 chapters (ST_TOPICS), ST_CHEAT, ST_TTABLE (Table IV exactly as handout)
 - `app_st.js` — Statistics pages: home, Random Drills (ST_KINDS generators), Data Lab, Distribution & CI Calculator, Tables II/IV + wrappers for sidebar/search/home/radar/plan
+- `data_fs.js` — Financial Statement Analysis (Langenhövel, WS 26/27): 10 chapters (FS_TOPICS), FS_CASES (every slide case, answer keys self-written), FS_CHEAT
+- `app_fs.js` — FSA pages: home, Case Trainer, Number Drills (FS_KINDS generators), cheat sheet + wrappers for sidebar/search/home/radar/plan (loaded after app_st.js)
