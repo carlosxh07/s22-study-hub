@@ -68,7 +68,7 @@ const SUBJECTS = [
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
 ];
 """
-data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_st.js', 'data_fs.js', 'data_mk.js'))
+data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_st.js', 'data_fs.js', 'data_mk.js'))
 app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
@@ -104,7 +104,7 @@ buildM2Home();
 M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
 buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
-buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer();
+buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer(); buildBKTut();
 buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();

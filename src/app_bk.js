@@ -3,6 +3,7 @@
 const BK_NAV = [
   {sec:'Overview', items:[{id:'bk-home', label:'Bookkeeping Home & Exam Info', icon:'home'}]},
   {sec:'Practice', items:[
+    {id:'bk-tut', label:'Tutorials TUT 1–11 (official solutions)', icon:'doc'},
     {id:'bk-train', label:'Booking Entry Trainer', icon:'logic'},
     {id:'bk-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
   ]}
@@ -38,6 +39,7 @@ buildSearchIndex = function(){
     t.quiz.forEach(q=>add({type:'Quiz', rank:4, title:q.q, text:q.exp||'', where:`${where} · ${t.title}`, page:t.id, tab:'qz'}));
   });
   BK_CHEAT.forEach(b=>b.items.forEach(it=>add({type:'Cheat sheet', rank:2, title:b.h, text:it, where:'Bookkeeping · Cheat Sheet', page:'bk-cheat'})));
+  BK_TUTS.forEach(tu=>tu.tasks.forEach(k=>add({type:'Tutorial', rank:2, title:`TUT ${tu.n} · ${tu.title}`, text:searchFlat(k.q+' '+(k.sol||'')), where:`Bookkeeping · Tutorials · TUT ${tu.n}`, page:'bk-tut'})));
   BK_TRAIN.forEach(x=>add({type:'Booking entry', rank:2, title:x.text, text:x.lines.map(l=>l[1]).join(' '), where:'Bookkeeping · Booking Entry Trainer', page:'bk-train'}));
   BK_NAV.forEach(sec=>sec.items.forEach(it=>add({type:'Page', rank:0, title:it.label, text:sec.sec, where:`Bookkeeping · ${sec.sec}`, page:it.id})));
   return idx;
@@ -74,10 +76,17 @@ function bkTrainScore(topicId){
   const vals = BK_TRAIN.filter(x=>!topicId || x.topic===topicId).map(x=>st[x.id]).filter(v=>v!=null);
   return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
 }
+function bkTutState(){ return ls('bk-tut-state', {}); }
+function bkTutScore(topicId){
+  const st = bkTutState(); const vals = [];
+  BK_TUTS.filter(tu=>!topicId || tu.topic===topicId).forEach(tu=>tu.tasks.forEach(k=>{ const v = st[tu.n+'-'+k.id]; if(v!=null) vals.push(v); }));
+  return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
 function bkTopicScore(t){
   const parts = [];
   const q = knowledgeScore(null, 0, 'quiz-'+t.id, t.quiz.length); if(q!=null) parts.push(q);
   const tr = bkTrainScore(t.id); if(tr!=null) parts.push(tr);
+  const tu = bkTutScore(t.id); if(tu!=null) parts.push(tu);
   return parts.length ? parts.reduce((a,b)=>a+b,0)/parts.length : null;
 }
 const __radarAxesM2 = radarAxes;
@@ -94,6 +103,8 @@ planItemPool = function(){
   BK_TOPICS.forEach(t=>{ const s = bkTopicScore(t); items.push({subj:'bk', label:`Ch. ${t.ch} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + BK_TRAIN.filter(x=>x.topic===t.id).length + Math.round(t.summary.split(/\s+/).length/120)}); });
   const tr = bkTrainScore();
   items.push({subj:'bk', label:'Booking Entry Trainer — full run', page:'bk-train', weight:tr==null ? .9 : 1-tr, size:BK_TRAIN.length});
+  const tuS = bkTutScore();
+  items.push({subj:'bk', label:'Tutorials TUT 1–11 — solve, then compare with the official solution', page:'bk-tut', weight:tuS==null ? .9 : 1-tuS, size:BK_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)});
   // flags over both subjects together
   items.forEach(i=>{ i.large = false; i.prio = false; });
   const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
@@ -154,7 +165,7 @@ buildTopicPage = function(t){
         <p>${esc(t.examWeight)}</p>
       </div>
       <div class="page-body">
-        ${drills?`<div class="chip-row"><span class="chip-label">Practise the entries:</span><button class="chip" onclick="bkTrainOpen('${t.id}')">${drills} booking drills for this chapter</button></div>`:''}
+        ${(()=>{ const tuts = BK_TUTS.filter(tu=>tu.topic===t.id); return (drills||tuts.length) ? `<div class="chip-row"><span class="chip-label">Practise:</span>${drills?`<button class="chip" onclick="bkTrainOpen('${t.id}')">${drills} booking drills for this chapter</button>`:''}${tuts.map(tu=>`<button class="chip" onclick="bkTutOpen(${tu.n})">TUT ${tu.n} · ${esc(tu.title)}</button>`).join('')}</div>` : ''; })()}
         <div class="tabbar">
           <button class="tabbtn active" data-tab="sum">Summary</button>
           <button class="tabbtn" data-tab="qz">Quiz</button>
@@ -187,7 +198,7 @@ function buildBKHome(){
       <div class="page-header">
         <div class="eyebrow">${icon('home')} Bookkeeping & Accounting</div>
         <h2>Bookkeeping</h2>
-        <p>Prof. Adrian Cloer · ${BK_CHAPTER_COUNT} chapter pages from the slides of 06.10.2026. The core skill is writing booking entries ("Debit … / Credit …"), so pair every chapter with its booking drills.</p>
+        <p>Prof. Adrian Cloer · ${BK_CHAPTER_COUNT} chapter pages from the slides of 06.10.2026 plus Amendments 1/2 and 3, and all eleven tutorials with their official solutions. The core skill is writing booking entries ("Debit … / Credit …"), so pair every chapter with its tutorial and booking drills.</p>
       </div>
       <div class="page-body">
         <div class="exam-card">
@@ -206,23 +217,26 @@ function buildBKHome(){
               <ul class="exam-facts">
                 <li>Brösel/Freichel/Mindermann, <i>German Accounting</i>: ch. 1–5, 6.1, 6.2, 6.4, 7, 10, 13.3, 13.4.1, 13.4.2, 13.4.4. Chapter 2 is not covered in the lectures but is still exam-relevant.</li>
                 <li>Wöhe, <i>Einführung in die ABWL</i> (28th ed.): ch. 2 C.1 (choice of legal forms, incl. GmbH & Co. KG) and ch. 6 A.</li>
-                <li>Solution keys of the exercises (1, 2, 3, 4, VAT, acquisition costs, merchandise, production costs, depreciation, deferrals, provisions). Not in the hub yet — send them and they get added.</li>
+                <li>Solution keys of the exercises — TUT 1–11 are in the hub (<a href="#bk-tut" onclick="navTo('bk-tut');return false">Tutorials</a>): basic terms, inventory, obligation to keep accounts, income-neutral transactions, OBSA/CBSA, P&L, VAT, acquisition costs, production costs, depreciation, deferrals. The keys for merchandise and provisions are not in the folder yet.</li>
+                <li><b>Amendments:</b> 1/2 (enterprise, equity vs debt, legal forms) is in chapters 1–2 and 4; 3 (inventory and valuation simplification) in chapter 3.1 — it corrects the pre/post-year-end deadlines to 3 months before / 2 months after.</li>
               </ul>
             </div>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="btn" onclick="navTo('bk-1')">Start with chapter 1 →</button>
+            <button class="btn ghost" onclick="navTo('bk-tut')">Tutorials${bkTutScore()!=null?` · ${Math.round(bkTutScore()*100)}%`:''}</button>
             <button class="btn ghost" onclick="navTo('bk-train')">Booking Entry Trainer${tr!=null?` · ${Math.round(tr*100)}%`:''}</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
         </div>
         <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Chapters</div>
         <div class="topic-grid">
-          ${BK_TOPICS.map(t=>{ const s = bkTopicScore(t); return `<div class="topic-card" onclick="navTo('${t.id}')"><div class="num">CHAPTER ${t.ch}</div><h4>${esc(t.title)}</h4><p>${t.quiz.length} quiz questions · ${BK_TRAIN.filter(x=>x.topic===t.id).length} booking drills${s!=null?` · ${Math.round(s*100)}%`:''}</p></div>`; }).join('')}
+          ${BK_TOPICS.map(t=>{ const s = bkTopicScore(t); const nt = BK_TUTS.filter(tu=>tu.topic===t.id).map(tu=>tu.n); return `<div class="topic-card" onclick="navTo('${t.id}')"><div class="num">CHAPTER ${t.ch}</div><h4>${esc(t.title)}</h4><p>${t.quiz.length} quiz questions · ${BK_TRAIN.filter(x=>x.topic===t.id).length} booking drills${nt.length?` · TUT ${nt.join(', ')}`:''}${s!=null?` · ${Math.round(s*100)}%`:''}</p></div>`; }).join('')}
         </div>
         <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Tools</div>
         <div class="tool-tiles">
-          <div class="tool-tile" onclick="navTo('bk-train')"><div class="ic">${icon('logic')}</div><h4>Booking Entry Trainer</h4><p>${BK_TRAIN.length} transactions from the slides: pick the debit and credit accounts.</p></div>
+          <div class="tool-tile" onclick="navTo('bk-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials TUT 1–11</h4><p>${BK_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks: write your answer, reveal the official solution, rate yourself.</p></div>
+          <div class="tool-tile" onclick="navTo('bk-train')"><div class="ic">${icon('logic')}</div><h4>Booking Entry Trainer</h4><p>${BK_TRAIN.length} transactions from the slides and tutorials: pick the debit and credit accounts.</p></div>
           <div class="tool-tile" onclick="navTo('bk-cheat')"><div class="ic">${icon('cheat')}</div><h4>Cheat Sheet</h4><p>All rules, entries and numbers on one printable page.</p></div>
         </div>
       </div>`;
@@ -247,7 +261,7 @@ function buildBKTrainer(){
     const topicsWith = BK_TOPICS.filter(t=>BK_TRAIN.some(x=>x.topic===t.id));
     div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('logic')} Practice</div><h2>Booking Entry Trainer</h2><p>Each transaction shows its sides and amounts. Pick the account for every line, then check. One try per task — the result counts for the radar and the study plan.</p></div>
       <div class="page-body">
-        <div class="chip-row bk-filter"><button class="chip" data-f="all">All (${BK_TRAIN.length})</button><button class="chip" data-f="wrong">My mistakes</button>${topicsWith.map(t=>`<button class="chip" data-f="${t.id}">Ch. ${t.ch} ${esc(t.title.split(/[&,:]/)[0].trim())}</button>`).join('')}</div>
+        <div class="chip-row bk-filter"><button class="chip" data-f="all">All (${BK_TRAIN.length})</button><button class="chip" data-f="wrong">My mistakes</button><button class="chip" data-f="src:tut">Only tutorial drills (${BK_TRAIN.filter(x=>x.src).length})</button>${topicsWith.map(t=>`<button class="chip" data-f="${t.id}">Ch. ${t.ch} ${esc(t.title.split(/[&,:]/)[0].trim())}</button>`).join('')}</div>
         <div class="bk-score-row"><span class="bk-live"></span><span class="bk-best"></span><button class="btn ghost bk-reset">Reset run</button></div>
         <div class="drill-card glass bk-card"></div>
       </div>`;
@@ -257,6 +271,8 @@ function buildBKTrainer(){
     const pool = ()=>{
       const st = bkTrainState();
       if(bkTrainFilter==='wrong') return BK_TRAIN.filter(x=>st[x.id]===0);
+      if(bkTrainFilter==='src:tut') return BK_TRAIN.filter(x=>x.src);
+      if(bkTrainFilter.startsWith('src:')) return BK_TRAIN.filter(x=>x.src===bkTrainFilter.slice(4));
       return BK_TRAIN.filter(x=>bkTrainFilter==='all' || x.topic===bkTrainFilter);
     };
     const score = ()=>{
@@ -277,7 +293,7 @@ function buildBKTrainer(){
         return;
       }
       const x = run[i]; const t = BK_TOPICS.find(tt=>tt.id===x.topic);
-      card.innerHTML = `<div class="qtag">Ch. ${t.ch} · ${esc(t.title)}</div>
+      card.innerHTML = `<div class="qtag">Ch. ${t.ch} · ${esc(t.title)}${x.src?` · ${x.src}`:''}</div>
         <div class="bk-task">${esc(x.text)}</div>
         <table class="bk-entry"><thead><tr><th>Side</th><th>Account</th><th>Amount €</th></tr></thead><tbody>
           ${x.lines.map((l,k)=>`<tr class="${l[0]==='D'?'deb':'cre'}"><td>${l[0]==='D'?'Debit':'Credit'}</td><td><select data-k="${k}"><option value="">— choose account —</option>${opts.map(o=>`<option>${esc(o)}</option>`).join('')}</select><div class="bk-sol"></div></td><td class="num">${l[2]}</td></tr>`).join('')}
@@ -310,5 +326,93 @@ function buildBKTrainer(){
     div.querySelector('.bk-reset').addEventListener('click', start);
     div.__start = start;
     start();
+  });
+}
+
+/* ---------- Tutorials TUT 1–11 (official solutions) ---------- */
+function bkCell(c){ return esc(c).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>'); }
+function bkTable(cap, body){
+  const rows = body.trim().split('\n').map(r=>r.split('|').map(c=>c.trim()));
+  const head = rows.shift();
+  const isNum = c => /^[−\-]?[\d.,]+ ?%?$|^—$/.test(c);
+  return `<div class="bk-tw">${cap?`<div class="tab-cap">${esc(cap)}</div>`:''}<table class="bk-tt"><thead><tr>${head.map(h=>`<th>${bkCell(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr${/^(Total|Sum)/.test(r[0])?' class="tot"':''}>${r.map(c=>`<td${isNum(c)?' class="num"':''}>${bkCell(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function bkEntryHtml(body){
+  const rows = body.trim().split('\n').map(r=>r.split('|').map(c=>c.trim()));
+  return `<table class="bk-entry bk-entry-static"><tbody>${rows.map(r=>`<tr class="${r[0]==='D'?'deb':'cre'}"><td>${r[0]==='D'?'Debit':'Credit'}</td><td>${esc(r[1])}</td><td class="num">${esc(r[2]||'')} €</td></tr>`).join('')}</tbody></table>`;
+}
+function bkRich(src){
+  const blocks = [];
+  let s = String(src).replace(/\[\[(t|e):([^\n]*)\n([\s\S]*?)\]\]/g, (m, kind, cap, body)=>{ blocks.push(kind==='t' ? bkTable(cap.trim(), body) : bkEntryHtml(body)); return `\n\n\u0005${blocks.length-1}\u0006\n\n`; });
+  // single line breaks become paragraphs, except between consecutive "- " bullet lines
+  const lines = s.split('\n'); let out = '';
+  lines.forEach((l,i)=>{ if(i){ const prev = lines[i-1]; out += (/^- /.test(prev) && /^- /.test(l)) || prev==='' || l==='' ? '\n' : '\n\n'; } out += l; });
+  return richHtml(out)
+    .replace(/<p>\s*\u0005(\d+)\u0006\s*<\/p>/g, (m,k)=>blocks[+k])
+    .replace(/\u0005(\d+)\u0006/g, (m,k)=>blocks[+k])
+    .replace(/<li>([^<]*?) :: /g, '<li><b>$1</b>: ');
+}
+let bkTutSel = null;
+function bkTutOpen(n){ bkTutSel = n; navTo('bk-tut'); const pg = document.getElementById('page-bk-tut'); if(pg && pg.__show) pg.__show(n); }
+function buildBKTut(){
+  registerPage('bk-tut', (div)=>{
+    const nTasks = BK_TUTS.reduce((n,tu)=>n+tu.tasks.length,0);
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · official solutions</div><h2>Tutorials TUT 1–11</h2><p>All ${nTasks} tasks of the eleven tutorial sheets. Write your answer first, then reveal the official solution and rate yourself — the rating counts for the radar and the study plan. Where the official solution contains a mistake, it is flagged in orange.</p></div>
+      <div class="page-body">
+        <div class="chip-row bk-filter bk-tut-chips"></div>
+        <div class="bk-tut-body"></div>
+      </div>`;
+    const chips = div.querySelector('.bk-tut-chips'), body = div.querySelector('.bk-tut-body');
+    const pct = tu=>{ const st = bkTutState(); const v = tu.tasks.map(k=>st[tu.n+'-'+k.id]).filter(x=>x!=null); return v.length ? Math.round(v.reduce((a,b)=>a+b,0)/tu.tasks.length*100) : null; };
+    const drawChips = ()=>{ chips.innerHTML = BK_TUTS.map(tu=>{ const p = pct(tu); return `<button class="chip${tu.n===bkTutSel?' active':''}" data-n="${tu.n}">TUT ${tu.n}${p!=null?` · ${p}%`:''}</button>`; }).join(''); };
+    const rateRow = key=>{ const v = bkTutState()[key]; return `<div class="bk-rate"><span>How did you do?</span>${[[1,'Got it'],[.5,'Partly'],[0,'Not yet']].map(([val,l])=>`<button class="chip${v===val?' active':''}" data-rate="${val}">${l}</button>`).join('')}</div>`; };
+    const gridHtml = (tu,k)=>{
+      const g = k.grid;
+      return `<div class="bk-grid-wrap"><table class="bk-grid"><thead><tr><th>Transaction</th>${g.cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${g.rows.map((r,i)=>`<tr data-i="${i}"><td>${esc(r[0])}<div class="bk-grid-exp"></div></td>${g.cols.map((c,j)=>`<td class="cb"><input type="checkbox" data-j="${j}" aria-label="${esc(c)}"></td>`).join('')}</tr>`).join('')}</tbody></table></div>
+        <div class="ans-feedback"></div><div class="ans-actions"><button class="btn" data-a="grid-check">Check</button><button class="btn ghost" data-a="grid-reset">Reset</button></div>`;
+    };
+    const show = n=>{
+      bkTutSel = n || bkTutSel || ls('bk-tut-sel', 1); lsSet('bk-tut-sel', bkTutSel);
+      const tu = BK_TUTS.find(x=>x.n===bkTutSel) || BK_TUTS[0];
+      const t = BK_TOPICS.find(x=>x.id===tu.topic);
+      const drills = BK_TRAIN.filter(x=>x.src==='TUT '+tu.n).length;
+      const answers = ls('bk-tut-ans', {});
+      drawChips();
+      body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button>${drills?`<button class="chip" onclick="bkTrainFilter='src:TUT ${tu.n}';navTo('bk-train');const pg=document.getElementById('page-bk-train');if(pg&&pg.__start)pg.__start();">${drills} booking drills from this sheet</button>`:''}</div></div>
+        <div class="bk-tut-intro glass">${bkRich(tu.intro)}</div>
+        ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
+          <div class="bk-tut-q">${bkRich(k.q)}</div>
+          ${k.grid ? gridHtml(tu,k) : `<textarea class="bk-tut-ans" rows="3" placeholder="Your answer or booking entries (saved on this device)">${esc(answers[key]||'')}</textarea>
+          <div class="ans-actions"><button class="btn" data-a="sol">Show official solution</button></div>
+          <div class="bk-tut-sol" hidden>${bkRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note on the official solution:</b> ${esc(k.warn)}</div>`:''}${rateRow(key)}</div>`}
+        </div>`; }).join('')}`;
+    };
+    body.addEventListener('input', ev=>{ const ta = ev.target.closest('.bk-tut-ans'); if(!ta) return; const a = ls('bk-tut-ans', {}); a[ta.closest('.bk-tut-task').dataset.key] = ta.value; lsSet('bk-tut-ans', a); });
+    body.addEventListener('click', ev=>{
+      const task = ev.target.closest('.bk-tut-task'); if(!task) return;
+      const key = task.dataset.key;
+      const b = ev.target.closest('[data-a],[data-rate]'); if(!b) return;
+      if(b.dataset.a==='sol'){ const sol = task.querySelector('.bk-tut-sol'); sol.hidden = !sol.hidden; b.textContent = sol.hidden ? 'Show official solution' : 'Hide solution'; }
+      if(b.dataset.rate!=null){ const st = bkTutState(); st[key] = +b.dataset.rate; lsSet('bk-tut-state', st); task.querySelectorAll('[data-rate]').forEach(c=>c.classList.toggle('active', c===b)); drawChips(); }
+      if(b.dataset.a==='grid-check' || b.dataset.a==='grid-reset'){
+        const [n, id] = key.split('-'); const k = BK_TUTS.find(x=>x.n===+n).tasks.find(x=>x.id===id);
+        let ok = 0;
+        task.querySelectorAll('tr[data-i]').forEach(tr=>{
+          const r = k.grid.rows[+tr.dataset.i]; const exp = tr.querySelector('.bk-grid-exp');
+          if(b.dataset.a==='grid-reset'){ tr.className = ''; tr.querySelectorAll('input').forEach(i=>{ i.checked = false; i.parentElement.className = 'cb'; }); exp.textContent = ''; return; }
+          let rowOk = true;
+          tr.querySelectorAll('input').forEach(i=>{ const want = r[1].includes(+i.dataset.j); const good = i.checked===want; if(!good) rowOk = false; i.parentElement.className = 'cb'+(want?' want':'')+(good?'':' miss'); });
+          tr.className = rowOk ? 'ok' : 'bad'; if(rowOk) ok++;
+          exp.textContent = (r[1].length ? r[1].map(j=>k.grid.cols[j]).join(', ') : 'nothing') + ' — ' + r[2];
+        });
+        const fb = task.querySelector('.ans-feedback');
+        if(b.dataset.a==='grid-reset'){ fb.className = 'ans-feedback'; return; }
+        fb.className = 'ans-feedback show '+(ok===k.grid.rows.length?'good':'warn'); fb.innerHTML = `<b>${ok}/${k.grid.rows.length} rows completely right.</b> Highlighted boxes are the official answer; the reason is under each transaction.`;
+        const st = bkTutState(); st[key] = ok/k.grid.rows.length; lsSet('bk-tut-state', st); drawChips();
+      }
+    });
+    chips.addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; show(+c.dataset.n); div.scrollIntoView ? window.scrollTo({top:0, behavior:'smooth'}) : 0; });
+    div.__show = show;
+    show(bkTutSel);
   });
 }
