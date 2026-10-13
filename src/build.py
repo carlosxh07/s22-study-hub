@@ -43,7 +43,7 @@ for a, b in reps:
     assert a in body, a
     body = body.replace(a, b)
 body = re.sub(r'(<div class="kicker">Semester 2 · Block 2</div>\s*<h1>Your Study Hub</h1>\s*<p>)(.*?)(</p>)',
-              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Statistics: eight chapters with random drills, a data lab, a distribution and CI calculator and the z/t tables. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer. Financial Statement Analysis: ten chapters of German GAAP reporting, every slide case as an exam-style question and number drills.\3', body, flags=re.S)
+              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Statistics: eight chapters with random drills, a data lab, a distribution and CI calculator and the z/t tables. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer. Financial Statement Analysis: ten chapters of German GAAP reporting, every slide case as an exam-style question and number drills. Basic Principles of Marketing: Prof. Henkel\'s lectures as they come, with a trainer in the real exam format (five statements, partial points) and open questions.\3', body, flags=re.S)
 body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1Built from the real slides, exercises and past exams. Math II: newest exams first — they are the most relevant.\3', body, flags=re.S)
 
 engine_a = '\n'.join(L[i_theme:i_subj])            # theme, icons, helpers
@@ -63,12 +63,13 @@ subjects = """/* ============================================================ SU
 const SUBJECTS = [
   {id:'m2', label:'Mathematics II — Linear Algebra', short:'Vectors, matrices, Gauss, inverse, determinants, optimization and the simplex method.', color:'m2'},
   {id:'st', label:'Statistics', short:'Sampling, descriptive measures, probability, binomial/Poisson/normal, sampling distributions and confidence intervals.', color:'st'},
+  {id:'mk', label:'Basic Principles of Marketing', short:'Marketing and customer centricity, customers in B2C/B2B, strategy, products, communication, distribution and pricing — Prof. Henkel.', color:'mk'},
   {id:'bk', label:'Bookkeeping & Accounting', short:'Double-entry bookkeeping, VAT, valuation, depreciation, deferrals and provisions under German GAAP.', color:'bk'},
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
 ];
 """
-data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_st.js', 'data_fs.js'))
-app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js'))
+data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_st.js', 'data_fs.js', 'data_mk.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
 autoupdate = """
@@ -106,6 +107,7 @@ buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
 buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer();
 buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
+buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();
