@@ -4,6 +4,7 @@
 const ST_NAV = [
   {sec:'Overview', items:[{id:'st-home', label:'Statistics Home & Exam Info', icon:'home'}]},
   {sec:'Practice', items:[
+    {id:'st-tut', label:`Tutorials TUT 1–${ST_TUTS.length} (worked solutions)`, icon:'doc'},
     {id:'st-drill', label:'Random Drills (step-by-step)', icon:'logic'},
     {id:'st-calc', label:'Distribution & CI Calculator', icon:'calc'},
     {id:'st-lab', label:'Data Lab (describe a data set)', icon:'quiz'},
@@ -90,12 +91,14 @@ buildSearchIndex = function(){
   });
   ST_CHEAT.forEach(b=>b.items.forEach(it=>add({type:'Cheat sheet', rank:2, title:b.h, text:texPlain(it), where:'Statistics · Cheat Sheet', page:'st-cheat'})));
   ST_KINDS.forEach(k=>add({type:'Drill', rank:2, title:k.label, text:'random drill step-by-step', where:'Statistics · Random Drills', page:'st-drill', stKind:k.id}));
+  ST_TUTS.forEach(tu=>tu.tasks.forEach(k=>add({type:'Tutorial', rank:2, title:`TUT ${tu.n} · ${texPlain(k.q).slice(0,90)}`, text:texPlain(k.sol), where:`Statistics · Tutorial ${tu.n}`, page:'st-tut', stTut:tu.n})));
   ST_NAV.forEach(sec=>sec.items.forEach(it=>add({type:'Page', rank:0, title:it.label, text:sec.sec, where:`Statistics · ${sec.sec}`, page:it.id})));
   return idx;
 };
 const __searchOpenBK = searchOpen;
 searchOpen = function(e, words){
   if(e.stKind){ stDrillOpen(e.stKind); return; }
+  if(e.stTut){ stTutOpen(e.stTut); return; }
   __searchOpenBK(e, words);
 };
 buildHomeCards = function(){
@@ -131,6 +134,7 @@ function stTopicScore(t){
   const parts = [];
   const q = knowledgeScore(null, 0, 'quiz-'+t.id, t.quiz.length); if(q!=null) parts.push(q);
   const d = stDrillScore(t.id); if(d!=null) parts.push(d);
+  ST_TUTS.filter(tu=>tu.topic===t.id).forEach(tu=>{ const r = stTutScore(tu); if(r!=null) parts.push(r); });
   return parts.length ? parts.reduce((a,b)=>a+b,0)/parts.length : null;
 }
 const __radarAxesBK = radarAxes;
@@ -148,6 +152,7 @@ planItemPool = function(){
   ST_TOPICS.forEach(t=>{ const s = stTopicScore(t); items.push({subj:'st', label:`Ch. ${t.ch} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + 4*ST_KINDS.filter(k=>k.topics.includes(t.id)).length + Math.round(t.summary.split(/\s+/).length/120)}); });
   const d = stDrillScore();
   items.push({subj:'st', label:'Random Drills — mixed (exam warm-up)', page:'st-drill', weight:d==null ? .9 : 1-d, size:30});
+  ST_TUTS.forEach(tu=>{ const r = stTutScore(tu); items.push({subj:'st', label:`Tutorial ${tu.n} — ${tu.title} (solve, then compare)`, page:'st-tut', weight:r==null ? .8 : 1-r, size:tu.tasks.length}); });
   items.forEach(i=>{ i.large = false; i.prio = false; });
   const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
   const sizeCut = bySize[Math.floor(items.length/3)-1];
@@ -223,7 +228,7 @@ function buildSTHome(){
     const d = stDrillScore();
     div.innerHTML = `
       <div class="page-header"><div class="eyebrow">${icon('home')} Statistics</div><h2>Statistics</h2>
-        <p>8 chapters from the slides (based on Weiss, <i>Introductory Statistics</i>): from sampling and descriptive measures to probability, distributions and confidence intervals. Statistics is a calculation subject — read a chapter, then drill its task types until they are automatic.</p></div>
+        <p>Prof. Dr. Mehdi Hosseinkouchack · 8 chapters from the slides (based on Weiss, <i>Introductory Statistics</i>): from sampling and descriptive measures to probability, distributions and confidence intervals. Statistics is a calculation subject — read a chapter, then drill its task types until they are automatic.</p></div>
       <div class="page-body">
         <div class="exam-card">
           <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">Mon 14 Dec 2026 · 09:00–12:00 · ${days} days</span></div>
@@ -244,6 +249,7 @@ function buildSTHome(){
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="btn" onclick="navTo('st-1')">Start with chapter 1 →</button>
+            <button class="btn ghost" onclick="navTo('st-tut')">Tutorials TUT 1–${ST_TUTS.length}</button>
             <button class="btn ghost" onclick="navTo('st-drill')">Random Drills${d!=null?` · ${Math.round(d*100)}%`:''}</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
@@ -254,6 +260,7 @@ function buildSTHome(){
         </div>
         <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Tools</div>
         <div class="tool-tiles">
+          <div class="tool-tile" onclick="navTo('st-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials</h4><p>${ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks of the tutorial sheets 1–${ST_TUTS.length} with worked solutions, incl. the Python parts.</p></div>
           <div class="tool-tile" onclick="navTo('st-drill')"><div class="ic">${icon('logic')}</div><h4>Random Drills</h4><p>${ST_KINDS.length} task types with fresh numbers and full step-by-step solutions.</p></div>
           <div class="tool-tile" onclick="navTo('st-calc')"><div class="ic">${icon('calc')}</div><h4>Distribution & CI Calculator</h4><p>Normal, binomial, Poisson, x̄, confidence intervals, sample size — with the steps.</p></div>
           <div class="tool-tile" onclick="navTo('st-lab')"><div class="ic">${icon('quiz')}</div><h4>Data Lab</h4><p>Paste a data set: mean, s, quartiles, outliers, boxplot, stem-and-leaf.</p></div>
@@ -715,5 +722,55 @@ function buildSTTables(){
     div.querySelector('.st-tz').addEventListener('input', hz);
     div.querySelector('.st-tdf').addEventListener('input', ht); div.querySelector('.st-ta').addEventListener('change', ht);
     hz(); ht();
+  });
+}
+
+/* ============================================================ TUTORIALS (sheets without solutions → self-written) ============================================================ */
+function stTutState(){ return ls('st-tut-state', {}); }
+function stTutScore(tu){ const st = stTutState(); const v = tu.tasks.map(k=>st[tu.n+'-'+k.id]).filter(x=>x!=null); return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null; }
+// bkRich (already renders $…$ math through richHtml) + ```code``` blocks
+function stRich(src){
+  const code = [];
+  const s = String(src).replace(/\\`/g, '`').replace(/```\n?([\s\S]*?)```/g, (m, c)=>{ code.push(`<pre class="st-code"><code>${esc(c.replace(/\n$/,''))}</code></pre>`); return `\n\u000e${code.length-1}\u000f\n`; });
+  return bkRich(s).replace(/<p>\s*\u000e(\d+)\u000f\s*<\/p>/g, (m,k)=>code[+k]).replace(/\u000e(\d+)\u000f/g, (m,k)=>code[+k]);
+}
+let stTutSel = null;
+function stTutOpen(n){ stTutSel = n; navTo('st-tut'); const pg = document.getElementById('page-st-tut'); if(pg && pg.__show) pg.__show(n); }
+function buildSTTut(){
+  registerPage('st-tut', (div)=>{
+    const nTasks = ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0);
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · tutorial sheets</div><h2>Tutorials TUT 1–${ST_TUTS.length}</h2><p>All ${nTasks} tasks of the tutorial sheets, including the Python parts. The sheets come without solutions, so the solutions here are self-written with the lecture’s methods. Write your answer first, then reveal and rate yourself — the rating counts for the radar and the study plan. Problems on the sheet itself are flagged in orange.</p></div>
+      <div class="page-body">
+        <div class="chip-row bk-filter st-tut-chips"></div>
+        <div class="st-tut-body"></div>
+      </div>`;
+    const chips = div.querySelector('.st-tut-chips'), body = div.querySelector('.st-tut-body');
+    const drawChips = ()=>{ chips.innerHTML = ST_TUTS.map(tu=>{ const p = stTutScore(tu); return `<button class="chip${tu.n===stTutSel?' active':''}" data-n="${tu.n}">TUT ${tu.n}${p!=null?` · ${Math.round(p*100)}%`:''}</button>`; }).join(''); };
+    const rateRow = key=>{ const v = stTutState()[key]; return `<div class="bk-rate"><span>How did you do?</span>${[[1,'Got it'],[.5,'Partly'],[0,'Not yet']].map(([val,l])=>`<button class="chip${v===val?' active':''}" data-rate="${val}">${l}</button>`).join('')}</div>`; };
+    const show = n=>{
+      stTutSel = n || stTutSel || ls('st-tut-sel', 1); lsSet('st-tut-sel', stTutSel);
+      const tu = ST_TUTS.find(x=>x.n===stTutSel) || ST_TUTS[0];
+      const t = ST_TOPICS.find(x=>x.id===tu.topic);
+      const answers = ls('st-tut-ans', {});
+      drawChips();
+      body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
+        <div class="bk-tut-intro glass">${stRich(tu.intro)}</div>
+        ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
+          <div class="bk-tut-q">${stRich(k.q)}</div>
+          <textarea class="bk-tut-ans" rows="3" placeholder="Your answer (saved on this device)">${esc(answers[key]||'')}</textarea>
+          <div class="ans-actions"><button class="btn" data-a="sol">Show solution</button></div>
+          <div class="bk-tut-sol" hidden>${stRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note:</b> ${mathText(k.warn)}</div>`:''}${rateRow(key)}</div>
+        </div>`; }).join('')}`;
+    };
+    body.addEventListener('input', ev=>{ const ta = ev.target.closest('.bk-tut-ans'); if(!ta) return; const a = ls('st-tut-ans', {}); a[ta.closest('.bk-tut-task').dataset.key] = ta.value; lsSet('st-tut-ans', a); });
+    body.addEventListener('click', ev=>{
+      const task = ev.target.closest('.bk-tut-task'); if(!task) return;
+      const b = ev.target.closest('[data-a],[data-rate]'); if(!b) return;
+      if(b.dataset.a==='sol'){ const sol = task.querySelector('.bk-tut-sol'); sol.hidden = !sol.hidden; b.textContent = sol.hidden ? 'Show solution' : 'Hide solution'; }
+      if(b.dataset.rate!=null){ const st = stTutState(); st[task.dataset.key] = +b.dataset.rate; lsSet('st-tut-state', st); task.querySelectorAll('[data-rate]').forEach(c=>c.classList.toggle('active', c===b)); drawChips(); }
+    });
+    chips.addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; show(+c.dataset.n); window.scrollTo({top:0, behavior:'smooth'}); });
+    div.__show = show;
+    show(stTutSel);
   });
 }
