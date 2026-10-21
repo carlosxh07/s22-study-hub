@@ -1033,6 +1033,16 @@ body.hl-armed .hl-container{cursor:text;}
 .dt-notes summary::-webkit-details-marker{display:none;}
 .dt-notes summary::after{content:' ▾';color:var(--ink-faint);}
 .dt-notes[open] summary::after{content:' ▴';}
+/* statistics tutorials: python code */
+.st-code{margin:8px 0;padding:10px 12px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);overflow-x:auto;font-size:.8rem;line-height:1.5;}
+.st-code code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;}
+/* consumer behaviour: reading source line, printable cheat sheet */
+.cb-source{font-size:.85rem;color:var(--ink-soft);margin:2px 0 6px;font-style:italic;}
+@media print{
+  body.print-cheat #page-cb-cheat,body.print-cheat #page-cb-cheat .cheat-print,body.print-cheat #page-cb-cheat .cheat-print *{visibility:visible;}
+  body.print-cheat #page-cb-cheat .page-header{display:none;}
+  body.print-cheat #page-cb-cheat{position:absolute;left:0;top:0;width:100%;}
+}
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -1165,6 +1175,7 @@ const SUBJECTS = [
   {id:'m2', label:'Mathematics II — Linear Algebra', short:'Vectors, matrices, Gauss, inverse, determinants, optimization and the simplex method.', color:'m2'},
   {id:'st', label:'Statistics', short:'Sampling, descriptive measures, probability, binomial/Poisson/normal, sampling distributions and confidence intervals.', color:'st'},
   {id:'mk', label:'Basic Principles of Marketing', short:'Marketing and customer centricity, customers in B2C/B2B, strategy, products, communication, distribution and pricing — Prof. Henkel.', color:'mk'},
+  {id:'cb', label:'Fundamentals of Consumer Behaviour', short:'Consumer decision making, heuristics and biases, sensory marketing, A/B testing, loyalty, emotions and AI recommendations — Prof. Krause, with all readings.', color:'cb'},
   {id:'dt', label:'Decision Theory & Investments', short:'Exam tool: every past-exam task type — rates, bonds, NPV, portfolios, CAPM, decision rules — with drills and a mock exam. Prof. Karapandža.', color:'dt'},
   {id:'bk', label:'Bookkeeping & Accounting', short:'Double-entry bookkeeping, VAT, valuation, depreciation, deferrals and provisions under German GAAP.', color:'bk'},
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
@@ -4742,6 +4753,320 @@ R`t-interval ($\sigma$ unknown): $\bar x \pm t_{\alpha/2} s/\sqrt n$, $df = n - 
 // [df, t0.10, t0.05, t0.025, t0.01, t0.005]
 const ST_TTABLE = [[1,3.078,6.314,12.706,31.821,63.657],[2,1.886,2.92,4.303,6.965,9.925],[3,1.638,2.353,3.182,4.541,5.841],[4,1.533,2.132,2.776,3.747,4.604],[5,1.476,2.015,2.571,3.365,4.032],[6,1.44,1.943,2.447,3.143,3.707],[7,1.415,1.895,2.365,2.998,3.499],[8,1.397,1.86,2.306,2.896,3.355],[9,1.383,1.833,2.262,2.821,3.25],[10,1.372,1.812,2.228,2.764,3.169],[11,1.363,1.796,2.201,2.718,3.106],[12,1.356,1.782,2.179,2.681,3.055],[13,1.35,1.771,2.16,2.65,3.012],[14,1.345,1.761,2.145,2.624,2.977],[15,1.341,1.753,2.131,2.602,2.947],[16,1.337,1.746,2.12,2.583,2.921],[17,1.333,1.74,2.11,2.567,2.898],[18,1.33,1.734,2.101,2.552,2.878],[19,1.328,1.729,2.093,2.539,2.861],[20,1.325,1.725,2.086,2.528,2.845],[21,1.323,1.721,2.08,2.518,2.831],[22,1.321,1.717,2.074,2.508,2.819],[23,1.319,1.714,2.069,2.5,2.807],[24,1.318,1.711,2.064,2.492,2.797],[25,1.316,1.708,2.06,2.485,2.787],[26,1.315,1.706,2.056,2.479,2.779],[27,1.314,1.703,2.052,2.473,2.771],[28,1.313,1.701,2.048,2.467,2.763],[29,1.311,1.699,2.045,2.462,2.756],[30,1.31,1.697,2.042,2.457,2.75],[31,1.309,1.696,2.04,2.453,2.744],[32,1.309,1.694,2.037,2.449,2.738],[33,1.308,1.692,2.035,2.445,2.733],[34,1.307,1.691,2.032,2.441,2.728],[35,1.306,1.69,2.03,2.438,2.724],[36,1.306,1.688,2.028,2.434,2.719],[37,1.305,1.687,2.026,2.431,2.715],[38,1.304,1.686,2.024,2.429,2.712],[39,1.304,1.685,2.023,2.426,2.708],[40,1.303,1.684,2.021,2.423,2.704],[41,1.303,1.683,2.02,2.421,2.701],[42,1.302,1.682,2.018,2.418,2.698],[43,1.302,1.681,2.017,2.416,2.695],[44,1.301,1.68,2.015,2.414,2.692],[45,1.301,1.679,2.014,2.412,2.69],[46,1.3,1.679,2.013,2.41,2.687],[47,1.3,1.678,2.012,2.408,2.685],[48,1.299,1.677,2.011,2.407,2.682],[49,1.299,1.677,2.01,2.405,2.68],[50,1.299,1.676,2.009,2.403,2.678],[51,1.298,1.675,2.008,2.402,2.676],[52,1.298,1.675,2.007,2.4,2.674],[53,1.298,1.674,2.006,2.399,2.672],[54,1.297,1.674,2.005,2.397,2.67],[55,1.297,1.673,2.004,2.396,2.668],[56,1.297,1.673,2.003,2.395,2.667],[57,1.297,1.672,2.002,2.394,2.665],[58,1.296,1.672,2.002,2.392,2.663],[59,1.296,1.671,2.001,2.391,2.662],[60,1.296,1.671,2.0,2.39,2.66],[61,1.296,1.67,2.0,2.389,2.659],[62,1.295,1.67,1.999,2.388,2.657],[63,1.295,1.669,1.998,2.387,2.656],[64,1.295,1.669,1.998,2.386,2.655],[65,1.295,1.669,1.997,2.385,2.654],[66,1.295,1.668,1.997,2.384,2.652],[67,1.294,1.668,1.996,2.383,2.651],[68,1.294,1.668,1.995,2.382,2.65],[69,1.294,1.667,1.995,2.382,2.649],[70,1.294,1.667,1.994,2.381,2.648],[71,1.294,1.667,1.994,2.38,2.647],[72,1.293,1.666,1.993,2.379,2.646],[73,1.293,1.666,1.993,2.379,2.645],[74,1.293,1.666,1.993,2.378,2.644],[75,1.293,1.665,1.992,2.377,2.643],[80,1.292,1.664,1.99,2.374,2.639],[85,1.292,1.663,1.988,2.371,2.635],[90,1.291,1.662,1.987,2.368,2.632],[95,1.291,1.661,1.985,2.366,2.629],[100,1.29,1.66,1.984,2.364,2.626],[200,1.286,1.653,1.972,2.345,2.601],[300,1.284,1.65,1.968,2.339,2.592],[400,1.284,1.649,1.966,2.336,2.588],[500,1.283,1.648,1.965,2.334,2.586],[600,1.283,1.647,1.964,2.333,2.584],[700,1.283,1.647,1.963,2.332,2.583],[800,1.283,1.647,1.963,2.331,2.582],[900,1.282,1.647,1.963,2.33,2.581],[1000,1.282,1.646,1.962,2.33,2.581],[2000,1.282,1.646,1.961,2.328,2.578]];
 
+/* ============================================================ STATISTICS TUTORIALS (Prof. Dr. Mehdi Hosseinkouchack, sheets received 21.10.2026) ============================================================ */
+// The sheets come WITHOUT solutions → every solution here is self-written (flagged in the hub) and follows Weiss / the lecture slides.
+// Rich text like BK_TUTS ("- " bullets, "Term :: text", **bold**, [[t:caption\nHead|Head\ncell|cell]] tables) plus $…$ math and ```code``` blocks.
+// warn = a mistake or ambiguity on the sheet itself.
+const ST_TUTS = [
+{n:1, topic:'st-1', title:'The nature of statistics',
+intro:R`Sheet 1 has a review part, four textbook exercises (Weiss 1.8, 1.13, 1.25, 1.43) and a first Python exercise. Self-study: 1.14, 1.15, 1.47.`,
+tasks:[
+{id:'r1', q:R`Review 1. What is a population and what is a sample (in statistics)?`,
+sol:R`- Population :: the collection of all individuals or items under consideration in a statistical study
+- Sample :: the part of the population from which information is actually obtained`},
+{id:'r2', q:R`Review 2. What are descriptive statistics and what are inferential statistics?`,
+sol:R`- Descriptive statistics :: methods for organizing and summarizing information — graphs, tables, averages, measures of variation, percentiles
+- Inferential statistics :: methods for drawing and measuring the reliability of conclusions about a population based on information obtained from a sample`},
+{id:'r3', q:R`Review 3. Population of three persons A, B and C.
+(a) List all possible samples of size 2 when sampling without replacement.
+(b) List all possible samples of size 2 when sampling with replacement.`,
+sol:R`(a) Without replacement a person can be chosen only once: **AB, AC, BC** — 3 samples ($\binom{3}{2} = 3$).
+
+(b) With replacement a person can be chosen twice: **AA, AB, AC, BB, BC, CC** — 6 samples if order does not matter. If the order of drawing counts, there are $3 \cdot 3 = 9$ ordered samples (AA, AB, AC, BA, BB, BC, CA, CB, CC).`,
+warn:R`The sheet does not say whether order matters for (b). In Weiss a sample is a set of members, so the unordered list (6) is the expected answer; mention the 9 ordered ones if asked.`},
+{id:'r4', q:R`Review 4. What is simple random sampling and why is it important?`,
+sol:R`Simple random sampling: a sampling procedure for which **each possible sample of a given size is equally likely** to be the one selected.
+
+Why it matters: it is the basic probability sampling design. It avoids selection bias, tends to give representative samples, and only with random sampling can probability theory measure how reliable a conclusion is — the basis of all inferential methods in the course.`},
+{id:'r5', q:R`Review 5. Provide a scenario of your own in which a sample is not representative.`,
+sol:R`Example: to estimate how many hours EBS students exercise per week, you ask 50 people in the university gym on a Monday evening. Gym visitors exercise more than the average student, so the sample over-represents active students — the estimate is biased upwards.
+
+Other classic cases: an online poll that only reaches people who choose to answer (self-selection), or a phone survey of landline owners only.`},
+{id:'1', q:R`(1.8) Professional athlete salaries. Average salaries (in million USD) for 2005 and 2011:
+
+[[t:Average salary (USD millions)
+Sport|2005|2011
+Baseball (MLB)|2.48|3.31
+Basketball (NBA)|4.04|5.15
+Football (NFL)|1.40|1.90]]
+
+Is this statistic descriptive or inferential? Explain your answer.`,
+sol:R`**Descriptive.** The table simply summarizes (averages) the salaries of the players in each league for the two years. Nothing is concluded about a larger population from a sample — the numbers describe the data that were collected.`},
+{id:'2', q:R`(1.13) Thoughts on evolution. Percentage of U.S. adults, by education level, who believe evolution is a scientific theory well supported by evidence:
+
+[[t:Education and support for evolution
+Education|Percentage
+Postgraduate education|65%
+College graduate|52%
+Some college education|32%
+High school or less|20%]]
+
+(a) Descriptive or inferential? Explain.
+(b) If inferential, identify the sample and the population.`,
+sol:R`(a) **Inferential.** It is impossible to ask every U.S. adult. The percentages come from a survey, and the author uses them to conclude something about all U.S. adults — that support for Darwinism increases with education.
+
+(b)
+- Population :: all U.S. adults (split into the four education levels)
+- Sample :: the U.S. adults who were actually surveyed`},
+{id:'3', q:R`(1.25) Medical testing on animals. "59% of Americans between the ages of 18 and 29 oppose medical testing on animals." The 59% was computed from sample data.
+(a) Identify the population. (b) Identify the sample. (c) Is the statement in quotes descriptive or inferential? (d) How would you rephrase it to make clear that 59% comes from a sample?`,
+sol:R`- (a) Population :: all Americans aged 18–29
+- (b) Sample :: the Americans aged 18–29 who were surveyed
+- (c) Inferential :: the sample percentage is stated as if it were true for all Americans aged 18–29
+- (d) Rephrased :: "59% of the Americans aged 18–29 **who were surveyed** oppose medical testing on animals" (or: "an estimated 59% …, based on a sample")`},
+{id:'4', q:R`(1.43) Oklahoma state officials: Governor (G), Lieutenant Governor (L), Secretary of State (S), Attorney General (A), Treasurer (T).
+(a) List the 10 possible samples (without replacement) of size 3.
+(b) With simple random sampling, what are the chances of getting the first sample on your list? The second? The tenth?`,
+sol:R`(a) $\binom{5}{3} = 10$ samples:
+**G,L,S · G,L,A · G,L,T · G,S,A · G,S,T · G,A,T · L,S,A · L,S,T · L,A,T · S,A,T**
+
+(b) In simple random sampling every possible sample is equally likely, so each one — the first, the second, the tenth — has probability $\frac{1}{10} = 0.1$ (10%).`},
+{id:'c1', q:R`Python 1–2. Review the basic operations and check object types: x = 5, y = 2.5, name = "John", l = [1, 2, 3, 4]. What type is each object?`,
+sol:R`\`\`\`
+print(7 + 2, 7 - 2, 7 * 2, 7 / 2, 7 ** 2)   # 9 5 14 3.5 49   (** = exponent)
+x = 5;        print(type(x))      # <class 'int'>   whole number
+y = 2.5;      print(type(y))      # <class 'float'> decimal number
+name = "John"; print(type(name))  # <class 'str'>   text
+l = [1, 2, 3, 4]; print(type(l))  # <class 'list'>  ordered collection
+\`\`\`
+Note: 7 / 2 always gives a float (3.5); 7 // 2 is integer division (3).`},
+{id:'c2', q:R`Python 3. Closing values 10–14 January 2022:
+
+[[t:Closing values
+Stock|Mon|Tue|Wed|Thu|Fri
+AAPL|172.2|175.0|175.5|172.2|172.2
+PG|160.5|158.7|159.0|158.3|159.6]]
+
+Plot both stocks in one diagram with legend, title and axis labels.`,
+sol:R`\`\`\`
+import matplotlib.pyplot as plt
+days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+aapl = [172.2, 175.0, 175.5, 172.2, 172.2]
+pg   = [160.5, 158.7, 159.0, 158.3, 159.6]
+plt.plot(days, aapl, marker="o", label="AAPL")
+plt.plot(days, pg, marker="o", label="PG")
+plt.title("Closing values, 10-14 January 2022")
+plt.xlabel("Day")
+plt.ylabel("Closing value (USD)")
+plt.legend()
+plt.show()
+\`\`\``}
+]},
+
+{n:2, topic:'st-2', title:'Organizing data',
+intro:R`Sheet 2: variable types, frequency distributions, grouping methods, histograms and distribution shapes (Weiss 2.7, 2.28, 2.44, 2.54–2.56, 2.69, 2.151), plus pie and bar charts in Python. Self-study: 2.8, 2.26, 2.60, 2.64, 2.103.`,
+tasks:[
+{id:'r1', q:R`Review 1–2. What are the two main types of variables? What are discrete and continuous variables? Give examples.`,
+sol:R`- Qualitative (categorical) variable :: values are categories, not numbers — e.g. gender, eye colour, field of study
+- Quantitative (numerical) variable :: values are numbers — e.g. height, number of siblings
+- Discrete variable :: quantitative, the possible values can be listed (usually counts) — e.g. number of siblings, number of cars sold
+- Continuous variable :: quantitative, the possible values form an interval — e.g. height, weight, time`},
+{id:'r2', q:R`Review 3–4. Which graphs are used for qualitative data? What is the difference between single-value grouping, limit grouping and cutpoint grouping?`,
+sol:R`Qualitative data: **pie charts** (share of each category as a slice, angle = relative frequency × 360°) and **bar charts** (bar height = frequency or relative frequency).
+
+- Single-value grouping :: each class is one value — for discrete data with relatively few distinct values (e.g. 0, 1, 2, 3 bedrooms)
+- Limit grouping :: classes with lower and upper limits, e.g. 20–29, 30–39 — for whole-number data with many distinct values
+- Cutpoint grouping :: classes "40 – under 46": the lower cutpoint belongs to the class, the upper one does not — for continuous data recorded with decimals`},
+{id:'r3', q:R`Review 5–6. What is a histogram, which kinds do you know, and why do the bars of a bar chart not touch?`,
+sol:R`A **histogram** shows grouped quantitative data: the classes lie on the horizontal axis, the bar heights show frequency, relative frequency or percent. Kinds: frequency histogram, relative-frequency histogram, percent histogram (with single-value, limit or cutpoint grouping).
+
+Bars of a bar chart are separated because the categories are distinct and have no numerical order or continuity. Histogram bars touch because the classes are adjacent intervals on a number line.`},
+{id:'r4', q:R`Review 7–8. Describe the curves for bell-shaped, triangular, reverse-J-shaped and uniform distributions, and a symmetric trimodal distribution.`,
+sol:R`- Bell shaped :: one peak in the middle, falls off symmetrically to both sides (normal curve)
+- Triangular :: rises in a straight line to a peak in the middle, then falls in a straight line
+- Reverse J shaped :: highest at the far left, then falls steadily to the right (right skewed)
+- Uniform :: flat — all values equally frequent, a rectangle
+- Symmetric trimodal :: three peaks, the left and right peaks mirror each other around the middle peak`},
+{id:'1', q:R`(2.7) Earthquakes on 10 May 2013:
+
+[[t:Earthquake list (4 of 105)
+Time|Magnitude|Depth (km)|NST|Region
+03:46:54|1.6|16.7|25|N. California
+15:19:57|1.8|7.7|11|Tennessee
+19:57:02|1.5|7.0|15|Nevada
+23:12:03|2.4|11.0|6|Puerto Rico]]
+
+Identify the type of data in each of the five columns.`,
+sol:R`- (a) Time :: quantitative, continuous — clock time is measured on a continuous scale
+- (b) Magnitude :: quantitative, continuous
+- (c) Depth :: quantitative, continuous
+- (d) NST (number of stations) :: quantitative, discrete — a count
+- (e) Region :: qualitative`},
+{id:'2', q:R`(2.28) Colleges of 25 students in one course section:
+
+[[t:College of each student
+ | | | |
+ENG|ENG|BUS|BUS|ENG
+LIB|LIB|ENG|ENG|ENG
+BUS|BUS|ENG|BUS|ENG
+LIB|BUS|BUS|BUS|ENG
+ENG|ENG|LIB|ENG|BUS]]
+
+(a) Frequency distribution (b) relative-frequency distribution (c) pie chart (d) bar chart.`,
+sol:R`[[t:Frequency and relative frequency (n = 25)
+College|Frequency|Relative frequency|Pie angle
+BUS|9|0.36|129.6°
+ENG|12|0.48|172.8°
+LIB|4|0.16|57.6°
+Total|25|1.00|360°]]
+
+(c) Pie chart: three slices with the angles above (relative frequency × 360°).
+(d) Bar chart: one separate bar per college, heights 9, 12, 4 (or 0.36, 0.48, 0.16).`},
+{id:'3', q:R`(2.44) State three of the most important guidelines for choosing the classes when grouping a quantitative data set.`,
+sol:R`- 1. Number of classes :: small enough for a clear summary, large enough to show the important features — usually 5 to 20
+- 2. Each observation must belong to one and only one class
+- 3. Whenever feasible, all classes should have the same width`},
+{id:'4', q:R`(2.54–2.56) Which grouping is probably best?
+(a) number of bedrooms per single-family dwelling (b) ages of householders as whole numbers (c) additional sleep to the nearest tenth of an hour for 100 patients`,
+sol:R`- (a) Single-value grouping :: discrete with only a few possible values
+- (b) Limit grouping :: whole numbers with many distinct values (e.g. 20–29, 30–39 …)
+- (c) Cutpoint grouping :: continuous data with decimals`},
+{id:'5', q:R`(2.69) Data set (n = 20):
+
+[[t:Data
+ | | | |
+50.0|53.4|44.5|55.2|51.2
+56.8|52.5|51.6|48.6|56.9
+54.3|51.0|43.5|57.5|65.4
+41.6|57.8|54.2|52.5|50.7]]
+
+Use cutpoint grouping with a first class of 40 – under 46. (a) Frequency distribution (b) relative-frequency distribution (c) frequency histogram (d) percent histogram.`,
+sol:R`Class width 6 (46 − 40), so the classes are 40–<46, 46–<52, 52–<58, 58–<64, 64–<70.
+
+[[t:Cutpoint grouping (n = 20)
+Class|Frequency|Relative frequency|Percent
+40 – under 46|3|0.15|15%
+46 – under 52|6|0.30|30%
+52 – under 58|10|0.50|50%
+58 – under 64|0|0.00|0%
+64 – under 70|1|0.05|5%
+Total|20|1.00|100%]]
+
+(c) Frequency histogram: touching bars over the cutpoints 40, 46, 52, 58, 64, 70 with heights 3, 6, 10, 0, 1.
+(d) Percent histogram: the same shape with heights 15, 30, 50, 0, 5 %. Note the empty class 58–64 is kept — it shows the gap before the value 65.4.`},
+{id:'6', q:R`(2.151) Snow goose nests: relative-frequency histograms of the distance (m) from snow goose nests to the nearest snowy owl nest, for two years three years apart. Year 1 has a large peak at 200–400 m and a second, smaller group of bars around 2,000 m; Year 2 is highest in the first class (0–200 m) and falls steadily to about 1,000 m.
+For each histogram: (a) modality (b) symmetry (c) if unimodal and nonsymmetric, right or left skewed?`,
+sol:R`- Year 1 :: (a) bimodal — a main peak at about 200–400 m and a second, smaller peak around 2,000 m · (b) nonsymmetric · (c) not asked, since it is not unimodal
+- Year 2 :: (a) unimodal — the peak is the first class · (b) nonsymmetric · (c) **right skewed** (reverse-J shape: long tail to the right)`},
+{id:'c1', q:R`Python 1. Seats in the German Bundestag — construct a pie chart.
+
+[[t:Seat distribution
+Party|SPD|CDU/CSU|Grüne|FDP|AfD|Linke|Independent
+Seats|206|197|118|92|80|39|4]]`,
+sol:R`\`\`\`
+import matplotlib.pyplot as plt
+parties = ["SPD", "CDU/CSU", "Grüne", "FDP", "AfD", "Linke", "Independent"]
+seats = [206, 197, 118, 92, 80, 39, 4]
+plt.pie(seats, labels=parties, autopct="%1.1f%%")
+plt.title("Seats in the German Bundestag")
+plt.show()
+\`\`\`
+736 seats in total, e.g. SPD 206/736 = 28.0 %.`},
+{id:'c2', q:R`Python 2. 1,000 students by subject — bar chart of the relative frequencies.
+
+[[t:Students per subject
+Subject|Business|Engineering|Law|Medicine|Psychology|Sports
+Students|250|125|100|175|150|200]]`,
+sol:R`\`\`\`
+import matplotlib.pyplot as plt
+subjects = ["Business", "Engineering", "Law", "Medicine", "Psychology", "Sports"]
+counts = [250, 125, 100, 175, 150, 200]
+rel = [c / sum(counts) for c in counts]   # 0.25, 0.125, 0.10, 0.175, 0.15, 0.20
+plt.bar(subjects, rel)
+plt.title("Students by subject")
+plt.ylabel("Relative frequency")
+plt.show()
+\`\`\``}
+]},
+
+{n:3, topic:'st-3', title:'Descriptive measures',
+intro:R`Sheet 3: measures of center and variation, quartiles and boxplots, Chebyshev’s rule, the empirical rule and z-scores (Weiss 3.19, 3.63, 3.108, 3.121, 3.217) plus a Python exercise. Self-study: 3.9–3.14, 3.17, 3.61, 3.64, 3.100, 3.101, 3.158–3.160.
+
+Review data: first set $x_1 = 0,\ x_2 = 2,\ x_3 = 4,\ x_4 = 4$ · second set $(5, -1, 1, 3, 12)$.`,
+tasks:[
+{id:'r1', q:R`Review 1–2. For each review set find $n$ and $\sum x_i$. Name the three most important measures of center and compute them for both sets.`,
+sol:R`- Mean :: $\bar{x} = \frac{\sum x_i}{n}$, the arithmetic average
+- Median :: the middle value of the ordered data (mean of the two middle values if $n$ is even)
+- Mode :: the most frequent value
+
+[[t:Results
+Set|n|Σx|Mean|Median|Mode
+0, 2, 4, 4|4|10|2.5|(2 + 4)/2 = 3|4
+5, −1, 1, 3, 12|5|20|4|3 (ordered: −1, 1, 3, 5, 12)|none — every value occurs once]]`},
+{id:'r2', q:R`Review 3. Second set only: (a) range (b) sample standard deviation (c) which measure of variation is usually preferable?`,
+sol:R`(a) Range = max − min = $12 - (-1) = 13$.
+
+(b) $\bar{x} = 4$, deviations $1, -5, -3, -1, 8$, squared $1, 25, 9, 1, 64$, sum $= 100$:
+$s^2 = \frac{100}{n-1} = \frac{100}{4} = 25 \Rightarrow s = 5$
+
+(c) The **standard deviation**: it uses every observation, while the range depends only on the two most extreme values and is very sensitive to outliers.`},
+{id:'r3', q:R`Review 4–5. What is the pth percentile, what are quartiles? Third set $(0, 1, 4, 5, 7, 5, 10, 8)$: (a) five-number summary (b) IQR (c) lower and upper limit (d) potential outliers (e) boxplot.`,
+sol:R`The **pth percentile** divides the bottom p% of the ordered data from the top (100 − p)%. **Quartiles** split the data into four parts: $Q_1$ = 25th, $Q_2$ = 50th (median), $Q_3$ = 75th percentile.
+
+Ordered: 0, 1, 4, 5, 5, 7, 8, 10 ($n = 8$, even → halves without the median).
+- (a) Five-number summary :: Min = 0, $Q_1$ = median of 0, 1, 4, 5 = 2.5, $Q_2$ = (5 + 5)/2 = 5, $Q_3$ = median of 5, 7, 8, 10 = 7.5, Max = 10
+- (b) IQR :: $7.5 - 2.5 = 5$
+- (c) Limits :: lower $2.5 - 1.5 \cdot 5 = -5$, upper $7.5 + 1.5 \cdot 5 = 15$
+- (d) Outliers :: none — all data lie between −5 and 15
+- (e) Boxplot :: box from 2.5 to 7.5 with a line at 5, whiskers to the adjacent values 0 and 10`,
+warn:R`The sheet writes the upper limit as Q2 + 1.5·IQR. The correct rule (lecture and Weiss) is Q3 + 1.5·IQR — with Q2 you would get 12.5 instead of 15.`},
+{id:'r4', q:R`Review 6–7. Explain Chebyshev’s rule and the empirical rule and fill the gaps (2 standard deviations: at least ___ %; 3 standard deviations: between ___ and ___; empirical rule: ___ %, ___ %, ___ %).`,
+sol:R`- Chebyshev’s rule :: for **any** data set and any $k > 1$, at least $1 - \frac{1}{k^2}$ of the observations lie within $k$ standard deviations of the mean
+- k = 2 :: at least $1 - \frac14 = $ **75%** between $\bar{x} - 2s$ and $\bar{x} + 2s$
+- k = 3 :: at least 89% between $\bar{x} - 3s$ and $\bar{x} + 3s$
+- Empirical rule :: only for roughly **bell-shaped** data — approximately **68%** within 1, **95%** within 2, **99.7%** within 3 standard deviations of the mean`},
+{id:'r5', q:R`Review 8–10. Symbols for the population mean and standard deviation and for the sample mean and standard deviation. What is a standardized variable / the z-score?`,
+sol:R`- Population (parameters) :: mean $\mu$, standard deviation $\sigma$
+- Sample (statistics) :: mean $\bar{x}$, standard deviation $s$
+- Standardized variable :: $z = \frac{x - \mu}{\sigma}$ — always has mean 0 and standard deviation 1
+- z-score :: the value of $z$ for one observation: how many standard deviations it lies above (positive) or below (negative) the mean`},
+{id:'1', q:R`(3.19) Days to hatch for seven species of frog and toad eggs: 6, 7, 11, 6, 5, 5, 11. Find (a) the mean (b) the median (c) the mode(s).`,
+sol:R`- (a) Mean :: $\bar{x} = \frac{51}{7} \approx 7.29$ days
+- (b) Median :: ordered 5, 5, 6, 6, 7, 11, 11 → middle (4th) value = **6** days
+- (c) Modes :: 5, 6 and 11 each occur twice → three modes: **5, 6 and 11** days`},
+{id:'2', q:R`(3.63) Ages of five Australian residents: 29, 35, 70, 14, 52.
+(a) Range (b) sample standard deviation with the defining formula (c) with the computing formula (d) compare.`,
+sol:R`(a) Range = 70 − 14 = **56** years.
+
+(b) Defining formula: $\bar{x} = \frac{200}{5} = 40$, deviations $-11, -5, 30, -26, 12$, squares $121, 25, 900, 676, 144$, sum $1866$.
+$s = \sqrt{\frac{\sum (x_i - \bar{x})^2}{n - 1}} = \sqrt{\frac{1866}{4}} = \sqrt{466.5} \approx$ **21.60** years
+
+(c) Computing formula: $\sum x_i^2 = 841 + 1225 + 4900 + 196 + 2704 = 9866$, $\sum x_i = 200$.
+$s = \sqrt{\frac{\sum x_i^2 - (\sum x_i)^2 / n}{n - 1}} = \sqrt{\frac{9866 - 8000}{4}} = \sqrt{466.5} \approx$ **21.60**
+
+(d) Same result — both formulas are algebraically identical. The computing formula avoids calculating every deviation, which is faster and has fewer rounding errors when $\bar{x}$ is not a round number.`},
+{id:'3', q:R`(3.108) Chebyshev’s rule, mean 10, standard deviation 3. (a) At least 75% of the observations lie between ___ and ___. (b) At least ___ of the observations lie between 1 and 19.`,
+sol:R`- (a) :: 75% = $1 - \frac{1}{k^2}$ → $k = 2$: $10 \pm 2 \cdot 3$ → between **4 and 16**
+- (b) :: 1 and 19 are $10 \pm 9 = 10 \pm 3 \cdot 3$ → $k = 3$: at least $1 - \frac19 = \frac89 \approx$ **88.9%**`},
+{id:'4', q:R`(3.121) Empirical rule, mean 25, standard deviation 5, roughly bell shaped. Approximately (a) 68% (b) 95% (c) 99.7% of the observations lie between ___ and ___.`,
+sol:R`- (a) 68% :: $25 \pm 5$ → **20 and 30**
+- (b) 95% :: $25 \pm 10$ → **15 and 35**
+- (c) 99.7% :: $25 \pm 15$ → **10 and 40**`},
+{id:'5', q:R`(3.217) A patient recently diagnosed with Alzheimer’s scores 45 on a cognitive test with mean 52 and standard deviation 5. (a) Find the z-score. (b) What can you conclude?`,
+sol:R`(a) $z = \frac{45 - 52}{5} = $ **−1.4**
+
+(b) The patient scores 1.4 standard deviations **below** the mean — clearly below average, but within two standard deviations, so by Chebyshev / the empirical rule not an unusual (outlying) score. The test alone does not point to severe impairment.`},
+{id:'c1', q:R`Python. Hours of sleep of n = 12 students before the statistics exam: (4, 1, 0, 5, 7, 5, 10, 8, 10, 7, 8, 18).
+(a) list in ascending order (b) mean and sample standard deviation (c) min, max, range (d) $Q_1$, $Q_2$, $Q_3$, IQR (e) boxplot — left or right skewed?`,
+sol:R`\`\`\`
+import numpy as np
+import matplotlib.pyplot as plt
+data = [4, 1, 0, 5, 7, 5, 10, 8, 10, 7, 8, 18]
+print(sorted(data))                     # [0, 1, 4, 5, 5, 7, 7, 8, 8, 10, 10, 18]
+print(np.mean(data))                    # 6.9167
+print(np.std(data, ddof=1))             # 4.6993  (ddof=1 → sample sd, divides by n-1)
+print(min(data), max(data), max(data) - min(data))   # 0 18 18
+q1, q2, q3 = np.percentile(data, [25, 50, 75])
+print(q1, q2, q3, q3 - q1)              # 4.75 7.0 8.5 3.75
+plt.boxplot(data); plt.title("Hours of sleep"); plt.show()
+\`\`\`
+**By hand (lecture method):** median = (7 + 7)/2 = 7, $Q_1$ = median of 0, 1, 4, 5, 5, 7 = 4.5, $Q_3$ = median of 7, 8, 8, 10, 10, 18 = 9, IQR = 4.5. numpy interpolates between values and gives 4.75 and 8.5 instead — in the exam, use the lecture method.
+
+(e) Upper limit $9 + 1.5 \cdot 4.5 = 15.75$ → **18 is a potential outlier** and is drawn as a single point on the right. Without it the picture leans the other way: the lower half of the box (4.5 to 7) and the lower whisker (down to 0) are longer than the upper ones (7 to 9, up to 10), and the mean 6.92 is almost equal to the median 7. So the bulk of the data is roughly symmetric to slightly **left skewed**, with one extreme value on the right. Say both parts in an answer — "right skewed" only because of the single value 18 would be too quick.`,
+warn:R`numpy.percentile uses linear interpolation by default, so its quartiles differ from the lecture’s median-of-halves method (4.75/8.5 vs 4.5/9). Both are valid definitions; the exam follows the lecture. The sheet asks "left or right skewed?" although the data give no clear answer — see (e).`}
+]}
+];
+
 /* ============================================================ FINANCIAL STATEMENT ANALYSIS DATA (Langenhövel, slides WS 26/27) ============================================================ */
 // Plain text (no KaTeX: never use the dollar sign — write USD). Summary markup: "- " bullets, "Term :: Description" vocab rows, "=> A (desc) → B" flows, **bold**.
 const PLAN_EXAM_FS = new Date(2026,11,21); // Klausur "Bookkeeping & Accounting" + Financial Statement Analysis — 21.12.2026, 09:00–12:00 (FSA part: 90 min MC, 90 points)
@@ -5795,6 +6120,638 @@ R`Value proposition: whole cluster of benefits promised · raise benefits and/or
 {h:'L1 · Cases', items:[
 R`6PM — why it works: scarcity (drops → rare = valuable, FOMO) · belonging & identity (buy image) · social proof & authenticity (organic, real moments > ads) · fairness (stable price) · experiences (pop-ups) → fully connected customers`,
 R`Deutsche Bank Park — principle: define the business by customer needs, not the product → concerts, business events, tech test field with the same asset`]}
+];
+
+/* ============================================================ FUNDAMENTALS OF CONSUMER BEHAVIOR DATA (Prof. Dr. Franziska Krause, Fall Term 2026) ============================================================ */
+// Plain text (no KaTeX: never use the dollar sign, write USD). Summary markup: "- " bullets, "Term :: Description" vocab rows, "=> A (desc) → B" flows, **bold**.
+// Topics: lectures (kind 'lec', id cb-N) and the assigned readings (kind 'read', id cb-rN = reading for lecture session N).
+// Readings are exam-relevant ("Readings & company presentations are relevant and will be included in the exam").
+// New lecture slides: add a topic cb-N, its areas to CB_AREAS, items to CB_MC / CB_OPEN and set `topic` in CB_SESSIONS.
+const PLAN_EXAM_CB = new Date(2026,11,16); // written exam 16.12.2026 (slot 13:30–16:00, shared with Basic Principles of Marketing)
+
+const CB_SESSIONS = [
+  {n:1, date:'Mon 19 Oct', title:'LS 1 · Consumer Decision Making 1', topic:'cb-1'},
+  {n:2, date:'21–23 Oct', title:'Experiment part I on campus (no class) — Burg, Room Bangalore; part II online 2–15 Nov'},
+  {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', reading:'cb-r2'},
+  {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', reading:'cb-r3'},
+  {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', reading:'cb-r4'},
+  {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee (Schloss Forum)'},
+  {n:8, date:'Wed 11 Nov', title:'LS 5 · Consumer Learning', reading:'cb-r5'},
+  {n:9, date:'Tue 17 Nov', title:'Guest talk: "The Case of Gaming: Using Customer Data to Define Strategy" — Hendrik Walter, Andreas Teller, Matthias Mück, OC&C (Schloss Forum)'},
+  {n:10, date:'Wed 18 Nov', title:'LS 6 · Affect, Attitudes & Motivation', reading:'cb-r6'},
+  {n:'11+12', date:'Mon 23 Nov', title:'Guest talk: "The Impact of Technology & AI on Consumer Behavior" — Dr. Philip Bradonjic, Oracle (Schloss Forum)'},
+  {n:13, date:'Wed 2 Dec', title:'LS 7 · Intersection of Technology & Consumer Choice', reading:'cb-r7'},
+  {n:14, date:'Tue 8 Dec', title:'LS 8 · Exam prep & Q&A session'},
+  {n:15, date:'Wed 16 Dec', title:'WRITTEN EXAM'}
+];
+
+const CB_AREAS = [
+  {id:'why', lec:'cb-1', label:'Influences, segmentation & why CB matters'},
+  {id:'types', lec:'cb-1', label:'Types of decision making'},
+  {id:'heur', lec:'cb-1', label:'Heuristics (habitual shortcuts)'},
+  {id:'bias', lec:'cb-1', label:'Biases'},
+  {id:'irr', lec:'cb-r2', label:'Beliefs, goals & pressures'},
+  {id:'sens', lec:'cb-r3', label:'Sensory marketing'},
+  {id:'ab', lec:'cb-r4', label:'A/B tests & targeting'},
+  {id:'star', lec:'cb-r5', label:'Loyalty & learning (Starbucks)'},
+  {id:'emo', lec:'cb-r6', label:'Emotional motivators'},
+  {id:'ai', lec:'cb-r7', label:'AI vs human recommendations'}
+];
+
+const CB_TOPICS = [
+/* ------------------------------------------------------------ LS 1 ------------------------------------------------------------ */
+{id:'cb-1', kind:'lec', ch:1, title:'Consumer Decision Making 1', date:'19 Oct 2026',
+examWeight:'Definition of consumer behaviour, why it matters (interchangeable brands), the three types of decision making, the impulsive-to-extensive continuum, the five cognitive stages, heuristics and biases — plus the course and grading facts',
+summary:R`**Learning outcomes of session 1:**
+- Factors :: consumers are influenced by multiple factors, and marketers need to understand them when segmenting the market
+- Process :: consumers walk through a decision-making process with three categories: cognitive, habitual, affective
+- Cognitive decisions :: the outcome of a series of stages that ends with selecting one product over competing products
+- Shortcuts :: we cannot always go through complex decision processes, so we use shortcuts
+- Heuristics :: knowing them makes it easier to make smart decisions
+- Biases :: many biases exist, and they can lead to better or worse decisions
+
+**Why do people buy a Porsche?** Ferdinand Porsche: "We build cars that nobody needs but everybody wants." The purchase is not explained by need — consumer behaviour is about the desires, meanings and motives behind a choice.
+
+**What influences consumer behaviour?** The classic answers are demographic and socio-economic: income, age, lifestyle, social class, family structure, geography, gender. Marketers use these to split the market into groups — **market segmentation**.
+
+**Same market segment?** King Charles III and Ozzy Osbourne are both male, born in 1948, raised in the UK, married twice, live in a castle and are wealthy and famous. On demographics they are identical — yet they buy, live and consume completely differently. Demographics alone do not explain behaviour.
+
+That is why the course adds the **psychological factors**: learning, preferences, motivation, attitudes, perception, and the problems and challenges a consumer faces.
+
+**Why is this important?**
+- There is an increasing need to understand consumers
+- Creating customer insight is essential
+- Product similarity is driving marketing communication
+
+**Interchangeability of brands and products.**
+- Fact I :: about 85% of all products tested by Stiftung Warentest are rated "good"
+- Fact II :: 64% of German consumers perceive brands as interchangeable (Stiftung Warentest, 2022)
+- Examples :: smartphones of different brands look almost the same; coffee packs of different brands look and promise almost the same
+
+**Transformation of competition.** When products are interchangeable, consumers show lower interest in product information, lower loyalty and become price-oriented. Competition therefore shifts **from product competition to communication competition**: brands win through how they communicate and which meaning they create, not through product features.
+
+**Definition.** Consumer behaviour is the process whereby individuals decide **what, when, where, how and from whom** to purchase goods or services.
+
+**Focus of the course:** the interaction between the **individual** (consumer) and the **company** — both directions, with an academic and an applied focus.
+
+**Learning outcomes of the course:** improve your understanding of consumer behaviour; learn about internal and external influences on consumers; extend your theoretical knowledge for making descriptive and prognostic statements on consumer behaviour.
+
+**Basics of consumer behaviour (model).** The consumer is exposed to stimuli, which pass a filter into the person:
+=> Stimuli (emotional, cognitive, physical) → Filter (only part of the stimuli gets through) → Inner processes (cognitive and activating) → Decision process → Behaviour
+- Cognitive processes :: reception, perception and evaluation, learning, memory and retrieval (short-term and long-term memory)
+- Activating processes :: emotion, motivation, attitude
+
+**Additional contents of the course:** customer journeys, the personas concept, consumer learning, social media, customer analytics.
+
+**Three types of consumer decision making:**
+- Cognitive :: deliberate, rational, sequential
+- Habitual :: behavioural, unconscious, automatic
+- Affective :: emotional, instantaneous
+
+**Different types of decisions (Katona 1960, Krugman 1967).** Katona orders four decision types by the extent of cognitive control; Krugman’s involvement runs from low to high along the same axis:
+- Impulsive decisions :: lowest cognitive control, e.g. a chocolate bar at the checkout
+- Habitualised decisions :: e.g. the usual coffee brand, the usual petrol station
+- Limited decisions :: some deliberate comparison, e.g. perfume, sunglasses
+- Extensive decisions :: highest cognitive control and involvement, e.g. a smartphone, a car
+
+Limited and extensive decisions are the **cognitive buying decisions**.
+
+**From impulsive to extensive buying decisions.** Four dimensions decide where a purchase lies:
+- Perceived product differences :: low → impulsive · high → extensive
+- Frequency of the same buying decision :: high → impulsive · low → extensive
+- Time pressure during the buying process :: high → impulsive · low → extensive
+- Involvement :: low → impulsive · high → extensive
+
+**Cognitive decision making** runs through five stages:
+=> Recognition of need → Information search → Evaluation of alternatives → Purchase decision → Post-purchase evaluation
+
+**Habitual decision making.** We cannot go through this process for each decision — we would spend our entire lives deciding. Habitual choices are made with little or no conscious effort, using shortcuts:
+- Heuristics :: mental rules of thumb that lead to a speedy decision
+- Usually helpful :: most of the time heuristics are extremely useful
+- But :: they can also lead to errors in judgment = irrational decisions
+
+**Typical heuristics on the slides:**
+- Covariation :: the perceived association between events that may or may not actually influence one another — consumers infer quality from one cue, e.g. a solid-feeling car interior or the sound of the door is taken as a sign of a well-built car
+- Country of origin :: the origin works as a quality signal — "High quality, made in Germany"
+- Familiar brand names :: a known brand is chosen because it is familiar and therefore feels safe; well-known logos act as a shortcut for trust
+- Higher prices :: price is used as a signal for quality ("higher price = better product", price-quality inference)
+
+**Biases in decision making:**
+- Loss aversion :: losses weigh more than equal gains — losing USD 10 on the street hurts more than finding USD 10 pleases (the value curve is steeper for losses)
+- Mere exposure effect :: the more often we are exposed to something, the more we like it — familiarity alone increases liking ("not sure if attractive or mere exposure")
+- Sunk cost fallacy :: we continue something because of what we already invested, although it no longer makes sense — staying in a terrible movie because the tickets were expensive
+
+**Course facts.**
+- Grading :: 90 points: written exam 75 (multiple choice 60 + open questions 15) + experiment participation 7.5 + guest lecture participation 7.5
+- MC part :: 24 questions with 5 statements each, 2.5 points per question, 1–5 statements can be correct · 5/5 → 2.5, 4/5 → 1.5, 3/5 → 1, 2/5 → 0.5, 1/5 → 0.25, 0/5 → 0
+- Exam :: 16.12.2026, recap and Q&A on 08.12.2026 · readings and company presentations are exam-relevant
+- Literature :: most chapters from Michael R. Solomon, "Consumer Behavior: Buying, Having, and Being" (12th edition, 2018)
+- Readings :: must be prepared before each session (McKinsey, two Harvard cases, two HBR articles, one California Management Review article)
+
+**Reading for next week:** McKinsey report by Cummings, Dhar and Welch, "Irrational consumption: How consumers really make decisions".`,
+cards:[
+{q:R`Definition of consumer behaviour`, a:R`The process whereby individuals decide what, when, where, how and from whom to purchase goods or services.`},
+{q:R`Why are King Charles III and Ozzy Osbourne on the slide?`, a:R`Identical demographics (male, born 1948, raised in the UK, married twice, castle, wealthy and famous) but completely different behaviour → demographics alone are not enough; psychological factors matter.`},
+{q:R`Interchangeability: the two facts`, a:R`About 85% of products tested by Stiftung Warentest are rated "good"; 64% of German consumers perceive brands as interchangeable (2022).`},
+{q:R`Transformation of competition`, a:R`Interchangeable products → lower interest in product information, lower loyalty, price-oriented consumers → shift from product competition to communication competition.`},
+{q:R`Three types of decision making`, a:R`Cognitive (deliberate, rational, sequential) · habitual (behavioural, unconscious, automatic) · affective (emotional, instantaneous).`},
+{q:R`Katona’s four decision types`, a:R`Impulsive, habitualised, limited, extensive — ordered by increasing cognitive control (Krugman: involvement low → high). Limited + extensive = cognitive buying decisions.`},
+{q:R`Four dimensions: impulsive vs extensive buying decision`, a:R`Perceived product differences (low → high), frequency of the same decision (high → low), time pressure (high → low), involvement (low → high).`},
+{q:R`Five stages of cognitive decision making`, a:R`Recognition of need → information search → evaluation of alternatives → purchase decision → post-purchase evaluation.`},
+{q:R`Heuristics`, a:R`Mental rules of thumb used in habitual decisions; usually helpful, but they can cause errors in judgment (irrational decisions). Examples: covariation, country of origin, familiar brand names, higher prices.`},
+{q:R`Loss aversion · mere exposure · sunk cost fallacy`, a:R`Losses weigh more than equal gains · repeated exposure alone increases liking · continuing because of past investment (staying in a bad movie because tickets were expensive).`},
+{q:R`Basics model: cognitive vs activating processes`, a:R`Cognitive: reception, perception and evaluation, learning, memory and retrieval. Activating: emotion, motivation, attitude. Stimuli (emotional, cognitive, physical) → filter → processes → decision → behaviour.`},
+{q:R`Grading of the course`, a:R`90 points: exam 75 (MC 60 = 24 × 2.5, open 15) + experiment 7.5 (both parts, no partial credit) + 3 guest lectures × 2.5 (in person, QR code).`}
+],
+quiz:[
+{q:R`Which definition of consumer behaviour does the course use?`, opts:[R`The process whereby individuals decide what, when, where, how and from whom to purchase goods or services`,R`The sum of all purchases a household makes in one year, measured in money and grouped by product class`,R`The way companies plan their prices, products and promotion to reach the target group in the market`,R`The study of how people react to advertising, measured through recall and recognition after exposure`], correct:0, exp:R`Consumer behaviour is the process whereby individuals decide what, when, where, how and from whom to purchase goods or services. The other options describe spending statistics, the marketing mix and advertising research.`, area:'why'},
+{q:R`What does the King Charles III vs Ozzy Osbourne slide show?`, opts:[R`Celebrities are the most effective endorsers for products that are bought by older male consumers in the UK`,R`Identical demographics can go with completely different behaviour, so demographics alone fall short`,R`Wealthy consumers always choose the same brands, which makes them an easy segment`,R`Consumers born in the same year form one generation with shared buying habits`], correct:1, exp:R`Both are male, born in 1948, raised in the UK, married twice, live in a castle and are wealthy and famous — yet they consume completely differently. Psychological factors (learning, motivation, attitudes, perception …) are needed.`, area:'why'},
+{q:R`According to Stiftung Warentest (2022), what share of German consumers perceive brands as interchangeable?`, opts:[R`85%`,R`52%`,R`64%`,R`37%`], correct:2, exp:R`64% perceive brands as interchangeable. 85% is the share of tested products rated "good".`, area:'why'},
+{q:R`Interchangeable products lead to a transformation of competition. Which one?`, opts:[R`From price competition to quality competition, because consumers now read more tests`,R`From national to global competition, because brands sell through the same online shops`,R`From communication competition to product competition, because features decide again`,R`From product competition to communication competition, because products no longer differ`], correct:3, exp:R`Lower interest in product information, lower loyalty and price-oriented consumers → competition moves from the product to communication.`, area:'why'},
+{q:R`Which pair describes habitual decision making?`, opts:[R`Behavioural, unconscious, automatic`,R`Deliberate, rational, sequential`,R`Emotional and instantaneous`,R`Planned, compared and documented`], correct:0, exp:R`Habitual = behavioural, unconscious, automatic. Cognitive = deliberate, rational, sequential. Affective = emotional, instantaneous.`, area:'types'},
+{q:R`In Katona’s classification, which decision types together form the "cognitive buying decisions"?`, opts:[R`Impulsive and habitualised decisions`,R`Habitualised and limited decisions`,R`Limited and extensive decisions`,R`Impulsive and extensive decisions`], correct:2, exp:R`Limited and extensive decisions involve deliberate thinking and form the cognitive buying decisions; cognitive control rises from impulsive to extensive.`, area:'types'},
+{q:R`Which situation pushes a purchase towards an extensive buying decision?`, opts:[R`High time pressure and a decision the consumer makes every week`,R`Low involvement and products that look and work almost the same`,R`Big perceived differences, a rare decision, little time pressure, high involvement`,R`A familiar brand at the checkout that is picked up quickly, without comparing it to any of the alternatives`], correct:2, exp:R`Extensive decisions: high perceived product differences, low frequency of the same decision, low time pressure, high involvement. The other options describe impulsive or habitual buying.`, area:'types'},
+{q:R`What is the correct order of the cognitive decision process?`, opts:[R`Information search → recognition of need → evaluation → purchase → post-purchase evaluation`,R`Recognition of need → information search → evaluation of alternatives → purchase → post-purchase evaluation`,R`Recognition of need → evaluation of alternatives → information search → purchase → post-purchase evaluation`,R`Recognition of need → information search → purchase → evaluation of alternatives → post-purchase evaluation`], correct:1, exp:R`Need recognition starts the process; information is searched, alternatives are evaluated, the purchase is made and evaluated afterwards.`, area:'types'},
+{q:R`In the basics model, which processes are "activating" processes?`, opts:[R`Reception, perception and evaluation`,R`Learning, memory and retrieval`,R`Emotion, motivation and attitude`,R`Filter, decision and behaviour`], correct:2, exp:R`Activating processes: emotion, motivation, attitude. Cognitive processes: reception, perception and evaluation, learning, memory and retrieval.`, area:'types'},
+{q:R`A buyer judges a used car as well built because the door closes with a solid sound. Which heuristic is this?`, opts:[R`Covariation`,R`Country of origin`,R`Mere exposure`,R`Sunk cost`], correct:0, exp:R`Covariation: a perceived association between cues that may or may not be related — one cue (door sound, interior feel) is taken as a sign of overall quality.`, area:'heur'},
+{q:R`"High quality — made in Germany" is used as a shortcut. Which heuristic?`, opts:[R`Familiar brand names`,R`Country of origin`,R`Higher prices`,R`Loss aversion`], correct:1, exp:R`The country of origin works as a quality signal, so the consumer does not need to check the product in detail.`, area:'heur'},
+{q:R`Why can heuristics lead to irrational decisions?`, opts:[R`Because consumers apply them only to expensive products where mistakes are costly`,R`Because they are rules of thumb that save effort but can cause errors in judgment`,R`Because they are always wrong and should be avoided in every buying situation`,R`Because companies are legally required to make them visible on the package`], correct:1, exp:R`Heuristics are mental rules of thumb; most of the time they are extremely helpful, but they can also lead to errors in judgment.`, area:'heur'},
+{q:R`Finding USD 10 feels less good than losing USD 10 feels bad. Which bias?`, opts:[R`Mere exposure effect`,R`Sunk cost fallacy`,R`Loss aversion`,R`Covariation`], correct:2, exp:R`Loss aversion: losses weigh more heavily than equal gains — the value curve is steeper on the loss side.`, area:'bias'},
+{q:R`You stay in a terrible movie because the tickets were expensive. Which bias?`, opts:[R`Loss aversion`,R`Mere exposure effect`,R`Country of origin`,R`Sunk cost fallacy`], correct:3, exp:R`Sunk cost fallacy: past investments that cannot be recovered keep you going, although only future costs and benefits should count.`, area:'bias'},
+{q:R`A song you disliked at first grows on you after hearing it on the radio many times. Which bias?`, opts:[R`Mere exposure effect`,R`Loss aversion`,R`Sunk cost fallacy`,R`Higher-price heuristic`], correct:0, exp:R`Mere exposure: repeated exposure alone increases liking.`, area:'bias'},
+{q:R`How many points does the written exam carry, and how is the MC part scored?`, opts:[R`90 points; each MC question has 4 options and exactly one is right`,R`75 points; 24 MC questions with 5 statements, partial points`,R`60 points; every wrong tick gives minus points so that students stop guessing`,R`75 points; only all-correct answers earn points, otherwise zero`], correct:1, exp:R`Exam 75 = MC 60 (24 × 2.5, partial points 1.5/1/0.5/0.25, no minus points) + open questions 15. Experiment 7.5 and guest lectures 7.5 make the total of 90.`, area:'why'}
+]},
+
+/* ------------------------------------------------------------ READING LS 2 ------------------------------------------------------------ */
+{id:'cb-r2', kind:'read', ch:2, title:'Irrational Consumption', date:'for LS 2 · 26 Oct',
+source:'McKinsey & Company report by Cummings, Dhar and Welch (2015)',
+examWeight:'Why the "Pac-Man" view of consumers is wrong, and the three levers from behavioural economics: beliefs, goals and pressures — with the examples',
+summary:R`**Core idea.** It is attractive to think that consumers choose what they most prefer — logical decision makers with plenty of time and full insight. But decision making does not unfold like a game of **Pac-Man** (systematically eating information pellets on the way to the optimal choice). Many factors, often unrelated to the decision itself, strongly influence choice and consumption. Most marketers know this, yet still work with a linear, simplified ("Pac-Mannish") view of the consumer decision journey.
+
+**Behavioural economics (BE)** has deepened our understanding of decision making. Many marketers know **nudges**: small changes in how options are presented that influence choices. Applying BE more thoughtfully lets companies build stronger customer relationships.
+
+**1. The bedrock of belief.** A shopper’s mind is not a clean slate: information and experience are filtered through beliefs. Information inconsistent with beliefs is likely to be rejected, and even experience is malleable — the same wine tastes better from a 100-USD bottle than from a 10-USD bottle.
+- Healthy food :: the belief "healthy = unpalatable" is a purchase barrier and lowers satisfaction during consumption; the product is not bad, the belief overrides the experience
+- Timing of disclosure :: let people have the experience first, then tell them about the health claim
+- Presentation :: flavour claims on the front (relevant to everyone), health claims on a side panel for involved, deliberate shoppers
+- Packaging cues :: great chocolate comes in fancy boxes; large pack sizes and simple containers signal value
+- Other cues :: information on origin, manufacturing and ingredients changes perceived quality and even taste; concrete floors (vs tiles) make retail prices look like better deals; messages that make people feel guilty can improve product perception, because guilt is associated with pleasure
+- Method :: start BE-based marketing by asking where beliefs come from; use simple **observational research** to find gaps between what customers say and what they do — interviews and focus groups miss incidental cues because consumers are not aware of them
+
+**2. Accounting for goals.** Needs are not fixed: their strength depends on which **goal is active** (being a good parent, getting in shape, making a good impression). Active goals steer what information people notice — much advertising is wasted because it addresses the wrong goal.
+- Media company paywall :: many readers hit the paywall in the morning, when they are busy with kids and getting organised; showing subscription offers later in the day significantly increased conversion
+- Activating vs appealing :: activating an exercise goal raises purchases of sports drinks even without workout plans; appealing to a goal focuses on product and message, activating a goal uses the situation (sports music in the background, a cheap fitness tracker in the beverage aisle)
+
+**3. Consumer pressures.** Research shows when biases are strongest:
+- Decision fatigue :: after a series of (even unrelated) choices, people choose differently
+- Time pressure :: under time pressure people decide very differently
+- Iconic product case :: in a lab test every participant picked a cheaper, feature-rich competitor, yet in real stores the iconic product kept a large share. Reason: real shoppers choose quickly, start with the iconic product and only look further if it fails. The company did not embellish the icon (that would hurt its recognisability) but fixed a known pain point with small internal changes and redesigned its other low-cost products to fight the cheap brands.
+
+**Capturing the value.** Only testing **real products with real consumers in real-world situations** shows how customers behave. Start with tractable, small experiments that build insight and credibility, then scale up.`,
+cards:[
+{q:R`The "Pac-Man" view of consumers`, a:R`The simplified idea that consumers systematically digest information on a linear path to the optimal choice. Reality: many unrelated factors influence choice.`},
+{q:R`Nudge`, a:R`A small change in how options are presented that influences consumers’ choices.`},
+{q:R`Three BE levers in the McKinsey report`, a:R`Beliefs (experience is filtered through beliefs) · goals (the active goal decides what people notice) · pressures (decision fatigue, time pressure).`},
+{q:R`Healthy food and beliefs: two remedies`, a:R`Timing of disclosure (experience first, health claim afterwards) and presentation (flavour on the front, health claim on a side panel).`},
+{q:R`Paywall example`, a:R`Readers hit the paywall in the morning but are busy with other goals; moving subscription offers to later in the day raised conversion.`},
+{q:R`Activating vs appealing to goals`, a:R`Appealing focuses on product and message; activating changes the situation (sports music, a fitness tracker in the drinks aisle) and opens more opportunities.`},
+{q:R`Iconic product case`, a:R`Lab: everyone chose cheaper competitors; stores: icon kept share because shoppers decide fast and start with the icon. Response: keep the icon recognisable, fix a pain point internally, redesign other low-cost products.`}
+],
+quiz:[
+{q:R`What do the authors mean by a "Pac-Mannish" view of the consumer?`, opts:[R`Consumers move through a linear journey, digesting information on the way to the optimal choice`,R`Consumers jump randomly between brands and cannot be predicted by any kind of market research at all`,R`Consumers only react to price promotions and ignore all other information in the store`,R`Consumers are chased by too many ads and close their minds to all marketing messages`], correct:0, exp:R`The Pac-Man view is the linear, simplified model of a logical consumer with time and full insight. The report argues that many unrelated factors shape real choices.`, area:'irr'},
+{q:R`According to the report, why does the same wine taste better from a 100-USD bottle?`, opts:[R`Expensive wines are always produced with better grapes and longer ageing in wooden barrels`,R`Experience is filtered through beliefs, so the belief "expensive = good" changes the taste`,R`Consumers compare the label with test reports and then rate the wine more favourably`,R`The glass and the temperature are better when an expensive bottle is served at a dinner`], correct:1, exp:R`A shopper’s mind is not a clean slate: information and experience are refracted through beliefs, so even the taste experience is malleable.`, area:'irr'},
+{q:R`How should a firm present a healthy snack when consumers believe "healthy = unpalatable"?`, opts:[R`Put the health claim in large letters on the front so every shopper notices it immediately`,R`Avoid any information about ingredients so shoppers cannot form beliefs about the snack`,R`Let people taste it first, then reveal the health claim, and keep flavour claims on the front`,R`Lower the price until the belief no longer matters for the purchase decision of shoppers`], correct:2, exp:R`Timing of disclosure (experience first) and presentation (flavour on the front for everyone, health claims on a side panel for deliberate shoppers).`, area:'irr'},
+{q:R`Which retail cue makes products look like better deals, according to the report?`, opts:[R`Tiled floors`,R`Concrete floors`,R`Soft music`,R`Bright lighting`], correct:1, exp:R`Concrete flooring (vs tile) leads consumers to perceive products as better deals.`, area:'irr'},
+{q:R`Why did the media company move its subscription offers to later in the day?`, opts:[R`Because servers were overloaded in the morning and pages loaded too slowly for readers`,R`Because readers had used up their free articles only in the evening on most weekdays`,R`Because in the morning readers were focused on other goals like getting kids to school`,R`Because advertising space was cheaper in the evening, so the offer reached more people`], correct:2, exp:R`Many readers hit the paywall in the morning, but their active goals were elsewhere. Showing offers later, when they were less distracted, significantly increased conversion.`, area:'irr'},
+{q:R`What is the difference between activating and appealing to a goal?`, opts:[R`Activating uses the situation (e.g. sports music in the aisle); appealing focuses on product and message`,R`Appealing is used for new customers, while activating is used only for loyal customers who already buy the brand regularly`,R`Activating means lowering the price; appealing means improving the product’s quality and design`,R`There is no difference — the report uses both terms for the same advertising technique`], correct:0, exp:R`Appealing to goals focuses attention on the product and the message; activating goals opens the door to situational factors such as background music or a fitness tracker in the beverage aisle.`, area:'irr'},
+{q:R`In the iconic-product case, why did lab results differ from real store sales?`, opts:[R`The lab used a different price level than the stores, so competitors looked cheaper`,R`In stores shoppers decide fast and start with the icon; the lab had no time pressure`,R`The lab only invited loyal customers of the competing brands, which biased the result`,R`Real stores did not stock the competing products, so shoppers simply had no alternatives to choose from on the shelf`], correct:1, exp:R`Time constraints: in real stores shoppers decide fast, start with the icon and only consider others if it disappoints.`, area:'irr'},
+{q:R`What did the company in the iconic-product case decide?`, opts:[R`Add many features to the iconic product so it beats the low-price competitors in the lab`,R`Cut the price of the iconic product to the level of the cheapest competitor in the category`,R`Keep the icon recognisable, fix a pain point inside, redesign other low-cost products`,R`Stop selling the iconic product and replace it with a completely new, feature-rich product line under the same brand`], correct:2, exp:R`Embellishing the icon risked its recognisability. The two-pronged approach: defend the icon with small internal fixes and compete with other portfolio products at the low end.`, area:'irr'}
+]},
+
+/* ------------------------------------------------------------ READING LS 3 ------------------------------------------------------------ */
+{id:'cb-r3', kind:'read', ch:3, title:'Sensory Marketing', date:'for LS 3 · 30 Oct',
+source:'Harvard Business case note by Aradhna Krishna (2019): "Note on Sensory Marketing: Shaping Consumer Perception and Behavior"',
+examWeight:'Definition of sensory marketing, why it cuts through clutter, sensation vs perception, the seven ways senses influence behaviour with their examples, and what managers should do',
+summary:R`**What is sensory marketing?** Krishna’s classic example: Hershey’s milk chocolate as a plain slab vs as a **Hershey’s Kiss** — identical formula, very different personality. Unwrapping feels like a present, the shape melts like a teardrop on the tongue, small wrapped pieces allow several treats without guilt, and the name "Kiss" sounds romantic. Hershey’s does not have to say any of this — **the product says it by itself**.
+
+- Definition :: marketing that engages the consumers’ senses and affects their perception, judgment and behaviour
+- Embodied cognition :: we perceive the world through our senses, and bodily sensations affect decisions without conscious awareness
+- From monologue to conversation :: communication went from monologues (companies talk at consumers) to dialogues (feedback) to multidimensional conversations, where products find their own voice and consumers respond viscerally and subconsciously
+- Managerial goal :: design products and communication with **subconscious triggers** that shape perceptions of abstract qualities such as sophistication or quality
+
+**Why is it needed?** Consumers are surrounded by ads everywhere (TV, YouTube, social media, print, buses, stores). In this clutter an ad may not be noticed, not be read fully, and if read, it is discounted as the marketer’s claim. If the **product speaks for itself**, the consumer draws her own inferences — there is no deliberate advertising, no focused attention needed, and the message is more credible. Persuasion becomes visceral.
+
+**Examples.**
+- Dippin’ Dots :: little pellets of ice cream that feel "tingly and almost crunchy" — a new sensation that allows a much higher price per ounce
+- Potato chip :: made bigger than the mouth so you must bite it; the crunch sound makes the chip taste crisper and fresher (experiment with amplified sound), and the sound tempts people nearby to eat chips too
+- BMW M5 (2014) :: engine sound amplified through the speakers to feel sportier; car makers design the feel of knobs, the door sound, acceleration sound and the new-car smell
+- iPod Touch (2007) :: the name "Touch" made people want to touch it and feel attached — an alphanumeric name would not have worked as well
+- Sonic signatures :: Intel’s sound made an invisible chip known worldwide; THX did the same for cinema sound; "Hello Moto" advertised Motorola to users and everyone nearby, for free
+
+**Sensation vs perception.**
+- Sensation :: the stimulus hits the receptor cells of a sense organ — biochemical and neurological
+- Perception :: the awareness or understanding of the sensory information (Latin perceptio: apprehension with the mind or senses)
+- Café wall illusion :: the lines are parallel (sensation) but look slanted (perception), because we learned that planks bend under blocks
+- l and r :: Japanese newborns can tell l and r apart, Japanese adults cannot — the brain learned to ignore the difference
+
+**Seven ways sensory marketing affects consumers:**
+- Sensory signatures :: attention, recognition, attachment, emotion — Tiffany’s robin’s egg blue (luxury, sophistication, love); Louboutin’s Chinese-red soles (won a lawsuit for exclusive use)
+- Memory :: smell is the only sense directly connected to emotion and memory (amygdala–hippocampus); people can distinguish about 10,000 scents; a pine-scented pencil’s selling points were remembered two weeks later (3.67 of 10 vs 0.87 unscented); scent also boosts the picture-memory effect and helps both encoding and retrieval
+- Perceived efficacy :: Listerine "hurts", so it seems to work — the painless Listerine Zero was pulled; sounds added to vacuum cleaners make them seem more powerful
+- Human-sounding voices :: more human automated voices raise human expectations (politeness) — positive feedback from a human-like voice seems less accurate, negative feedback more accurate
+- Mental interaction and purchase intention :: a spoon on the side of the viewer’s dominant hand in a yogurt ad increases mental product interaction and purchase intention; touch screens (iPad ordering in airports) raise purchases of tempting food
+- Changing perception itself :: an ad that addresses several senses ("stimulate your senses") creates more positive sensory thoughts and better taste ratings than one about taste only
+- Ownership :: the **endowment effect** — we value what we own more; merely touching (even imagined touch, or touching on a tablet) creates a feeling of ownership and raises willingness to buy
+- Compliance :: train toilets redesigned like a guest bathroom were left cleaner; loud music and intense scent keep older customers out of Abercrombie & Fitch; classical music keeps vagrants out of metro stations
+
+**Neuroscience.** Neuro-marketing (e.g. fMRI) shows how the brain reacts to ads, brands and products — emotional engagement, attention, memory. Dopamine and phenylethylamine flood the brain at a familiar face or sound (celebrity endorsements). Critics warn it may reduce informed decision making and raises ethical questions, because tactics work below awareness.
+
+**What should managers do?**
+- Identify what is already sensorially appealing about the product (logo, design, smell, sound, jingle) and build on it systematically
+- Choose the sense(s) that fit the essence of the product — do **not** hype every sense
+- Historic examples :: lemon scent in dish detergent signals cleanliness; Singapore Airlines’ consistent sensory branding with its signature scent Stefan Floridian Waters (rose, lavender, citrus) in perfume, hot towels and cabins; El Bulli’s molecular gastronomy
+- Cutting edge :: sensory science departments; sensory marketing as "the way marketing is done" — the product tells consumers why to buy it
+- Experimental culture :: design, test and evaluate every sensory change (Ventoso sailboat case: customers said they wanted technical boats, but a multisensory interview revealed unconscious preferences, e.g. "fast, yet safe")
+- Services too :: a bank designed logos, interiors and cheque books around "safety"
+- Benefits :: implicit communication can build loyalty, reduce price competition and shift the focus from price cuts to product design
+- Care :: avoid mixed messages and sensory overload — an angular piece of cheese is perceived as sharper in taste`,
+cards:[
+{q:R`Definition of sensory marketing`, a:R`Marketing that engages the consumers’ senses and affects their perception, judgment and behaviour.`},
+{q:R`Why does sensory marketing cut through clutter?`, a:R`The product speaks for itself: no ad to notice or read, the consumer draws her own inferences, so the message is more credible and persuasion is visceral.`},
+{q:R`Sensation vs perception`, a:R`Sensation: stimulus hits the receptor cells (biochemical, neurological). Perception: awareness or understanding of that information — e.g. café wall illusion, l/r for Japanese adults.`},
+{q:R`Scent and memory: the pencil study`, a:R`Pine-scented pencil: 3.67 of 10 selling points recalled after two weeks vs 0.87 for an unscented pencil — without re-introducing the scent.`},
+{q:R`Listerine Zero`, a:R`Painless version pulled from the market: customers believed the product worked because it hurt (perceived efficacy).`},
+{q:R`Endowment effect and touch`, a:R`We value what we own more; mere touch, imagined touch or touching on a tablet creates a feeling of ownership and raises willingness to buy.`},
+{q:R`Sensory signatures: examples`, a:R`Tiffany blue, Louboutin red soles, BMW engine sound, Intel sound, THX, "Hello Moto", Singapore Airlines’ Stefan Floridian Waters scent.`},
+{q:R`Managerial rules for sensory marketing`, a:R`Build on existing sensory assets, choose senses that fit the product’s essence (don’t hype every sense), test every change, avoid mixed messages and overload.`}
+],
+quiz:[
+{q:R`What makes the Hershey’s Kiss an example of sensory marketing?`, opts:[R`It has a different recipe than the plain slab, which makes it taste sweeter and creamier`,R`Shape, wrapping and name tell consumers what the product stands for without any ad claim`,R`It is advertised with a large TV campaign that describes its taste in great detail`,R`It is cheaper per gram than the slab, which makes consumers perceive it as a better deal`], correct:1, exp:R`Same formula, different personality: shape, wrapping and the name "Kiss" create the experience. The product communicates by itself — that is the essence of sensory marketing.`, area:'sens'},
+{q:R`Why is a product that "speaks for itself" more persuasive than an ad?`, opts:[R`Because ads are no longer allowed to make claims about the taste or quality of food products`,R`Because the consumer infers the qualities herself instead of doubting a marketer claim`,R`Because sensory cues are always cheaper to design and produce than a full advertising campaign in several media`,R`Because consumers read sensory messages more carefully than the text on a package`], correct:1, exp:R`Ads may not be noticed or read and are met with scepticism. When the product speaks, the consumer draws her own inferences, which is more credible and needs no focused attention.`, area:'sens'},
+{q:R`What did the potato chip experiment show?`, opts:[R`Bigger chips are perceived as cheaper per gram by most buyers`,R`Louder crunch made chips taste crisper and fresher`,R`Salt matters more than sound`,R`People eat fewer chips when they wear headphones`], correct:1, exp:R`Participants with amplified crunch sounds rated the chips as crisper and fresher — sound changes taste perception.`, area:'sens'},
+{q:R`Which statement correctly distinguishes sensation from perception?`, opts:[R`Sensation is the brain’s interpretation; perception is the stimulus hitting the receptor cells`,R`Sensation: the stimulus hits receptor cells; perception: the understanding of it`,R`Sensation only concerns vision and hearing; perception concerns smell, taste and touch`,R`Both terms mean the same, the note uses them as synonyms for subconscious processing`], correct:1, exp:R`Sensation is biochemical and neurological (light on the receptors, sound vibrating hair cells). Perception is the understanding — which can differ, as illusions show.`, area:'sens'},
+{q:R`Why is smell especially powerful for memory?`, opts:[R`It is the only sense with a direct connection to emotion and memory`,R`It is the sense that people can control most consciously in shops`,R`It works only in combination with sound, which doubles its effect`,R`It is processed faster than vision, so it reaches the brain first`], correct:0, exp:R`Olfactory processing is directly linked to the amygdala–hippocampus complex; scent memories persist over very long periods.`, area:'sens'},
+{q:R`Why was the painless Listerine Zero pulled from the market?`, opts:[R`It was less effective against bacteria`,R`Customers felt it only worked if it hurt`,R`Its production costs were far too high`,R`Regulators banned its new formula`], correct:1, exp:R`Perceived efficacy: the burning sensation signals that the mouthwash is working.`, area:'sens'},
+{q:R`What is the endowment effect, and how does touch relate to it?`, opts:[R`People value what they own more; even imagined touch creates a feeling of ownership`,R`People value objects less once they own them; touching reduces the wish to buy`,R`People value gifts more than purchases; touching the gift wrap raises perceived value`,R`People value expensive objects more, and touching them reveals the true quality and therefore the fair price`], correct:0, exp:R`Owning raises value; mere touch, imagined touch or touching on a tablet produces perceived ownership and a greater willingness to buy.`, area:'sens'},
+{q:R`What does Krishna advise managers about using the senses?`, opts:[R`Engage all five senses in every product, because more stimulation always increases sales`,R`Use only visual cues, because the other senses cannot be controlled in a store or online`,R`Find the senses that fit the product’s essence, build on existing assets and test changes`,R`Leave sensory design to external consultants, because it does not affect brand identity`], correct:2, exp:R`Hyping every sense "will probably not work". Identify existing sensory value, pick fitting senses, design and test each change, avoid mixed messages and overload.`, area:'sens'},
+{q:R`How did Singapore Airlines use sensory marketing?`, opts:[R`It replaced all seat-back screens with music to create a calm and quiet cabin experience`,R`It used a signature scent in perfume, hot towels and cabins, matching uniforms and decor`,R`It offered the same meal on every flight so travellers would remember the airline’s taste`,R`It used a loud engine sound in its ads to make its planes seem more powerful than others`], correct:1, exp:R`Stefan Floridian Waters (rose, lavender, citrus) was worn by flight attendants, blended into hot towels and used in planes and lounges; uniforms matched the brand colours and decor.`, area:'sens'}
+]},
+
+/* ------------------------------------------------------------ READING LS 4 ------------------------------------------------------------ */
+{id:'cb-r4', kind:'read', ch:4, title:'When A/B Testing Doesn’t Tell the Whole Story', date:'for LS 4 · 4 Nov',
+source:'Harvard Business Review article by Eva Ascarza (2021)',
+examWeight:'How A/B tests work, why the average effect can mislead, the field experiments on churn, and the shift from prediction to prescription ("for whom is it effective?")',
+summary:R`**A/B test.** Marketers measure a campaign’s return on investment by targeting customers with two different interventions (or one intervention vs none) and comparing the results of the two randomly assigned groups. With the right analysis A/B tests are useful — but they can be highly misleading.
+
+**Arts organisation example.** To fight declining membership retention, the organisation sends a small gift with the renewal notice to "at risk" members — first as a pilot with a random gift group and a control group.
+- Average result :: no difference in retention → you would cancel the gift program
+- Closer look :: for members who had visited the venue in the last year the gift **significantly increased** renewal; for members who had not visited for a long time it **reduced** renewal, probably because it reminded them how little they used the membership
+- Lesson :: the average effect hides which customers respond positively or negatively — it can lead to the wrong campaign decisions
+
+**Field experiments on churn.** Companies usually identify "high risk" customers (likely to cancel) and test retention campaigns on them. Ascarza ran field experiments with two large companies, over 14,000 customers, random intervention vs control, plus rich customer data (activity, engagement, tenure, location …).
+- Finding :: the customers with the highest churn risk were **not** the best targets — there was little correlation between churn risk and sensitivity to the intervention
+- High-sensitivity group :: a distinct group responded strongly, with almost no overlap with the high-risk group
+- ROI :: spending the same budget on the high-sensitivity group would have reduced churn by an additional 5% and 8% in the two companies
+- Telecom example :: how recently a customer last engaged predicted churn risk but not sensitivity; **data usage** predicted sensitivity → target heavy data users, not the inactive ones
+
+**From prediction to prescription.** Target interventions on each customer’s **expected response to the intervention**, not on what they would do without it. Marketers should act like doctors, who give treatments to the patients most likely to respond to them, not randomly to those most likely to die.
+- Use A/B data :: not only to measure the overall effect, but to explore which types of customers are most sensitive
+- Combine data :: historical transaction and demographic data with the A/B test results — most firms already have this data
+
+**Key question:** stop asking "Is this intervention effective?" and start asking **"For whom is this intervention most effective?"**`,
+cards:[
+{q:R`What is an A/B test?`, a:R`Two randomly assigned customer groups receive different interventions (or intervention vs none); the results are compared to measure the effect.`},
+{q:R`Arts organisation gift example`, a:R`Average effect zero, but the gift raised renewal for recent visitors and lowered it for long-inactive members (it reminded them they don’t use it).`},
+{q:R`Churn risk vs sensitivity`, a:R`Little correlation: the highest-risk customers were not the most responsive; the high-sensitivity group barely overlapped with the high-risk group.`},
+{q:R`ROI gain in Ascarza’s field experiments`, a:R`Same budget on the high-sensitivity group → additional 5% and 8% churn reduction (two companies, 14,000+ customers).`},
+{q:R`Telecom: what predicted sensitivity?`, a:R`Data usage — not recency of engagement, which only predicted churn risk.`},
+{q:R`Prediction vs prescription`, a:R`Target by expected response to the intervention, not by expected behaviour without it — like a doctor prescribing treatments to patients who respond. Ask "for whom is it most effective?"`}
+],
+quiz:[
+{q:R`Why can the average result of an A/B test be misleading?`, opts:[R`Because random assignment always creates groups of different size and quality`,R`Because it can hide that some customers react positively and others negatively`,R`Because control groups receive no intervention, so they cannot be compared at all`,R`Because results are only valid for online campaigns, not for physical mailings`], correct:1, exp:R`In the arts example the average effect was zero, but the gift helped recent visitors and hurt long-inactive members. Averages cover up who responds how.`, area:'ab'},
+{q:R`Why did the gift lower renewal among members who had not visited for a long time?`, opts:[R`The gift was too cheap and annoyed them`,R`It reminded them how rarely they used it`,R`They had already decided to renew anyway`,R`The gift only arrived after the renewal deadline had passed`], correct:1, exp:R`The gift served as a salient reminder of how infrequently they used their membership.`, area:'ab'},
+{q:R`What did Ascarza find about high-churn-risk customers?`, opts:[R`They were the most sensitive to retention campaigns and should always be targeted first`,R`They had little overlap with the customers who responded most strongly to the campaigns`,R`They could not be identified with data, so campaigns should be sent to all customers equally`,R`They responded only to price discounts, never to gifts, calls or personal messages`], correct:1, exp:R`There was little correlation between churn risk and sensitivity; the high-sensitivity group had almost no overlap with the high-risk group.`, area:'ab'},
+{q:R`In the telecom company, what predicted a customer’s sensitivity to the retention campaign?`, opts:[R`How recently the customer last engaged with the company`,R`How long the customer had been with the company`,R`How much mobile data the customer used`,R`Where the customer lived in the country`], correct:2, exp:R`Recency predicted churn risk but not sensitivity; data usage predicted sensitivity → target heavy data users.`, area:'ab'},
+{q:R`How much additional churn reduction would targeting the high-sensitivity group have achieved with the same budget?`, opts:[R`1% and 2%`,R`5% and 8%`,R`15% and 18%`,R`50% and 80%`], correct:1, exp:R`An additional 5% and 8% in the two companies.`, area:'ab'},
+{q:R`What does "moving from prediction to prescription" mean?`, opts:[R`Predicting churn more precisely with better algorithms`,R`Targeting by each customer’s expected response`,R`Giving every customer the same campaign to avoid bias`,R`Replacing A/B tests with large surveys about customers’ future intentions`], correct:1, exp:R`Like doctors, marketers should give the "treatment" to those most likely to respond — not to those most likely to churn.`, area:'ab'}
+]},
+
+/* ------------------------------------------------------------ READING LS 5 ------------------------------------------------------------ */
+{id:'cb-r5', kind:'read', ch:5, title:'Starbucks’s Loyalty Reigns', date:'for LS 5 · 11 Nov',
+source:'Darden case by Meghan Murray (2016), "Starbucks’s Loyalty Reigns"',
+examWeight:'Why the Starbucks loyalty program and app bind customers: rewards and levels, convenience, personalisation, consistent experience, employees and customer voice — plus the key figures and the risk at the end',
+summary:R`**Situation.** In 2013 CEO Howard Schultz saw "a seismic change in consumer behavior", brought about by technology and access to information. Starbucks’ success came not only from the store experience and consistent drinks in white cups with the customer’s first name, but also from the **digital experience**. The question of the case: how much more can an app really do?
+
+**Why the program works on people (the principles):**
+- Reinforcement :: every purchase earns "Stars", and rewards (mostly free drinks and food) follow the desired behaviour — buying at Starbucks is rewarded, so it is repeated
+- Goals and progress :: the Rewards screen shows how many Stars you have and how many you need for the next level; two levels, **Green** (birthday perk, free refills of brewed coffee and tea) and **Gold** (enough Stars within 12 months → personalised Gold Card, more free items) — status and visible progress keep people collecting
+- Convenience and habit :: Mobile Order & Pay lets customers order and pay without talking to anyone; the app works like a prepaid debit card with automatic reload — less effort makes the routine stick
+- Personalisation :: custom offers by e-mail, early glimpses of new products, and suggestive selling of food based on purchase history
+- Consistency :: the same drink in the same cup with "the same delightful name" in an airport in North Carolina or on King’s Road in London — and rewarded for it
+- Belonging and voice :: My Starbucks Idea (2008) let customers suggest and vote on ideas, and Starbucks implemented some (tree planting, recipe changes); social media with 35 million Facebook fans and 11 million Twitter followers; @tweetacoffee to buy a coffee for a friend
+- Employees as ambassadors :: benefits from 20 hours a week (401(k), bonuses, health coverage), tuition for veterans’ families — "give them reasons to believe in their work … they’ll elevate the experience for each customer"
+
+**Key steps and figures (brief):**
+- App launched 2011 :: first a digital Starbucks Card; 2012 investment of 25 million USD in Square; mobile marketer of the year 2010 and 2012 (SMS, QR codes)
+- July 2015 :: 20% of U.S. payments through the app; Mobile Order & Pay reached up to 7 million orders per week within three months
+- End of 2015 :: more than 9 of 45 million customers paid by phone each week; mobile payments up to 21% of in-store transactions; more than 20 million Rewards members
+- Profitability :: mobile payments are cheaper than credit-card fees; earnings rose from 2.1 to 2.8 billion USD (FY 2014 → 2015)
+- Brand strategy :: an international chain cannot win on artisanal attributes (specialty coffee: 37% of cups but 50% of value), so Starbucks focuses on what it controls — consistency, service and a seamless experience
+
+**The future and the risk.** Schultz planned to extend the loyalty platform beyond the four walls of the store (rewards for other purchases with the phone) and launched the Digital Coffee Passport (2016). The case ends with a warning: Starbucks had become dependent on mobile shoppers who use social media to validate their purchases — and may be overlooking other drivers and risks.`,
+cards:[
+{q:R`Starbucks Rewards levels`, a:R`Green: birthday perk, free in-store refills of brewed coffee and tea. Gold: enough Stars within 12 months → personalised Gold Card, more free food and drinks.`},
+{q:R`Learning principles behind Starbucks Rewards`, a:R`Reinforcement (Stars and rewards after purchases), visible progress and status (levels), convenience that turns buying into a habit, personalised offers.`},
+{q:R`Mobile Order & Pay`, a:R`Order and pay in the app without talking to staff; up to 7 million orders per week within three months; enables suggestive selling based on purchase history.`},
+{q:R`Starbucks key figures 2015`, a:R`20% of U.S. payments via the app (July 2015); 9 of 45 million customers paying by phone each week; 20+ million Rewards members; earnings 2.1 → 2.8 billion USD.`},
+{q:R`My Starbucks Idea`, a:R`2008 website where customers suggest and vote on ideas; implemented ideas published under "Ideas in Action" → customer voice and belonging.`},
+{q:R`Why does Starbucks focus on consistency?`, a:R`An international chain cannot compete on artisanal attributes, so it controls consistency across stores, service and a seamless experience.`},
+{q:R`The risk at the end of the case`, a:R`Dependence on mobile, social-media-validating shoppers may make Starbucks overlook other business drivers and risks.`}
+],
+quiz:[
+{q:R`Which learning principle is at the heart of Starbucks Rewards?`, opts:[R`Classical conditioning: a jingle is paired with coffee until the jingle alone triggers thirst`,R`Reinforcement: purchases earn Stars and rewards, so the rewarded behaviour is repeated`,R`Observational learning: customers copy what they see baristas do behind the counter`,R`Mere exposure: seeing the logo often is enough to create loyalty without any reward`], correct:1, exp:R`Stars and free products reward the desired behaviour (buying at Starbucks) and make it more likely to be repeated; levels and visible progress add a goal.`, area:'star'},
+{q:R`What does a customer get at the Gold level?`, opts:[R`Only a birthday perk`,R`A personalised Gold Card and more free items`,R`A lifetime discount of 50% on all drinks and food`,R`Free delivery of every order`], correct:1, exp:R`Gold requires enough Stars every 12 months and brings a free personalised Gold Card and more free food and drinks. Birthday perks and refills are Green-level privileges.`, area:'star'},
+{q:R`Why did Starbucks choose to compete on consistency rather than artisanal quality?`, opts:[R`Because artisanal coffee was losing market share and value in the specialty segment`,R`Because a global chain cannot win on artisanal attributes, so it controls what it can`,R`Because regulators required the same recipe in every country where Starbucks operates`,R`Because customers said in several surveys that the taste of the coffee did not matter to them at all`], correct:1, exp:R`Craft brands (e.g. Blue Bottle) won on artisanal attributes. Starbucks controls consistency across stores, service and a seamless experience — the same drink and cup anywhere.`, area:'star'},
+{q:R`What share of Starbucks’ U.S. payments came through the app by July 2015?`, opts:[R`5%`,R`10%`,R`20%`,R`45%`], correct:2, exp:R`By July 2015, 20% of U.S. payments came through the mobile app.`, area:'star'},
+{q:R`Why were mobile payments especially attractive for Starbucks financially?`, opts:[R`They allowed Starbucks to raise prices in the app`,R`Their fees were lower than credit-card fees`,R`They removed the need for any store staff`,R`They were subsidised by Apple and PayPal`], correct:1, exp:R`Mobile transactions were more profitable because traditional credit-card fees were higher.`, area:'star'},
+{q:R`Which principle does My Starbucks Idea use?`, opts:[R`Co-creation: customers suggest and vote on ideas, some are implemented`,R`Price discrimination: loyal customers vote on which prices others should pay`,R`Scarcity: only a few customers may join, which makes membership more desirable`,R`Sunk cost: customers who posted ideas feel they must keep buying to see them realised`], correct:0, exp:R`Customers got a voice: ideas from recipe changes to a tree-planting program were implemented and tracked under "Ideas in Action" — this builds involvement and belonging.`, area:'star'},
+{q:R`What risk does the case raise at the end?`, opts:[R`That the app is too expensive to maintain compared to the revenue it brings`,R`That relying on mobile shoppers may hide other drivers and risks`,R`That customers will stop drinking coffee because of rising coffee bean prices`,R`That employees will leave because the app replaces their tasks in the store`], correct:1, exp:R`Starbucks had become "addicted" to mobile shoppers who validate purchases on social media and may be overlooking other business drivers and risks.`, area:'star'}
+]},
+
+/* ------------------------------------------------------------ READING LS 6 ------------------------------------------------------------ */
+{id:'cb-r6', kind:'read', ch:6, title:'The New Science of Customer Emotions', date:'for LS 6 · 18 Nov',
+source:'Harvard Business Review article by Magids, Zorfas and Leemon (2015)',
+examWeight:'Emotional motivators, the emotional connection pathway (−18% / baseline / +13% / +52%), the four insights, the fashion retailer case (Fashion Flourishers) and the three-step getting-started process',
+summary:R`**Problem and idea.** Firms know emotions drive behaviour but treat them as guesswork. The authors built a lexicon of more than **300 "emotional motivators"** — deep, often unconscious desires — and linked them with big-data analytics to profitable behaviour. Emotional motivators predict a customer’s future value better than any other metric, including brand awareness and customer satisfaction.
+
+**Results of emotional connection:**
+- Bank :: a credit card for Millennials designed for emotional connection → usage in the segment +70%, new accounts +40%
+- Household cleaner :: market share losses turned into double-digit growth within a year
+- Apparel retailer :: same-store sales growth accelerated more than threefold
+
+**Emotional motivators.** Customers are emotionally connected with a brand when it aligns with their motivations and helps them fulfil deep, often unconscious desires. These differ from the reasons customers name. **Ten high-impact motivators** (across all categories):
+- Stand out from the crowd :: project a unique social identity, be seen as special
+- Have confidence in the future :: see the future as better than the past
+- Enjoy a sense of well-being :: life measures up to expectations, balance, stress-free
+- Feel a sense of freedom :: act independently, without obligations or restrictions
+- Feel a sense of thrill :: visceral pleasure and excitement, fun events
+- Feel a sense of belonging :: affiliation with people they relate to or aspire to be like
+- Protect the environment :: take action to improve the surroundings
+- Be the person I want to be :: ongoing self-improvement, live up to the ideal self-image
+- Feel secure :: what they have today will be there tomorrow
+- Succeed in life :: lead a meaningful life, worth beyond money
+
+**The emotional connection pathway.** Customer value relative to highly satisfied customers:
+=> Unconnected (−18%) → Highly satisfied (baseline) → Perceive brand differentiation (+13%) → Fully connected (+52%)
+
+The jump comes at the last step. Moving customers from highly satisfied to fully connected can have **three times the return** of moving them from unconnected to satisfied — yet firms usually invest in turning dissatisfied customers into satisfied ones. The extra value of fully connected customers varies by category (across nine categories, e.g. household cleaner +82%, discount store +103%, credit card swipes +37%).
+
+**Four insights:**
+- Motivators vary by category and brand :: "helps me be creative" drives a home-furnishings store; "feel revived and refreshed" drives fast-food loyalty
+- They vary across segments :: Millennials in banking: "protect the environment" and "be the person I want to be"; older customers: "feel secure" and "succeed in life"
+- They vary along the customer journey :: banking — "feel secure" matters when attracting customers, "succeed in life" when cross-selling later
+- Opportunities exist across the whole experience :: a condiments brand: 60% of its social-network followers were emotionally connected vs 21% of all customers → it invested in its online community
+
+**Fashion retailer case (four-part strategy):**
+- 1. Target connected customers :: fully connected customers were 22% of customers but 37% of revenue and spent twice as much (400 USD a year) as highly satisfied ones; the most valuable segment, **"Fashion Flourishers"** (excitement, social acceptance, self-expression), spends 468 USD vs 235 USD, shops more often, advocates more, is less price-sensitive and more digital; spend-to-size ratio 1.9 vs 0.2 for "Can’t Please Them"
+- 2. Quantify key motivators :: "feel a sense of belonging", "thrill" and "freedom" had the strongest link to purchases
+- 3. Optimise investments across functions :: stores in Flourisher areas (up to 25% more revenue; new stores +20% first-year sales); buy online and pick up in store (speaks to "freedom") although customers said it was unimportant; selfie slide shows of "people like you" in stores ("belonging"); mobile app redesign; merchandising; targeted messages with 40–210% higher response
+- 4. Systematise, measure, learn :: emotional connection as a KPI on the senior-management dashboard; result: same-store sales +3.5% (vs 1% average), inventory turns +25%, recommendations +20%, emotional connection score +20%
+
+**Getting started (three phases):**
+- First :: inventory existing research, define motivators to probe, quantify them with surveys — understand motivations separate from your brand
+- Second :: analyse your best customers (top quartile by purchases, advocacy, loyalty) and find the two or three key motivators linked to your brand
+- Third :: make emotional connection a growth lever across the whole firm, with buy-in from the top — not a marketing-only topic`,
+cards:[
+{q:R`Emotional motivators`, a:R`Deep, often unconscious desires (300+ in the lexicon) that drive behaviour; a better predictor of customer value than awareness or satisfaction.`},
+{q:R`Emotional connection pathway (value vs highly satisfied)`, a:R`Unconnected −18% → highly satisfied baseline → perceive brand differentiation +13% → fully connected +52%.`},
+{q:R`Where should firms invest according to the pathway?`, a:R`Moving highly satisfied customers to fully connected can return three times as much as moving unconnected customers to satisfied.`},
+{q:R`Four insights`, a:R`Motivators vary by category and brand, across segments, along the customer journey, and opportunities exist across the whole experience (not only advertising).`},
+{q:R`Fashion Flourishers`, a:R`Most emotionally connected segment (excitement, social acceptance, self-expression): 468 vs 235 USD a year, shop more often, advocate more, less price-sensitive, more digital; spend/size ratio 1.9.`},
+{q:R`Retailer’s key motivators and actions`, a:R`Belonging, thrill, freedom → stores near Flourishers, buy online/pick up in store (freedom), selfie slide shows (belonging), app redesign, targeted messages.`},
+{q:R`Getting started: three phases`, a:R`1 inventory and quantify motivators; 2 analyse best customers and pick 2–3 key motivators; 3 make emotional connection a firm-wide growth lever with top-management buy-in.`}
+],
+quiz:[
+{q:R`According to the article, what is the best predictor of a customer’s future value?`, opts:[R`Brand awareness`,R`Customer satisfaction`,R`Emotional motivators`,R`Price sensitivity`], correct:2, exp:R`Emotional motivators are a better gauge of future value than any other metric, including brand awareness and customer satisfaction.`, area:'emo'},
+{q:R`How much more valuable are fully connected customers than highly satisfied ones, on average?`, opts:[R`+13%`,R`+52%`,R`+18%`,R`+82%`], correct:1, exp:R`+52% on average. +13% is the step "perceive brand differentiation", −18% the unconnected customers; +82% is one category (household cleaner).`, area:'emo'},
+{q:R`Where do firms usually invest, and why is that often a mistake?`, opts:[R`In fully connected customers, although they are already loyal and need no attention`,R`In making dissatisfied customers satisfied, although full connection returns up to three times more`,R`In brand awareness campaigns, although awareness is the best predictor of value`,R`In price promotions, although price-sensitive customers are the ones who bring the highest value over their lifetime`], correct:1, exp:R`Moving customers from highly satisfied to fully connected can have three times the return of moving them from unconnected to highly satisfied.`, area:'emo'},
+{q:R`For Millennials in banking, which motivators turned out to be key?`, opts:[R`"Feel secure" and "succeed in life"`,R`"Protect the environment" and "be the person I want to be"`,R`"Feel a sense of thrill" and "stand out from the crowd"`,R`"Enjoy a sense of well-being" and "feel a sense of freedom"`], correct:1, exp:R`The model uncovered "protect the environment" and "be the person I want to be"; "feel secure" and "succeed in life" are typical of older groups.`, area:'emo'},
+{q:R`Why did the retailer roll out "buy online, pick up in store" although customers said it was unimportant?`, opts:[R`Because it was the cheapest option to reduce delivery costs for online orders`,R`Because it speaks to Flourishers’ desire to feel a sense of freedom`,R`Because competitors had introduced it and the retailer wanted to avoid losing market share`,R`Because store staff asked for it to reduce the number of returns at the checkout`], correct:1, exp:R`What customers say and what drives them differ. The option addressed the motivator "feel a sense of freedom"; a test showed a material lift in sales.`, area:'emo'},
+{q:R`What did the retailer’s analysis show about fully connected customers in the category?`, opts:[R`They were 37% of customers and 22% of revenue`,R`They were 22% of customers but 37% of revenue`,R`They were half of all customers and spent the same`,R`They were 10% of customers and 80% of revenue`], correct:1, exp:R`Fully connected customers were just 22% of customers but 37% of revenue, spending about twice as much (400 USD a year) as highly satisfied customers.`, area:'emo'},
+{q:R`What is the first step of the "getting started" process?`, opts:[R`Hire a consultancy and build a big-data platform before doing anything else`,R`Inventory existing research and quantify motivators, separate from the brand`,R`Ask customers how your brand makes them feel and use their words in advertising`,R`Move all budget from satisfaction programs to emotional advertising campaigns`], correct:1, exp:R`First inventory existing research, define motivators to probe and quantify them with surveys. Don’t focus on how people say your brand makes them feel — understand motivations separate from the brand.`, area:'emo'}
+]},
+
+/* ------------------------------------------------------------ READING LS 7 ------------------------------------------------------------ */
+{id:'cb-r7', kind:'read', ch:7, title:'Humans or AI as Recommenders', date:'for LS 7 · 2 Dec',
+source:'California Management Review insight by Mazzù, De Angelis, Andria and Baccelloni (2024)',
+examWeight:'Algorithm aversion, uniqueness neglect, search vs experience products, transparency → credibility → intention, and which recommender to use for which product',
+summary:R`**Starting point.** AI recommendation tools (Amazon, Netflix, Spotify) give personalised suggestions from shopping behaviour, yet consumers often prefer **human** recommendations when subjective judgment is involved.
+- Algorithm aversion :: consumers tend to favour human experts over AI in subjective or emotional decisions
+- Uniqueness neglect :: consumers believe algorithms cannot address their unique characteristics
+- Objective tasks :: where numerical precision or logical reasoning is needed, consumers may prefer AI
+
+**Search vs experience products.**
+- Search products :: standardised attributes that can be compared before purchase (e.g. electronics) → AI, which processes large amounts of data and gives accurate, detailed recommendations, fits well; AI voice recommendations even beat text-based online reviews here
+- Experience products :: must be experienced first-hand (e.g. spa services, gourmet meals) → human recommendations are seen as more credible, especially from an experienced expert with lived experience and reputation
+
+**Mechanism: transparency and credibility.**
+- Transparency :: the perceived ability of the source to provide complete and reliable information
+- Credibility :: the perception that the source has the relevant expertise and can be trusted to give an objective opinion
+=> Transparency of the source → Credibility → Intention to follow the recommendation
+
+**Findings.** There is a clear interaction between product type, source and response: for search products AI is preferred, because it is perceived as more transparent and credible for fact-based evaluations; for experience products the preference shifts to a highly experienced human expert.
+
+**Managerial implication.** Use AI-driven recommendation systems for search products; use knowledgeable human recommenders for experience products. Manage both sources so that consumers trust them — this shapes preferences, the design of online platforms and purchases across product types.`,
+cards:[
+{q:R`Algorithm aversion`, a:R`Consumers tend to prefer human experts over AI in subjective or emotional decision contexts.`},
+{q:R`Uniqueness neglect`, a:R`The belief that algorithms cannot address a consumer’s unique characteristics — a reason for algorithm aversion.`},
+{q:R`Search vs experience products`, a:R`Search: standardised, comparable before purchase (electronics) → AI. Experience: must be experienced (spa, gourmet meal) → human expert.`},
+{q:R`Transparency vs credibility`, a:R`Transparency: perceived ability to give complete, reliable information. Credibility: perceived expertise and trustworthiness for an objective opinion. Transparency → credibility → intention to follow.`},
+{q:R`Managerial implication`, a:R`AI recommenders for search products, knowledgeable human recommenders for experience products; build trust in both.`}
+],
+quiz:[
+{q:R`What is "uniqueness neglect"?`, opts:[R`Consumers ignore unique products because they prefer well-known brands`,R`Consumers think algorithms cannot account for what makes them unique`,R`Algorithms recommend the same products to everyone and ignore the long tail`,R`Human experts overlook unique product features that only AI systems are able to detect`], correct:1, exp:R`Uniqueness neglect is the perceived inability of algorithms to address a consumer’s unique characteristics — one reason for algorithm aversion.`, area:'ai'},
+{q:R`For which product would consumers most likely prefer an AI recommendation?`, opts:[R`A spa treatment`,R`A gourmet dinner`,R`A new laptop`,R`A wine tasting`], correct:2, exp:R`A laptop is a search product with standardised, comparable attributes — AI is seen as more transparent and credible there. Spa, dinner and tasting are experience products.`, area:'ai'},
+{q:R`In which order do the mechanisms work according to the study?`, opts:[R`Credibility → transparency → intention to follow`,R`Transparency → credibility → intention to follow`,R`Intention to follow → transparency → credibility`,R`Product type → intention → transparency`], correct:1, exp:R`Perceived transparency of the source leads to higher credibility, which in turn increases the intention to follow the recommendation.`, area:'ai'},
+{q:R`When does the preference shift from AI to a human recommender?`, opts:[R`For search products, when the human has a large social media following`,R`For experience products, when the human recommender is highly experienced`,R`For any product, as soon as the AI makes a single visible mistake`,R`For cheap products, because consumers do not trust AI for small purchases`], correct:1, exp:R`For experience products, consumers follow a well-qualified human expert over AI, attributing more transparency and credibility to lived experience.`, area:'ai'},
+{q:R`How does the article define credibility?`, opts:[R`The ability to give complete and reliable information`,R`Relevant expertise plus trust to be objective`,R`The number of positive reviews a source has received online`,R`The speed at which a source answers a question`], correct:1, exp:R`Credibility = perceived relevant expertise and trust to offer an objective opinion. Complete and reliable information is transparency.`, area:'ai'}
+]}
+];
+
+// Exam-format trainer: Krause’s MC format — 5 statements, any number (1–5) can be correct, 2.5 points per question.
+// Self-written in the format from the admin slide; s = [statement, true/false, why]
+const CB_MC = [
+{lec:'cb-1', area:'why', q:R`Which statements about consumer behaviour and why it matters are correct?`, s:[
+ [R`Consumer behaviour is the process whereby individuals decide what, when, where, how and from whom to purchase goods or services.`, true, R`The course definition.`],
+ [R`According to Stiftung Warentest, about 85% of tested products are rated "good".`, true, R`Fact I of the interchangeability slide.`],
+ [R`About 64% of German consumers perceive brands as interchangeable.`, true, R`Fact II (Stiftung Warentest, 2022).`],
+ [R`Interchangeable products lead to a shift from communication competition to product competition.`, false, R`The reverse: from product competition to communication competition.`],
+ [R`Interchangeable products go along with higher brand loyalty.`, false, R`Lower interest in product information, lower loyalty, price-oriented consumers.`]]},
+{lec:'cb-1', area:'why', q:R`Which statements about market segmentation and influences on consumers are correct?`, s:[
+ [R`Income, age, social class and geography are classic criteria for segmenting a market.`, true, R`The demographic and socio-economic factors on the slide.`],
+ [R`King Charles III and Ozzy Osbourne show that two people with the same demographics always behave the same.`, false, R`They show the opposite: same demographics, completely different behaviour.`],
+ [R`Learning, motivation, attitudes and perception also influence consumer behaviour.`, true, R`The psychological factors added on the slide.`],
+ [R`In the basics model, emotion, motivation and attitude are activating processes.`, true, R`Cognitive processes are reception, perception and evaluation, learning, memory and retrieval.`],
+ [R`In the basics model, all stimuli reach the decision process unfiltered.`, false, R`A filter lets only part of the emotional, cognitive and physical stimuli through.`]]},
+{lec:'cb-1', area:'types', q:R`Which statements about the types of decision making are correct?`, s:[
+ [R`Cognitive decisions are deliberate, rational and sequential.`, true, R`Type 1.`],
+ [R`Habitual decisions are behavioural, unconscious and automatic.`, true, R`Type 2.`],
+ [R`Affective decisions are emotional and instantaneous.`, true, R`Type 3.`],
+ [R`In Katona’s classification, limited and extensive decisions form the cognitive buying decisions.`, true, R`They involve the most cognitive control.`],
+ [R`Impulsive decisions involve the highest degree of cognitive control.`, false, R`Cognitive control and involvement rise from impulsive to extensive decisions.`]]},
+{lec:'cb-1', area:'types', q:R`Lena (24) spends three weeks comparing e-bikes in tests and shops before buying one. Which statements are correct?`, s:[
+ [R`This is an extensive buying decision.`, true, R`High involvement, rare decision, high perceived differences, low time pressure.`],
+ [R`The frequency of this buying decision is low.`, true, R`An e-bike is bought rarely.`],
+ [R`Time pressure during the buying process is high.`, false, R`She takes three weeks — low time pressure.`],
+ [R`After the purchase, the process ends with the purchase decision.`, false, R`The fifth stage is the post-purchase evaluation.`],
+ [R`Her process starts with the recognition of a need.`, true, R`Need recognition → information search → evaluation → purchase → post-purchase evaluation.`]]},
+{lec:'cb-1', area:'heur', q:R`Which statements about heuristics are correct?`, s:[
+ [R`Heuristics are mental rules of thumb that allow quick decisions.`, true, R`Shortcuts used in habitual decision making.`],
+ [R`Heuristics always lead to irrational decisions.`, false, R`Most of the time they are extremely helpful; they CAN lead to errors.`],
+ [R`Inferring high quality from "made in Germany" is the country-of-origin heuristic.`, true, R`Origin as a quality signal.`],
+ [R`Assuming a more expensive product is better uses price as a quality signal.`, true, R`The "higher prices" heuristic.`],
+ [R`Covariation means that consumers check every attribute of a product separately.`, false, R`Covariation is a perceived association between cues — one cue is taken as a sign of overall quality.`]]},
+{lec:'cb-1', area:'bias', q:R`Which statements about biases are correct?`, s:[
+ [R`Loss aversion means that losing USD 10 hurts more than finding USD 10 pleases.`, true, R`Losses weigh more than equal gains.`],
+ [R`The mere exposure effect means that repeated exposure reduces liking because people get bored.`, false, R`Repeated exposure INCREASES liking — familiarity alone makes us like something more.`],
+ [R`Staying in a bad movie because the tickets were expensive is an example of loss aversion.`, false, R`That is the sunk cost fallacy.`],
+ [R`Biases can lead to better or worse decisions.`, true, R`Learning outcome 6 of the session.`],
+ [R`Biases only occur in cognitive (extensive) decisions.`, false, R`Biases and heuristics are typical of habitual, low-effort decisions — and can affect any decision.`]]},
+{lec:'cb-1', area:'why', q:R`Which statements about the course and its grading are correct?`, s:[
+ [R`The MC part has 24 questions worth 2.5 points each.`, true, R`24 × 2.5 = 60 points.`],
+ [R`Experiment participation gives 7.5 points, but only if both parts are completed.`, true, R`No partial credit.`],
+ [R`Guest lecture points can be earned by watching a recording later.`, false, R`You must attend in person and scan the QR code.`],
+ [R`Readings and company presentations are relevant for the exam.`, true, R`Stated on the admin slide.`],
+ [R`Wrong statements in the MC part lead to minus points.`, false, R`0/5 correct gives 0 points — no minus points.`]]},
+{lec:'cb-r2', area:'irr', q:R`Which statements about the McKinsey report "Irrational consumption" are correct?`, s:[
+ [R`Many marketers still work with a linear, "Pac-Mannish" view of the consumer decision journey.`, true, R`The authors’ criticism.`],
+ [R`Nudges are small changes in how options are presented that influence choices.`, true, R`The definition in the report.`],
+ [R`Information inconsistent with a consumer’s beliefs is likely to be accepted more readily.`, false, R`It is likely to be rejected.`],
+ [R`Focus groups are the best way to uncover how incidental cues affect consumers.`, false, R`Consumers are not aware of these cues; observational research reveals say–do gaps.`],
+ [R`Concrete flooring (vs tile) makes consumers perceive products as better deals.`, true, R`One of the retail cue examples.`]]},
+{lec:'cb-r2', area:'irr', q:R`FreshBite launches a tasty high-protein snack, but shoppers believe healthy snacks taste bad. Which recommendations follow from the McKinsey report?`, s:[
+ [R`Let shoppers taste the snack first and reveal the health claim afterwards.`, true, R`Timing of disclosure.`],
+ [R`Put the flavour claim on the front and the health claim on a side panel.`, true, R`Presentation: flavour is relevant to all, health to deliberate shoppers.`],
+ [R`Put the health claim as large as possible on the front so nobody misses it.`, false, R`That activates the belief "healthy = unpalatable" during consumption.`],
+ [R`Use observation to find gaps between what shoppers say and what they do.`, true, R`Uncovers unstated beliefs.`],
+ [R`Beliefs cannot change taste experience, so only the recipe matters.`, false, R`Experience is malleable — beliefs can override it (wine bottle example).`]]},
+{lec:'cb-r2', area:'irr', q:R`Which statements about goals and consumer pressures are correct?`, s:[
+ [R`The strength of a need depends on which goal is currently active.`, true, R`Needs are not fixed.`],
+ [R`Activating an exercise goal can raise sports-drink purchases even without workout plans.`, true, R`Goal activation example.`],
+ [R`Activating a goal and appealing to a goal are the same thing.`, false, R`Appealing focuses on product and message; activating uses situational factors.`],
+ [R`Decision fatigue means people choose differently after making a series of choices.`, true, R`Even unrelated choices matter.`],
+ [R`In the iconic-product case, the company added many new features to the icon.`, false, R`Embellishing was too risky; small internal fixes kept it recognisable.`]]},
+{lec:'cb-r3', area:'sens', q:R`Which statements about sensory marketing are correct?`, s:[
+ [R`Sensory marketing engages the consumers’ senses and affects their perception, judgment and behaviour.`, true, R`Krishna’s definition.`],
+ [R`It works mainly through explicit claims in advertising.`, false, R`It uses subconscious cues given off by the product itself.`],
+ [R`It helps a product cut through advertising clutter.`, true, R`The product speaks for itself, no focused attention needed.`],
+ [R`Perception is the biochemical stimulation of receptor cells.`, false, R`That is sensation; perception is the awareness or understanding.`],
+ [R`Embodied cognition means bodily sensations influence decisions without conscious awareness.`, true, R`The research basis of sensory marketing.`]]},
+{lec:'cb-r3', area:'sens', q:R`Which statements about the examples in Krishna’s note are correct?`, s:[
+ [R`Amplified crunch sounds made potato chips taste crisper and fresher.`, true, R`Sound affects taste perception.`],
+ [R`Listerine Zero was pulled because customers felt a painless mouthwash did not work.`, true, R`Perceived efficacy.`],
+ [R`A pine-scented pencil’s selling points were remembered better two weeks later, even without the scent present.`, true, R`3.67 vs 0.87 of 10 points.`],
+ [R`Louboutin’s red soles are a sensory signature protected in a lawsuit.`, true, R`Exclusive use of Chinese-red soles on shoes that are otherwise not red.`],
+ [R`Krishna recommends engaging all five senses for every product.`, false, R`Hyping every sense will probably not work; pick the senses that fit.`]]},
+{lec:'cb-r3', area:'sens', q:R`Which statements about touch, ownership and compliance are correct?`, s:[
+ [R`The endowment effect means people value objects more highly once they own them.`, true, R`Definition.`],
+ [R`Merely touching a product can create a feeling of ownership.`, true, R`Mere touch → perceived ownership → more likely to buy.`],
+ [R`Imagined touch has no effect on perceived ownership.`, false, R`Haptic imagery can have the same effect as physical touch.`],
+ [R`Touch screens can raise purchases of tempting food compared with a mouse-based computer.`, true, R`Direct-touch effect (airport iPad ordering).`],
+ [R`Train toilets designed like a guest bathroom were left dirtier.`, false, R`They were left much cleaner — sensory cues increased compliance.`]]},
+{lec:'cb-r4', area:'ab', q:R`Which statements about Ascarza’s A/B-testing research are correct?`, s:[
+ [R`An insignificant average effect can hide subgroups that react positively and negatively.`, true, R`Arts organisation example.`],
+ [R`High-churn-risk customers are always the best targets for retention campaigns.`, false, R`Little correlation between risk and sensitivity.`],
+ [R`The field experiments covered fewer than 1,000 customers of a single company.`, false, R`More than 14,000 customers of two large companies.`],
+ [R`Targeting the high-sensitivity group would have reduced churn by an additional 50% and 80%.`, false, R`An additional 5% and 8%.`],
+ [R`In the telecom company, recency of engagement predicted sensitivity to the intervention.`, false, R`Recency predicted churn risk; data usage predicted sensitivity.`]]},
+{lec:'cb-r4', area:'ab', q:R`StreamOn (a music subscription) wants to cut churn with a free-month offer. Which steps follow from Ascarza?`, s:[
+ [R`Run a randomised pilot with an offer group and a control group.`, true, R`The A/B test is still the starting point.`],
+ [R`Combine the test results with customer data to find who responds most.`, true, R`Move from prediction to prescription.`],
+ [R`Send the offer only to the customers with the highest predicted churn risk.`, false, R`Risk ≠ sensitivity — target the most responsive customers.`],
+ [R`Ask "For whom is this intervention most effective?"`, true, R`The key question of the article.`],
+ [R`If the average effect is zero, stop the program immediately.`, false, R`The average can hide strong positive effects in a subgroup.`]]},
+{lec:'cb-r5', area:'star', q:R`Which statements about Starbucks’s loyalty program are correct?`, s:[
+ [R`Customers collect Stars, which lead to rewards and higher levels.`, true, R`Reinforcement and visible progress.`],
+ [R`The Gold level brings a personalised Gold Card and more free food and drinks.`, true, R`Gold requires enough Stars within 12 months.`],
+ [R`Mobile Order & Pay lets customers order and pay without speaking to an employee.`, true, R`Up to 7 million orders per week within three months.`],
+ [R`Starbucks focuses on consistency across stores, service and a seamless experience.`, true, R`It cannot win on artisanal attributes, so it controls what it can.`],
+ [R`By July 2015, 20% of Starbucks’ U.S. payments came through the app.`, true, R`Key figure of the case.`]]},
+{lec:'cb-r5', area:'star', q:R`Which statements explain why Starbucks customers stay loyal?`, s:[
+ [R`Rewarding each purchase makes repeating the behaviour more likely.`, true, R`Reinforcement — a learning principle.`],
+ [R`The same drink, cup and name in every store creates a reliable experience.`, true, R`Consistency across locations.`],
+ [R`My Starbucks Idea gave customers a voice in product and store decisions.`, true, R`Co-creation and belonging.`],
+ [R`Starbucks saw employees as a cost to minimise, not as brand ambassadors.`, false, R`Schultz: employees are "the true ambassadors of our brand" — generous benefits.`],
+ [R`Convenience (prepaid app, auto-reload, ordering ahead) helps turn buying into a habit.`, true, R`Less effort makes the routine stick.`]]},
+{lec:'cb-r6', area:'emo', q:R`Which statements about "The New Science of Customer Emotions" are correct?`, s:[
+ [R`The authors identified more than 300 emotional motivators.`, true, R`Their lexicon.`],
+ [R`Fully connected customers are on average 52% more valuable than highly satisfied ones.`, true, R`Final step of the pathway.`],
+ [R`Customers who are not emotionally connected are worth 18% less than highly satisfied ones.`, true, R`−18%.`],
+ [R`Customers can usually name their emotional motivators accurately in surveys.`, false, R`Motivators are often unconscious and differ from the reasons customers give.`],
+ [R`Turning dissatisfied into satisfied customers yields the highest return.`, false, R`Moving satisfied to fully connected can return three times as much.`]]},
+{lec:'cb-r6', area:'emo', q:R`Which statements about the fashion retailer case are correct?`, s:[
+ [R`"Fashion Flourishers" are the most emotionally connected and most valuable segment.`, true, R`Spend 468 vs 235 USD; spend/size ratio 1.9.`],
+ [R`Flourishers are more price-sensitive than other customers.`, false, R`They are less price-sensitive.`],
+ [R`"Belonging", "thrill" and "freedom" were the key motivators for the retailer.`, true, R`Strongest link to purchases.`],
+ [R`Buy online, pick up in store was rolled out because customers rated it very important.`, false, R`Customers said it was unimportant; the model showed it speaks to "freedom".`],
+ [R`Emotional connection became a KPI on the senior-management dashboard.`, true, R`Systematise, measure and learn.`]]},
+{lec:'cb-r6', area:'emo', q:R`Which statements about the four insights on emotional motivators are correct?`, s:[
+ [R`Motivators differ by category, e.g. "feel revived and refreshed" for fast-food loyalty.`, true, R`Insight 1.`],
+ [R`Motivators are the same for all customer segments of a brand.`, false, R`They vary across segments (Millennials vs older bank customers).`],
+ [R`In banking, "feel secure" matters early in the journey, "succeed in life" later when cross-selling.`, true, R`They vary along the customer journey.`],
+ [R`Emotional connection can only be built through brand advertising.`, false, R`Opportunities exist across the whole experience (e.g. social media community).`],
+ [R`A condiments brand found 60% of its social-network followers were emotionally connected vs 21% of all customers.`, true, R`Insight 4 example.`]]},
+{lec:'cb-r7', area:'ai', q:R`Which statements about AI vs human recommendations are correct?`, s:[
+ [R`Algorithm aversion means consumers favour AI over human experts in emotional decisions.`, false, R`The reverse: they favour human experts in subjective or emotional decisions.`],
+ [R`For search products like electronics, AI recommendations are generally preferred.`, true, R`AI is seen as more transparent and credible for fact-based evaluations.`],
+ [R`For experience products, consumers always prefer AI.`, false, R`The preference shifts to a highly experienced human expert.`],
+ [R`Transparency leads to credibility, which raises the intention to follow a recommendation.`, true, R`The sequential effect.`],
+ [R`Credibility is the perceived ability to provide complete and reliable information.`, false, R`That is transparency; credibility = expertise + trust to be objective.`]]}
+];
+
+// open-answer part (15 points): self-written practice questions with model answers
+const CB_OPEN = [
+{lec:'cb-1', q:R`Explain why brands are increasingly interchangeable and what this means for competition.`, a:R`About 85% of products tested by Stiftung Warentest are rated "good", and 64% of German consumers perceive brands as interchangeable. Products of different brands (e.g. smartphones, coffee) look and perform almost the same. As a result consumers show less interest in product information, lower loyalty and become price-oriented. Competition therefore shifts from product competition to communication competition: brands differentiate through communication, meaning and emotional connection rather than through product features — which is why understanding consumers and creating customer insight is essential.`},
+{lec:'cb-1', q:R`Describe the three types of consumer decision making and place them on the continuum from impulsive to extensive buying decisions.`, a:R`Cognitive decisions are deliberate, rational and sequential; habitual decisions are behavioural, unconscious and automatic; affective decisions are emotional and instantaneous. Where a purchase lies depends on four dimensions: perceived product differences (low → impulsive, high → extensive), frequency of the same buying decision (high → impulsive, low → extensive), time pressure (high → impulsive, low → extensive) and involvement (low → impulsive, high → extensive). Katona orders impulsive, habitualised, limited and extensive decisions by increasing cognitive control; limited and extensive decisions are the cognitive buying decisions.`},
+{lec:'cb-1', q:R`Explain heuristics and two biases with one example each. Why should marketers know them?`, a:R`Heuristics are mental rules of thumb used in habitual decisions because we cannot run the full five-stage process (need → search → evaluation → purchase → post-purchase evaluation) for every choice. Examples: country of origin ("made in Germany" = quality), higher price = higher quality, familiar brand names, covariation (a solid door sound signals a well-built car). They are usually helpful but can cause errors. Biases: loss aversion — losing USD 10 hurts more than finding USD 10 pleases; sunk cost fallacy — staying in a bad movie because tickets were expensive; mere exposure — repeated exposure increases liking. Marketers who know them understand why consumers deviate from "rational" choice and can design offers, prices and communication accordingly.`},
+{lec:'cb-r2', q:R`Using the McKinsey report, explain how beliefs, goals and pressures shape consumer decisions, with one example each.`, a:R`Beliefs: experience is filtered through beliefs — wine tastes better from an expensive bottle; "healthy = unpalatable" lowers satisfaction, so let people taste first and show health claims less prominently. Goals: the active goal decides what consumers notice — a media company raised conversion by showing subscription offers later in the day instead of the busy morning; activating an exercise goal raises sports-drink sales. Pressures: decision fatigue and time pressure change choices — in real stores shoppers chose an iconic product quickly although a lab test without time pressure favoured cheaper competitors. Lesson: test real products with real consumers in real situations.`},
+{lec:'cb-r3', q:R`What is sensory marketing and why is it more credible than advertising? Give three examples of how the senses affect consumers.`, a:R`Sensory marketing engages the consumers’ senses and affects their perception, judgment and behaviour, using subconscious cues given off by the product itself (Hershey’s Kiss). In advertising clutter, ads may be missed and are discounted as marketer claims; when the product speaks for itself, consumers draw their own inferences, which is more credible and needs no focused attention. Examples: sound — louder crunch makes chips taste fresher; smell — scent improves memory for brand information (pine-scented pencil); touch — mere touch creates ownership and raises willingness to buy (endowment effect); perceived efficacy — Listerine’s sting signals that it works.`},
+{lec:'cb-r4', q:R`Explain why targeting retention campaigns at high-churn-risk customers can backfire, and what firms should do instead.`, a:R`A/B tests often only report the average effect, which can hide that some customers react positively and others negatively (gift to arts members helped recent visitors but hurt inactive ones). Ascarza’s field experiments with over 14,000 customers showed little correlation between churn risk and sensitivity to the intervention; targeting the high-sensitivity group with the same budget would have cut churn by an additional 5% and 8%. Firms should move from prediction to prescription: combine A/B test results with customer data to find who responds most (telecom: heavy data users), and ask "For whom is this intervention most effective?"`},
+{lec:'cb-r5', q:R`Explain with principles of consumer learning why Starbucks Rewards and the app create loyalty.`, a:R`Reinforcement: each purchase earns Stars and rewards, so buying at Starbucks is rewarded and repeated. Goals and status: visible progress towards the next level and Gold status (personalised card, more free items) keep customers collecting. Habit through convenience: prepaid app with auto-reload and Mobile Order & Pay reduce effort, so the routine sticks. Personalisation: tailored offers and suggestive selling based on purchase history. Consistency: the same drink and cup with the customer’s name in every store. Belonging and voice: My Starbucks Idea and social media make customers part of the brand. Result: 20% of U.S. payments via the app by July 2015 and over 20 million members — with the risk of over-relying on mobile shoppers.`},
+{lec:'cb-r6', q:R`Describe the emotional connection pathway and explain how a firm can use emotional motivators.`, a:R`Customers move from unconnected (−18% value vs highly satisfied) to highly satisfied (baseline) to perceiving brand differentiation (+13%) to fully connected (+52%). Moving satisfied customers to full connection can return three times as much as moving unconnected ones to satisfied. Firms should identify the emotional motivators (e.g. belonging, freedom, thrill, security) of their most valuable customers, knowing they vary by category, segment and journey stage, and act on them across all functions — the fashion retailer chose store locations near "Fashion Flourishers", introduced buy online/pick up in store (freedom) and selfie slide shows (belonging), and made emotional connection a KPI. Start: inventory and quantify motivators, analyse best customers, commit the whole firm.`},
+{lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`}
+];
+
+const CB_CHEAT = [
+{h:'Exam format', items:[
+R`Written exam 16.12.2026 · 75 points: MC 60 (24 × 2.5) + open questions 15 · plus experiment 7.5 + guest lectures 3 × 2.5 = 90`,
+R`MC: 5 statements, 1–5 can be correct · 5/5 → 2.5 · 4/5 → 1.5 · 3/5 → 1 · 2/5 → 0.5 · 1/5 → 0.25 · no minus points`,
+R`Readings and company presentations are exam-relevant · questions on the guest talks (slides may not be shared) · recap & Q&A 08.12.`]},
+{h:'LS 1 · Basics', items:[
+R`CB = process whereby individuals decide what, when, where, how and from whom to purchase goods or services`,
+R`Segmentation: income, age, lifestyle, social class, family structure, geography, gender — not enough (King Charles vs Ozzy) → learning, preferences, motivation, attitudes, perception`,
+R`Interchangeability: 85% of tested products "good" · 64% see brands as interchangeable (2022) → less interest in info, lower loyalty, price focus → product → communication competition`,
+R`Model: stimuli (emotional, cognitive, physical) → filter → cognitive (reception, perception & evaluation, learning, memory) + activating (emotion, motivation, attitude) → decision → behaviour`]},
+{h:'LS 1 · Decisions', items:[
+R`Cognitive (deliberate, rational, sequential) · habitual (behavioural, unconscious, automatic) · affective (emotional, instantaneous)`,
+R`Katona: impulsive → habitualised → limited → extensive (cognitive control ↑; Krugman: involvement ↑) · limited + extensive = cognitive buying decisions`,
+R`Extensive: high product differences, low frequency, low time pressure, high involvement`,
+R`Need recognition → information search → evaluation of alternatives → purchase → post-purchase evaluation`,
+R`Heuristics: covariation, country of origin, familiar brand names, higher prices · biases: loss aversion, mere exposure, sunk cost fallacy`]},
+{h:'Reading LS 2 · Irrational consumption', items:[
+R`Not "Pac-Man" · nudges · beliefs (wine bottle, healthy = unpalatable → experience first, health claim on side panel; concrete floor = deal) · goals (paywall offer later in the day; activate vs appeal) · pressures (decision fatigue, time pressure; iconic product) · test real products, real consumers, real situations`]},
+{h:'Reading LS 3 · Sensory marketing', items:[
+R`Engages the senses → perception, judgment, behaviour · product speaks for itself → cuts clutter · sensation (receptors) vs perception (understanding)`,
+R`Signatures (Tiffany, Louboutin, Intel, Hello Moto) · memory (smell → amygdala–hippocampus; pencil 3.67 vs 0.87) · efficacy (Listerine) · human voices · spoon/hand & touch screens · multisensory ads → taste · endowment & touch · compliance`,
+R`Managers: build on existing assets, fitting senses only, test, no mixed messages/overload · Singapore Airlines scent, lemon detergent, El Bulli, Ventoso`]},
+{h:'Reading LS 4 · A/B testing', items:[
+R`Average effect can hide positive and negative subgroups (gift: recent visitors ↑, inactive ↓) · 14,000+ customers: churn risk ≠ sensitivity → +5% / +8% churn reduction · telecom: data usage predicts sensitivity · prediction → prescription · "For whom is it most effective?"`]},
+{h:'Reading LS 5 · Starbucks', items:[
+R`Stars, Green/Gold levels, Mobile Order & Pay, personalisation, consistency (same cup & name), My Starbucks Idea, employees as ambassadors · 20% of U.S. payments via app (7/2015) · 20 M+ members · risk: over-reliance on mobile shoppers`]},
+{h:'Reading LS 6 · Customer emotions', items:[
+R`300+ emotional motivators · pathway −18% → baseline → +13% → +52% · satisfied → fully connected = 3× return · varies by category, segment, journey; across the whole experience · Fashion Flourishers (belonging, thrill, freedom) · start: inventory → best customers → firm-wide`]},
+{h:'Reading LS 7 · Humans or AI', items:[
+R`Algorithm aversion · uniqueness neglect · search products → AI, experience products → experienced human · transparency → credibility → intention to follow`]}
 ];
 
 /* ============================================================ DECISION THEORY & INVESTMENTS DATA (Prof. Raša Karapandža) ============================================================ */
@@ -8752,6 +9709,7 @@ function buildBKTut(){
 const ST_NAV = [
   {sec:'Overview', items:[{id:'st-home', label:'Statistics Home & Exam Info', icon:'home'}]},
   {sec:'Practice', items:[
+    {id:'st-tut', label:`Tutorials TUT 1–${ST_TUTS.length} (worked solutions)`, icon:'doc'},
     {id:'st-drill', label:'Random Drills (step-by-step)', icon:'logic'},
     {id:'st-calc', label:'Distribution & CI Calculator', icon:'calc'},
     {id:'st-lab', label:'Data Lab (describe a data set)', icon:'quiz'},
@@ -8838,12 +9796,14 @@ buildSearchIndex = function(){
   });
   ST_CHEAT.forEach(b=>b.items.forEach(it=>add({type:'Cheat sheet', rank:2, title:b.h, text:texPlain(it), where:'Statistics · Cheat Sheet', page:'st-cheat'})));
   ST_KINDS.forEach(k=>add({type:'Drill', rank:2, title:k.label, text:'random drill step-by-step', where:'Statistics · Random Drills', page:'st-drill', stKind:k.id}));
+  ST_TUTS.forEach(tu=>tu.tasks.forEach(k=>add({type:'Tutorial', rank:2, title:`TUT ${tu.n} · ${texPlain(k.q).slice(0,90)}`, text:texPlain(k.sol), where:`Statistics · Tutorial ${tu.n}`, page:'st-tut', stTut:tu.n})));
   ST_NAV.forEach(sec=>sec.items.forEach(it=>add({type:'Page', rank:0, title:it.label, text:sec.sec, where:`Statistics · ${sec.sec}`, page:it.id})));
   return idx;
 };
 const __searchOpenBK = searchOpen;
 searchOpen = function(e, words){
   if(e.stKind){ stDrillOpen(e.stKind); return; }
+  if(e.stTut){ stTutOpen(e.stTut); return; }
   __searchOpenBK(e, words);
 };
 buildHomeCards = function(){
@@ -8879,6 +9839,7 @@ function stTopicScore(t){
   const parts = [];
   const q = knowledgeScore(null, 0, 'quiz-'+t.id, t.quiz.length); if(q!=null) parts.push(q);
   const d = stDrillScore(t.id); if(d!=null) parts.push(d);
+  ST_TUTS.filter(tu=>tu.topic===t.id).forEach(tu=>{ const r = stTutScore(tu); if(r!=null) parts.push(r); });
   return parts.length ? parts.reduce((a,b)=>a+b,0)/parts.length : null;
 }
 const __radarAxesBK = radarAxes;
@@ -8896,6 +9857,7 @@ planItemPool = function(){
   ST_TOPICS.forEach(t=>{ const s = stTopicScore(t); items.push({subj:'st', label:`Ch. ${t.ch} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + 4*ST_KINDS.filter(k=>k.topics.includes(t.id)).length + Math.round(t.summary.split(/\s+/).length/120)}); });
   const d = stDrillScore();
   items.push({subj:'st', label:'Random Drills — mixed (exam warm-up)', page:'st-drill', weight:d==null ? .9 : 1-d, size:30});
+  ST_TUTS.forEach(tu=>{ const r = stTutScore(tu); items.push({subj:'st', label:`Tutorial ${tu.n} — ${tu.title} (solve, then compare)`, page:'st-tut', weight:r==null ? .8 : 1-r, size:tu.tasks.length}); });
   items.forEach(i=>{ i.large = false; i.prio = false; });
   const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
   const sizeCut = bySize[Math.floor(items.length/3)-1];
@@ -8971,7 +9933,7 @@ function buildSTHome(){
     const d = stDrillScore();
     div.innerHTML = `
       <div class="page-header"><div class="eyebrow">${icon('home')} Statistics</div><h2>Statistics</h2>
-        <p>8 chapters from the slides (based on Weiss, <i>Introductory Statistics</i>): from sampling and descriptive measures to probability, distributions and confidence intervals. Statistics is a calculation subject — read a chapter, then drill its task types until they are automatic.</p></div>
+        <p>Prof. Dr. Mehdi Hosseinkouchack · 8 chapters from the slides (based on Weiss, <i>Introductory Statistics</i>): from sampling and descriptive measures to probability, distributions and confidence intervals. Statistics is a calculation subject — read a chapter, then drill its task types until they are automatic.</p></div>
       <div class="page-body">
         <div class="exam-card">
           <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">Mon 14 Dec 2026 · 09:00–12:00 · ${days} days</span></div>
@@ -8992,6 +9954,7 @@ function buildSTHome(){
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="btn" onclick="navTo('st-1')">Start with chapter 1 →</button>
+            <button class="btn ghost" onclick="navTo('st-tut')">Tutorials TUT 1–${ST_TUTS.length}</button>
             <button class="btn ghost" onclick="navTo('st-drill')">Random Drills${d!=null?` · ${Math.round(d*100)}%`:''}</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
@@ -9002,6 +9965,7 @@ function buildSTHome(){
         </div>
         <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Tools</div>
         <div class="tool-tiles">
+          <div class="tool-tile" onclick="navTo('st-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials</h4><p>${ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks of the tutorial sheets 1–${ST_TUTS.length} with worked solutions, incl. the Python parts.</p></div>
           <div class="tool-tile" onclick="navTo('st-drill')"><div class="ic">${icon('logic')}</div><h4>Random Drills</h4><p>${ST_KINDS.length} task types with fresh numbers and full step-by-step solutions.</p></div>
           <div class="tool-tile" onclick="navTo('st-calc')"><div class="ic">${icon('calc')}</div><h4>Distribution & CI Calculator</h4><p>Normal, binomial, Poisson, x̄, confidence intervals, sample size — with the steps.</p></div>
           <div class="tool-tile" onclick="navTo('st-lab')"><div class="ic">${icon('quiz')}</div><h4>Data Lab</h4><p>Paste a data set: mean, s, quartiles, outliers, boxplot, stem-and-leaf.</p></div>
@@ -9463,6 +10427,56 @@ function buildSTTables(){
     div.querySelector('.st-tz').addEventListener('input', hz);
     div.querySelector('.st-tdf').addEventListener('input', ht); div.querySelector('.st-ta').addEventListener('change', ht);
     hz(); ht();
+  });
+}
+
+/* ============================================================ TUTORIALS (sheets without solutions → self-written) ============================================================ */
+function stTutState(){ return ls('st-tut-state', {}); }
+function stTutScore(tu){ const st = stTutState(); const v = tu.tasks.map(k=>st[tu.n+'-'+k.id]).filter(x=>x!=null); return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null; }
+// bkRich (already renders $…$ math through richHtml) + ```code``` blocks
+function stRich(src){
+  const code = [];
+  const s = String(src).replace(/\\`/g, '`').replace(/```\n?([\s\S]*?)```/g, (m, c)=>{ code.push(`<pre class="st-code"><code>${esc(c.replace(/\n$/,''))}</code></pre>`); return `\n\u000e${code.length-1}\u000f\n`; });
+  return bkRich(s).replace(/<p>\s*\u000e(\d+)\u000f\s*<\/p>/g, (m,k)=>code[+k]).replace(/\u000e(\d+)\u000f/g, (m,k)=>code[+k]);
+}
+let stTutSel = null;
+function stTutOpen(n){ stTutSel = n; navTo('st-tut'); const pg = document.getElementById('page-st-tut'); if(pg && pg.__show) pg.__show(n); }
+function buildSTTut(){
+  registerPage('st-tut', (div)=>{
+    const nTasks = ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0);
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · tutorial sheets</div><h2>Tutorials TUT 1–${ST_TUTS.length}</h2><p>All ${nTasks} tasks of the tutorial sheets, including the Python parts. The sheets come without solutions, so the solutions here are self-written with the lecture’s methods. Write your answer first, then reveal and rate yourself — the rating counts for the radar and the study plan. Problems on the sheet itself are flagged in orange.</p></div>
+      <div class="page-body">
+        <div class="chip-row bk-filter st-tut-chips"></div>
+        <div class="st-tut-body"></div>
+      </div>`;
+    const chips = div.querySelector('.st-tut-chips'), body = div.querySelector('.st-tut-body');
+    const drawChips = ()=>{ chips.innerHTML = ST_TUTS.map(tu=>{ const p = stTutScore(tu); return `<button class="chip${tu.n===stTutSel?' active':''}" data-n="${tu.n}">TUT ${tu.n}${p!=null?` · ${Math.round(p*100)}%`:''}</button>`; }).join(''); };
+    const rateRow = key=>{ const v = stTutState()[key]; return `<div class="bk-rate"><span>How did you do?</span>${[[1,'Got it'],[.5,'Partly'],[0,'Not yet']].map(([val,l])=>`<button class="chip${v===val?' active':''}" data-rate="${val}">${l}</button>`).join('')}</div>`; };
+    const show = n=>{
+      stTutSel = n || stTutSel || ls('st-tut-sel', 1); lsSet('st-tut-sel', stTutSel);
+      const tu = ST_TUTS.find(x=>x.n===stTutSel) || ST_TUTS[0];
+      const t = ST_TOPICS.find(x=>x.id===tu.topic);
+      const answers = ls('st-tut-ans', {});
+      drawChips();
+      body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
+        <div class="bk-tut-intro glass">${stRich(tu.intro)}</div>
+        ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
+          <div class="bk-tut-q">${stRich(k.q)}</div>
+          <textarea class="bk-tut-ans" rows="3" placeholder="Your answer (saved on this device)">${esc(answers[key]||'')}</textarea>
+          <div class="ans-actions"><button class="btn" data-a="sol">Show solution</button></div>
+          <div class="bk-tut-sol" hidden>${stRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note:</b> ${mathText(k.warn)}</div>`:''}${rateRow(key)}</div>
+        </div>`; }).join('')}`;
+    };
+    body.addEventListener('input', ev=>{ const ta = ev.target.closest('.bk-tut-ans'); if(!ta) return; const a = ls('st-tut-ans', {}); a[ta.closest('.bk-tut-task').dataset.key] = ta.value; lsSet('st-tut-ans', a); });
+    body.addEventListener('click', ev=>{
+      const task = ev.target.closest('.bk-tut-task'); if(!task) return;
+      const b = ev.target.closest('[data-a],[data-rate]'); if(!b) return;
+      if(b.dataset.a==='sol'){ const sol = task.querySelector('.bk-tut-sol'); sol.hidden = !sol.hidden; b.textContent = sol.hidden ? 'Show solution' : 'Hide solution'; }
+      if(b.dataset.rate!=null){ const st = stTutState(); st[task.dataset.key] = +b.dataset.rate; lsSet('st-tut-state', st); task.querySelectorAll('[data-rate]').forEach(c=>c.classList.toggle('active', c===b)); drawChips(); }
+    });
+    chips.addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; show(+c.dataset.n); window.scrollTo({top:0, behavior:'smooth'}); });
+    div.__show = show;
+    show(stTutSel);
   });
 }
 
@@ -11192,6 +12206,364 @@ renderRadar = function(div){
   if(div.dataset.radarSubj==='dt'){ const reco = div.querySelector('.radar-reco'); if(reco) reco.innerHTML = reco.innerHTML.replace(/Rate flashcards and finish quizzes|Finish the lecture quizzes and the Exam-Format Trainer/, 'Check past-exam tasks and do the Task Drills'); }
 };
 
+/* ============================================================ FUNDAMENTALS OF CONSUMER BEHAVIOR (seventh subject) ============================================================ */
+// Loaded after app_dt.js. Same exam format as Marketing (Krause and Henkel share the slot and the MC rules), so the pages mirror app_mk.js:
+// home, one page per lecture and per assigned reading, Exam-Format Trainer (5 statements, partial points), Open Questions, Cheat Sheet.
+const CB_NAV = [
+  {sec:'Overview', items:[{id:'cb-home', label:'Consumer Behaviour Home & Exam Info', icon:'home'}]},
+  {sec:'Practice', items:[
+    {id:'cb-mc', label:'Exam-Format Trainer (5 statements)', icon:'quiz'},
+    {id:'cb-open', label:'Open Questions (model answers)', icon:'logic'},
+    {id:'cb-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
+  ]}
+];
+const CB_POINTS = [0, 0.25, 0.5, 1, 1.5, 2.5]; // points for 0…5 correctly judged statements
+function cbDaysLeft(){ return Math.max(0, Math.ceil((PLAN_EXAM_CB - new Date().setHours(0,0,0,0))/86400000)); }
+function cbLabel(t){ return t.kind==='read' ? `Reading LS ${t.ch}` : `Lecture ${t.ch}`; }
+function cbShort(t){ return t.kind==='read' ? `R${t.ch}` : `L${t.ch}`; }
+
+/* ---------- sidebar / search / home ---------- */
+const __buildSidebarNavDT = buildSidebarNav;
+buildSidebarNav = function(subjId){
+  if(subjId!=='cb') return __buildSidebarNavDT(subjId);
+  const nav = document.getElementById('sidebar-nav');
+  let html = '';
+  CB_NAV.forEach(section=>{
+    html += `<div class="nav-section-label">${section.sec}</div>`;
+    section.items.forEach(it=>{ html += `<div class="nav-item" data-page="${it.id}" onclick="navTo('${it.id}')">${icon(it.icon)}<span>${esc(it.label)}</span></div>`; });
+  });
+  [['lec','Lectures'],['read','Readings (exam-relevant)']].forEach(([kind, sec])=>{
+    html += `<div class="nav-section-label">${sec}</div>`;
+    CB_TOPICS.filter(t=>t.kind===kind).forEach(t=>{ html += `<div class="nav-item" data-page="${t.id}" onclick="navTo('${t.id}')">${icon(kind==='read'?'doc':'summary')}<span>${cbShort(t)}. ${esc(t.title)}</span></div>`; });
+  });
+  nav.innerHTML = html;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.page===location.hash.replace('#','')));
+};
+const __buildSearchIndexDT = buildSearchIndex;
+buildSearchIndex = function(){
+  const idx = __buildSearchIndexDT();
+  const add = (e)=>{ e.norm = searchNorm(e.title+' '+e.text); idx.push(e); };
+  CB_TOPICS.forEach(t=>{
+    const where = `Consumer Behaviour · ${cbLabel(t)}`;
+    add({type:'Topic', rank:0, title:t.title, text:t.source||'', where, page:t.id, tab:'sum'});
+    t.summary.trim().split(/\n\n+/).forEach(p=>add({type:'Summary', rank:1, title:t.title, text:searchFlat(p), where, page:t.id, tab:'sum'}));
+    t.cards.forEach(c=>add({type:'Flashcard', rank:3, title:c.q, text:c.a, where:`${where} · ${t.title}`, page:t.id, tab:'fc'}));
+    t.quiz.forEach(q=>add({type:'Quiz', rank:4, title:q.q, text:q.exp||'', where:`${where} · ${t.title}`, page:t.id, tab:'qz'}));
+  });
+  CB_MC.forEach(m=>add({type:'Exam format', rank:2, title:m.q, text:m.s.map(x=>x[0]).join(' '), where:'Consumer Behaviour · Exam-Format Trainer', page:'cb-mc'}));
+  CB_OPEN.forEach(o=>add({type:'Open question', rank:2, title:o.q, text:o.a, where:'Consumer Behaviour · Open Questions', page:'cb-open'}));
+  CB_CHEAT.forEach(b=>b.items.forEach(it=>add({type:'Cheat sheet', rank:2, title:b.h, text:it, where:'Consumer Behaviour · Cheat Sheet', page:'cb-cheat'})));
+  CB_NAV.forEach(sec=>sec.items.forEach(it=>add({type:'Page', rank:0, title:it.label, text:sec.sec, where:`Consumer Behaviour · ${sec.sec}`, page:it.id})));
+  return idx;
+};
+const __buildHomeCardsDT = buildHomeCards;
+buildHomeCards = function(){
+  __buildHomeCardsDT();
+  const wrap = document.getElementById('home-cards');
+  const s = SUBJECTS.find(x=>x.id==='cb');
+  const nQ = CB_TOPICS.reduce((n,t)=>n+t.quiz.length, 0);
+  const nL = CB_TOPICS.filter(t=>t.kind==='lec').length, nR = CB_TOPICS.filter(t=>t.kind==='read').length;
+  const html = `<div class="subj-card" onclick="selectSubject('cb',true)">
+      <div class="banner" style="background:var(--tile-banner)">${homeIcon('mkt')}</div>
+      <div class="body"><span class="tag" style="background:var(--bg2);color:var(--ink-soft)">CONSUMER BEHAVIOUR</span><h3>${s.label}</h3><p>${s.short}</p>
+        <div class="stats"><span>${nL} of 8 lectures · ${nR} readings · ${nQ} quiz questions</span><span>${CB_MC.length} exam-format questions</span><span>${cbDaysLeft()} days to 16 Dec</span></div></div></div>`;
+  const ph = [...wrap.querySelectorAll('.subj-card.soon')].find(c=>{ const tag = c.querySelector('.tag'); return tag && tag.textContent==='CONSUMER BEHAVIOUR'; });
+  if(ph) ph.outerHTML = html; else wrap.insertAdjacentHTML('beforeend', html);
+};
+
+/* ---------- scores: lecture/reading quiz + exam-format trainer (flashcards optional, not counted) ---------- */
+const __fcMasteryLectureDT = fcMasteryLecture;
+fcMasteryLecture = function(subjId){
+  if(subjId!=='cb') return __fcMasteryLectureDT(subjId);
+  let gotit=0, partial=0, dontknow=0, total=0;
+  CB_TOPICS.forEach(t=>{ Object.values(ls('fc-'+t.id, {})).forEach(v=>{ if(v==='gotit') gotit++; else if(v==='partial') partial++; else if(v==='dontknow') dontknow++; }); total += t.cards.length; });
+  return { gotit, partial, dontknow: dontknow+(total-gotit-partial-dontknow), total, pct: total? Math.round(gotit/total*100) : 0 };
+};
+// latest result per exam-format question = points/2.5, keyed by question text so it survives reordering
+function cbMcState(){ return ls('cb-mc-state', {}); }
+function cbMcScore(filter){
+  const st = cbMcState();
+  const vals = CB_MC.filter(m=>!filter || filter(m)).map(m=>st[m.q]).filter(v=>v!=null);
+  return vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+}
+function cbQuizScore(t){ return knowledgeScore(null, 0, 'quiz-'+t.id, t.quiz.length); }
+function cbQuizArea(area){
+  const st = ls('cb-quiz-area', {}); const v = st[area];
+  return v && v.n ? v.ok/v.n : null;
+}
+function cbAreaScore(a){
+  const parts = [cbMcScore(m=>m.area===a.id), cbQuizArea(a.id)].filter(v=>v!=null);
+  return parts.length ? parts.reduce((x,y)=>x+y,0)/parts.length : null;
+}
+function cbTopicScore(t){
+  const parts = [cbQuizScore(t), cbMcScore(m=>m.lec===t.id)].filter(v=>v!=null);
+  return parts.length ? parts.reduce((a,b)=>a+b,0)/parts.length : null;
+}
+const __radarAxesDT = radarAxes;
+radarAxes = function(mode){
+  if(mode==='cb') return CB_AREAS.map(a=>{ const t = CB_TOPICS.find(x=>x.id===a.lec); return {label:`${cbShort(t)} · ${a.label}`, page:a.lec, score:cbAreaScore(a)}; });
+  return __radarAxesDT(mode);
+};
+
+/* ---------- study plan ---------- */
+const __planDaysLeftDT = planDaysLeft;
+planDaysLeft = function(subj){ if(subj==='cb') return Math.max(1, Math.ceil((PLAN_EXAM_CB - planStart())/86400000)); return __planDaysLeftDT(subj); };
+const __planItemPoolDT = planItemPool;
+planItemPool = function(){
+  const items = __planItemPoolDT();
+  CB_TOPICS.forEach(t=>{ const s = cbTopicScore(t); items.push({subj:'cb', label:`${cbShort(t)} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + CB_MC.filter(m=>m.lec===t.id).length + Math.round(t.summary.split(/\s+/).length/120)}); });
+  const m = cbMcScore();
+  items.push({subj:'cb', label:'Exam-Format Trainer — all questions (5 statements each)', page:'cb-mc', weight:m==null ? .9 : 1-m, size:CB_MC.length});
+  items.push({subj:'cb', label:'Open Questions — answer on paper, compare', page:'cb-open', weight:.7, size:CB_OPEN.length});
+  items.forEach(i=>{ i.large = false; i.prio = false; });
+  const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
+  const sizeCut = bySize[Math.floor(items.length/3)-1];
+  items.forEach(i=>{ i.large = i.size>=sizeCut; });
+  items.slice().sort((a,b)=> b.weight-a.weight || b.size-a.size).slice(0, Math.ceil(items.length/3)).forEach(i=>{ if(i.weight>=.4) i.prio = true; });
+  return items;
+};
+const __planScheduleDT = planSchedule;
+planSchedule = function(item, idx){
+  if(item.page==='cb-mc'){ const h = planDaysLeft('cb'); return Array.from(new Set([Math.max(1,h-18), Math.max(1,h-7), Math.max(1,h-2)])); }
+  if(item.page==='cb-open'){ const h = planDaysLeft('cb'); return Array.from(new Set([Math.max(1,h-10), Math.max(1,h-3)])); }
+  return __planScheduleDT(item, idx);
+};
+const __buildStudyPlanDT = buildStudyPlan;
+buildStudyPlan = function(){
+  __buildStudyPlanDT();
+  const build = lazyPages['plan'];
+  if(build) lazyPages['plan'] = ()=>{ build(); cbPatchPlanPage(document.getElementById('page-plan')); };
+};
+function cbPatchPlanPage(div){
+  if(div.__cbPatched) return; div.__cbPatched = true;
+  const eb = div.querySelector('.page-header .eyebrow'); if(eb) eb.textContent = 'S2/2 · Math II, Statistics, Marketing, Consumer Behaviour, Decision Theory, Bookkeeping & FSA';
+  const p = div.querySelector('.page-header p'); if(p) p.textContent = 'See where you are weak, then follow a day-by-day plan up to your exams: Math II and Statistics on 14 December (Quantitative Analytics II), Marketing and Consumer Behaviour on 16 December, Decision Theory & Investments on 18 December, Bookkeeping and Financial Statement Analysis on 21 December. Weak chapters and task types show up more often; mock exams, past exams and mixed drills sit near the end.';
+  const tabs = div.querySelector('.radar-tabs');
+  if(tabs){ const mk = tabs.querySelector('[data-subj="mk"]'); const b = '<button class="tabbtn" data-subj="cb">Consumer Behaviour</button>'; if(mk) mk.insertAdjacentHTML('afterend', b); else tabs.insertAdjacentHTML('beforeend', b); }
+  const mkLab = div.querySelector('.plan-exam-val[data-subj="mk"]');
+  const lab = `<label>Fundamentals of Consumer Behaviour — exam date <span class="plan-exam-val" data-subj="cb"></span></label>`;
+  if(mkLab) mkLab.parentElement.insertAdjacentHTML('afterend', lab);
+  renderPlanDays(div);
+}
+const __renderPlanDaysDT = renderPlanDays;
+renderPlanDays = function(div){
+  __renderPlanDaysDT(div);
+  const fmt = {day:'numeric', month:'short', year:'numeric'};
+  div.querySelectorAll('.plan-exam-val[data-subj="cb"]').forEach(el=>{ el.textContent = `${PLAN_EXAM_CB.toLocaleDateString('en-GB', fmt)} · ${planDaysLeft('cb')}d`; });
+  div.querySelectorAll('.plan-subj-tag').forEach(el=>{ if(el.textContent==='CB') el.textContent = 'CONSUMER BEHAVIOUR'; });
+};
+const __renderRadarDT = renderRadar;
+renderRadar = function(div){
+  __renderRadarDT(div);
+  if(div.dataset.radarSubj==='cb'){ const reco = div.querySelector('.radar-reco'); if(reco) reco.innerHTML = reco.innerHTML.replace(/Rate flashcards and finish quizzes/, 'Finish the lecture and reading quizzes and the Exam-Format Trainer'); }
+};
+
+/* ---------- lecture and reading pages (quiz first, flashcards optional) ---------- */
+function cbTrackQuiz(panel, t){
+  panel.addEventListener('click', ev=>{
+    const o = ev.target.closest('.quiz-option'); if(!o || o.classList.contains('disabled')) return;
+    const title = panel.querySelector('.qtitle'); if(!title) return;
+    const q = t.quiz.find(x=>x.q===title.textContent); if(!q || !q.area) return;
+    const ok = o.querySelector('span:last-child').textContent===q.opts[q.correct];
+    const st = ls('cb-quiz-area', {}); st[q.area] = st[q.area] || {ok:0, n:0}; st[q.area].n++; if(ok) st[q.area].ok++; lsSet('cb-quiz-area', st);
+  }, true);
+}
+const __buildTopicPageDT = buildTopicPage;
+buildTopicPage = function(t){
+  if(!t.id.startsWith('cb-')) return __buildTopicPageDT(t);
+  registerPage(t.id, (div)=>{
+    const nMc = CB_MC.filter(m=>m.lec===t.id).length, nOpen = CB_OPEN.filter(o=>o.lec===t.id).length;
+    div.innerHTML = `
+      <div class="page-header"><div class="eyebrow">${icon(t.kind==='read'?'doc':'summary')} Consumer Behaviour · ${cbLabel(t)} · ${esc(t.date)}</div><h2>${esc(t.title)}</h2>${t.source?`<p class="cb-source">${esc(t.source)}</p>`:''}<p>${esc(t.examWeight)}</p></div>
+      <div class="page-body">
+        <div class="chip-row"><span class="chip-label">Practise it:</span>${nMc?`<button class="chip" onclick="cbMcOpen('${t.id}')">${nMc} exam-format questions</button>`:''}${nOpen?`<button class="chip" onclick="navTo('cb-open')">${nOpen} open questions</button>`:''}</div>
+        <div class="tabbar"><button class="tabbtn active" data-tab="sum">Summary</button><button class="tabbtn" data-tab="qz">Quiz</button><button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button></div>
+        <div class="tabpanel active" id="${t.id}-sum"></div><div class="tabpanel" id="${t.id}-qz"></div><div class="tabpanel" id="${t.id}-fc"></div>
+      </div>`;
+    div.querySelectorAll('.tabbtn').forEach(btn=>{
+      btn.onclick = ()=>{
+        div.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+        div.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = div.querySelector(`#${t.id}-${btn.dataset.tab}`); panel.classList.add('active');
+        if(btn.dataset.tab==='fc' && !panel.dataset.loaded){ panel.dataset.loaded='1'; renderFlashcards(panel, t.cards, 'fc-'+t.id); }
+        if(btn.dataset.tab==='qz' && !panel.dataset.loaded){ panel.dataset.loaded='1'; cbTrackQuiz(panel, t); renderQuiz(panel, shuffledQuiz(t), 'quiz-'+t.id); }
+      };
+    });
+    renderSummary(div.querySelector(`#${t.id}-sum`), t.title, t.summary, t.id);
+  });
+};
+
+/* ---------- Consumer Behaviour home ---------- */
+function buildCBHome(){
+  registerPage('cb-home', (div)=>{
+    const m = cbMcScore();
+    const card = t=>{ const s = cbTopicScore(t); const n = CB_MC.filter(x=>x.lec===t.id).length; return `<div class="topic-card" onclick="navTo('${t.id}')"><div class="num">${cbLabel(t).toUpperCase()} · ${esc(t.date)}</div><h4>${esc(t.title)}</h4><p>${t.quiz.length} quiz questions · ${n} exam-format${s!=null?` · ${Math.round(s*100)}%`:''}</p></div>`; };
+    div.innerHTML = `
+      <div class="page-header"><div class="eyebrow">${icon('home')} Fundamentals of Consumer Behavior</div><h2>Fundamentals of Consumer Behaviour</h2>
+        <p>Prof. Dr. Franziska Krause, Marketing & Customer Insight · Fall Term 2026 · ${CB_TOPICS.filter(t=>t.kind==='lec').length} of 8 lectures so far, all ${CB_TOPICS.filter(t=>t.kind==='read').length} assigned readings. Read a lecture or reading, do its quiz, then train the real exam format: five statements per question, any of them can be true.</p></div>
+      <div class="page-body">
+        <div class="exam-card">
+          <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">Wed 16 Dec 2026 · 13:30–16:00 · ${cbDaysLeft()} days</span></div>
+          <div class="exam-grid">
+            <div class="exam-col">
+              <div class="exam-label">90 points in total · written exam 75</div>
+              <ul class="exam-facts">
+                <li><b>Part 1 — Multiple choice: 60 points.</b> 24 questions with 5 statements each, 2.5 points per question; 1, 2, 3, 4 or all 5 can be correct.</li>
+                <li><b>Scoring per question:</b> 5/5 statements right → 2.5 · 4/5 → 1.5 · 3/5 → 1 · 2/5 → 0.5 · 1/5 → 0.25 · 0/5 → 0. No minus points.</li>
+                <li><b>Part 2 — Open questions: 15 points.</b></li>
+                <li><b>Relevant:</b> the readings and company presentations are included in the exam, and there will be questions on the guest talks (their slides might not be shared — take notes).</li>
+                <li><b>Shared slot</b> with Basic Principles of Marketing · recap & Q&A on 8 Dec.</li>
+              </ul>
+            </div>
+            <div class="exam-col">
+              <div class="exam-label">Part 3 — 15 points outside the exam (no partial credit)</div>
+              <ul class="exam-facts">
+                <li><b>Experiment, 7.5 points — both parts needed:</b> part I on campus (Burg, Room Bangalore), one booked slot 21–23 Oct, about 1.5 h, student ID, come 5–10 min early. Part II online, 30 min, any time 2–15 Nov (link on Canvas on 1 Nov; laptop, quiet place, you will listen and talk). One sign-up counts for both courses.</li>
+                <li><b>Guest lectures, 3 × 2.5 points:</b> attend in person in the Schloss Forum and scan the QR code shown at a random moment (student ID number ready) — 10 Nov Florian Knieß (Aybee), 17 Nov OC&C, 23 Nov Dr. Philip Bradonjic (Oracle).</li>
+                <li><b>Literature:</b> most chapters from Michael R. Solomon, <i>Consumer Behavior: Buying, Having, and Being</i> (12th edition). Readings have to be prepared before each session.</li>
+                <li><b>Admin questions:</b> TA Julia Schulze Boelling — always with the Marketing TA in CC. Experiment part II: Franziska Föller.</li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+            <button class="btn" onclick="navTo('cb-1')">Start with lecture 1 →</button>
+            <button class="btn ghost" onclick="navTo('cb-mc')">Exam-Format Trainer${m!=null?` · ${Math.round(m*100)}%`:''}</button>
+            <button class="btn ghost" onclick="navTo('cb-open')">Open Questions</button>
+            <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
+          </div>
+        </div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Lectures</div>
+        <div class="topic-grid">${CB_TOPICS.filter(t=>t.kind==='lec').map(card).join('')}</div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Readings — prepare before the session, exam-relevant</div>
+        <div class="topic-grid">${CB_TOPICS.filter(t=>t.kind==='read').map(card).join('')}</div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Tools</div>
+        <div class="tool-tiles">
+          <div class="tool-tile" onclick="navTo('cb-mc')"><div class="ic">${icon('quiz')}</div><h4>Exam-Format Trainer</h4><p>${CB_MC.length} questions in Krause’s format: tick every true statement, get the exam’s partial points.</p></div>
+          <div class="tool-tile" onclick="navTo('cb-open')"><div class="ic">${icon('logic')}</div><h4>Open Questions</h4><p>${CB_OPEN.length} practice questions for the 15-point part, with model answers.</p></div>
+          <div class="tool-tile" onclick="navTo('cb-cheat')"><div class="ic">${icon('cheat')}</div><h4>Cheat Sheet</h4><p>Definitions, models and the key facts of every reading on one printable page.</p></div>
+        </div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Session overview</div>
+        <ul class="exam-facts mk-sessions">
+          ${CB_SESSIONS.map(s=>{ const go = s.topic || s.reading; return `<li${go?` onclick="navTo('${go}')" style="cursor:pointer"`:''}><b>${s.n}. ${esc(s.date)}</b> — ${esc(s.title)}${s.topic?' · <span class="mk-in">in the hub</span>':s.reading?' · <span class="mk-in">reading in the hub</span>':''}</li>`; }).join('')}
+        </ul>
+      </div>`;
+  });
+}
+function buildCBCheat(){
+  registerPage('cb-cheat', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('cheat')} Reference</div><h2>Consumer Behaviour Cheat Sheet</h2><p>Exam format, definitions, models and the key facts of every reading in short form. Your highlights are printed too.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn" onclick="printCheat()">Print / save as PDF (A4)</button></div></div>
+      <div class="page-body"><div id="cb-cheat-body" class="cheat-print"></div></div>`;
+    renderCheat(div.querySelector('#cb-cheat-body'), CB_CHEAT, '', 'cb-cheat');
+  });
+}
+
+/* ============================================================ EXAM-FORMAT TRAINER ============================================================ */
+let cbMcFilter = 'all';
+function cbMcOpen(f){ cbMcFilter = f; navTo('cb-mc'); const pg = document.getElementById('page-cb-mc'); if(pg && pg.__start) pg.__start(); }
+function buildCBMc(){
+  registerPage('cb-mc', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('quiz')} Practice</div><h2>Exam-Format Trainer</h2><p>Exactly like the MC part: five statements per question, 1 to 5 of them are true. Tick every statement you think is true, leave the others empty, then submit. Points as in the exam (5/5 → 2.5 · 4/5 → 1.5 · 3/5 → 1 · 2/5 → 0.5 · 1/5 → 0.25). Self-written in the format from the admin slides — not Prof. Krause’s questions.</p></div>
+      <div class="page-body">
+        <div class="chip-row mk-filter"><button class="chip" data-f="all">All (${CB_MC.length})</button><button class="chip" data-f="wrong">Not yet full points</button>${CB_TOPICS.filter(t=>CB_MC.some(m=>m.lec===t.id)).map(t=>`<button class="chip" data-f="${t.id}">${cbShort(t)} ${esc(t.title)}</button>`).join('')}</div>
+        <div class="bk-score-row"><span class="bk-live"></span><span class="bk-best"></span><button class="btn ghost bk-reset">Reset run</button></div>
+        <div class="drill-card glass mk-card"></div>
+      </div>`;
+    const card = div.querySelector('.mk-card');
+    let run = [], i = 0, pts = 0, done = 0, answered = false;
+    const pool = ()=>{
+      const st = cbMcState();
+      if(cbMcFilter==='wrong') return CB_MC.filter(m=>st[m.q]!=null && st[m.q]<1);
+      return CB_MC.filter(m=>cbMcFilter==='all' || m.lec===cbMcFilter);
+    };
+    const fmt = v=>String(v).replace(/\.0$/,'');
+    const score = ()=>{
+      div.querySelector('.bk-live').textContent = `This run: ${fmt(pts)} / ${fmt(done*2.5)} points${run.length?` · question ${Math.min(i+1, run.length)} of ${run.length}`:''}`;
+      const all = cbMcScore(); const n = Object.keys(cbMcState()).length;
+      div.querySelector('.bk-best').textContent = all!=null ? `Overall: ${Math.round(all*100)}% of the points on ${n} tried questions (latest attempt)` : 'No attempts yet';
+    };
+    const start = ()=>{
+      div.querySelectorAll('.mk-filter .chip').forEach(c=>c.classList.toggle('active', c.dataset.f===cbMcFilter));
+      run = shuffle(pool()).map(m=>({...m, s:shuffle(m.s.slice())}));
+      i = 0; pts = 0; done = 0; show();
+    };
+    const show = ()=>{
+      answered = false; score();
+      if(!run.length){ card.innerHTML = `<p>${cbMcFilter==='wrong' ? 'Every tried question has full points — well done.' : 'No questions here.'}</p>`; return; }
+      if(i>=run.length){
+        const pct = Math.round(pts/(run.length*2.5)*100);
+        card.innerHTML = `<h3 style="margin:0 0 6px">Run finished: ${fmt(pts)} / ${fmt(run.length*2.5)} points (${pct}%)</h3><p>${pct<100?'Repeat the questions without full points or start a new shuffled run.':'Full points on every question.'}</p><div class="ans-actions"><button class="btn" data-a="again">New shuffled run</button>${pct<100?'<button class="btn ghost" data-a="wrong">Repeat questions without full points</button>':''}</div>`;
+        return;
+      }
+      const m = run[i]; const t = CB_TOPICS.find(x=>x.id===m.lec);
+      card.innerHTML = `<div class="qtag">${cbLabel(t)} · ${esc(CB_AREAS.find(a=>a.id===m.area).label)} · self-written, exam format</div>
+        <div class="qtitle mk-q">${esc(m.q)}</div>
+        <div class="mk-stmts">${m.s.map((x,k)=>`<label class="mk-st" data-k="${k}"><input type="checkbox"><span class="letter">${String.fromCharCode(65+k)}</span><span class="mk-st-text">${esc(x[0])}<span class="mk-why"></span></span></label>`).join('')}</div>
+        <div class="ans-feedback"></div>
+        <div class="ans-actions"><button class="btn" data-a="submit">Submit</button><button class="btn ghost" data-a="next" style="display:none">Next →</button></div>`;
+    };
+    const submit = ()=>{
+      if(answered) return; answered = true;
+      const m = run[i]; let right = 0;
+      card.querySelectorAll('.mk-st').forEach(el=>{
+        const x = m.s[+el.dataset.k]; const ticked = el.querySelector('input').checked; const ok = ticked===x[1];
+        if(ok) right++;
+        el.classList.add(ok?'ok':'bad', x[1]?'is-true':'is-false');
+        el.querySelector('input').disabled = true;
+        el.querySelector('.mk-why').innerHTML = `<b>${x[1]?'True':'False'}.</b> ${esc(x[2])}`;
+      });
+      const p = CB_POINTS[right]; pts += p; done++;
+      const st = cbMcState(); st[m.q] = p/2.5; lsSet('cb-mc-state', st);
+      const fb = card.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(right===5?'good':'warn');
+      fb.innerHTML = `<b>${right}/5 statements judged correctly → ${fmt(p)} of 2.5 points.</b> ${m.s.filter(x=>x[1]).length} of the 5 statements were true.`;
+      card.querySelector('[data-a="submit"]').style.display = 'none';
+      card.querySelector('[data-a="next"]').style.display = '';
+      score();
+    };
+    card.addEventListener('click', ev=>{
+      const b = ev.target.closest('[data-a]'); if(!b) return;
+      if(b.dataset.a==='submit') submit();
+      if(b.dataset.a==='next'){ i++; show(); }
+      if(b.dataset.a==='again'){ cbMcFilter = cbMcFilter==='wrong' ? 'all' : cbMcFilter; start(); }
+      if(b.dataset.a==='wrong'){ cbMcFilter = 'wrong'; start(); }
+    });
+    div.querySelector('.mk-filter').addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; cbMcFilter = c.dataset.f; start(); });
+    div.querySelector('.bk-reset').addEventListener('click', start);
+    div.__start = start;
+    start();
+  });
+}
+
+/* ============================================================ OPEN QUESTIONS ============================================================ */
+function buildCBOpen(){
+  registerPage('cb-open', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('logic')} Practice</div><h2>Open Questions</h2><p>For the 15-point open part. Answer on paper first, then reveal the model answer and rate yourself. Self-written practice questions — the model answers use only content from the lectures and readings.</p></div>
+      <div class="page-body"><div class="bk-score-row"><span class="bk-live cb-open-live"></span><button class="btn ghost cb-open-reset">Reset ratings</button></div><div class="cb-open-list"></div></div>`;
+    const list = div.querySelector('.cb-open-list');
+    const render = ()=>{
+      const st = ls('cb-open-state', {});
+      const rated = CB_OPEN.filter(o=>st[o.q]).length, good = CB_OPEN.filter(o=>st[o.q]==='good').length;
+      div.querySelector('.cb-open-live').textContent = `${good} of ${CB_OPEN.length} answered well · ${rated} rated`;
+      list.innerHTML = CB_TOPICS.map(t=>{
+        const qs = CB_OPEN.filter(o=>o.lec===t.id); if(!qs.length) return '';
+        return `<div class="nav-section-label" style="padding-left:0">${cbLabel(t)} · ${esc(t.title)}</div>` + qs.map(o=>{ const k = CB_OPEN.indexOf(o); const r = st[o.q];
+          return `<div class="drill-card glass mk-open" data-k="${k}"><div class="qtitle">${esc(o.q)}</div>
+            <div class="ans-actions"><button class="btn ghost" data-o="show">Show model answer</button>${r?`<span class="mk-rated">Your rating: ${{good:'✓ got it', part:'~ partly', bad:'✗ missed'}[r]}</span>`:''}</div>
+            <div class="mk-model" style="display:none"><p>${esc(o.a)}</p><div class="ans-actions"><button class="chip" data-r="good">✓ got it</button><button class="chip" data-r="part">~ partly</button><button class="chip" data-r="bad">✗ missed</button></div></div></div>`; }).join('');
+      }).join('');
+    };
+    list.addEventListener('click', ev=>{
+      const box = ev.target.closest('.mk-open'); if(!box) return;
+      if(ev.target.closest('[data-o="show"]')){ box.querySelector('.mk-model').style.display = ''; return; }
+      const r = ev.target.closest('[data-r]'); if(!r) return;
+      const st = ls('cb-open-state', {}); st[CB_OPEN[+box.dataset.k].q] = r.dataset.r; lsSet('cb-open-state', st); render();
+    });
+    div.querySelector('.cb-open-reset').addEventListener('click', ()=>{ lsSet('cb-open-state', {}); render(); });
+    render();
+  });
+}
+
 
 
 /* ============================================================ INIT ============================================================ */
@@ -11200,10 +12572,11 @@ M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
 buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
 buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer(); buildBKTut();
-buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat();
+buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildDTHome(); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
+buildCBHome(); CB_TOPICS.forEach(t=>buildTopicPage(t)); buildCBMc(); buildCBOpen(); buildCBCheat();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();
@@ -11218,7 +12591,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261021123515';
+const HUB_BUILD = '20261021193427';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{

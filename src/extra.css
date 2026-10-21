@@ -310,3 +310,13 @@
 .dt-notes summary::-webkit-details-marker{display:none;}
 .dt-notes summary::after{content:' ▾';color:var(--ink-faint);}
 .dt-notes[open] summary::after{content:' ▴';}
+/* statistics tutorials: python code */
+.st-code{margin:8px 0;padding:10px 12px;border-radius:10px;background:var(--bg2);border:1px solid var(--line);overflow-x:auto;font-size:.8rem;line-height:1.5;}
+.st-code code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;}
+/* consumer behaviour: reading source line, printable cheat sheet */
+.cb-source{font-size:.85rem;color:var(--ink-soft);margin:2px 0 6px;font-style:italic;}
+@media print{
+  body.print-cheat #page-cb-cheat,body.print-cheat #page-cb-cheat .cheat-print,body.print-cheat #page-cb-cheat .cheat-print *{visibility:visible;}
+  body.print-cheat #page-cb-cheat .page-header{display:none;}
+  body.print-cheat #page-cb-cheat{position:absolute;left:0;top:0;width:100%;}
+}

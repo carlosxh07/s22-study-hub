@@ -64,13 +64,14 @@ const SUBJECTS = [
   {id:'m2', label:'Mathematics II — Linear Algebra', short:'Vectors, matrices, Gauss, inverse, determinants, optimization and the simplex method.', color:'m2'},
   {id:'st', label:'Statistics', short:'Sampling, descriptive measures, probability, binomial/Poisson/normal, sampling distributions and confidence intervals.', color:'st'},
   {id:'mk', label:'Basic Principles of Marketing', short:'Marketing and customer centricity, customers in B2C/B2B, strategy, products, communication, distribution and pricing — Prof. Henkel.', color:'mk'},
+  {id:'cb', label:'Fundamentals of Consumer Behaviour', short:'Consumer decision making, heuristics and biases, sensory marketing, A/B testing, loyalty, emotions and AI recommendations — Prof. Krause, with all readings.', color:'cb'},
   {id:'dt', label:'Decision Theory & Investments', short:'Exam tool: every past-exam task type — rates, bonds, NPV, portfolios, CAPM, decision rules — with drills and a mock exam. Prof. Karapandža.', color:'dt'},
   {id:'bk', label:'Bookkeeping & Accounting', short:'Double-entry bookkeeping, VAT, valuation, depreciation, deferrals and provisions under German GAAP.', color:'bk'},
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
 ];
 """
-data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_st.js', 'data_fs.js', 'data_mk.js', 'data_dt.js'))
-app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js'))
+data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_st.js', 'data_st_tut.js', 'data_fs.js', 'data_mk.js', 'data_cb.js', 'data_dt.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
 autoupdate = """
@@ -106,10 +107,11 @@ M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
 buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
 buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer(); buildBKTut();
-buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat();
+buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildDTHome(); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
+buildCBHome(); CB_TOPICS.forEach(t=>buildTopicPage(t)); buildCBMc(); buildCBOpen(); buildCBCheat();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();
