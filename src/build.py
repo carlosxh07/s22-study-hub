@@ -105,9 +105,9 @@ init = """
 buildM2Home();
 M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
-buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
+buildM2Types(); buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
 buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer(); buildBKTut();
-buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut();
+buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut(); buildSTWhich(); buildSTMock();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildDTHome(); DT_TOPICS.forEach(t=>buildTopicPage(t)); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();

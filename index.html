@@ -1045,6 +1045,10 @@ body.hl-armed .hl-container{cursor:text;}
 }
 .st-src{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:600;background:var(--bg2);color:var(--ink-soft);}
 .st-src.off{background:var(--good-bg);color:var(--good);}
+.m2-type-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:10px;}
+.m2-recipe,.m2-traps{margin:6px 0 0;padding-left:20px;font-size:.9rem;line-height:1.55;}
+.m2-recipe li,.m2-traps li{margin-bottom:5px;}
+@media (max-width:760px){.m2-type-cols{grid-template-columns:1fr;}}
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -9274,6 +9278,7 @@ function tabHtml(cap, body){
 const PLAN_EXAM_M2 = new Date(2026,11,14); // Klausur "Quantitative Analytics II" (Math II part) — 14.12.2026
 const M2_NAV = [
   {sec:'Overview', items:[{id:'m2-home', label:'Math II Home & Exam Info', icon:'home'}]},
+  {sec:'Exam Prep by exercise type', items:[{id:'m2-types', label:'Exercise Types (Ex. 1–6)', icon:'logic'}]},
   {sec:'Exam Prep — newest first', items:[
     ...M2_EXAMS.map(e=>({id:'m2-'+e.id, label:e.title+(e.latest?' · newest':''), icon:'doc'})),
     {id:'m2-bank', label:'Problem Bank 2005–2021', icon:'quiz'},
@@ -9489,15 +9494,15 @@ buildTopicPage = function(t){
         <p>${esc(t.examWeight)}</p>
       </div>
       <div class="page-body">
-        ${exams.length?`<div class="chip-row"><span class="chip-label">Practise in real exams:</span>${exams.map(({e,x})=>`<button class="chip" onclick="navTo('m2-${e.id}');document.querySelector('#page-m2-${e.id} .ex-tab[data-ex=&quot;${x.n}&quot;]').click()">${e.year} · Ex. ${x.n}</button>`).join('')}</div>`:''}
+        ${exams.length?`<div class="chip-row"><span class="chip-label">Practise in real exams:</span>${exams.map(({e,x})=>`<button class="chip" onclick="navTo('m2-${e.id}');document.querySelector('#page-m2-${e.id} .ex-tab[data-ex=&quot;${x.n}&quot;]').click()">${e.year} · Ex. ${x.n}</button>`).join('')}<button class="chip" onclick="navTo('m2-types')">Recipe & typical mistakes</button></div>`:''}
         <div class="tabbar">
           <button class="tabbtn active" data-tab="sum">Summary</button>
-          <button class="tabbtn" data-tab="fc">Flashcards</button>
-          <button class="tabbtn" data-tab="qz">Quiz</button>
+          <button class="tabbtn" data-tab="qz">Concept check</button>
+          <button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button>
         </div>
         <div class="tabpanel active" id="${t.id}-sum"></div>
-        <div class="tabpanel" id="${t.id}-fc"></div>
         <div class="tabpanel" id="${t.id}-qz"></div>
+        <div class="tabpanel" id="${t.id}-fc"></div>
       </div>`;
     div.querySelectorAll('.tabbtn').forEach(btn=>{
       btn.onclick = ()=>{
@@ -9549,6 +9554,7 @@ function buildM2Home(){
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="btn" onclick="navTo('m2-e25')">Start with Exam 2025 →</button>
+            <button class="btn ghost" onclick="navTo('m2-types')">Exercise types: recipes & mistakes</button>
             <button class="btn ghost" onclick="navTo('m2-sim')">90-min mock exam</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
@@ -9557,6 +9563,7 @@ function buildM2Home(){
         <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Past exams — interactive (newest are most relevant)</div>
         <div class="tool-tiles">
           ${M2_EXAMS.map(e=>{ const s = examScore(e); return `<div class="tool-tile" onclick="navTo('m2-${e.id}')"><div class="ic">${icon('doc')}</div><h4>${e.title}${e.latest?' <span class="new-dot">newest</span>':''}</h4><p>${s?`Your checks: ${s.pts}/${s.tot} P`:'6 exercises · hints · checks · full solutions'}</p></div>`; }).join('')}
+          <div class="tool-tile" onclick="navTo('m2-types')"><div class="ic">${icon('logic')}</div><h4>Exercise Types</h4><p>Ex. 1–6: recipe, typical mistakes and every matching task in one place.</p></div>
           <div class="tool-tile" onclick="navTo('m2-bank')"><div class="ic">${icon('quiz')}</div><h4>Problem Bank</h4><p>150 original tasks 2005–2021, sorted by type.</p></div>
           <div class="tool-tile" onclick="navTo('m2-sim')"><div class="ic">${icon('timer')}</div><h4>Mock Exam</h4><p>Random 6-exercise exam, 90-min timer, self-grading.</p></div>
         </div>
@@ -10051,6 +10058,54 @@ function laplaceHint(A){
   return `<p>Laplace tip: expand along <b>${best.row?'row':'column'} ${best.i+1}</b> (${best.k} zeros). Signs follow the chessboard $(-1)^{i+j}$.</p>`.replace(/\$([^$]+)\$/g, (m,t)=>katexHtml({tex:t, disp:false}));
 }
 
+/* ============================================================ EXERCISE TYPES (the exam = the same 6 exercises every year) ============================================================ */
+// One card per exam exercise: recipe, typical mistakes, and every place in the hub that trains it (past exams, bank, lab, drills).
+const M2_EXTYPES = [
+{n:1, types:['solv','under'], title:'Solvability with parameters (Gauss)', lab:'tab', drills:[],
+ recipe:[R`Write the augmented matrix $[A \mid b]$ and bring it to **triangular form** with the Gaussian algorithm (rectangle rule) — do not solve it`, R`Read the last row: $k(a)\,x_3 = r(b)$`, R`$k(a) \ne 0$ → **unique** solution · $k(a) = 0$ and $r(b) = 0$ → **infinitely many** · $k(a) = 0$ and $r(b) \ne 0$ → **inconsistent**`, R`Answer with explicit values: "unique for $a \ne 2$ and any $b$; infinitely many for $a = 2, b = 3$; …"`],
+ traps:[R`Never divide by an expression with a parameter (it could be 0) — keep it in the last row`, R`Pivot so that $a$ and $b$ end up in the **last** row; swapping rows is allowed`, R`State all three cases, including "any $b$" where $b$ does not matter`]},
+{n:2, types:['market'], title:'Market shares / economic LES', lab:'mkt', drills:['mkt'],
+ recipe:[R`Read the graph: arrows = share of customers **leaving** a firm`, R`Write $T$: column $j$ = where firm $j$'s customers go → **every column sums to 1**`, R`Next period $s_2 = T s_1$ (two periods: $T^2 s_1$)`, R`Steady state: $s = Ts$ ⇔ $(T - I)s = 0$, replace one equation by $s_1 + s_2 + s_3 = 1$, solve with Gauss`, R`Interpret: shares stay constant, customers still switch but inflow = outflow`],
+ traps:[R`Building $T$ transposed (rows instead of columns) — check the column sums`, R`Forgetting the normalisation $\sum s_i = 1$: $(T-I)s = 0$ alone has infinitely many solutions`, R`Mixing percent and decimals inside one matrix`]},
+{n:3, types:['det'], title:'Determinant (Laplace) or Cramer', lab:'det', drills:['det2','det3','cramer'],
+ recipe:[R`Choose the row or column with the **most zeros**`, R`Laplace: $\det A = \sum_j a_{ij}(-1)^{i+j}|A_{ij}|$ — chessboard signs starting with + top left`, R`Reduce to $3\times3$ (Sarrus) or $2\times2$`, R`Cramer: $x_j = \det A_j / \det A$, $A_j$ = column $j$ replaced by $b$ — only if $\det A \ne 0$`],
+ traps:[R`Wrong sign of the cofactor — write the chessboard pattern next to the matrix`, R`Sarrus works **only** for $3\times3$`, R`Cramer: replace a **column**, not a row`]},
+{n:4, types:['inverse'], title:'Inverse & its economic application (coupon stripping)', lab:'inv', drills:['inv2'],
+ recipe:[R`Set up $A$ exactly as the exam defines rows and columns (states × assets)`, R`Gauss on $[A \mid I] \to [I \mid A^{-1}]$ — every row operation on both halves`, R`Pure coupon for state $k$ = **column $k$** of $A^{-1}$ (+ buy, − sell)`, R`Risk-free coupon $(1,\dots,1)^T$ = **row sums** of $A^{-1}$`, R`Check one entry: $A \cdot A^{-1} = I$`],
+ traps:[R`Row operations only on the left half`, R`Off-diagonal pivots: sort the **rows** back at the end`, R`Decimals instead of fractions → rounding errors; keep fractions`]},
+{n:5, types:['hessian','lagrange'], title:'Extreme values (Hessian / Lagrange)', lab:'def', drills:['def'],
+ recipe:[R`All first derivatives = 0 → find **all** stationary points (factor, do not divide by a variable)`, R`Hessian at each point → leading principal minors (MSD)`, R`$(+,+,+)$ minimum · $(-,+,-)$ maximum · anything else: no extremum`, R`With a constraint: $\mathcal{L} = f - \lambda g$, solve $\nabla\mathcal{L} = 0$, then the bordered Hessian: $|\bar H| < 0$ minimum, $|\bar H| > 0$ maximum (course convention)`],
+ traps:[R`Losing a stationary point by dividing by $x$ — factor instead ($x(x-2) = 0$)`, R`Evaluating the Hessian in general instead of at **each** point`, R`Using the unconstrained sign rule for the bordered Hessian`]},
+{n:6, types:['lp'], title:'Linear optimization (simplex)', lab:'tab', drills:[],
+ recipe:[R`Standard form: $\le$ → + slack; $\ge$ → multiply by −1, then + slack; $z$-row with $-c_j$`, R`Negative RHS first: pivot on a negative element in that row`, R`Pivot column = most negative entry of the $z$-row; pivot row = smallest ratio RHS / **positive** coefficient`, R`Repeat until the $z$-row is $\ge 0$; read: basic variable = RHS, non-basic = 0`, R`Interpret slacks: 0 = binding constraint, > 0 = capacity left`],
+ traps:[R`Ratios with zero or negative coefficients — skip them`, R`Forgetting to update the $z$-row in the pivot step`, R`$\min z$: maximise $-z$ and flip the sign of the result`]}
+];
+function m2LabOpen(tab){ navTo('m2-lab'); const b = document.querySelector(`#page-m2-lab .lab-tabs [data-lab="${tab}"]`); if(b) b.click(); }
+function m2DrillOpen(k){ navTo('m2-drill'); const c = document.querySelector(`#page-m2-drill .drill-kinds [data-k="${k}"]`); if(c) c.click(); }
+function m2ExamOpen(eid, n){ navTo('m2-'+eid); const t = document.querySelector(`#page-m2-${eid} .ex-tab[data-ex="${n}"]`); if(t) t.click(); }
+const M2_DRILL_LABELS = {det2:'2×2 determinant', det3:'3×3 determinant', cramer:'Cramer 2×2', def:'Definiteness', mkt:'Market shares next period', inv2:'Inverse 2×2'};
+const M2_LAB_LABELS = {tab:'Tableau / Gauss / Simplex', inv:'Inverse', det:'Determinant & Cramer', def:'Definiteness (MSD)', mkt:'Market shares'};
+function buildM2Types(){
+  registerPage('m2-types', (div)=>{
+    const render = ()=>{
+      const st = ls('m2-bank-state', {});
+      div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('logic')} Exam Prep</div><h2>Exercise Types</h2><p>The exam has the same six exercises every year. Train them one by one: read the recipe and the typical mistakes, solve the past-exam exercise, then the older bank exercises of the same type. Lab and drills help with the single steps.</p></div>
+        <div class="page-body">${M2_EXTYPES.map(x=>{
+          const ex = []; M2_EXAMS.forEach(e=>e.ex.forEach(q=>{ if(x.types.includes(q.type)) ex.push({e, q}); }));
+          const bank = M2_BANK.filter(b=>b.type===x.types[0]); const done = bank.filter(b=>st[b.id]==='ok').length;
+          const pts = ex.length ? ex[0].q.pts : '';
+          return `<div class="drill-card glass m2-type">
+            <div class="qtag">Ex. ${x.n}${pts?` · about ${pts} points`:''}</div><h3 style="margin:4px 0 10px">${esc(x.title)}</h3>
+            <div class="m2-type-cols"><div><div class="exam-label">Recipe</div><ol class="m2-recipe">${x.recipe.map(r=>`<li>${mathText(r)}</li>`).join('')}</ol></div>
+            <div><div class="exam-label">Typical mistakes</div><ul class="m2-traps">${x.traps.map(r=>`<li>${mathText(r)}</li>`).join('')}</ul></div></div>
+            <div class="chip-row"><span class="chip-label">Past exams:</span>${ex.map(({e,q})=>`<button class="chip" onclick="m2ExamOpen('${e.id}',${q.n})">${e.year} · Ex. ${q.n}</button>`).join('')}</div>
+            <div class="chip-row"><span class="chip-label">Practise more:</span><button class="chip" onclick="navTo('m2-bank');bankFilter('${x.types[0]}')">Bank · ${bank.length} exercises · ${done} solved</button><button class="chip" onclick="m2LabOpen('${x.lab}')">Lab · ${esc(M2_LAB_LABELS[x.lab])}</button>${x.drills.map(d=>`<button class="chip" onclick="m2DrillOpen('${d}')">Drill · ${esc(M2_DRILL_LABELS[d])}</button>`).join('')}</div>
+          </div>`; }).join('')}</div>`;
+    };
+    render(); div.__render = render;
+  });
+}
+
 /* ============================================================ RANDOM DRILLS ============================================================ */
 function buildM2Drill(){
   registerPage('m2-drill', (div)=>{
@@ -10543,10 +10598,14 @@ const ST_NAV = [
   {sec:'Practice', items:[
     {id:'st-tut', label:`Tutorials TUT 1–${ST_TUTS.length} (worked solutions)`, icon:'doc'},
     {id:'st-drill', label:'Random Drills (step-by-step)', icon:'logic'},
+    {id:'st-which', label:'Which Method? (pick the tool)', icon:'quiz'},
+    {id:'st-mock', label:'Mock Exam (90 min, tutorial style)', icon:'timer'},
+    {id:'st-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
+  ]},
+  {sec:'Check your result (after solving by hand)', items:[
     {id:'st-calc', label:'Distribution & CI Calculator', icon:'calc'},
     {id:'st-lab', label:'Data Lab (describe a data set)', icon:'quiz'},
-    {id:'st-tables', label:'Tables II & IV (z and t)', icon:'doc'},
-    {id:'st-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
+    {id:'st-tables', label:'Tables II & IV (z and t)', icon:'doc'}
   ]}
 ];
 
@@ -10689,6 +10748,10 @@ planItemPool = function(){
   ST_TOPICS.forEach(t=>{ const s = stTopicScore(t); items.push({subj:'st', label:`Ch. ${t.ch} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + 4*ST_KINDS.filter(k=>k.topics.includes(t.id)).length + Math.round(t.summary.split(/\s+/).length/120)}); });
   const d = stDrillScore();
   items.push({subj:'st', label:'Random Drills — mixed (exam warm-up)', page:'st-drill', weight:d==null ? .9 : 1-d, size:30});
+  const w = stDrillStats().which;
+  items.push({subj:'st', label:`Which Method? — pick the tool for ${ST_WHICH.length} situations`, page:'st-which', weight:w ? Math.max(.2, 1-w.ok/w.n) : .9, size:12});
+  const mb = ls('st-mock-best', null);
+  items.push({subj:'st', label:'Mock Exam — 90 min, then read every solution', page:'st-mock', weight:mb==null ? .9 : Math.max(.2, 1-mb/90), size:15});
   ST_TUTS.forEach(tu=>{ const r = stTutScore(tu); items.push({subj:'st', label:`Tutorial ${tu.n} — ${tu.title} (solve, then compare)`, page:'st-tut', weight:r==null ? .8 : 1-r, size:tu.tasks.length}); });
   items.forEach(i=>{ i.large = false; i.prio = false; });
   const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
@@ -10699,6 +10762,8 @@ planItemPool = function(){
 };
 const __planScheduleBK = planSchedule;
 planSchedule = function(item, idx){
+  if(item.page==='st-mock'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-6), Math.max(1,h-2)])); }
+  if(item.page==='st-which'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-20), Math.max(1,h-9), Math.max(1,h-3)])); }
   if(item.page==='st-drill'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-24), Math.max(1,h-12), Math.max(1,h-5), Math.max(1,h-2)])); }
   return __planScheduleBK(item, idx);
 };
@@ -10788,6 +10853,7 @@ function buildSTHome(){
             <button class="btn" onclick="navTo('st-1')">Start with chapter 1 →</button>
             <button class="btn ghost" onclick="navTo('st-tut')">Tutorials TUT 1–${ST_TUTS.length}</button>
             <button class="btn ghost" onclick="navTo('st-drill')">Random Drills${d!=null?` · ${Math.round(d*100)}%`:''}</button>
+            <button class="btn ghost" onclick="navTo('st-mock')">Mock Exam</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
         </div>
@@ -10799,6 +10865,8 @@ function buildSTHome(){
         <div class="tool-tiles">
           <div class="tool-tile" onclick="navTo('st-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials</h4><p>${ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks of the tutorial sheets 1–${ST_TUTS.length} with worked solutions, incl. the Python parts.</p></div>
           <div class="tool-tile" onclick="navTo('st-drill')"><div class="ic">${icon('logic')}</div><h4>Random Drills</h4><p>${ST_KINDS.length} task types with fresh numbers and full step-by-step solutions.</p></div>
+          <div class="tool-tile" onclick="navTo('st-which')"><div class="ic">${icon('quiz')}</div><h4>Which Method?</h4><p>Recognise the right tool first — counting, probability rules, binomial, z or t.</p></div>
+          <div class="tool-tile" onclick="navTo('st-mock')"><div class="ic">${icon('timer')}</div><h4>Mock Exam</h4><p>90 minutes, 90 points, one task per course block with fresh numbers.</p></div>
           <div class="tool-tile" onclick="navTo('st-calc')"><div class="ic">${icon('calc')}</div><h4>Distribution & CI Calculator</h4><p>Normal, binomial, Poisson, x̄, confidence intervals, sample size — with the steps.</p></div>
           <div class="tool-tile" onclick="navTo('st-lab')"><div class="ic">${icon('quiz')}</div><h4>Data Lab</h4><p>Paste a data set: mean, s, quartiles, outliers, boxplot, stem-and-leaf.</p></div>
           <div class="tool-tile" onclick="navTo('st-tables')"><div class="ic">${icon('doc')}</div><h4>Tables II & IV</h4><p>The z- and t-tables with a lookup that highlights the right cell.</p></div>
@@ -10865,6 +10933,44 @@ function stDistTask(){
   if(v===0){ const n = stPick([150, 200, 400, 500]), p = stPick([0.01, 0.02, 0.025]); return {q:`$n = ${n}$ independent trials with success probability $p = ${p}$. You need $P(X = 3)$ quickly. Which approximation is allowed by the course rules?`, choice:[['pois','Poisson with λ = np'],['norm','normal with continuity correction'],['none','none — use the exact formula only']], ans:'pois', sol:`$n \\ge 100$ and $np = ${stR(n*p,2)} \\le 10$ → Poisson approximation with $\\lambda = ${stR(n*p,2)}$. The normal approximation needs $np \\ge 5$, which fails.`}; }
   if(v===1){ const n = stPick([60, 80, 100, 120]), p = stPick([0.3, 0.4, 0.5]); return {q:`$n = ${n}$, $p = ${p}$. You need $P(X \\le ${Math.round(n*p)-3})$. Which approximation is allowed?`, choice:[['norm','normal with continuity correction'],['pois','Poisson with λ = np'],['none','none — use the exact formula only']], ans:'norm', sol:`$np = ${stR(n*p,1)} \\ge 5$ and $n(1-p) = ${stR(n*(1-p),1)} \\ge 5$ → normal approximation with $\\mu = np$, $\\sigma = \\sqrt{np(1-p)}$ and continuity correction. Poisson needs $np \\le 10$.`}; }
   const n = stPick([20, 30]), p = 0.05; return {q:`$n = ${n}$, $p = ${p}$. Which approximation is allowed by the course rules?`, choice:[['none','none — use the exact binomial formula'],['pois','Poisson with λ = np'],['norm','normal with continuity correction']], ans:'none', sol:`Poisson needs $n \\ge 100$ (here ${n}); normal needs $np \\ge 5$ (here $${stR(n*p,2)}$). So compute exactly with $\\binom{n}{x}p^x(1-p)^{n-x}$.`};
+}
+/* ---------- "Which method?" — recognise the tool before calculating (the step where most exam points get lost) ---------- */
+const ST_WHICH = [
+  // [situation, group, correct, why]
+  ['A jury ranks the best 3 of 20 films (1st, 2nd, 3rd place). How many outcomes?', 'count', 'perm', 'Order matters (1st ≠ 3rd), no repetition → permutations $_nP_r = \\frac{n!}{(n-r)!}$.'],
+  ['A committee of 4 is chosen from 15 employees. How many committees?', 'count', 'comb', 'Order does not matter (a committee has no ranking), no repetition → combinations $\\binom{n}{r}$.'],
+  ['A PIN has 4 digits (0–9), digits may repeat. How many PINs?', 'count', 'basic', 'Several independent choices with repetition → basic counting rule: $10\\cdot10\\cdot10\\cdot10$.'],
+  ['A menu offers 3 starters, 5 mains and 2 desserts. How many 3-course meals?', 'count', 'basic', 'One choice per step, each combinable with every other → basic counting rule: $3\\cdot5\\cdot2$.'],
+  ['Six runners: in how many orders can they finish?', 'count', 'perm', 'All 6 are ordered → permutations $_6P_6 = 6!$.'],
+  ['P(A) and P(B) are given, A and B cannot happen together. You need P(A or B).', 'prob', 'special', 'Mutually exclusive → special addition rule $P(A)+P(B)$, no overlap to subtract.'],
+  ['P(A), P(B) and P(A & B) are given. You need P(A or B).', 'prob', 'general', 'The events overlap → general addition rule $P(A)+P(B)-P(A\\&B)$.'],
+  ['43% of men and 10% of women smoke; 50.4% are men. You need the share of smokers in the population.', 'prob', 'total', 'Split the population into men and women and add up → rule of total probability $\\sum P(A_j)P(B|A_j)$.'],
+  ['43% of men and 10% of women smoke; 50.4% are men. You need the share of women among smokers.', 'prob', 'bayes', 'The condition is turned around (given: smoker) → Bayes’s rule.'],
+  ['P(A & B) and P(A) are given. You need the probability of B among the cases where A happened.', 'prob', 'cond', 'Conditional probability $P(B|A) = P(A\\&B)/P(A)$.'],
+  ['10 questions, each answered correctly with p = 0.3 independently. You need P(exactly 4 correct).', 'dist', 'binom', 'Fixed n, two outcomes, independent, constant p → binomial.'],
+  ['Throw a die until the first six appears. X = number of throws.', 'dist', 'none', 'Number of trials is not fixed → not binomial.'],
+  ['Draw 5 cards without replacement from 52; X = number of hearts.', 'dist', 'none', 'Without replacement p changes from draw to draw → not binomial.'],
+  ['Of 200 orders, each is returned with probability 0.15 independently. X = returned orders.', 'dist', 'binom', 'n = 200 fixed, returned or not, independent, p = 0.15 → binomial.'],
+  ['Data set with mean 50 and s = 5, shape unknown. Which share lies within 40–60 at least?', 'spread', 'cheb', 'Shape unknown → only Chebyshev’s rule is safe: at least $1-1/k^2 = 75\\%$ for k = 2.'],
+  ['Data set roughly bell-shaped, mean 50, s = 5. Approximately which share lies within 40–60?', 'spread', 'emp', 'Bell-shaped → empirical rule: about 95% within 2 standard deviations.'],
+  ['Heights are normal with μ = 175, σ = 7. What share of single persons is taller than 185?', 'normal', 'single', 'A single observation → $z = \\frac{x-\\mu}{\\sigma}$.'],
+  ['Heights are normal with μ = 175, σ = 7. What is the probability that the mean of 25 persons exceeds 177?', 'normal', 'mean', 'A sample mean → standard deviation $\\sigma/\\sqrt n$: $z = \\frac{\\bar x-\\mu}{\\sigma/\\sqrt n}$.'],
+  ['Which value do 65% of all values exceed (normal distribution)?', 'normal', 'inv', 'An area is given, the value is wanted → percentile backwards: look up the area inside Table II, then $x = \\mu + z\\sigma$.'],
+  ['n = 50, σ = 12.1 known, sample mean 41.4. 95% interval for μ.', 'ci', 'z', 'σ known → z-interval with $z_{0.025} = 1.96$.'],
+  ['n = 42 bags, sample mean 1,261.6, sample standard deviation s = 117.6. 95% interval for μ.', 'ci', 't', 'Only s is known → t-interval with df = n − 1 = 41.'],
+  ['σ = 2.1 known. How many observations for a margin of error of 0.5 at 95%?', 'ci', 'n', 'Required sample size $n = (z_{\\alpha/2}\\sigma/E)^2$, rounded up.']
+];
+const ST_WHICH_OPTS = {
+  count:[['basic','Basic counting rule (multiply)'],['perm','Permutations (order matters)'],['comb','Combinations (order irrelevant)']],
+  prob:[['special','Special addition rule'],['general','General addition rule'],['cond','Conditional probability'],['total','Total probability'],['bayes','Bayes’s rule']],
+  dist:[['binom','Binomial distribution'],['none','Not binomial']],
+  spread:[['cheb','Chebyshev’s rule'],['emp','Empirical rule']],
+  normal:[['single','z for a single value'],['mean','z for the sample mean (σ/√n)'],['inv','Percentile (table backwards)']],
+  ci:[['z','z-interval'],['t','t-interval'],['n','Required sample size']]
+};
+function stWhichTask(){
+  const [q, g, ans, why] = stPick(ST_WHICH);
+  return {q:`${q}  \n**Which tool do you use?**`, choice:ST_WHICH_OPTS[g].slice(), ans, sol:why};
 }
 const ST_KINDS = [
   {id:'classify', label:'Classify: variables, sampling, design', topics:['st-1','st-2'], gen(){
@@ -11024,7 +11130,8 @@ ${zl!=null?`- $z = (${lo} - ${stF(mu,2)})/${stF(sd,4)} = ${stF(zl,2)}$ → left 
       sol:`$n = \\left(\\frac{${za}\\cdot${sd}}{${E}}\\right)^2 = ${stF(raw,2)}$ → always round **up**: $n = ${n}$`};
   }},
   {id:'method', label:'Which procedure? (z, t or neither)', topics:['st-8'], gen:stMethodTask},
-  {id:'approx', label:'Which approximation? (Poisson / normal)', topics:['st-5','st-6'], gen:stDistTask}
+  {id:'approx', label:'Which approximation? (Poisson / normal)', topics:['st-5','st-6'], gen:stDistTask},
+  {id:'which', label:'Which method? (all chapters)', topics:['st-8','st-3','st-4','st-5','st-6','st-7'], gen:stWhichTask}
 ];
 let stDrillKind = 'mixed';
 function stDrillOpen(kind){ stDrillKind = kind; navTo('st-drill'); const pg = document.getElementById('page-st-drill'); if(pg && pg.__set) pg.__set(kind); }
@@ -11085,6 +11192,89 @@ function buildSTDrill(){
     div.querySelector('.st-reset').addEventListener('click', ()=>{ sOk = 0; sN = 0; next(); });
     div.__set = set;
     set(stDrillKind);
+  });
+}
+
+/* ============================================================ WHICH METHOD? + MOCK EXAM ============================================================ */
+function buildSTWhich(){
+  registerPage('st-which', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('quiz')} Practice</div><h2>Which Method?</h2><p>Before any calculation: recognise the tool. Short situations from all chapters — counting rules, probability rules, binomial or not, Chebyshev or empirical rule, single value or sample mean, z- or t-interval. This is where most exam points get lost, so the drill is about the decision, not the arithmetic.</p></div>
+      <div class="page-body">
+        <div class="bk-score-row"><span class="bk-live st-w-live"></span><button class="btn ghost st-w-reset">Reset session</button></div>
+        <div class="drill-card glass st-w-card"></div>
+      </div>`;
+    const card = div.querySelector('.st-w-card');
+    let cur, done, ok = 0, n = 0, bag = [];
+    const live = ()=>{ const v = stDrillStats().which; div.querySelector('.st-w-live').textContent = `This session: ${ok}/${n}` + (v ? ` · overall ${v.ok}/${v.n}` : ''); };
+    const next = ()=>{
+      if(!bag.length) bag = shuffle(ST_WHICH.map((_,i)=>i));
+      const [q, g, ans, why] = ST_WHICH[bag.pop()];
+      cur = {ans, why}; done = false;
+      card.innerHTML = `<div class="drill-q st-q">${mathText(q)}</div><div class="chip-row st-choices">${shuffle(ST_WHICH_OPTS[g].slice()).map(([v,l])=>`<button class="chip" data-choice="${v}">${esc(l)}</button>`).join('')}</div><div class="ans-feedback"></div><div class="ans-actions"><button class="btn ghost" data-d="next">Next situation →</button></div>`;
+      live();
+    };
+    card.addEventListener('click', ev=>{
+      const ch = ev.target.closest('[data-choice]');
+      if(ch && !done){
+        done = true; n++; const good = ch.dataset.choice===cur.ans; if(good) ok++;
+        ch.classList.add(good?'st-ok':'st-bad'); if(!good) card.querySelectorAll('[data-choice]').forEach(b=>{ if(b.dataset.choice===cur.ans) b.classList.add('st-ok'); });
+        const st = stDrillStats(); st.which = st.which || {ok:0, n:0}; st.which.n++; if(good) st.which.ok++; lsSet('st-drill-stats', st);
+        const fb = card.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(good?'good':'warn'); fb.innerHTML = (good?'<b>Right tool.</b> ':'<b>Not this one.</b> ') + mathText(cur.why);
+        live(); return;
+      }
+      if(ev.target.closest('[data-d="next"]')) next();
+    });
+    div.querySelector('.st-w-reset').addEventListener('click', ()=>{ ok = 0; n = 0; bag = []; next(); });
+    next();
+  });
+}
+
+// Mock exam: tutorial-style tasks with fresh numbers, one per block, 90-minute timer, graded at the end.
+// Self-built (no past Statistics exams yet) — each task counts as one drill attempt for the radar.
+const ST_MOCK_LAYOUT = [['desc',6],['quart',6],['cheb',4],['zscore',3],['cond',7],['bayes',7],['count',4],['dmean',6],['binom',7],['norm',7],['invnorm',6],['xbar',7],['zci',7],['tci',7],['nsize',6]];
+function buildSTMock(){
+  registerPage('st-mock', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('timer')} Practice</div><h2>Mock Exam</h2><p>A 90-minute, 90-point exam in the style of the tutorial sheets: one task from each block of the course with fresh numbers. There are no past Statistics exams yet, so this is self-built — when real exams arrive they replace it. Solve on paper, type the results, then grade everything at once and read the solutions.</p></div>
+      <div class="page-body">
+        <div class="bk-score-row"><span class="bk-live st-m-live"></span><span class="st-m-best"></span><button class="btn st-m-new">New exam</button><button class="btn ghost st-m-grade">Finish & grade</button></div>
+        <div class="st-m-body"></div>
+      </div>`;
+    const body = div.querySelector('.st-m-body');
+    let tasks = [], graded = false, timer = null, left = 0;
+    const best = ()=>{ const b = ls('st-mock-best', null); div.querySelector('.st-m-best').textContent = b!=null ? `Best: ${b}/90` : ''; };
+    const tick = ()=>{ const m = Math.floor(left/60), sec = left%60; div.querySelector('.st-m-live').textContent = graded ? '' : `Time left ${m}:${String(sec).padStart(2,'0')}`; if(left<=0 && !graded) grade(); left--; };
+    const start = ()=>{
+      graded = false;
+      tasks = ST_MOCK_LAYOUT.map(([k, pts])=>{ const K = ST_KINDS.find(x=>x.id===k); const t = K.gen(); if(t.choice) t.choice = shuffle(t.choice); return {k, pts, label:K.label, t}; });
+      body.innerHTML = tasks.map((x,i)=>`<div class="drill-card glass st-m-task" data-i="${i}"><div class="qtag">Task ${i+1} · ${x.pts} points · ${esc(x.label)}</div>
+        <div class="drill-q st-q">${mathText(x.t.q)}</div>${x.t.table?richHtml(x.t.table):''}
+        ${x.t.choice ? `<div class="chip-row st-choices">${x.t.choice.map(([v,l])=>`<button class="chip" data-choice="${esc(v)}">${esc(l)}</button>`).join('')}</div>`
+          : `<div class="drill-fields">${x.t.fields.map(f=>`<label>${esc(f)} <input type="text" inputmode="decimal"></label>`).join('')}</div>`}
+        <div class="ans-feedback"></div></div>`).join('');
+      clearInterval(timer); left = 90*60; tick(); timer = setInterval(tick, 1000); best();
+    };
+    const grade = ()=>{
+      if(graded) return; graded = true; clearInterval(timer);
+      let got = 0; const st = stDrillStats();
+      tasks.forEach((x,i)=>{
+        const box = body.querySelector(`.st-m-task[data-i="${i}"]`); let frac;
+        if(x.t.choice){ const sel = box.querySelector('[data-choice].active'); frac = sel && sel.dataset.choice===x.t.ans ? 1 : 0; box.querySelectorAll('[data-choice]').forEach(b=>{ if(b.dataset.choice===x.t.ans) b.classList.add('st-ok'); else if(b.classList.contains('active')) b.classList.add('st-bad'); }); }
+        else { const ins = [...box.querySelectorAll('input')]; const okEach = ins.map((inp,j)=>{ const v = stNum(inp.value); const ok = !isNaN(v) && Math.abs(v-x.t.ans[j]) <= (x.t.tol[j]||1e-9)+1e-9; inp.classList.add(ok?'st-ok':'st-bad'); return ok; }); frac = okEach.filter(Boolean).length/okEach.length; }
+        const pts = Math.round(x.pts*frac*2)/2; got += pts;
+        st[x.k] = st[x.k] || {ok:0, n:0}; st[x.k].n++; if(frac===1) st[x.k].ok++;
+        const fb = box.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(frac===1?'good':'warn');
+        fb.innerHTML = `<b>${pts}/${x.pts} points.</b>` + (x.t.fields && frac<1 ? ` Expected: ${x.t.fields.map((f,j)=>`${f} = ${Number.isInteger(x.t.ans[j])?x.t.ans[j]:stF(x.t.ans[j], 4)}`).join(', ')}.` : '') + `<div class="st-sol">${richHtml(x.t.sol)}</div>`;
+        box.querySelectorAll('input,[data-choice]').forEach(el=>el.disabled = true);
+      });
+      lsSet('st-drill-stats', st);
+      got = Math.round(got*2)/2; const b = ls('st-mock-best', null); if(b==null || got>b) lsSet('st-mock-best', got);
+      div.querySelector('.st-m-live').textContent = `Result: ${got}/90 points`; best();
+      window.scrollTo({top:0, behavior:'smooth'});
+    };
+    body.addEventListener('click', ev=>{ const c = ev.target.closest('[data-choice]'); if(!c || graded) return; c.parentElement.querySelectorAll('[data-choice]').forEach(b=>b.classList.toggle('active', b===c)); });
+    div.querySelector('.st-m-new').addEventListener('click', start);
+    div.querySelector('.st-m-grade').addEventListener('click', grade);
+    start();
   });
 }
 
@@ -13443,9 +13633,9 @@ function buildCBOpen(){
 buildM2Home();
 M2_TOPICS.forEach(t=>buildTopicPage(t));
 M2_EXAMS.forEach(e=>buildExamPage(e));
-buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
+buildM2Types(); buildM2Bank(); buildM2Sim(); buildM2Cheat(); buildM2Lab(); buildM2Drill();
 buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKTrainer(); buildBKTut();
-buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut();
+buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut(); buildSTWhich(); buildSTMock();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildDTHome(); DT_TOPICS.forEach(t=>buildTopicPage(t)); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
@@ -13464,7 +13654,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261026151342';
+const HUB_BUILD = '20261026152552';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{

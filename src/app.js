@@ -64,6 +64,7 @@ function tabHtml(cap, body){
 const PLAN_EXAM_M2 = new Date(2026,11,14); // Klausur "Quantitative Analytics II" (Math II part) — 14.12.2026
 const M2_NAV = [
   {sec:'Overview', items:[{id:'m2-home', label:'Math II Home & Exam Info', icon:'home'}]},
+  {sec:'Exam Prep by exercise type', items:[{id:'m2-types', label:'Exercise Types (Ex. 1–6)', icon:'logic'}]},
   {sec:'Exam Prep — newest first', items:[
     ...M2_EXAMS.map(e=>({id:'m2-'+e.id, label:e.title+(e.latest?' · newest':''), icon:'doc'})),
     {id:'m2-bank', label:'Problem Bank 2005–2021', icon:'quiz'},
@@ -279,15 +280,15 @@ buildTopicPage = function(t){
         <p>${esc(t.examWeight)}</p>
       </div>
       <div class="page-body">
-        ${exams.length?`<div class="chip-row"><span class="chip-label">Practise in real exams:</span>${exams.map(({e,x})=>`<button class="chip" onclick="navTo('m2-${e.id}');document.querySelector('#page-m2-${e.id} .ex-tab[data-ex=&quot;${x.n}&quot;]').click()">${e.year} · Ex. ${x.n}</button>`).join('')}</div>`:''}
+        ${exams.length?`<div class="chip-row"><span class="chip-label">Practise in real exams:</span>${exams.map(({e,x})=>`<button class="chip" onclick="navTo('m2-${e.id}');document.querySelector('#page-m2-${e.id} .ex-tab[data-ex=&quot;${x.n}&quot;]').click()">${e.year} · Ex. ${x.n}</button>`).join('')}<button class="chip" onclick="navTo('m2-types')">Recipe & typical mistakes</button></div>`:''}
         <div class="tabbar">
           <button class="tabbtn active" data-tab="sum">Summary</button>
-          <button class="tabbtn" data-tab="fc">Flashcards</button>
-          <button class="tabbtn" data-tab="qz">Quiz</button>
+          <button class="tabbtn" data-tab="qz">Concept check</button>
+          <button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button>
         </div>
         <div class="tabpanel active" id="${t.id}-sum"></div>
-        <div class="tabpanel" id="${t.id}-fc"></div>
         <div class="tabpanel" id="${t.id}-qz"></div>
+        <div class="tabpanel" id="${t.id}-fc"></div>
       </div>`;
     div.querySelectorAll('.tabbtn').forEach(btn=>{
       btn.onclick = ()=>{
@@ -339,6 +340,7 @@ function buildM2Home(){
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
             <button class="btn" onclick="navTo('m2-e25')">Start with Exam 2025 →</button>
+            <button class="btn ghost" onclick="navTo('m2-types')">Exercise types: recipes & mistakes</button>
             <button class="btn ghost" onclick="navTo('m2-sim')">90-min mock exam</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
@@ -347,6 +349,7 @@ function buildM2Home(){
         <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Past exams — interactive (newest are most relevant)</div>
         <div class="tool-tiles">
           ${M2_EXAMS.map(e=>{ const s = examScore(e); return `<div class="tool-tile" onclick="navTo('m2-${e.id}')"><div class="ic">${icon('doc')}</div><h4>${e.title}${e.latest?' <span class="new-dot">newest</span>':''}</h4><p>${s?`Your checks: ${s.pts}/${s.tot} P`:'6 exercises · hints · checks · full solutions'}</p></div>`; }).join('')}
+          <div class="tool-tile" onclick="navTo('m2-types')"><div class="ic">${icon('logic')}</div><h4>Exercise Types</h4><p>Ex. 1–6: recipe, typical mistakes and every matching task in one place.</p></div>
           <div class="tool-tile" onclick="navTo('m2-bank')"><div class="ic">${icon('quiz')}</div><h4>Problem Bank</h4><p>150 original tasks 2005–2021, sorted by type.</p></div>
           <div class="tool-tile" onclick="navTo('m2-sim')"><div class="ic">${icon('timer')}</div><h4>Mock Exam</h4><p>Random 6-exercise exam, 90-min timer, self-grading.</p></div>
         </div>
@@ -839,6 +842,54 @@ function laplaceHint(A){
   let best = {k:0, i:0, row:true};
   for(let i=0;i<n;i++){ const zr = A[i].filter(v=>v.zero).length, zc = A.map(r=>r[i]).filter(v=>v.zero).length; if(zr>best.k) best = {k:zr, i, row:true}; if(zc>best.k) best = {k:zc, i, row:false}; }
   return `<p>Laplace tip: expand along <b>${best.row?'row':'column'} ${best.i+1}</b> (${best.k} zeros). Signs follow the chessboard $(-1)^{i+j}$.</p>`.replace(/\$([^$]+)\$/g, (m,t)=>katexHtml({tex:t, disp:false}));
+}
+
+/* ============================================================ EXERCISE TYPES (the exam = the same 6 exercises every year) ============================================================ */
+// One card per exam exercise: recipe, typical mistakes, and every place in the hub that trains it (past exams, bank, lab, drills).
+const M2_EXTYPES = [
+{n:1, types:['solv','under'], title:'Solvability with parameters (Gauss)', lab:'tab', drills:[],
+ recipe:[R`Write the augmented matrix $[A \mid b]$ and bring it to **triangular form** with the Gaussian algorithm (rectangle rule) — do not solve it`, R`Read the last row: $k(a)\,x_3 = r(b)$`, R`$k(a) \ne 0$ → **unique** solution · $k(a) = 0$ and $r(b) = 0$ → **infinitely many** · $k(a) = 0$ and $r(b) \ne 0$ → **inconsistent**`, R`Answer with explicit values: "unique for $a \ne 2$ and any $b$; infinitely many for $a = 2, b = 3$; …"`],
+ traps:[R`Never divide by an expression with a parameter (it could be 0) — keep it in the last row`, R`Pivot so that $a$ and $b$ end up in the **last** row; swapping rows is allowed`, R`State all three cases, including "any $b$" where $b$ does not matter`]},
+{n:2, types:['market'], title:'Market shares / economic LES', lab:'mkt', drills:['mkt'],
+ recipe:[R`Read the graph: arrows = share of customers **leaving** a firm`, R`Write $T$: column $j$ = where firm $j$'s customers go → **every column sums to 1**`, R`Next period $s_2 = T s_1$ (two periods: $T^2 s_1$)`, R`Steady state: $s = Ts$ ⇔ $(T - I)s = 0$, replace one equation by $s_1 + s_2 + s_3 = 1$, solve with Gauss`, R`Interpret: shares stay constant, customers still switch but inflow = outflow`],
+ traps:[R`Building $T$ transposed (rows instead of columns) — check the column sums`, R`Forgetting the normalisation $\sum s_i = 1$: $(T-I)s = 0$ alone has infinitely many solutions`, R`Mixing percent and decimals inside one matrix`]},
+{n:3, types:['det'], title:'Determinant (Laplace) or Cramer', lab:'det', drills:['det2','det3','cramer'],
+ recipe:[R`Choose the row or column with the **most zeros**`, R`Laplace: $\det A = \sum_j a_{ij}(-1)^{i+j}|A_{ij}|$ — chessboard signs starting with + top left`, R`Reduce to $3\times3$ (Sarrus) or $2\times2$`, R`Cramer: $x_j = \det A_j / \det A$, $A_j$ = column $j$ replaced by $b$ — only if $\det A \ne 0$`],
+ traps:[R`Wrong sign of the cofactor — write the chessboard pattern next to the matrix`, R`Sarrus works **only** for $3\times3$`, R`Cramer: replace a **column**, not a row`]},
+{n:4, types:['inverse'], title:'Inverse & its economic application (coupon stripping)', lab:'inv', drills:['inv2'],
+ recipe:[R`Set up $A$ exactly as the exam defines rows and columns (states × assets)`, R`Gauss on $[A \mid I] \to [I \mid A^{-1}]$ — every row operation on both halves`, R`Pure coupon for state $k$ = **column $k$** of $A^{-1}$ (+ buy, − sell)`, R`Risk-free coupon $(1,\dots,1)^T$ = **row sums** of $A^{-1}$`, R`Check one entry: $A \cdot A^{-1} = I$`],
+ traps:[R`Row operations only on the left half`, R`Off-diagonal pivots: sort the **rows** back at the end`, R`Decimals instead of fractions → rounding errors; keep fractions`]},
+{n:5, types:['hessian','lagrange'], title:'Extreme values (Hessian / Lagrange)', lab:'def', drills:['def'],
+ recipe:[R`All first derivatives = 0 → find **all** stationary points (factor, do not divide by a variable)`, R`Hessian at each point → leading principal minors (MSD)`, R`$(+,+,+)$ minimum · $(-,+,-)$ maximum · anything else: no extremum`, R`With a constraint: $\mathcal{L} = f - \lambda g$, solve $\nabla\mathcal{L} = 0$, then the bordered Hessian: $|\bar H| < 0$ minimum, $|\bar H| > 0$ maximum (course convention)`],
+ traps:[R`Losing a stationary point by dividing by $x$ — factor instead ($x(x-2) = 0$)`, R`Evaluating the Hessian in general instead of at **each** point`, R`Using the unconstrained sign rule for the bordered Hessian`]},
+{n:6, types:['lp'], title:'Linear optimization (simplex)', lab:'tab', drills:[],
+ recipe:[R`Standard form: $\le$ → + slack; $\ge$ → multiply by −1, then + slack; $z$-row with $-c_j$`, R`Negative RHS first: pivot on a negative element in that row`, R`Pivot column = most negative entry of the $z$-row; pivot row = smallest ratio RHS / **positive** coefficient`, R`Repeat until the $z$-row is $\ge 0$; read: basic variable = RHS, non-basic = 0`, R`Interpret slacks: 0 = binding constraint, > 0 = capacity left`],
+ traps:[R`Ratios with zero or negative coefficients — skip them`, R`Forgetting to update the $z$-row in the pivot step`, R`$\min z$: maximise $-z$ and flip the sign of the result`]}
+];
+function m2LabOpen(tab){ navTo('m2-lab'); const b = document.querySelector(`#page-m2-lab .lab-tabs [data-lab="${tab}"]`); if(b) b.click(); }
+function m2DrillOpen(k){ navTo('m2-drill'); const c = document.querySelector(`#page-m2-drill .drill-kinds [data-k="${k}"]`); if(c) c.click(); }
+function m2ExamOpen(eid, n){ navTo('m2-'+eid); const t = document.querySelector(`#page-m2-${eid} .ex-tab[data-ex="${n}"]`); if(t) t.click(); }
+const M2_DRILL_LABELS = {det2:'2×2 determinant', det3:'3×3 determinant', cramer:'Cramer 2×2', def:'Definiteness', mkt:'Market shares next period', inv2:'Inverse 2×2'};
+const M2_LAB_LABELS = {tab:'Tableau / Gauss / Simplex', inv:'Inverse', det:'Determinant & Cramer', def:'Definiteness (MSD)', mkt:'Market shares'};
+function buildM2Types(){
+  registerPage('m2-types', (div)=>{
+    const render = ()=>{
+      const st = ls('m2-bank-state', {});
+      div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('logic')} Exam Prep</div><h2>Exercise Types</h2><p>The exam has the same six exercises every year. Train them one by one: read the recipe and the typical mistakes, solve the past-exam exercise, then the older bank exercises of the same type. Lab and drills help with the single steps.</p></div>
+        <div class="page-body">${M2_EXTYPES.map(x=>{
+          const ex = []; M2_EXAMS.forEach(e=>e.ex.forEach(q=>{ if(x.types.includes(q.type)) ex.push({e, q}); }));
+          const bank = M2_BANK.filter(b=>b.type===x.types[0]); const done = bank.filter(b=>st[b.id]==='ok').length;
+          const pts = ex.length ? ex[0].q.pts : '';
+          return `<div class="drill-card glass m2-type">
+            <div class="qtag">Ex. ${x.n}${pts?` · about ${pts} points`:''}</div><h3 style="margin:4px 0 10px">${esc(x.title)}</h3>
+            <div class="m2-type-cols"><div><div class="exam-label">Recipe</div><ol class="m2-recipe">${x.recipe.map(r=>`<li>${mathText(r)}</li>`).join('')}</ol></div>
+            <div><div class="exam-label">Typical mistakes</div><ul class="m2-traps">${x.traps.map(r=>`<li>${mathText(r)}</li>`).join('')}</ul></div></div>
+            <div class="chip-row"><span class="chip-label">Past exams:</span>${ex.map(({e,q})=>`<button class="chip" onclick="m2ExamOpen('${e.id}',${q.n})">${e.year} · Ex. ${q.n}</button>`).join('')}</div>
+            <div class="chip-row"><span class="chip-label">Practise more:</span><button class="chip" onclick="navTo('m2-bank');bankFilter('${x.types[0]}')">Bank · ${bank.length} exercises · ${done} solved</button><button class="chip" onclick="m2LabOpen('${x.lab}')">Lab · ${esc(M2_LAB_LABELS[x.lab])}</button>${x.drills.map(d=>`<button class="chip" onclick="m2DrillOpen('${d}')">Drill · ${esc(M2_DRILL_LABELS[d])}</button>`).join('')}</div>
+          </div>`; }).join('')}</div>`;
+    };
+    render(); div.__render = render;
+  });
 }
 
 /* ============================================================ RANDOM DRILLS ============================================================ */

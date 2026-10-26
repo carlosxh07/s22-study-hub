@@ -6,10 +6,14 @@ const ST_NAV = [
   {sec:'Practice', items:[
     {id:'st-tut', label:`Tutorials TUT 1–${ST_TUTS.length} (worked solutions)`, icon:'doc'},
     {id:'st-drill', label:'Random Drills (step-by-step)', icon:'logic'},
+    {id:'st-which', label:'Which Method? (pick the tool)', icon:'quiz'},
+    {id:'st-mock', label:'Mock Exam (90 min, tutorial style)', icon:'timer'},
+    {id:'st-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
+  ]},
+  {sec:'Check your result (after solving by hand)', items:[
     {id:'st-calc', label:'Distribution & CI Calculator', icon:'calc'},
     {id:'st-lab', label:'Data Lab (describe a data set)', icon:'quiz'},
-    {id:'st-tables', label:'Tables II & IV (z and t)', icon:'doc'},
-    {id:'st-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
+    {id:'st-tables', label:'Tables II & IV (z and t)', icon:'doc'}
   ]}
 ];
 
@@ -152,6 +156,10 @@ planItemPool = function(){
   ST_TOPICS.forEach(t=>{ const s = stTopicScore(t); items.push({subj:'st', label:`Ch. ${t.ch} · ${t.title}`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + 4*ST_KINDS.filter(k=>k.topics.includes(t.id)).length + Math.round(t.summary.split(/\s+/).length/120)}); });
   const d = stDrillScore();
   items.push({subj:'st', label:'Random Drills — mixed (exam warm-up)', page:'st-drill', weight:d==null ? .9 : 1-d, size:30});
+  const w = stDrillStats().which;
+  items.push({subj:'st', label:`Which Method? — pick the tool for ${ST_WHICH.length} situations`, page:'st-which', weight:w ? Math.max(.2, 1-w.ok/w.n) : .9, size:12});
+  const mb = ls('st-mock-best', null);
+  items.push({subj:'st', label:'Mock Exam — 90 min, then read every solution', page:'st-mock', weight:mb==null ? .9 : Math.max(.2, 1-mb/90), size:15});
   ST_TUTS.forEach(tu=>{ const r = stTutScore(tu); items.push({subj:'st', label:`Tutorial ${tu.n} — ${tu.title} (solve, then compare)`, page:'st-tut', weight:r==null ? .8 : 1-r, size:tu.tasks.length}); });
   items.forEach(i=>{ i.large = false; i.prio = false; });
   const bySize = items.map(i=>i.size).sort((a,b)=>b-a);
@@ -162,6 +170,8 @@ planItemPool = function(){
 };
 const __planScheduleBK = planSchedule;
 planSchedule = function(item, idx){
+  if(item.page==='st-mock'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-6), Math.max(1,h-2)])); }
+  if(item.page==='st-which'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-20), Math.max(1,h-9), Math.max(1,h-3)])); }
   if(item.page==='st-drill'){ const h = planDaysLeft('st'); return Array.from(new Set([Math.max(1,h-24), Math.max(1,h-12), Math.max(1,h-5), Math.max(1,h-2)])); }
   return __planScheduleBK(item, idx);
 };
@@ -251,6 +261,7 @@ function buildSTHome(){
             <button class="btn" onclick="navTo('st-1')">Start with chapter 1 →</button>
             <button class="btn ghost" onclick="navTo('st-tut')">Tutorials TUT 1–${ST_TUTS.length}</button>
             <button class="btn ghost" onclick="navTo('st-drill')">Random Drills${d!=null?` · ${Math.round(d*100)}%`:''}</button>
+            <button class="btn ghost" onclick="navTo('st-mock')">Mock Exam</button>
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
         </div>
@@ -262,6 +273,8 @@ function buildSTHome(){
         <div class="tool-tiles">
           <div class="tool-tile" onclick="navTo('st-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials</h4><p>${ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks of the tutorial sheets 1–${ST_TUTS.length} with worked solutions, incl. the Python parts.</p></div>
           <div class="tool-tile" onclick="navTo('st-drill')"><div class="ic">${icon('logic')}</div><h4>Random Drills</h4><p>${ST_KINDS.length} task types with fresh numbers and full step-by-step solutions.</p></div>
+          <div class="tool-tile" onclick="navTo('st-which')"><div class="ic">${icon('quiz')}</div><h4>Which Method?</h4><p>Recognise the right tool first — counting, probability rules, binomial, z or t.</p></div>
+          <div class="tool-tile" onclick="navTo('st-mock')"><div class="ic">${icon('timer')}</div><h4>Mock Exam</h4><p>90 minutes, 90 points, one task per course block with fresh numbers.</p></div>
           <div class="tool-tile" onclick="navTo('st-calc')"><div class="ic">${icon('calc')}</div><h4>Distribution & CI Calculator</h4><p>Normal, binomial, Poisson, x̄, confidence intervals, sample size — with the steps.</p></div>
           <div class="tool-tile" onclick="navTo('st-lab')"><div class="ic">${icon('quiz')}</div><h4>Data Lab</h4><p>Paste a data set: mean, s, quartiles, outliers, boxplot, stem-and-leaf.</p></div>
           <div class="tool-tile" onclick="navTo('st-tables')"><div class="ic">${icon('doc')}</div><h4>Tables II & IV</h4><p>The z- and t-tables with a lookup that highlights the right cell.</p></div>
@@ -328,6 +341,44 @@ function stDistTask(){
   if(v===0){ const n = stPick([150, 200, 400, 500]), p = stPick([0.01, 0.02, 0.025]); return {q:`$n = ${n}$ independent trials with success probability $p = ${p}$. You need $P(X = 3)$ quickly. Which approximation is allowed by the course rules?`, choice:[['pois','Poisson with λ = np'],['norm','normal with continuity correction'],['none','none — use the exact formula only']], ans:'pois', sol:`$n \\ge 100$ and $np = ${stR(n*p,2)} \\le 10$ → Poisson approximation with $\\lambda = ${stR(n*p,2)}$. The normal approximation needs $np \\ge 5$, which fails.`}; }
   if(v===1){ const n = stPick([60, 80, 100, 120]), p = stPick([0.3, 0.4, 0.5]); return {q:`$n = ${n}$, $p = ${p}$. You need $P(X \\le ${Math.round(n*p)-3})$. Which approximation is allowed?`, choice:[['norm','normal with continuity correction'],['pois','Poisson with λ = np'],['none','none — use the exact formula only']], ans:'norm', sol:`$np = ${stR(n*p,1)} \\ge 5$ and $n(1-p) = ${stR(n*(1-p),1)} \\ge 5$ → normal approximation with $\\mu = np$, $\\sigma = \\sqrt{np(1-p)}$ and continuity correction. Poisson needs $np \\le 10$.`}; }
   const n = stPick([20, 30]), p = 0.05; return {q:`$n = ${n}$, $p = ${p}$. Which approximation is allowed by the course rules?`, choice:[['none','none — use the exact binomial formula'],['pois','Poisson with λ = np'],['norm','normal with continuity correction']], ans:'none', sol:`Poisson needs $n \\ge 100$ (here ${n}); normal needs $np \\ge 5$ (here $${stR(n*p,2)}$). So compute exactly with $\\binom{n}{x}p^x(1-p)^{n-x}$.`};
+}
+/* ---------- "Which method?" — recognise the tool before calculating (the step where most exam points get lost) ---------- */
+const ST_WHICH = [
+  // [situation, group, correct, why]
+  ['A jury ranks the best 3 of 20 films (1st, 2nd, 3rd place). How many outcomes?', 'count', 'perm', 'Order matters (1st ≠ 3rd), no repetition → permutations $_nP_r = \\frac{n!}{(n-r)!}$.'],
+  ['A committee of 4 is chosen from 15 employees. How many committees?', 'count', 'comb', 'Order does not matter (a committee has no ranking), no repetition → combinations $\\binom{n}{r}$.'],
+  ['A PIN has 4 digits (0–9), digits may repeat. How many PINs?', 'count', 'basic', 'Several independent choices with repetition → basic counting rule: $10\\cdot10\\cdot10\\cdot10$.'],
+  ['A menu offers 3 starters, 5 mains and 2 desserts. How many 3-course meals?', 'count', 'basic', 'One choice per step, each combinable with every other → basic counting rule: $3\\cdot5\\cdot2$.'],
+  ['Six runners: in how many orders can they finish?', 'count', 'perm', 'All 6 are ordered → permutations $_6P_6 = 6!$.'],
+  ['P(A) and P(B) are given, A and B cannot happen together. You need P(A or B).', 'prob', 'special', 'Mutually exclusive → special addition rule $P(A)+P(B)$, no overlap to subtract.'],
+  ['P(A), P(B) and P(A & B) are given. You need P(A or B).', 'prob', 'general', 'The events overlap → general addition rule $P(A)+P(B)-P(A\\&B)$.'],
+  ['43% of men and 10% of women smoke; 50.4% are men. You need the share of smokers in the population.', 'prob', 'total', 'Split the population into men and women and add up → rule of total probability $\\sum P(A_j)P(B|A_j)$.'],
+  ['43% of men and 10% of women smoke; 50.4% are men. You need the share of women among smokers.', 'prob', 'bayes', 'The condition is turned around (given: smoker) → Bayes’s rule.'],
+  ['P(A & B) and P(A) are given. You need the probability of B among the cases where A happened.', 'prob', 'cond', 'Conditional probability $P(B|A) = P(A\\&B)/P(A)$.'],
+  ['10 questions, each answered correctly with p = 0.3 independently. You need P(exactly 4 correct).', 'dist', 'binom', 'Fixed n, two outcomes, independent, constant p → binomial.'],
+  ['Throw a die until the first six appears. X = number of throws.', 'dist', 'none', 'Number of trials is not fixed → not binomial.'],
+  ['Draw 5 cards without replacement from 52; X = number of hearts.', 'dist', 'none', 'Without replacement p changes from draw to draw → not binomial.'],
+  ['Of 200 orders, each is returned with probability 0.15 independently. X = returned orders.', 'dist', 'binom', 'n = 200 fixed, returned or not, independent, p = 0.15 → binomial.'],
+  ['Data set with mean 50 and s = 5, shape unknown. Which share lies within 40–60 at least?', 'spread', 'cheb', 'Shape unknown → only Chebyshev’s rule is safe: at least $1-1/k^2 = 75\\%$ for k = 2.'],
+  ['Data set roughly bell-shaped, mean 50, s = 5. Approximately which share lies within 40–60?', 'spread', 'emp', 'Bell-shaped → empirical rule: about 95% within 2 standard deviations.'],
+  ['Heights are normal with μ = 175, σ = 7. What share of single persons is taller than 185?', 'normal', 'single', 'A single observation → $z = \\frac{x-\\mu}{\\sigma}$.'],
+  ['Heights are normal with μ = 175, σ = 7. What is the probability that the mean of 25 persons exceeds 177?', 'normal', 'mean', 'A sample mean → standard deviation $\\sigma/\\sqrt n$: $z = \\frac{\\bar x-\\mu}{\\sigma/\\sqrt n}$.'],
+  ['Which value do 65% of all values exceed (normal distribution)?', 'normal', 'inv', 'An area is given, the value is wanted → percentile backwards: look up the area inside Table II, then $x = \\mu + z\\sigma$.'],
+  ['n = 50, σ = 12.1 known, sample mean 41.4. 95% interval for μ.', 'ci', 'z', 'σ known → z-interval with $z_{0.025} = 1.96$.'],
+  ['n = 42 bags, sample mean 1,261.6, sample standard deviation s = 117.6. 95% interval for μ.', 'ci', 't', 'Only s is known → t-interval with df = n − 1 = 41.'],
+  ['σ = 2.1 known. How many observations for a margin of error of 0.5 at 95%?', 'ci', 'n', 'Required sample size $n = (z_{\\alpha/2}\\sigma/E)^2$, rounded up.']
+];
+const ST_WHICH_OPTS = {
+  count:[['basic','Basic counting rule (multiply)'],['perm','Permutations (order matters)'],['comb','Combinations (order irrelevant)']],
+  prob:[['special','Special addition rule'],['general','General addition rule'],['cond','Conditional probability'],['total','Total probability'],['bayes','Bayes’s rule']],
+  dist:[['binom','Binomial distribution'],['none','Not binomial']],
+  spread:[['cheb','Chebyshev’s rule'],['emp','Empirical rule']],
+  normal:[['single','z for a single value'],['mean','z for the sample mean (σ/√n)'],['inv','Percentile (table backwards)']],
+  ci:[['z','z-interval'],['t','t-interval'],['n','Required sample size']]
+};
+function stWhichTask(){
+  const [q, g, ans, why] = stPick(ST_WHICH);
+  return {q:`${q}  \n**Which tool do you use?**`, choice:ST_WHICH_OPTS[g].slice(), ans, sol:why};
 }
 const ST_KINDS = [
   {id:'classify', label:'Classify: variables, sampling, design', topics:['st-1','st-2'], gen(){
@@ -487,7 +538,8 @@ ${zl!=null?`- $z = (${lo} - ${stF(mu,2)})/${stF(sd,4)} = ${stF(zl,2)}$ → left 
       sol:`$n = \\left(\\frac{${za}\\cdot${sd}}{${E}}\\right)^2 = ${stF(raw,2)}$ → always round **up**: $n = ${n}$`};
   }},
   {id:'method', label:'Which procedure? (z, t or neither)', topics:['st-8'], gen:stMethodTask},
-  {id:'approx', label:'Which approximation? (Poisson / normal)', topics:['st-5','st-6'], gen:stDistTask}
+  {id:'approx', label:'Which approximation? (Poisson / normal)', topics:['st-5','st-6'], gen:stDistTask},
+  {id:'which', label:'Which method? (all chapters)', topics:['st-8','st-3','st-4','st-5','st-6','st-7'], gen:stWhichTask}
 ];
 let stDrillKind = 'mixed';
 function stDrillOpen(kind){ stDrillKind = kind; navTo('st-drill'); const pg = document.getElementById('page-st-drill'); if(pg && pg.__set) pg.__set(kind); }
@@ -548,6 +600,89 @@ function buildSTDrill(){
     div.querySelector('.st-reset').addEventListener('click', ()=>{ sOk = 0; sN = 0; next(); });
     div.__set = set;
     set(stDrillKind);
+  });
+}
+
+/* ============================================================ WHICH METHOD? + MOCK EXAM ============================================================ */
+function buildSTWhich(){
+  registerPage('st-which', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('quiz')} Practice</div><h2>Which Method?</h2><p>Before any calculation: recognise the tool. Short situations from all chapters — counting rules, probability rules, binomial or not, Chebyshev or empirical rule, single value or sample mean, z- or t-interval. This is where most exam points get lost, so the drill is about the decision, not the arithmetic.</p></div>
+      <div class="page-body">
+        <div class="bk-score-row"><span class="bk-live st-w-live"></span><button class="btn ghost st-w-reset">Reset session</button></div>
+        <div class="drill-card glass st-w-card"></div>
+      </div>`;
+    const card = div.querySelector('.st-w-card');
+    let cur, done, ok = 0, n = 0, bag = [];
+    const live = ()=>{ const v = stDrillStats().which; div.querySelector('.st-w-live').textContent = `This session: ${ok}/${n}` + (v ? ` · overall ${v.ok}/${v.n}` : ''); };
+    const next = ()=>{
+      if(!bag.length) bag = shuffle(ST_WHICH.map((_,i)=>i));
+      const [q, g, ans, why] = ST_WHICH[bag.pop()];
+      cur = {ans, why}; done = false;
+      card.innerHTML = `<div class="drill-q st-q">${mathText(q)}</div><div class="chip-row st-choices">${shuffle(ST_WHICH_OPTS[g].slice()).map(([v,l])=>`<button class="chip" data-choice="${v}">${esc(l)}</button>`).join('')}</div><div class="ans-feedback"></div><div class="ans-actions"><button class="btn ghost" data-d="next">Next situation →</button></div>`;
+      live();
+    };
+    card.addEventListener('click', ev=>{
+      const ch = ev.target.closest('[data-choice]');
+      if(ch && !done){
+        done = true; n++; const good = ch.dataset.choice===cur.ans; if(good) ok++;
+        ch.classList.add(good?'st-ok':'st-bad'); if(!good) card.querySelectorAll('[data-choice]').forEach(b=>{ if(b.dataset.choice===cur.ans) b.classList.add('st-ok'); });
+        const st = stDrillStats(); st.which = st.which || {ok:0, n:0}; st.which.n++; if(good) st.which.ok++; lsSet('st-drill-stats', st);
+        const fb = card.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(good?'good':'warn'); fb.innerHTML = (good?'<b>Right tool.</b> ':'<b>Not this one.</b> ') + mathText(cur.why);
+        live(); return;
+      }
+      if(ev.target.closest('[data-d="next"]')) next();
+    });
+    div.querySelector('.st-w-reset').addEventListener('click', ()=>{ ok = 0; n = 0; bag = []; next(); });
+    next();
+  });
+}
+
+// Mock exam: tutorial-style tasks with fresh numbers, one per block, 90-minute timer, graded at the end.
+// Self-built (no past Statistics exams yet) — each task counts as one drill attempt for the radar.
+const ST_MOCK_LAYOUT = [['desc',6],['quart',6],['cheb',4],['zscore',3],['cond',7],['bayes',7],['count',4],['dmean',6],['binom',7],['norm',7],['invnorm',6],['xbar',7],['zci',7],['tci',7],['nsize',6]];
+function buildSTMock(){
+  registerPage('st-mock', (div)=>{
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('timer')} Practice</div><h2>Mock Exam</h2><p>A 90-minute, 90-point exam in the style of the tutorial sheets: one task from each block of the course with fresh numbers. There are no past Statistics exams yet, so this is self-built — when real exams arrive they replace it. Solve on paper, type the results, then grade everything at once and read the solutions.</p></div>
+      <div class="page-body">
+        <div class="bk-score-row"><span class="bk-live st-m-live"></span><span class="st-m-best"></span><button class="btn st-m-new">New exam</button><button class="btn ghost st-m-grade">Finish & grade</button></div>
+        <div class="st-m-body"></div>
+      </div>`;
+    const body = div.querySelector('.st-m-body');
+    let tasks = [], graded = false, timer = null, left = 0;
+    const best = ()=>{ const b = ls('st-mock-best', null); div.querySelector('.st-m-best').textContent = b!=null ? `Best: ${b}/90` : ''; };
+    const tick = ()=>{ const m = Math.floor(left/60), sec = left%60; div.querySelector('.st-m-live').textContent = graded ? '' : `Time left ${m}:${String(sec).padStart(2,'0')}`; if(left<=0 && !graded) grade(); left--; };
+    const start = ()=>{
+      graded = false;
+      tasks = ST_MOCK_LAYOUT.map(([k, pts])=>{ const K = ST_KINDS.find(x=>x.id===k); const t = K.gen(); if(t.choice) t.choice = shuffle(t.choice); return {k, pts, label:K.label, t}; });
+      body.innerHTML = tasks.map((x,i)=>`<div class="drill-card glass st-m-task" data-i="${i}"><div class="qtag">Task ${i+1} · ${x.pts} points · ${esc(x.label)}</div>
+        <div class="drill-q st-q">${mathText(x.t.q)}</div>${x.t.table?richHtml(x.t.table):''}
+        ${x.t.choice ? `<div class="chip-row st-choices">${x.t.choice.map(([v,l])=>`<button class="chip" data-choice="${esc(v)}">${esc(l)}</button>`).join('')}</div>`
+          : `<div class="drill-fields">${x.t.fields.map(f=>`<label>${esc(f)} <input type="text" inputmode="decimal"></label>`).join('')}</div>`}
+        <div class="ans-feedback"></div></div>`).join('');
+      clearInterval(timer); left = 90*60; tick(); timer = setInterval(tick, 1000); best();
+    };
+    const grade = ()=>{
+      if(graded) return; graded = true; clearInterval(timer);
+      let got = 0; const st = stDrillStats();
+      tasks.forEach((x,i)=>{
+        const box = body.querySelector(`.st-m-task[data-i="${i}"]`); let frac;
+        if(x.t.choice){ const sel = box.querySelector('[data-choice].active'); frac = sel && sel.dataset.choice===x.t.ans ? 1 : 0; box.querySelectorAll('[data-choice]').forEach(b=>{ if(b.dataset.choice===x.t.ans) b.classList.add('st-ok'); else if(b.classList.contains('active')) b.classList.add('st-bad'); }); }
+        else { const ins = [...box.querySelectorAll('input')]; const okEach = ins.map((inp,j)=>{ const v = stNum(inp.value); const ok = !isNaN(v) && Math.abs(v-x.t.ans[j]) <= (x.t.tol[j]||1e-9)+1e-9; inp.classList.add(ok?'st-ok':'st-bad'); return ok; }); frac = okEach.filter(Boolean).length/okEach.length; }
+        const pts = Math.round(x.pts*frac*2)/2; got += pts;
+        st[x.k] = st[x.k] || {ok:0, n:0}; st[x.k].n++; if(frac===1) st[x.k].ok++;
+        const fb = box.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(frac===1?'good':'warn');
+        fb.innerHTML = `<b>${pts}/${x.pts} points.</b>` + (x.t.fields && frac<1 ? ` Expected: ${x.t.fields.map((f,j)=>`${f} = ${Number.isInteger(x.t.ans[j])?x.t.ans[j]:stF(x.t.ans[j], 4)}`).join(', ')}.` : '') + `<div class="st-sol">${richHtml(x.t.sol)}</div>`;
+        box.querySelectorAll('input,[data-choice]').forEach(el=>el.disabled = true);
+      });
+      lsSet('st-drill-stats', st);
+      got = Math.round(got*2)/2; const b = ls('st-mock-best', null); if(b==null || got>b) lsSet('st-mock-best', got);
+      div.querySelector('.st-m-live').textContent = `Result: ${got}/90 points`; best();
+      window.scrollTo({top:0, behavior:'smooth'});
+    };
+    body.addEventListener('click', ev=>{ const c = ev.target.closest('[data-choice]'); if(!c || graded) return; c.parentElement.querySelectorAll('[data-choice]').forEach(b=>b.classList.toggle('active', b===c)); });
+    div.querySelector('.st-m-new').addEventListener('click', start);
+    div.querySelector('.st-m-grade').addEventListener('click', grade);
+    start();
   });
 }
 
