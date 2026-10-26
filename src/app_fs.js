@@ -6,6 +6,8 @@ const FS_NAV = [
   {sec:'Practice', items:[
     {id:'fs-cases', label:'Case Trainer (slide cases)', icon:'quiz'},
     {id:'fs-drill', label:'Number Drills (step-by-step)', icon:'logic'},
+    {id:'fs-sim', label:'MC Exam Simulator (90 min)', icon:'timer'},
+    {id:'fs-sort', label:'HGB vs IFRS Sorter', icon:'quiz'},
     {id:'fs-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
   ]}
 ];
