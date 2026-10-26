@@ -71,7 +71,7 @@ const SUBJECTS = [
 ];
 """
 data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_st.js', 'data_st_tut.js', 'data_fs.js', 'data_mk.js', 'data_cb.js', 'data_dt.js'))
-app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js', 'app_mkcb.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
 autoupdate = """
@@ -112,6 +112,7 @@ buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSD
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
 buildDTHome(); DT_TOPICS.forEach(t=>buildTopicPage(t)); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
 buildCBHome(); CB_TOPICS.forEach(t=>buildTopicPage(t)); buildCBMc(); buildCBOpen(); buildCBCheat();
+buildCBCases(); buildMKCBGuest(); buildMKCBMock();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();

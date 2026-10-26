@@ -6,6 +6,9 @@ const CB_NAV = [
   {sec:'Practice', items:[
     {id:'cb-mc', label:'Exam-Format Trainer (5 statements)', icon:'quiz'},
     {id:'cb-open', label:'Open Questions (model answers)', icon:'logic'},
+    {id:'cb-cases', label:'Case Recognizer (heuristics, biases, decision types)', icon:'quiz'},
+    {id:'mkcb-mock', label:'Mock Exam 16 Dec (with Marketing)', icon:'timer'},
+    {id:'mkcb-guest', label:'Guest Talks — notes for the exam', icon:'doc'},
     {id:'cb-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
   ]}
 ];
@@ -169,8 +172,8 @@ buildTopicPage = function(t){
       <div class="page-header"><div class="eyebrow">${icon(t.kind==='read'?'doc':'summary')} Consumer Behaviour · ${cbLabel(t)} · ${esc(t.date)}</div><h2>${esc(t.title)}</h2>${t.source?`<p class="cb-source">${esc(t.source)}</p>`:''}<p>${esc(t.examWeight)}</p></div>
       <div class="page-body">
         <div class="chip-row"><span class="chip-label">Practise it:</span>${nMc?`<button class="chip" onclick="cbMcOpen('${t.id}')">${nMc} exam-format questions</button>`:''}${nOpen?`<button class="chip" onclick="navTo('cb-open')">${nOpen} open questions</button>`:''}</div>
-        <div class="tabbar"><button class="tabbtn active" data-tab="sum">Summary</button><button class="tabbtn" data-tab="qz">Quiz</button><button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button></div>
-        <div class="tabpanel active" id="${t.id}-sum"></div><div class="tabpanel" id="${t.id}-qz"></div><div class="tabpanel" id="${t.id}-fc"></div>
+        <div class="tabbar"><button class="tabbtn active" data-tab="sum">Summary</button>${nMc?`<button class="tabbtn" data-tab="ex">Exam format (${nMc})</button>`:''}<button class="tabbtn" data-tab="qz">Quick check</button><button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button></div>
+        <div class="tabpanel active" id="${t.id}-sum"></div><div class="tabpanel" id="${t.id}-ex"></div><div class="tabpanel" id="${t.id}-qz"></div><div class="tabpanel" id="${t.id}-fc"></div>
       </div>`;
     div.querySelectorAll('.tabbtn').forEach(btn=>{
       btn.onclick = ()=>{
@@ -179,6 +182,7 @@ buildTopicPage = function(t){
         btn.classList.add('active');
         const panel = div.querySelector(`#${t.id}-${btn.dataset.tab}`); panel.classList.add('active');
         if(btn.dataset.tab==='fc' && !panel.dataset.loaded){ panel.dataset.loaded='1'; renderFlashcards(panel, t.cards, 'fc-'+t.id); }
+        if(btn.dataset.tab==='ex' && !panel.dataset.loaded){ panel.dataset.loaded='1'; stmtRunEmbed(panel, CB_MC.filter(m=>m.lec===t.id), 'cb-mc-state', CB_POINTS); }
         if(btn.dataset.tab==='qz' && !panel.dataset.loaded){ panel.dataset.loaded='1'; cbTrackQuiz(panel, t); renderQuiz(panel, shuffledQuiz(t), 'quiz-'+t.id); }
       };
     });

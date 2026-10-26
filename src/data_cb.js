@@ -582,7 +582,31 @@ const CB_MC = [
  [R`For search products like electronics, AI recommendations are generally preferred.`, true, R`AI is seen as more transparent and credible for fact-based evaluations.`],
  [R`For experience products, consumers always prefer AI.`, false, R`The preference shifts to a highly experienced human expert.`],
  [R`Transparency leads to credibility, which raises the intention to follow a recommendation.`, true, R`The sequential effect.`],
- [R`Credibility is the perceived ability to provide complete and reliable information.`, false, R`That is transparency; credibility = expertise + trust to be objective.`]]}
+ [R`Credibility is the perceived ability to provide complete and reliable information.`, false, R`That is transparency; credibility = expertise + trust to be objective.`]]},
+{lec:'cb-r4', area:'ab', q:R`A gym tests a free personal-training session for members who might cancel. The average effect on renewals is zero. Following Ascarza, which conclusions are correct?`, s:[
+ [R`The zero average may hide one group that renews more and another that renews less because of the offer.`, true, R`Exactly the arts-organisation lesson: the gift raised renewal for recent visitors and lowered it for long-inactive members.`],
+ [R`The gym should look for the members who are most sensitive to the offer, using the test data plus its customer data.`, true, R`From prediction to prescription: combine A/B results with historical and demographic data to find who responds.`],
+ [R`The offer should go to the members with the highest risk of cancelling, because they have the most to gain.`, false, R`Churn risk and sensitivity to the intervention were barely correlated in Ascarza’s experiments.`],
+ [R`A reminder of an unused membership can push inactive members towards cancelling.`, true, R`That is the likely reason the gift reduced renewal for members who had not visited for a long time.`],
+ [R`Because the average effect is zero, the test shows that the offer has no effect on anyone.`, false, R`An average of zero only means positive and negative reactions cancel out.`]]},
+{lec:'cb-r5', area:'star', q:R`A bakery chain copies Starbucks and launches an app with points, a gold level and pre-ordering. Which statements describe why such a program changes behaviour?`, s:[
+ [R`Rewarding every purchase with points reinforces the behaviour, so it is repeated.`, true, R`Reinforcement — the reward follows the desired behaviour.`],
+ [R`Showing the points still needed for the next level uses goals and visible progress.`, true, R`Like the Stars counter and the Green/Gold levels.`],
+ [R`Pre-ordering and paying in the app lowers the effort and helps the visit become a habit.`, true, R`Convenience — Mobile Order & Pay and auto-reload made the routine stick.`],
+ [R`The program works mainly because the bakery offers the lowest prices in town.`, false, R`The case is about reinforcement, progress, convenience, personalisation and belonging — not price leadership.`],
+ [R`According to the case, a chain cannot rely on such a program without also delivering a consistent product and service.`, true, R`Starbucks focuses on what it controls: consistency, service and a seamless experience.`]]},
+{lec:'cb-r7', area:'ai', q:R`A travel platform wants to recommend (1) hotel rooms by price, size and distance and (2) a guided wine-tasting weekend. Following Mazzù et al., which statements are correct?`, s:[
+ [R`For the hotel rooms, an AI recommendation fits well, because the attributes can be compared before the stay.`, true, R`Search products with standardised attributes → AI is seen as transparent and credible.`],
+ [R`For the wine-tasting weekend, a recommendation from an experienced human expert is likely to be more persuasive.`, true, R`Experience products → human experts with lived experience are seen as more credible.`],
+ [R`Consumers prefer AI for every product, because it processes more data than a human can.`, false, R`Algorithm aversion: for subjective, experience-based choices people favour humans.`],
+ [R`If customers believe the AI cannot understand their personal taste, this is called uniqueness neglect.`, true, R`Uniqueness neglect — algorithms are thought unable to address a person’s unique characteristics.`],
+ [R`Credibility of the source has no influence on whether customers follow the recommendation.`, false, R`Transparency → credibility → intention to follow the recommendation.`]]},
+{lec:'cb-r7', area:'ai', q:R`Which statements about the mechanism behind AI and human recommendations are correct?`, s:[
+ [R`Transparency is the perceived ability of a source to provide complete and reliable information.`, true, R`The article’s definition of transparency.`],
+ [R`Credibility is the perception that the source has relevant expertise and gives an objective opinion.`, true, R`The article’s definition of credibility.`],
+ [R`Higher transparency of a source raises its credibility, which raises the intention to follow it.`, true, R`The mediation chain of the article.`],
+ [R`For objective tasks that need numerical precision, consumers may prefer AI.`, true, R`Algorithm aversion is strongest for subjective tasks; for objective ones AI can be preferred.`],
+ [R`AI voice recommendations performed worse than text-based online reviews for search products.`, false, R`The opposite: for search products AI voice recommendations even beat text reviews.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -629,3 +653,38 @@ R`300+ emotional motivators · pathway −18% → baseline → +13% → +52% · 
 {h:'Reading LS 7 · Humans or AI', items:[
 R`Algorithm aversion · uniqueness neglect · search products → AI, experience products → experienced human · transparency → credibility → intention to follow`]}
 ];
+
+
+/* ---------- Case Recognizer: situation → which heuristic, bias or decision type (lecture 1) ---------- */
+// [situation, group, answer, why]
+const CB_CASES = [
+ ['Lena tests two used cars. One door closes with a heavy, solid sound, so she assumes the whole car is well built.', 'hb', 'cov', 'One cue (door sound) is taken as a sign of overall quality — covariation.'],
+ ['In the supermarket, Tom picks the olive oil labelled "Made in Italy" because Italian oil must be good.', 'hb', 'coo', 'The origin works as a quality signal — country of origin.'],
+ ['Abroad, Mia buys a Coca-Cola instead of the unknown local cola, because she knows the brand.', 'hb', 'brand', 'A known name feels safe and works as a trust shortcut — familiar brand names.'],
+ ['Jonas chooses the 89-euro wine over the 12-euro wine for a dinner: "the expensive one will be better".', 'hb', 'price', 'Price is used as a signal of quality — higher-price heuristic.'],
+ ['A shop says "You lose your 20 euro discount if you don’t order today" instead of "Get 20 euro off today" — and it works better.', 'hb', 'loss', 'Framing as a loss: losses weigh more than equal gains — loss aversion.'],
+ ['Sara found a new song annoying at first, but after hearing it in every café for two weeks she likes it.', 'hb', 'mere', 'Repeated exposure alone increases liking — mere exposure effect.'],
+ ['Paul keeps paying for a language app he never uses, because he "already paid for six months".', 'hb', 'sunk', 'Past, unrecoverable payments drive the decision — sunk cost fallacy.'],
+ ['A brand places its logo on the same bus stop that commuters pass every morning for months.', 'hb', 'mere', 'The strategy relies on repeated exposure building liking — mere exposure.'],
+ ['A customer judges a hotel by the thickness of its towels: thick towels → the whole hotel must be high quality.', 'hb', 'cov', 'A single cue stands for overall quality — covariation.'],
+ ['A buyer refuses to sell shares below the purchase price, even though the outlook is bad: "I don’t want to realise the loss."', 'hb', 'loss', 'Avoiding the pain of a realised loss — loss aversion.'],
+ ['A student finishes a boring, expensive online course "so the money isn’t wasted".', 'hb', 'sunk', 'Continuing because of what was already invested — sunk cost fallacy.'],
+ ['German machine tools are marketed abroad with the line "Engineered in Germany".', 'hb', 'coo', 'Country of origin as a quality cue.'],
+ ['At the checkout, Ben grabs a chocolate bar he had not planned to buy.', 'kat', 'imp', 'Lowest cognitive control, no planning — impulsive decision.'],
+ ['Every Monday Anna buys the same brand of coffee without looking at other brands.', 'kat', 'hab', 'A repeated purchase on autopilot — habitualised decision.'],
+ ['Before buying new sunglasses, Max compares three models in one shop for ten minutes.', 'kat', 'lim', 'Some deliberate comparison, but bounded effort — limited decision.'],
+ ['Before buying his first car, Leo reads tests for weeks, compares prices and test-drives five models.', 'kat', 'ext', 'High involvement, high perceived differences, rare decision, no time pressure — extensive decision.'],
+ ['Julia picks a perfume after trying four scents at the counter.', 'kat', 'lim', 'Deliberate comparison of a few alternatives — limited decision.'],
+ ['Tim always fills up at the same petrol station on his way to work.', 'kat', 'hab', 'Routine purchase without new evaluation — habitualised decision.'],
+ ['Nora walks through the five stages carefully: she needs a laptop, researches, compares, buys and later reviews her choice.', 't3', 'cog', 'Deliberate, rational, sequential — cognitive decision making.'],
+ ['Kai buys concert tickets the second the presale opens because he feels excited.', 't3', 'aff', 'Emotional and instantaneous — affective decision making.'],
+ ['Each morning Emma takes the same yoghurt from the shelf without thinking.', 't3', 'hab', 'Behavioural, unconscious, automatic — habitual decision making.'],
+ ['Moved by a touching advert, Leon donates on the spot.', 't3', 'aff', 'An emotional, immediate reaction — affective decision making.'],
+ ['Before signing a mobile contract, Sophie lists her needs, compares tariffs in a table and decides.', 't3', 'cog', 'Deliberate and sequential evaluation of alternatives — cognitive decision making.']
+];
+const CB_CASE_OPTS = {
+ hb:[['cov','Covariation'],['coo','Country of origin'],['brand','Familiar brand name'],['price','Higher-price heuristic'],['loss','Loss aversion'],['mere','Mere exposure effect'],['sunk','Sunk cost fallacy']],
+ kat:[['imp','Impulsive'],['hab','Habitualised'],['lim','Limited'],['ext','Extensive']],
+ t3:[['cog','Cognitive'],['hab','Habitual'],['aff','Affective']]
+};
+const CB_CASE_Q = {hb:'Which heuristic or bias is at work?', kat:'Which decision type (Katona)?', t3:'Which type of decision making?'};

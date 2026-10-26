@@ -326,3 +326,9 @@
 .m2-recipe,.m2-traps{margin:6px 0 0;padding-left:20px;font-size:.9rem;line-height:1.55;}
 .m2-recipe li,.m2-traps li{margin-bottom:5px;}
 @media (max-width:760px){.m2-type-cols{grid-template-columns:1fr;}}
+.mkcb-guest summary{cursor:pointer;list-style:none;}
+.mkcb-guest summary::-webkit-details-marker{display:none;}
+.mkcb-guest[open] summary{margin-bottom:12px;}
+.mkcb-field{display:block;margin:10px 0;}
+.mkcb-field span{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:4px;}
+.mkcb-field textarea{width:100%;box-sizing:border-box;}
