@@ -320,3 +320,5 @@
   body.print-cheat #page-cb-cheat .page-header{display:none;}
   body.print-cheat #page-cb-cheat{position:absolute;left:0;top:0;width:100%;}
 }
+.st-src{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:.74rem;font-weight:600;background:var(--bg2);color:var(--ink-soft);}
+.st-src.off{background:var(--good-bg);color:var(--good);}

@@ -725,7 +725,7 @@ function buildSTTables(){
   });
 }
 
-/* ============================================================ TUTORIALS (sheets without solutions → self-written) ============================================================ */
+/* ============================================================ TUTORIALS (solutions based on the official tutorial slides, explained) ============================================================ */
 function stTutState(){ return ls('st-tut-state', {}); }
 function stTutScore(tu){ const st = stTutState(); const v = tu.tasks.map(k=>st[tu.n+'-'+k.id]).filter(x=>x!=null); return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null; }
 // bkRich (already renders $…$ math through richHtml) + ```code``` blocks
@@ -739,7 +739,7 @@ function stTutOpen(n){ stTutSel = n; navTo('st-tut'); const pg = document.getEle
 function buildSTTut(){
   registerPage('st-tut', (div)=>{
     const nTasks = ST_TUTS.reduce((n,tu)=>n+tu.tasks.length,0);
-    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · tutorial sheets</div><h2>Tutorials TUT 1–${ST_TUTS.length}</h2><p>All ${nTasks} tasks of the tutorial sheets, including the Python parts. The sheets come without solutions, so the solutions here are self-written with the lecture’s methods. Write your answer first, then reveal and rate yourself — the rating counts for the radar and the study plan. Problems on the sheet itself are flagged in orange.</p></div>
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · tutorial sheets</div><h2>Tutorials TUT 1–${ST_TUTS.length}</h2><p>All ${nTasks} tasks of the tutorial sheets, including the Python parts and the extra exercises from the tutorial slides. Solutions follow the official tutorial slides (TUT 2–8) and explain the idea behind each step, not just the result; TUT 1’s slides leave the answers blank, so those are self-written. Write your answer first, then reveal and rate yourself — the rating counts for the radar and the study plan. Mistakes on the sheet or the slides are flagged in orange.</p></div>
       <div class="page-body">
         <div class="chip-row bk-filter st-tut-chips"></div>
         <div class="st-tut-body"></div>
@@ -753,7 +753,7 @@ function buildSTTut(){
       const t = ST_TOPICS.find(x=>x.id===tu.topic);
       const answers = ls('st-tut-ans', {});
       drawChips();
-      body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
+      body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><span class="st-src ${tu.src==='official'?'off':''}">${tu.src==='official'?'✓ Checked against the official tutorial solutions':'Self-written solutions (official slides leave the answers blank)'}</span><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
         <div class="bk-tut-intro glass">${stRich(tu.intro)}</div>
         ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
           <div class="bk-tut-q">${stRich(k.q)}</div>
