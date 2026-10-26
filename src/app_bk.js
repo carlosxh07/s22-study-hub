@@ -5,6 +5,8 @@ const BK_NAV = [
   {sec:'Practice', items:[
     {id:'bk-tut', label:'Tutorials TUT 1–11 (official solutions)', icon:'doc'},
     {id:'bk-train', label:'Booking Entry Trainer', icon:'logic'},
+    {id:'bk-calc', label:'Number Drills (costs, depreciation, VAT, deferrals)', icon:'calc'},
+    {id:'bk-close', label:'Closing Trainer (OBSA → P&L → CBSA)', icon:'logic'},
     {id:'bk-cheat', label:'Cheat Sheet (A4, printable)', icon:'cheat'}
   ]}
 ];
