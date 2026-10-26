@@ -43,7 +43,7 @@ for a, b in reps:
     assert a in body, a
     body = body.replace(a, b)
 body = re.sub(r'(<div class="kicker">Semester 2 · Block 2</div>\s*<h1>Your Study Hub</h1>\s*<p>)(.*?)(</p>)',
-              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Statistics: eight chapters with random drills, a data lab, a distribution and CI calculator and the z/t tables. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer. Financial Statement Analysis: ten chapters of German GAAP reporting, every slide case as an exam-style question and number drills. Basic Principles of Marketing: Prof. Henkel\'s lectures as they come, with a trainer in the real exam format (five statements, partial points) and open questions. Decision Theory & Investments: six past exams interactive, drills for every task type with fresh numbers and a 90-minute mock exam.\3', body, flags=re.S)
+              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Statistics: eight chapters with random drills, a data lab, a distribution and CI calculator and the z/t tables. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer. Financial Statement Analysis: ten chapters of German GAAP reporting, every slide case as an exam-style question and number drills. Basic Principles of Marketing: Prof. Henkel\'s lectures as they come, with a trainer in the real exam format (five statements, partial points) and open questions. Decision Theory & Investments: every class as summary and quiz, six past exams interactive, drills for every task type with fresh numbers and a 90-minute mock exam.\3', body, flags=re.S)
 body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1Built from the real slides, exercises and past exams. Math II: newest exams first — they are the most relevant.\3', body, flags=re.S)
 
 engine_a = '\n'.join(L[i_theme:i_subj])            # theme, icons, helpers
@@ -65,7 +65,7 @@ const SUBJECTS = [
   {id:'st', label:'Statistics', short:'Sampling, descriptive measures, probability, binomial/Poisson/normal, sampling distributions and confidence intervals.', color:'st'},
   {id:'mk', label:'Basic Principles of Marketing', short:'Marketing and customer centricity, customers in B2C/B2B, strategy, products, communication, distribution and pricing — Prof. Henkel.', color:'mk'},
   {id:'cb', label:'Fundamentals of Consumer Behaviour', short:'Consumer decision making, heuristics and biases, sensory marketing, A/B testing, loyalty, emotions and AI recommendations — Prof. Krause, with all readings.', color:'cb'},
-  {id:'dt', label:'Decision Theory & Investments', short:'Exam tool: every past-exam task type — rates, bonds, NPV, portfolios, CAPM, decision rules — with drills and a mock exam. Prof. Karapandža.', color:'dt'},
+  {id:'dt', label:'Decision Theory & Investments', short:'Prof. Karapandža’s classes (interest and NPV, perpetuities and annuities, bonds and duration) plus an exam tool: every past-exam task type with drills and a mock exam.', color:'dt'},
   {id:'bk', label:'Bookkeeping & Accounting', short:'Double-entry bookkeeping, VAT, valuation, depreciation, deferrals and provisions under German GAAP.', color:'bk'},
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
 ];
@@ -110,7 +110,7 @@ buildBKHome(); BK_TOPICS.forEach(t=>buildTopicPage(t)); buildBKCheat(); buildBKT
 buildSTHome(); ST_TOPICS.forEach(t=>buildTopicPage(t)); buildSTDrill(); buildSTLab(); buildSTCalc(); buildSTTables(); buildSTCheat(); buildSTTut();
 buildFSHome(); FS_TOPICS.forEach(t=>buildTopicPage(t)); buildFSCases(); buildFSDrill(); buildFSCheat();
 buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen(); buildMKCheat();
-buildDTHome(); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
+buildDTHome(); DT_TOPICS.forEach(t=>buildTopicPage(t)); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
 buildCBHome(); CB_TOPICS.forEach(t=>buildTopicPage(t)); buildCBMc(); buildCBOpen(); buildCBCheat();
 buildStudyPlan();
 buildSubjectSwitch();

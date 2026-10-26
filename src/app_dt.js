@@ -1,9 +1,10 @@
 /* ============================================================ DECISION THEORY & INVESTMENTS (sixth subject) ============================================================ */
-// Loaded after app_mk.js. Exam tool only (no lecture content yet): past exams interactive, random drills per task type,
-// a generated 90-point mock exam and the formula sheet. Every task comes from one generator (DT_GEN), so past exams,
+// Loaded after app_mk.js. Exam tool (past exams interactive, random drills per task type, a generated 90-point mock exam,
+// the formula sheet) plus one content page per class (DT_TOPICS: summary, quiz, optional flashcards). Every task comes from one generator (DT_GEN), so past exams,
 // drills and mock exams share the same checking and the same step-by-step solutions.
 const DT_NAV = [
   {sec:'Overview', items:[{id:'dt-home', label:'DTI Home & Exam Info', icon:'home'}]},
+  {sec:'Lectures', items:DT_TOPICS.map(t=>({id:t.id, label:`${t.date}. ${t.title}`, icon:'summary'}))},
   {sec:'Exam Prep — newest first', items:DT_EXAMS.map(e=>({id:'dt-'+e.id, label:e.title+(e.latest?' · newest':''), icon:'doc'}))},
   {sec:'Practice', items:[
     {id:'dt-drill', label:'Task Drills (fresh numbers)', icon:'logic'},
@@ -653,7 +654,7 @@ function buildDTHome(){
     const cell = (t, e)=>{ const hits = e.q.filter(d=>dtGenType(d.gen, d.p)===t.id); return hits.length ? `<td class="dt-hit">${hits.map(d=>`Q${d.n} · ${d.pts}`).join('<br>')}</td>` : '<td class="dt-miss">–</td>'; };
     div.innerHTML = `
       <div class="page-header"><div class="eyebrow">${icon('home')} Decision Theory & Investments</div><h2>Decision Theory & Investments</h2>
-        <p>Prof. Raša Karapandža · exam tool built from ${DT_EXAMS.length} past exams. The exam reuses the same ~12 task types every year with new numbers — so the fastest route is: drill each type until it is automatic, then write full exams against the clock.</p></div>
+        <p>Prof. Raša Karapandža · ${DT_TOPICS.length} classes so far, plus an exam tool built from ${DT_EXAMS.length} past exams. The exam reuses the same ~12 task types every year with new numbers — so the fastest route is: drill each type until it is automatic, then write full exams against the clock.</p></div>
       <div class="page-body">
         <div class="exam-card">
           <div class="exam-card-head"><h3>Exam at a glance</h3><span class="exam-date">Fri 18 Dec 2026 · 09:00–10:30 · ${dtDaysLeft()} days</span></div>
@@ -681,7 +682,11 @@ function buildDTHome(){
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
         </div>
-        <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Past exams</div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Lectures</div>
+        <div class="topic-grid">
+          ${DT_TOPICS.map(t=>{ const s = dtTopicScore(t); return `<div class="topic-card" onclick="navTo('${t.id}')"><div class="num">${esc(t.date)}</div><h4>${esc(t.title)}</h4><p>${t.quiz.length} quiz questions${s!=null?` · ${Math.round(s*100)}%`:''}</p></div>`; }).join('')}
+        </div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Past exams</div>
         <div class="topic-grid">
           ${DT_EXAMS.map(e=>{ const s = dtExamScore(e); return `<div class="topic-card" onclick="navTo('dt-${e.id}')"><div class="num">${esc(e.when)}${e.latest?' · NEWEST':''}</div><h4>${esc(e.title)}</h4><p>${esc(e.kind)}${s?` · ${dtF(s.got,s.got%1?1:0)}/${dtF(s.max,0)} P checked`:''}</p></div>`; }).join('')}
         </div>
@@ -772,6 +777,34 @@ function buildDTCheat(){
   });
 }
 
+/* ---------- lecture pages (summary first, quiz, flashcards optional) ---------- */
+function dtDrillLabel(id){ const k = DT_DRILL_KINDS.find(x=>x.id===id); return k ? k.label || (DT_TYPES.find(t=>t.id===(k.type||k.id))||{}).label || id : id; }
+function dtTopicScore(t){ return knowledgeScore(null, 0, 'quiz-'+t.id, t.quiz.length); }
+const __buildTopicPageMK = buildTopicPage;
+buildTopicPage = function(t){
+  if(!t.id.startsWith('dt-c')) return __buildTopicPageMK(t);
+  registerPage(t.id, (div)=>{
+    div.innerHTML = `
+      <div class="page-header"><div class="eyebrow">${icon('summary')} Decision Theory & Investments · ${esc(t.date)}</div><h2>${esc(t.title)}</h2><p>${esc(t.examWeight)}</p></div>
+      <div class="page-body">
+        ${t.drills&&t.drills.length?`<div class="chip-row"><span class="chip-label">Practise it:</span>${t.drills.map(d=>`<button class="chip" onclick="dtDrillOpen('${d}')">Drill · ${esc(dtDrillLabel(d))}</button>`).join('')}</div>`:''}
+        <div class="tabbar"><button class="tabbtn active" data-tab="sum">Summary</button><button class="tabbtn" data-tab="qz">Quiz</button><button class="tabbtn fc-side" data-tab="fc">Flashcards (optional)</button></div>
+        <div class="tabpanel active" id="${t.id}-sum"></div><div class="tabpanel" id="${t.id}-qz"></div><div class="tabpanel" id="${t.id}-fc"></div>
+      </div>`;
+    div.querySelectorAll('.tabbtn').forEach(btn=>{
+      btn.onclick = ()=>{
+        div.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('active'));
+        div.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        const panel = div.querySelector(`#${t.id}-${btn.dataset.tab}`); panel.classList.add('active');
+        if(btn.dataset.tab==='fc' && !panel.dataset.loaded){ panel.dataset.loaded='1'; renderFlashcards(panel, t.cards, 'fc-'+t.id); }
+        if(btn.dataset.tab==='qz' && !panel.dataset.loaded){ panel.dataset.loaded='1'; renderQuiz(panel, shuffledQuiz(t), 'quiz-'+t.id); }
+      };
+    });
+    renderSummary(div.querySelector(`#${t.id}-sum`), t.title, t.summary, t.id);
+  });
+};
+
 /* ============================================================ WIRING (sidebar, search, home card, radar, plan) ============================================================ */
 const __buildSidebarNavMK = buildSidebarNav;
 buildSidebarNav = function(subjId){
@@ -790,6 +823,13 @@ buildSearchIndex = function(){
   const idx = __buildSearchIndexMK();
   const add = (e)=>{ e.norm = searchNorm(e.title+' '+e.text); idx.push(e); };
   DT_EXAMS.forEach(e=>dtExamQuestions(e).forEach(q=>add({type:'Exam task', rank:2, title:`${e.short} Q${q.n} · ${q.title}`, text:texPlain(q.text), where:`Decision Theory & Investments · ${e.title}`, page:'dt-'+e.id})));
+  DT_TOPICS.forEach(t=>{
+    const where = `Decision Theory & Investments · ${t.date}`;
+    add({type:'Topic', rank:0, title:t.title, text:t.examWeight, where, page:t.id, tab:'sum'});
+    t.summary.trim().split(/\n\n+/).forEach(p=>add({type:'Summary', rank:1, title:t.title, text:texPlain(searchFlat(p)), where, page:t.id, tab:'sum'}));
+    t.cards.forEach(c=>add({type:'Flashcard', rank:3, title:texPlain(c.q), text:texPlain(c.a), where:`${where} · ${t.title}`, page:t.id, tab:'fc'}));
+    t.quiz.forEach(q=>add({type:'Quiz', rank:4, title:texPlain(q.q), text:texPlain(q.exp||''), where:`${where} · ${t.title}`, page:t.id, tab:'qz'}));
+  });
   DT_TYPES.forEach(t=>add({type:'Drill', rank:1, title:t.label, text:t.desc||'', where:'Decision Theory & Investments · Task Drills', page:'dt-drill'}));
   DT_CHEAT.forEach(b=>b.items.forEach(it=>add({type:'Cheat sheet', rank:2, title:b.h, text:texPlain(it), where:'Decision Theory & Investments · Formula Sheet', page:'dt-cheat'})));
   DT_NAV.forEach(sec=>sec.items.forEach(it=>add({type:'Page', rank:0, title:it.label, text:sec.sec, where:`Decision Theory & Investments · ${sec.sec}`, page:it.id})));
@@ -803,7 +843,7 @@ buildHomeCards = function(){
   const html = `<div class="subj-card" onclick="selectSubject('dt',true)">
       <div class="banner" style="background:var(--tile-banner)">${homeIcon('stat')}</div>
       <div class="body"><span class="tag" style="background:var(--bg2);color:var(--ink-soft)">DECISION THEORY</span><h3>${s.label}</h3><p>${s.short}</p>
-        <div class="stats"><span>${DT_EXAMS.length} past exams interactive</span><span>${DT_DRILL_KINDS.length} drill types · mock exam</span><span>${dtDaysLeft()} days to 18 Dec</span></div></div></div>`;
+        <div class="stats"><span>${DT_TOPICS.length} classes · ${DT_TOPICS.reduce((n,t)=>n+t.quiz.length,0)} quiz questions</span><span>${DT_EXAMS.length} past exams interactive</span><span>${DT_DRILL_KINDS.length} drill types · mock exam</span><span>${dtDaysLeft()} days to 18 Dec</span></div></div></div>`;
   const ph = [...wrap.querySelectorAll('.subj-card.soon')].find(c=>{ const tag = c.querySelector('.tag'); return tag && tag.textContent==='DECISION THEORY'; });
   if(ph) ph.outerHTML = html; else wrap.insertAdjacentHTML('beforeend', html);
 };
@@ -822,6 +862,7 @@ planDaysLeft = function(subj){ if(subj==='dt') return Math.max(1, Math.ceil((PLA
 const __planItemPoolMK = planItemPool;
 planItemPool = function(){
   const items = __planItemPoolMK();
+  DT_TOPICS.forEach(t=>{ const s = dtTopicScore(t); items.push({subj:'dt', label:`${t.date} · ${t.title} — summary + quiz`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + Math.round(t.summary.split(/\s+/).length/120)}); });
   DT_TYPES.forEach(t=>{ const s = dtTypeScore(t.id); items.push({subj:'dt', label:`Drill · ${t.label}`, page:'dt-drill', drill:t.id, weight:s==null ? 1 : 1-s, size:t.pts}); });
   DT_EXAMS.forEach(e=>{ const s = dtExamScore(e); items.push({subj:'dt', label:`${e.title} — write it in 90 min, then check`, page:'dt-'+e.id, weight:s ? Math.max(.2, 1-s.got/90) : .9, size:12}); });
   items.push({subj:'dt', label:'Mock Exam — 90 min, new numbers', page:'dt-mock', weight:.8, size:12});
@@ -834,7 +875,7 @@ planItemPool = function(){
 };
 const __planScheduleMK = planSchedule;
 planSchedule = function(item, idx){
-  if(item.subj==='dt' && (item.page==='dt-mock' || item.page.startsWith('dt-') && item.page!=='dt-drill')){
+  if(item.subj==='dt' && (item.page==='dt-mock' || item.page.startsWith('dt-') && item.page!=='dt-drill' && !item.page.startsWith('dt-c'))){
     const h = planDaysLeft('dt'), i = DT_EXAMS.findIndex(e=>'dt-'+e.id===item.page);
     if(item.page==='dt-mock') return Array.from(new Set([Math.max(1,h-4), Math.max(1,h-1)]));
     return [Math.max(1, h-5-i*3)];
