@@ -332,3 +332,17 @@
 .mkcb-field{display:block;margin:10px 0;}
 .mkcb-field span{display:block;font-size:.8rem;font-weight:600;color:var(--ink-soft);margin-bottom:4px;}
 .mkcb-field textarea{width:100%;box-sizing:border-box;}
+.dt-sheet-intro{margin:4px 0 10px;color:var(--ink-soft);font-size:.9rem;}
+.dt-sheet-builder{padding:14px 18px;border-radius:var(--radius);columns:2;column-gap:24px;}
+.dt-sheet-block{break-inside:avoid;margin-bottom:12px;}
+.dt-sheet-block h4{margin:0 0 6px;font-size:.85rem;}
+.dt-sheet-item{display:flex;gap:8px;align-items:flex-start;font-size:.82rem;line-height:1.45;margin-bottom:6px;cursor:pointer;}
+.dt-sheet-item input{margin-top:3px;flex:none;}
+.dt-sheet-count{align-self:center;font-size:.85rem;color:var(--ink-soft);}
+.dt-dec-focus{border-left:3px solid var(--accent, #0a84ff);}
+@media (max-width:760px){.dt-sheet-builder{columns:1;}}
+@media print{
+  body.print-cheat #page-dt-cheat .dt-sheet-builder,body.print-cheat #page-dt-cheat .dt-sheet-intro,body.print-cheat #page-dt-cheat .nav-section-label,body.print-cheat #page-dt-cheat .btn,body.print-cheat #page-dt-cheat .dt-sheet-count{display:none !important;}
+  body.print-cheat #page-dt-cheat:not(.dt-only-mine) .dt-mysheet{display:none;}
+  body.print-cheat #page-dt-cheat.dt-only-mine #dt-cheat-body{display:none;}
+}

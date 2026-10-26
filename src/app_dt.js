@@ -240,7 +240,9 @@ The formula values the stream **one year before its first payment** (year ${s0-1
       (pre.length ? R` Together: **${dtF(pvs[i],2)}**` : R` **= ${dtF(pvs[i],2)}**`);
   };
   const parts = [
-    {id:'a', label:'a) Diagram', pts:2, q:'Draw the diagram representation of the whole cash flow stream (including the investment).', self:true, sol:tl}
+    {id:'a', label:'a) Diagram', pts:2, q:'Draw the diagram representation of the whole cash flow stream (including the investment) on paper, then enter the cash flow of every year — the investment at t = 0 with a minus sign.', sol:tl,
+     grid:(()=>{ const ts = Array.from({length:p.tail.s+1}, (_,t)=>t); const ans = ts.map(t=>t ? dtProjCF(p,t) : -p.I);
+       return {cols:ts.map(t=>`t = ${t}`), rows:['CF'], ans:[ans], tol:[ans.map(a=>Math.max(.5, Math.abs(a)*.001))], u:'USD'}; })()}
   ];
   segs.forEach(([a,b], i)=>{
     const L = dtLetters[i+1];
@@ -682,7 +684,11 @@ function buildDTHome(){
             <button class="btn ghost" onclick="navTo('plan')">Study plan</button>
           </div>
         </div>
-        <div class="nav-section-label" style="padding-left:0;margin-top:8px;">Lectures</div>
+        ${(()=>{ const s = dtTypeScore('dec'); const hits = []; DT_EXAMS.forEach(e=>e.q.forEach(d=>{ if(dtGenType(d.gen, d.p)==='dec') hits.push({e, d}); }));
+          return `<div class="drill-card glass dt-dec-focus"><div class="qtag">Biggest single task · 25 of 90 points · always last</div><h3 style="margin:4px 0 6px">Decision rules & expected utility</h3>
+            <p style="margin:0 0 10px">Outcome matrix, Maximin, Maximax, Hurwicz, Laplace, expected value and expected utility — more than a quarter of the exam, and the same scheme every year. Make it automatic early, so the last 25 minutes of the exam are safe.${s!=null?` Your score so far: <b>${Math.round(s*100)}%</b>.`:''}</p>
+            <div class="chip-row"><button class="chip" onclick="dtDrillOpen('dec')">Drill with fresh numbers</button>${hits.map(({e,d})=>`<button class="chip" onclick="navTo('dt-${e.id}')">${esc(e.short)} · Q${d.n}</button>`).join('')}</div></div>`; })()}
+        <div class="nav-section-label" style="padding-left:0;margin-top:20px;">Lectures</div>
         <div class="topic-grid">
           ${DT_TOPICS.map(t=>{ const s = dtTopicScore(t); return `<div class="topic-card" onclick="navTo('${t.id}')"><div class="num">${esc(t.date)}</div><h4>${esc(t.title)}</h4><p>${t.quiz.length} quiz questions${s!=null?` · ${Math.round(s*100)}%`:''}</p></div>`; }).join('')}
         </div>
@@ -772,8 +778,27 @@ function buildDTCheat(){
   registerPage('dt-cheat', (div)=>{
     div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('cheat')} Reference</div><h2>Formula Sheet</h2><p>Every formula the past exams need, in the order of the exam. You may bring one handwritten A4 sheet (both sides) — use this as the template.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn" onclick="printCheat()">Print / save as PDF (A4)</button></div></div>
-      <div class="page-body"><div id="dt-cheat-body" class="cheat-print"></div></div>`;
+      <div class="page-body"><div id="dt-cheat-body" class="cheat-print"></div>
+        <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Build your own A4 sheet</div>
+        <p class="dt-sheet-intro">Tick what you still need on your handwritten sheet — formulas you know by heart can go. Your selection is saved on this device; print it as the template to copy by hand.</p>
+        <div class="glass dt-sheet-builder"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0"><button class="btn dt-sheet-print">Print my selection</button><button class="btn ghost dt-sheet-all">Select all</button><span class="dt-sheet-count"></span></div>
+        <div class="cheat-print dt-mysheet"></div></div>`;
     renderCheat(div.querySelector('#dt-cheat-body'), DT_CHEAT, '', 'dt-cheat');
+    const keys = []; DT_CHEAT.forEach((b,bi)=>b.items.forEach((_,ii)=>keys.push(bi+'-'+ii)));
+    const sel = ()=>{ const v = ls('dt-sheet-sel', null); return new Set(v || keys); };
+    const builder = div.querySelector('.dt-sheet-builder'), mine = div.querySelector('.dt-mysheet');
+    builder.innerHTML = DT_CHEAT.map((b,bi)=>`<div class="dt-sheet-block"><h4>${esc(b.h)}</h4>${b.items.map((it,ii)=>`<label class="dt-sheet-item"><input type="checkbox" data-key="${bi}-${ii}"><span>${mathText(it)}</span></label>`).join('')}</div>`).join('');
+    const draw = ()=>{
+      const S = sel(); builder.querySelectorAll('input[data-key]').forEach(c=>c.checked = S.has(c.dataset.key));
+      const blocks = DT_CHEAT.map((b,bi)=>({...b, items:b.items.filter((_,ii)=>S.has(bi+'-'+ii))})).filter(b=>b.items.length);
+      mine.innerHTML = cheatHtml(blocks, '');
+      div.querySelector('.dt-sheet-count').textContent = `${S.size} of ${keys.length} formulas selected`;
+    };
+    builder.addEventListener('change', ev=>{ const c = ev.target.closest('input[data-key]'); if(!c) return; const S = sel(); if(c.checked) S.add(c.dataset.key); else S.delete(c.dataset.key); lsSet('dt-sheet-sel', [...S]); draw(); });
+    div.querySelector('.dt-sheet-all').addEventListener('click', ()=>{ lsSet('dt-sheet-sel', keys); draw(); });
+    div.querySelector('.dt-sheet-print').addEventListener('click', ()=>{ div.classList.add('dt-only-mine'); printCheat(); setTimeout(()=>div.classList.remove('dt-only-mine'), 800); });
+    draw();
   });
 }
 
@@ -863,7 +888,7 @@ const __planItemPoolMK = planItemPool;
 planItemPool = function(){
   const items = __planItemPoolMK();
   DT_TOPICS.forEach(t=>{ const s = dtTopicScore(t); items.push({subj:'dt', label:`${t.date} · ${t.title} — summary + quiz`, page:t.id, weight:s==null ? 1 : 1-s, size:t.quiz.length + Math.round(t.summary.split(/\s+/).length/120)}); });
-  DT_TYPES.forEach(t=>{ const s = dtTypeScore(t.id); items.push({subj:'dt', label:`Drill · ${t.label}`, page:'dt-drill', drill:t.id, weight:s==null ? 1 : 1-s, size:t.pts}); });
+  DT_TYPES.forEach(t=>{ const s = dtTypeScore(t.id); items.push({subj:'dt', label:`Drill · ${t.label}`, page:'dt-drill', drill:t.id, weight:s==null ? 1 : 1-s, size:t.pts, mustPrio:t.id==='dec' && (s==null || s<.8)}); });
   DT_EXAMS.forEach(e=>{ const s = dtExamScore(e); items.push({subj:'dt', label:`${e.title} — write it in 90 min, then check`, page:'dt-'+e.id, weight:s ? Math.max(.2, 1-s.got/90) : .9, size:12}); });
   items.push({subj:'dt', label:'Mock Exam — 90 min, new numbers', page:'dt-mock', weight:.8, size:12});
   items.forEach(i=>{ i.large = false; i.prio = false; });
@@ -871,6 +896,7 @@ planItemPool = function(){
   const sizeCut = bySize[Math.floor(items.length/3)-1];
   items.forEach(i=>{ i.large = i.size>=sizeCut; });
   items.slice().sort((a,b)=> b.weight-a.weight || b.size-a.size).slice(0, Math.ceil(items.length/3)).forEach(i=>{ if(i.weight>=.4) i.prio = true; });
+  items.forEach(i=>{ if(i.mustPrio){ i.prio = true; i.large = true; } });
   return items;
 };
 const __planScheduleMK = planSchedule;
