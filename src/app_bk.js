@@ -167,7 +167,7 @@ buildTopicPage = function(t){
         <p>${esc(t.examWeight)}</p>
       </div>
       <div class="page-body">
-        ${(()=>{ const tuts = BK_TUTS.filter(tu=>tu.topic===t.id); return (drills||tuts.length) ? `<div class="chip-row"><span class="chip-label">Practise:</span>${drills?`<button class="chip" onclick="bkTrainOpen('${t.id}')">${drills} booking drills for this chapter</button>`:''}${tuts.map(tu=>`<button class="chip" onclick="bkTutOpen(${tu.n})">TUT ${tu.n} · ${esc(tu.title)}</button>`).join('')}</div>` : ''; })()}
+        ${(()=>{ const tuts = BK_TUTS.filter(tu=>tu.topic===t.id); return (drills||tuts.length||BK_CLASS.some(c=>c.topic===t.id)) ? `<div class="chip-row"><span class="chip-label">Practise:</span>${drills?`<button class="chip" onclick="bkTrainOpen('${t.id}')">${drills} booking drills for this chapter</button>`:''}${tuts.map(tu=>`<button class="chip" onclick="bkTutOpen(${tu.n})">TUT ${tu.n} · ${esc(tu.title)}</button>`).join('')}${BK_CLASS.filter(c=>c.topic===t.id).map(c=>`<button class="chip" onclick="bkClassOpen(${c.n})">In class C${c.n} · ${esc(c.title)}</button>`).join('')}</div>` : ''; })()}
         <div class="tabbar">
           <button class="tabbtn active" data-tab="sum">Summary</button>
           <button class="tabbtn" data-tab="qz">Quiz</button>
@@ -238,7 +238,8 @@ function buildBKHome(){
         <div class="nav-section-label" style="padding-left:0;margin-top:28px;">Tools</div>
         <div class="tool-tiles">
           <div class="tool-tile" onclick="navTo('bk-tut')"><div class="ic">${icon('doc')}</div><h4>Tutorials TUT 1–11</h4><p>${BK_TUTS.reduce((n,tu)=>n+tu.tasks.length,0)} tasks: write your answer, reveal the official solution, rate yourself.</p></div>
-          <div class="tool-tile" onclick="navTo('bk-train')"><div class="ic">${icon('logic')}</div><h4>Booking Entry Trainer</h4><p>${BK_TRAIN.length} transactions from the slides and tutorials: pick the debit and credit accounts.</p></div>
+          <div class="tool-tile" onclick="navTo('bk-class')"><div class="ic">${icon('doc')}</div><h4>In-Class Notes</h4><p>${BK_CLASS.length} board examples from Prof. Cloer's lectures with ${BK_CLASS.reduce((n,c)=>n+c.tasks.length,0)} tasks to redo yourself.</p></div>
+          <div class="tool-tile" onclick="navTo('bk-train')"><div class="ic">${icon('logic')}</div><h4>Booking Entry Trainer</h4><p>${BK_TRAIN.length} transactions from the slides, tutorials and lectures: pick the debit and credit accounts.</p></div>
           <div class="tool-tile" onclick="navTo('bk-cheat')"><div class="ic">${icon('cheat')}</div><h4>Cheat Sheet</h4><p>All rules, entries and numbers on one printable page.</p></div>
         </div>
       </div>`;
@@ -263,7 +264,7 @@ function buildBKTrainer(){
     const topicsWith = BK_TOPICS.filter(t=>BK_TRAIN.some(x=>x.topic===t.id));
     div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('logic')} Practice</div><h2>Booking Entry Trainer</h2><p>Each transaction shows its sides and amounts. Pick the account for every line, then check. One try per task — the result counts for the radar and the study plan.</p></div>
       <div class="page-body">
-        <div class="chip-row bk-filter"><button class="chip" data-f="all">All (${BK_TRAIN.length})</button><button class="chip" data-f="wrong">My mistakes</button><button class="chip" data-f="src:tut">Only tutorial drills (${BK_TRAIN.filter(x=>x.src).length})</button>${topicsWith.map(t=>`<button class="chip" data-f="${t.id}">Ch. ${t.ch} ${esc(t.title.split(/[&,:]/)[0].trim())}</button>`).join('')}</div>
+        <div class="chip-row bk-filter"><button class="chip" data-f="all">All (${BK_TRAIN.length})</button><button class="chip" data-f="wrong">My mistakes</button><button class="chip" data-f="src:tut">Only tutorial & class drills (${BK_TRAIN.filter(x=>x.src).length})</button>${topicsWith.map(t=>`<button class="chip" data-f="${t.id}">Ch. ${t.ch} ${esc(t.title.split(/[&,:]/)[0].trim())}</button>`).join('')}</div>
         <div class="bk-score-row"><span class="bk-live"></span><span class="bk-best"></span><button class="btn ghost bk-reset">Reset run</button></div>
         <div class="drill-card glass bk-card"></div>
       </div>`;

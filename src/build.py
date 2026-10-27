@@ -70,8 +70,8 @@ const SUBJECTS = [
   {id:'fs', label:'Financial Statement Analysis', short:'German GAAP principles, balance sheet, P&L, notes, cash flow statement, management report, consolidation and IFRS differences.', color:'fs'}
 ];
 """
-data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_st.js', 'data_st_tut.js', 'data_fs.js', 'data_mk.js', 'data_cb.js', 'data_dt.js'))
-app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js', 'app_mkcb.js', 'app_bk2.js', 'app_fs2.js'))
+data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_bk_class.js', 'data_st.js', 'data_st_tut.js', 'data_fs.js', 'data_mk.js', 'data_cb.js', 'data_dt.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js', 'app_mkcb.js', 'app_bk2.js', 'app_fs2.js', 'app_bk3.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
 autoupdate = """
@@ -113,7 +113,7 @@ buildMKHome(); MK_TOPICS.forEach(t=>buildTopicPage(t)); buildMKMc(); buildMKOpen
 buildDTHome(); DT_TOPICS.forEach(t=>buildTopicPage(t)); buildDTExams(); buildDTDrill(); buildDTMock(); buildDTCheat();
 buildCBHome(); CB_TOPICS.forEach(t=>buildTopicPage(t)); buildCBMc(); buildCBOpen(); buildCBCheat();
 buildCBCases(); buildMKCBGuest(); buildMKCBMock();
-buildBKCalc(); buildBKClose(); buildFSSim(); buildFSSort();
+buildBKCalc(); buildBKClose(); buildBKClass(); buildFSSim(); buildFSSort();
 buildStudyPlan();
 buildSubjectSwitch();
 buildHomeCards();
