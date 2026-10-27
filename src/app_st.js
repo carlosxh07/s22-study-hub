@@ -891,7 +891,7 @@ function buildSTTut(){
       body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><span class="st-src ${tu.src==='official'?'off':''}">${tu.src==='official'?'✓ Checked against the official tutorial solutions':'Self-written solutions (official slides leave the answers blank)'}</span><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
         <div class="bk-tut-intro glass">${stRich(tu.intro)}</div>
         ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
-          <div class="bk-tut-q">${stRich(k.q)}</div>
+          <div class="bk-tut-q">${tutQ(stRich(k.q))}</div>
           <textarea class="bk-tut-ans" rows="3" placeholder="Your answer (saved on this device)">${esc(answers[key]||'')}</textarea>
           <div class="ans-actions"><button class="btn" data-a="sol">Show solution</button></div>
           <div class="bk-tut-sol" hidden>${stRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note:</b> ${mathText(k.warn)}</div>`:''}${rateRow(key)}</div>

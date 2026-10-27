@@ -121,7 +121,8 @@ Graphs for quantitative data:
 The distribution of a data set is a table, graph or formula that gives the values of the observations and how often they occur. Shapes of distributions:
 - By number of peaks :: unimodal (one), bimodal (two), multimodal (three or more)
 - Symmetric :: bell-shaped, triangular, uniform (rectangular)
-- Right skewed :: long tail to the right; left skewed :: long tail to the left
+- Right skewed :: long tail to the right
+- Left skewed :: long tail to the left
 - Reverse-J-shaped :: highest at the left and falling off, e.g. household size
 
 Population data are the values of a variable for the entire population; their distribution is the population distribution, also called the distribution of the variable. Sample data give a sample distribution. For a simple random sample, the sample distribution approximates the population distribution, and the larger the sample, the better the approximation tends to be.

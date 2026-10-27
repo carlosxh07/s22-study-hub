@@ -239,7 +239,6 @@ a,button{font-family:inherit;}
 .summary-text .sum-vocab dt{font-weight:700;color:var(--ink);}
 .summary-text .sum-vocab dd{margin:0;color:var(--ink-soft);}
 @media(max-width:640px){.summary-text .sum-vocab{grid-template-columns:1fr;gap:2px;}.summary-text .sum-vocab dd{margin-bottom:8px;}}
-.summary-text p:first-of-type::first-letter{font-family:'Inter',-apple-system,sans-serif;font-size:2.6em;font-weight:700;float:left;line-height:.85;padding-right:8px;padding-top:4px;color:var(--accent-ink);}
 
 /* ============ HIGHLIGHTING ============ */
 mark.hl{border-radius:3px;padding:.05em 0;cursor:pointer;color:inherit;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
@@ -883,8 +882,9 @@ body.hl-armed .hl-container{cursor:text;}
 /* tutorials */
 .bk-tut-head h3{margin:18px 0 6px;}
 .bk-tut-intro{padding:16px 20px;border-radius:var(--radius);margin-top:10px;font-size:.92rem;}
-.bk-tut-q{font-weight:600;}
-.bk-tut-q p{margin:0 0 6px;}
+.bk-tut-q{font-weight:500;line-height:1.65;}
+.bk-tut-q .tut-label{font-weight:700;color:var(--accent-ink);margin-right:2px;}
+.bk-tut-q p{margin:0 0 8px;}
 .bk-tut-ans{width:100%;box-sizing:border-box;margin-top:10px;font-family:inherit;font-size:.88rem;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);resize:vertical;}
 .bk-tut-sol{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:.92rem;}
 .bk-tut-sol p{margin:6px 0;}
@@ -1072,6 +1072,35 @@ body.hl-armed .hl-container{cursor:text;}
 .bk-cl-bs{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .bk-cl-tx{margin:6px 0 0;padding-left:20px;line-height:1.6;}
 @media (max-width:700px){.bk-cl-bs{grid-template-columns:1fr;}}
+
+/* ============ SUMMARY TYPOGRAPHY (2026-10-27) ============ */
+.summary-text{font-size:1rem;line-height:1.72;}
+.summary-text>p,.summary-text>.sum-list{max-width:72ch;}
+.summary-text p{margin-bottom:14px;}
+.summary-text p b{font-weight:650;}
+.summary-text p.sum-h{margin:30px 0 10px;font-size:1.05rem;font-weight:650;line-height:1.4;color:var(--ink);letter-spacing:-.005em;}
+.summary-text p.sum-h:first-child{margin-top:4px;}
+.summary-text p.sum-vocab-title{font-weight:400;margin-bottom:10px;}
+.summary-text p.sum-lead{margin-bottom:8px;}
+.summary-text .sum-list{margin:0 0 18px;padding-left:20px;}
+.summary-text .sum-list li{margin:6px 0;padding-left:4px;}
+.summary-text .sum-vocab{grid-template-columns:fit-content(34%) 1fr;gap:0 24px;padding:6px 18px;margin:0 0 20px;line-height:1.55;}
+.summary-text .sum-vocab dt,.summary-text .sum-vocab dd{padding:10px 0;border-top:1px solid var(--line);}
+.summary-text .sum-vocab dt:first-of-type,.summary-text .sum-vocab dt:first-of-type+dd{border-top:none;}
+.summary-text .sum-vocab dt{font-weight:650;}
+.summary-text .flow{margin:10px 0 22px;}
+@media(max-width:640px){
+  .summary-text{font-size:.97rem;}
+  .summary-text .sum-vocab{grid-template-columns:1fr;padding:4px 14px;}
+  .summary-text .sum-vocab dt{padding:10px 0 2px;}
+  .summary-text .sum-vocab dd{border-top:none;padding:0 0 10px;margin:0;}
+}
+.bk-tut-intro,.bk-tut-sol{line-height:1.7;}
+.bk-tut-intro p,.bk-tut-sol p{margin:0 0 10px;}
+.bk-tut-intro .sum-list,.bk-tut-sol .sum-list{margin:4px 0 14px;padding-left:22px;}
+.bk-tut-intro .sum-list li,.bk-tut-sol .sum-list li{margin:5px 0;padding-left:3px;}
+.bk-tut-intro .sum-list li::marker,.bk-tut-sol .sum-list li::marker{color:var(--accent-ink);}
+.bk-tut-intro>:last-child,.bk-tut-sol .sum-list:last-of-type{margin-bottom:0;}
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -4312,7 +4341,8 @@ Graphs for quantitative data:
 The distribution of a data set is a table, graph or formula that gives the values of the observations and how often they occur. Shapes of distributions:
 - By number of peaks :: unimodal (one), bimodal (two), multimodal (three or more)
 - Symmetric :: bell-shaped, triangular, uniform (rectangular)
-- Right skewed :: long tail to the right; left skewed :: long tail to the left
+- Right skewed :: long tail to the right
+- Left skewed :: long tail to the left
 - Reverse-J-shaped :: highest at the left and falling off, e.g. household size
 
 Population data are the values of a variable for the entire population; their distribution is the population distribution, also called the distribution of the variable. Sample data give a sample distribution. For a simple random sample, the sample distribution approximates the population distribution, and the larger the sample, the better the approximation tends to be.
@@ -8268,9 +8298,10 @@ function summaryParasHtml(text){
       if(g.k==='flow') return flowHtml(flowSplit(g.lines[0].slice(3)));
       if(g.k==='def') return `<dl class="sum-vocab">${g.lines.map(l=>{ const [t,...d]=l.split(' :: '); return `<dt>${esc(t)}</dt><dd>${esc(d.join(' :: '))}</dd>`; }).join('')}</dl>`;
       if(g.k==='li') return `<ul class="sum-list">${g.lines.map(l=>`<li>${esc(l.slice(2))}</li>`).join('')}</ul>`;
-      const next = groups[i+1];
-      const cls = next ? (next.k==='def' ? 'sum-vocab-title' : 'sum-lead') : '';
-      return `<p${cls?` class="${cls}"`:''}>${esc(g.lines.join(' '))}</p>`;
+      const next = groups[i+1], txt = g.lines.join(' ');
+      // a short lead-in ending in ":" reads as a sub-heading of the list/box below it
+      const cls = next ? (txt.length<=90 && /:\s*$/.test(txt) ? 'sum-h' : next.k==='def' ? 'sum-vocab-title' : 'sum-lead') : '';
+      return `<p${cls?` class="${cls}"`:''}>${esc(txt)}</p>`;
     }).join('');
   }).join('');
 }
@@ -10609,6 +10640,10 @@ function bkRich(src){
     .replace(/\u0005(\d+)\u0006/g, (m,k)=>blocks[+k])
     .replace(/<li>([^<]*?) :: /g, '<li><b>$1</b>: ');
 }
+// task text in normal weight, only the leading task label ("Review 2.", "(1.8)", "B c)", "Extra (…).") in bold
+function tutQ(html){
+  return html.replace(/^(\s*<p>)((?:(?:Review|Python)(?: [\d–]+)?\.|Extra \([^)]*\)\.?|\([\d.–]+\)|\d+\.(?= )|[A-Z] [a-z]\)|[a-z]\)(?: [ivx]+\))?|\d+[a-z]?\)))/, '$1<span class="tut-label">$2</span>');
+}
 let bkTutSel = null;
 function bkTutOpen(n){ bkTutSel = n; navTo('bk-tut'); const pg = document.getElementById('page-bk-tut'); if(pg && pg.__show) pg.__show(n); }
 function buildBKTut(){
@@ -10638,7 +10673,7 @@ function buildBKTut(){
       body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button>${drills?`<button class="chip" onclick="bkTrainFilter='src:TUT ${tu.n}';navTo('bk-train');const pg=document.getElementById('page-bk-train');if(pg&&pg.__start)pg.__start();">${drills} booking drills from this sheet</button>`:''}</div></div>
         <div class="bk-tut-intro glass">${bkRich(tu.intro)}</div>
         ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
-          <div class="bk-tut-q">${bkRich(k.q)}</div>
+          <div class="bk-tut-q">${tutQ(bkRich(k.q))}</div>
           ${k.grid ? gridHtml(tu,k) : `<textarea class="bk-tut-ans" rows="3" placeholder="Your answer or booking entries (saved on this device)">${esc(answers[key]||'')}</textarea>
           <div class="ans-actions"><button class="btn" data-a="sol">Show official solution</button></div>
           <div class="bk-tut-sol" hidden>${bkRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note on the official solution:</b> ${esc(k.warn)}</div>`:''}${rateRow(key)}</div>`}
@@ -11567,7 +11602,7 @@ function buildSTTut(){
       body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><span class="st-src ${tu.src==='official'?'off':''}">${tu.src==='official'?'✓ Checked against the official tutorial solutions':'Self-written solutions (official slides leave the answers blank)'}</span><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button></div></div>
         <div class="bk-tut-intro glass">${stRich(tu.intro)}</div>
         ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
-          <div class="bk-tut-q">${stRich(k.q)}</div>
+          <div class="bk-tut-q">${tutQ(stRich(k.q))}</div>
           <textarea class="bk-tut-ans" rows="3" placeholder="Your answer (saved on this device)">${esc(answers[key]||'')}</textarea>
           <div class="ans-actions"><button class="btn" data-a="sol">Show solution</button></div>
           <div class="bk-tut-sol" hidden>${stRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note:</b> ${mathText(k.warn)}</div>`:''}${rateRow(key)}</div>
@@ -14334,7 +14369,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261026153458';
+const HUB_BUILD = '20261027094040';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{

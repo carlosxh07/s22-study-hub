@@ -239,7 +239,6 @@ a,button{font-family:inherit;}
 .summary-text .sum-vocab dt{font-weight:700;color:var(--ink);}
 .summary-text .sum-vocab dd{margin:0;color:var(--ink-soft);}
 @media(max-width:640px){.summary-text .sum-vocab{grid-template-columns:1fr;gap:2px;}.summary-text .sum-vocab dd{margin-bottom:8px;}}
-.summary-text p:first-of-type::first-letter{font-family:'Inter',-apple-system,sans-serif;font-size:2.6em;font-weight:700;float:left;line-height:.85;padding-right:8px;padding-top:4px;color:var(--accent-ink);}
 
 /* ============ HIGHLIGHTING ============ */
 mark.hl{border-radius:3px;padding:.05em 0;cursor:pointer;color:inherit;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
@@ -2344,9 +2343,10 @@ function summaryParasHtml(text){
       if(g.k==='flow') return flowHtml(flowSplit(g.lines[0].slice(3)));
       if(g.k==='def') return `<dl class="sum-vocab">${g.lines.map(l=>{ const [t,...d]=l.split(' :: '); return `<dt>${esc(t)}</dt><dd>${esc(d.join(' :: '))}</dd>`; }).join('')}</dl>`;
       if(g.k==='li') return `<ul class="sum-list">${g.lines.map(l=>`<li>${esc(l.slice(2))}</li>`).join('')}</ul>`;
-      const next = groups[i+1];
-      const cls = next ? (next.k==='def' ? 'sum-vocab-title' : 'sum-lead') : '';
-      return `<p${cls?` class="${cls}"`:''}>${esc(g.lines.join(' '))}</p>`;
+      const next = groups[i+1], txt = g.lines.join(' ');
+      // a short lead-in ending in ":" reads as a sub-heading of the list/box below it
+      const cls = next ? (txt.length<=90 && /:\s*$/.test(txt) ? 'sum-h' : next.k==='def' ? 'sum-vocab-title' : 'sum-lead') : '';
+      return `<p${cls?` class="${cls}"`:''}>${esc(txt)}</p>`;
     }).join('');
   }).join('');
 }

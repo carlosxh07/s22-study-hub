@@ -354,6 +354,10 @@ function bkRich(src){
     .replace(/\u0005(\d+)\u0006/g, (m,k)=>blocks[+k])
     .replace(/<li>([^<]*?) :: /g, '<li><b>$1</b>: ');
 }
+// task text in normal weight, only the leading task label ("Review 2.", "(1.8)", "B c)", "Extra (…).") in bold
+function tutQ(html){
+  return html.replace(/^(\s*<p>)((?:(?:Review|Python)(?: [\d–]+)?\.|Extra \([^)]*\)\.?|\([\d.–]+\)|\d+\.(?= )|[A-Z] [a-z]\)|[a-z]\)(?: [ivx]+\))?|\d+[a-z]?\)))/, '$1<span class="tut-label">$2</span>');
+}
 let bkTutSel = null;
 function bkTutOpen(n){ bkTutSel = n; navTo('bk-tut'); const pg = document.getElementById('page-bk-tut'); if(pg && pg.__show) pg.__show(n); }
 function buildBKTut(){
@@ -383,7 +387,7 @@ function buildBKTut(){
       body.innerHTML = `<div class="bk-tut-head"><h3>TUT ${tu.n} · ${esc(tu.title)}</h3><div class="chip-row"><button class="chip" onclick="navTo('${t.id}')">Chapter ${t.ch} · ${esc(t.title)}</button>${drills?`<button class="chip" onclick="bkTrainFilter='src:TUT ${tu.n}';navTo('bk-train');const pg=document.getElementById('page-bk-train');if(pg&&pg.__start)pg.__start();">${drills} booking drills from this sheet</button>`:''}</div></div>
         <div class="bk-tut-intro glass">${bkRich(tu.intro)}</div>
         ${tu.tasks.map(k=>{ const key = tu.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
-          <div class="bk-tut-q">${bkRich(k.q)}</div>
+          <div class="bk-tut-q">${tutQ(bkRich(k.q))}</div>
           ${k.grid ? gridHtml(tu,k) : `<textarea class="bk-tut-ans" rows="3" placeholder="Your answer or booking entries (saved on this device)">${esc(answers[key]||'')}</textarea>
           <div class="ans-actions"><button class="btn" data-a="sol">Show official solution</button></div>
           <div class="bk-tut-sol" hidden>${bkRich(k.sol)}${k.warn?`<div class="bk-warn"><b>Note on the official solution:</b> ${esc(k.warn)}</div>`:''}${rateRow(key)}</div>`}
