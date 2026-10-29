@@ -379,3 +379,35 @@
 .bk-tut-intro .sum-list li,.bk-tut-sol .sum-list li{margin:5px 0;padding-left:3px;}
 .bk-tut-intro .sum-list li::marker,.bk-tut-sol .sum-list li::marker{color:var(--accent-ink);}
 .bk-tut-intro>:last-child,.bk-tut-sol .sum-list:last-of-type{margin-bottom:0;}
+
+/* ---------- less small grey text: sidebar without subtitles, dashboard cards without descriptions (Carlo, 29 Oct) ---------- */
+.subject-btn .sub{display:none;}
+.subj-card p{display:none;}
+.subj-card .stats span:not(:last-child){display:none;}
+.home-strip:empty{display:none;}
+
+/* ---------- Mistakes & Memory ---------- */
+#mistakes-nav-btn{margin:0 14px 10px;width:calc(100% - 28px);box-sizing:border-box;}
+.ms-tabs{flex-wrap:wrap;}
+.ms-n{display:inline-block;min-width:18px;padding:0 6px;margin-left:4px;border-radius:9px;background:var(--bad-bg);color:var(--bad);font-size:.7rem;font-weight:700;line-height:18px;text-align:center;}
+.ms-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+.ms-stat{padding:14px 16px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:2px;}
+.ms-stat b{font-size:1.6rem;line-height:1.1;}
+.ms-stat span{font-size:.78rem;color:var(--ink-soft);}
+.ms-stat.good b{color:var(--good);}.ms-stat.bad b{color:var(--bad);}
+.ms-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;}
+.ms-actions .btn[disabled]{opacity:.45;cursor:not-allowed;}
+.ms-list{display:flex;flex-direction:column;gap:8px;}
+.ms-row{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:var(--radius-sm);background:var(--panel);border:1px solid var(--line);}
+.ms-mark{flex:0 0 26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;}
+.ms-row.no .ms-mark{background:var(--bad-bg);color:var(--bad);}
+.ms-row.part .ms-mark{background:color-mix(in srgb,#c98a1f 18%,transparent);color:#c98a1f;}
+.ms-row.ok .ms-mark{background:var(--good-bg);color:var(--good);}
+.ms-q{flex:1;min-width:0;}
+.ms-text{font-size:.88rem;line-height:1.45;}
+.ms-meta{font-size:.72rem;color:var(--ink-faint);margin-top:3px;}
+.ms-go{flex-shrink:0;padding:6px 12px;font-size:.78rem;}
+.ms-empty{color:var(--ink-soft);font-size:.9rem;padding:10px 0;}
+.ms-back{margin-bottom:14px;}
+.ms-home-link{margin-bottom:14px;}
+@media(max-width:640px){.ms-stats{gap:6px;}.ms-stat{padding:10px;}.ms-stat b{font-size:1.25rem;}.ms-row{flex-wrap:wrap;}}

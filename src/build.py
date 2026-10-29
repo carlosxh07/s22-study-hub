@@ -43,8 +43,8 @@ for a, b in reps:
     assert a in body, a
     body = body.replace(a, b)
 body = re.sub(r'(<div class="kicker">Semester 2 · Block 2</div>\s*<h1>Your Study Hub</h1>\s*<p>)(.*?)(</p>)',
-              r'\1Mathematics II — Linear Algebra: every chapter, the four newest exams fully interactive, 150 original exam tasks, a 90-minute mock exam and a step-by-step matrix lab. Statistics: eight chapters with random drills, a data lab, a distribution and CI calculator and the z/t tables. Bookkeeping & Accounting: every chapter of Prof. Cloer\'s slides with summaries, quizzes and a booking entry trainer. Financial Statement Analysis: ten chapters of German GAAP reporting, every slide case as an exam-style question and number drills. Basic Principles of Marketing: Prof. Henkel\'s lectures as they come, with a trainer in the real exam format (five statements, partial points) and open questions. Decision Theory & Investments: every class as summary and quiz, six past exams interactive, drills for every task type with fresh numbers and a 90-minute mock exam.\3', body, flags=re.S)
-body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1Built from the real slides, exercises and past exams. Math II: newest exams first — they are the most relevant.\3', body, flags=re.S)
+              r'\1Seven subjects, four exam days in December.\3', body, flags=re.S)
+body = re.sub(r'(<div class="home-strip">)(.*?)(</div>)', r'\1\3', body, flags=re.S)
 
 engine_a = '\n'.join(L[i_theme:i_subj])            # theme, icons, helpers
 engine_b = '\n'.join(L[i_route:i_obpages])         # routing … flashcards, quiz, cheat, topic builder
@@ -52,6 +52,7 @@ patches = [
     ('<div class="fc-body">${esc(c.q)}</div>', '<div class="fc-body">${mathText(c.q)}</div>'),
     ('${fcFormat(c.a)}', '${fcFormatM(c.a)}'),
     ('<div class="qtitle">${esc(q.q)}</div>', '<div class="qtitle">${mathText(q.q)}</div>'),
+    ('const isRight = i===correct;', "const isRight = i===correct; if(typeof quizAnswered==='function') quizAnswered(q, isRight);"),
     ('<span>${esc(o)}</span></div>', '<span>${mathText(o)}</span></div>'),
     ("container.querySelector('#qexp').textContent = q.exp;", "container.querySelector('#qexp').innerHTML = mathText(q.exp);"),
 ]
@@ -71,7 +72,7 @@ const SUBJECTS = [
 ];
 """
 data = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('data_topics.js', 'data_exams.js', 'bank.js', 'data_bk.js', 'data_bk_tut.js', 'data_bk_class.js', 'data_st.js', 'data_st_tut.js', 'data_fs.js', 'data_mk.js', 'data_cb.js', 'data_dt.js', 'data_bk_rw.js'))
-app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js', 'app_mkcb.js', 'app_bk2.js', 'app_fs2.js', 'app_bk3.js', 'app_bk4.js'))
+app = ''.join(open(os.path.join(HERE, f), encoding='utf-8').read() + '\n' for f in ('app.js', 'app_bk.js', 'app_st.js', 'app_fs.js', 'app_mk.js', 'app_dt.js', 'app_cb.js', 'app_mkcb.js', 'app_bk2.js', 'app_fs2.js', 'app_bk3.js', 'app_bk4.js', 'app_mistakes.js'))
 import time
 BUILD_ID = time.strftime('%Y%m%d%H%M%S')
 autoupdate = """
