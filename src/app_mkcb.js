@@ -43,7 +43,7 @@ function stmtRunEmbed(panel, items, stateKey, points){
 /* ---------- Case Recognizer (CB lecture 1: heuristics, biases, decision types) ---------- */
 function buildCBCases(){
   registerPage('cb-cases', (div)=>{
-    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('quiz')} Practice · Consumer Behaviour</div><h2>Case Recognizer</h2><p>Short buying situations — name the heuristic, the bias or the type of decision behind them. MC statements in the exam are often exactly such cases, so the goal is to recognise the principle quickly. Content: lecture 1 (heuristics, biases, Katona’s decision types, cognitive / habitual / affective). New lectures add new cases.</p></div>
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('quiz')} Practice · Consumer Behaviour</div><h2>Case Recognizer</h2><p>Short buying situations — name the heuristic, the bias or the type of decision behind them. MC statements in the exam are often exactly such cases, so the goal is to recognise the principle quickly. Content: lecture 1 (heuristics, biases, Katona’s decision types, cognitive / habitual / affective) and lecture 2 (default effect, hyperchoice, asymmetric dominance, customer journey phases, CJD dimensions). New lectures add new cases.</p></div>
       <div class="page-body">
         <div class="bk-score-row"><span class="bk-live cb-c-live"></span><button class="btn ghost cb-c-reset">Reset session</button></div>
         <div class="drill-card glass cb-c-card"></div>

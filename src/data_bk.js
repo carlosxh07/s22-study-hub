@@ -658,20 +658,68 @@ The two accounts reach the P&L in two ways:
 - Gross method :: input of merchandise 1,800 and sales revenue 2,250 both appear in the P&L; net income 450
 - Net method :: the input of merchandise 1,800 is booked against the merchandise sales account; only the gross profit of 450 goes to the P&L; net income 450
 
-Both methods give the same net income. The gross method shows more information (sales volume and cost of goods sold), the net method only the gross profit.`,
+Both methods give the same net income. The gross method shows more information (sales volume and cost of goods sold), the net method only the gross profit.
+
+**Cloer's handout: trading goods with full debit/credit entries.** This is the official answer key for merchandise. It settles the naming: "gross" and "net" describe how the expense and revenue accounts are closed. They have nothing to do with amounts including or excluding VAT.
+- Gross method (Bruttomethode) :: Cost of goods sold and Sales revenue stay separate and are each closed to the P&L. The P&L shows revenue and expense side by side
+- Net method (Nettomethode) :: Cost of goods sold is first offset against Sales revenue. Only the remaining gross profit is transferred to the P&L
+
+Calculator example. A trader buys 10 calculators at 50€ net each and pays by bank. Later 6 are sold at 80€ net each, paid by bank. VAT is 19%, and 4 remain in stock.
+- Purchase price :: 10 × 50 = 500 net, input VAT 95, bank payment 595
+- Sales revenue :: 6 × 80 = 480 net, VAT payable 91.20, bank receipt 571.20
+- Cost of goods sold :: 6 × 50 = 300
+- Closing inventory :: 4 × 50 = 200
+
+Booking entries, the same under both methods:
+- Purchase :: Debit Trading goods inventory 500, Debit Input VAT 95 / Credit Bank 595. The goods are first an asset; input VAT is a receivable from the tax office
+- Sale :: Debit Bank 571.20 / Credit Sales revenue 480, Credit VAT payable 91.20. Revenue is always net; VAT payable is not revenue
+- Goods leave stock :: Debit Cost of goods sold 300 / Credit Trading goods inventory 300. The purchase itself is NOT yet cost of goods sold; the expense only arises when the goods leave inventory for sale
+
+Closing the VAT accounts (both are balance sheet accounts, not P&L accounts):
+- Offset :: Debit VAT payable 91.20 / Credit Input VAT 91.20
+- Remaining input VAT 3.80 :: Debit VAT receivable 3.80 / Credit Input VAT 3.80. If output VAT had been higher, the rest would be a VAT liability instead
+
+Closing under the gross method:
+- Close the expense :: Debit P&L 300 / Credit Cost of goods sold 300
+- Close the revenue :: Debit Sales revenue 480 / Credit P&L 480
+- P&L :: sales revenue 480 − cost of goods sold 300 = gross profit 180
+
+Closing under the net method:
+- Offset :: Debit Sales revenue 300 / Credit Cost of goods sold 300. The sales account keeps a credit balance of 180
+- Transfer :: Debit Sales revenue 180 / Credit P&L 180
+- P&L :: only "gross profit from trading goods 180"
+
+The economic result is the same (180). Only the presentation differs. The gross method keeps transparency high, while the net method shows only the margin.
+
+When is net presentation allowed under HGB?
+- Sole proprietor :: NOT permitted in the HGB annual financial statements. § 246 para. 2 HGB prohibits offsetting expenses against income, so sales and cost of goods sold must be shown separately
+- Small or medium-sized corporation :: may use the statutory simplification of § 276 HGB and combine the listed P&L items into one line "Rohergebnis" (gross result). This is a disclosure simplification and is NOT the same thing as the teaching net method
+- Micro-corporation :: if it uses the simplified P&L of § 275 para. 5 HGB, it may not use § 276 on top
+- Teaching or internal accounting :: the net method is used to show how gross profit is derived, which does not make it acceptable in the statutory HGB presentation`,
 cards:[
 {q:R`What is the problem of a mixed merchandise account?`, a:R`It mixes stock values (at cost) and sales (at sales prices); the gross profit only appears as a balancing figure.`},
 {q:R`OB 1,000, purchases 1,400, sales 2,250, CB 600. Gross profit?`, a:R`Input of merchandise = 1,000 + 1,400 − 600 = 1,800. Gross profit = 2,250 − 1,800 = 450.`},
 {q:R`How is the input of merchandise found on the separate inventory account?`, a:R`As balancing figure: opening balance + additions − closing balance (per stocktaking).`},
 {q:R`Gross method vs net method`, a:R`Gross: input of merchandise and sales revenue both shown in the P&L. Net: input is offset on the sales account, only the gross profit goes to the P&L. Same net income.`},
-{q:R`Basic principle of separate merchandise accounts`, a:R`Sales revenue − costs of purchase = gross profit, i.e. (price − expense per piece) × quantity.`}
+{q:R`Basic principle of separate merchandise accounts`, a:R`Sales revenue − costs of purchase = gross profit, i.e. (price − expense per piece) × quantity.`},
+{q:R`"Gross" and "net" method — what do the words refer to?`, a:R`How Cost of goods sold and Sales revenue are closed (separately vs offset first). NOT VAT-inclusive vs VAT-exclusive amounts.`},
+{q:R`When does the purchase of trading goods become an expense?`, a:R`Only when the goods leave inventory for sale: Debit Cost of goods sold / Credit Trading goods inventory. The purchase itself is booked to the inventory (asset).`},
+{q:R`Input VAT 95, VAT payable 91.20 — closing entries?`, a:R`Debit VAT payable 91.20 / Credit Input VAT 91.20, then Debit VAT receivable 3.80 / Credit Input VAT 3.80.`},
+{q:R`May a sole proprietor use the net method in the HGB annual statements?`, a:R`No. § 246 para. 2 HGB forbids offsetting expenses and income. Only small/medium corporations may combine items into "Rohergebnis" under § 276 HGB, which is a separate statutory simplification (not for micro-corporations using § 275 para. 5).`}
 ],
 quiz:[
 {q:R`OB 1,000, additions 1,400, CB per stocktaking 600. Input of merchandise?`, opts:[R`1,800`,R`2,400`,R`1,400`,R`2,250`], correct:0, exp:R`1,000 + 1,400 − 600 = 1,800.`},
 {q:R`Sales 2,250, input of merchandise 1,800. What appears in the P&L under the net method?`, opts:[R`Only the gross profit of 450`,R`Input 1,800 and sales 2,250`,R`Only sales revenue of 2,250`,R`Closing stock of 600 only`], correct:0, exp:R`Net method: input is offset against sales on the merchandise sales account; only the gross profit is transferred.`},
 {q:R`Which method shows input of merchandise and sales revenue separately in the P&L?`, opts:[R`Gross method`,R`Net method`,R`Mixed merchandise account`,R`Group valuation method`], correct:0, exp:R`The gross method presents both in the P&L.`},
 {q:R`In a mixed merchandise account the gross profit appears…`, opts:[R`as the balancing figure`,R`on a separate sales account`,R`only in the notes`,R`not at all`], correct:0, exp:R`Debit 2,400 vs credit 2,850 — the gross profit 450 closes the gap.`},
-{q:R`Do the gross and net methods lead to different net incomes?`, opts:[R`No, both give the same net income`,R`Yes, the gross method is higher`,R`Yes, the net method is higher`,R`Only if the stock values differ`], correct:0, exp:R`They differ only in presentation; both lead to net income 450.`}
+{q:R`Do the gross and net methods lead to different net incomes?`, opts:[R`No, both give the same net income`,R`Yes, the gross method is higher`,R`Yes, the net method is higher`,R`Only if the stock values differ`], correct:0, exp:R`They differ only in presentation; both lead to net income 450.`},
+{q:R`A trader buys 10 calculators at 50€ net (+19% VAT) by bank. Which entry is correct?`, opts:[R`Debit Trading goods inventory 500, Debit Input VAT 95 / Credit Bank 595`,R`Debit Cost of goods sold 500, Debit Input VAT 95 / Credit Bank 595`,R`Debit Trading goods inventory 595 / Credit Bank 595`,R`Debit Trading goods inventory 500 / Credit Bank 500, Credit VAT payable 95`], correct:0, exp:R`The goods are first recognised as an asset at the net price; input VAT is a receivable from the tax office. Cost of goods sold only arises when the goods are sold.`},
+{q:R`Six of the calculators (cost 50€ each) are sold. Which entry records the expense?`, opts:[R`Debit Cost of goods sold 300 / Credit Trading goods inventory 300`,R`Debit Trading goods inventory 300 / Credit Cost of goods sold 300`,R`Debit Cost of goods sold 480 / Credit Sales revenue 480`,R`Debit Cost of goods sold 200 / Credit Trading goods inventory 200`], correct:0, exp:R`6 × 50 = 300 leaves inventory and becomes an expense. 200 (4 × 50) is the closing inventory, and 480 is the sales revenue.`},
+{q:R`Input VAT 95.00 and VAT payable 91.20 at year-end. What remains on the balance sheet?`, opts:[R`A VAT receivable of 3.80`,R`A VAT liability of 3.80`,R`Input VAT 95.00 and VAT payable 91.20 separately`,R`Nothing; the difference goes to the P&L`], correct:0, exp:R`Debit VAT payable 91.20 / Credit Input VAT 91.20; the remaining debit balance of 3.80 is moved to VAT receivable. VAT accounts are balance sheet accounts, never P&L.`},
+{q:R`Revenue 480, cost of goods sold 300. Net-method closing entries?`, opts:[R`Debit Sales revenue 300 / Credit COGS 300, then Debit Sales revenue 180 / Credit P&L 180`,R`Debit P&L 300 / Credit COGS 300, then Debit Sales revenue 480 / Credit P&L 480`,R`Debit COGS 300 / Credit Sales revenue 300, then Debit P&L 180 / Credit Sales revenue 180`,R`Debit Sales revenue 480 / Credit COGS 480, then Debit COGS 180 / Credit P&L 180`], correct:0, exp:R`Net method: offset COGS on the sales account first, then transfer only the gross profit of 180. The second option is the gross method.`},
+{q:R`In Cloer's handout, what do "gross method" and "net method" refer to?`, opts:[R`Whether COGS and revenue are closed separately or offset first`,R`Whether purchases and sales are booked including or excluding VAT`,R`Whether merchandise is valued at gross or net purchase price`,R`Whether cash discounts are deducted from the gross invoice before or after VAT`], correct:0, exp:R`The handout stresses that the terms describe how the expense and revenue accounts are closed. They must not be confused with VAT-inclusive (gross) and VAT-exclusive (net) amounts.`},
+{q:R`Sole proprietor under HGB: may sales revenue and cost of goods sold be offset in the annual P&L?`, opts:[R`No — § 246 para. 2 HGB prohibits offsetting`,R`Yes — the net method is generally permitted`,R`Yes — a sole proprietor may show the "Rohergebnis" of § 276 HGB`,R`Only if gross profit is positive`], correct:0, exp:R`§ 246 para. 2 HGB forbids offsetting expenses against income. The § 276 "Rohergebnis" simplification is only for small and medium-sized corporations, and it is not identical to the teaching net method.`},
+{q:R`Which entity may combine P&L items into a "Rohergebnis" under § 276 HGB?`, opts:[R`A small or medium-sized corporation`,R`A sole proprietor`,R`A micro-corporation using the simplified P&L of § 275 para. 5`,R`Any merchant that uses the net method`], correct:0, exp:R`§ 276 HGB is a disclosure simplification for small and medium-sized corporations. Sole proprietors cannot use it, and micro-corporations using § 275 para. 5 may not use it on top.`}
 ]},
 
 {id:'bk-10', ch:'10', title:'Production Costs & P&L Methods', examWeight:'Components of § 255 para. 2 HGB, both P&L methods with their booking entries and why they give the same profit (100 produced, 50 sold; Garden Gnomes in Exercise 9)',
@@ -715,7 +763,67 @@ Same process with expense accounts and change in inventory:
 - Stage 1 :: Debit Wages 40 / Credit Cash 40; Debit Material 60 / Credit Raw material 60; Debit Unfinished goods 100 / Credit Change in inventory 100
 - Stage 2 :: Debit Wages 60 / Credit Cash 60; Debit Material 40 / Credit Raw material 40; Debit Change in inventory 100 / Credit Unfinished goods 100; Debit Finished goods 200 / Credit Change in inventory 200
 - Sale :: Debit Change in inventory 200 / Credit Finished goods 200; Debit Cash 300 / Credit Sales revenue 300
-- Result :: again cash 300 | equity 300`,
+- Result :: again cash 300 | equity 300
+
+**Cloer's handout: GKV and UKV with complete debit/credit entries.** This settles the names question. The handout calls the GKV the total cost method (expenses by nature + increase in inventories). The UKV is the cost of sales method, labelled "production expenses method" in the course. That matches the tutorial names above. In the UKV, "Production expenses" is the course word for cost of sales / cost of goods sold (COGS): only the production cost of the goods SOLD, not everything produced in the period.
+
+ABC GmbH example. ABC GmbH makes 100 tables and sells 80 at 100€ each, so 20 stay in stock. There is no opening stock, VAT is ignored, and everything is paid immediately by bank.
+- Direct materials :: bought 3,000 by bank and fully issued to production
+- Wages :: 2,000 by bank
+- Electricity used in production :: 1,000 by bank. It is production overhead, because the machines and hall use it but it cannot be traced economically to one table. Energy that can be metered for one product or order would be a direct cost
+- Office supplies :: 1,000 by bank, consumed by general administration. 500 of it qualifies for the option of § 255 para. 2 sentence 3 HGB
+- Sales :: 80 × 100 = 8,000 by bank
+
+Production costs per table:
+- Mandatory only (lowest profit) :: 3,000 + 2,000 + 1,000 = 6,000 → 60 per table
+- With the 500 admin option (highest profit) :: 6,500 → 65 per table
+
+GKV entries (expenses by nature):
+- Materials bought :: Debit Raw materials inventory 3,000 / Credit Bank 3,000
+- Materials used :: Debit Cost of material (expense) 3,000 / Credit Raw materials inventory 3,000. No new payment
+- Wages :: Debit Wages expense 2,000 / Credit Bank 2,000
+- Energy :: Debit Energy expense 1,000 / Credit Bank 1,000
+- Office supplies bought :: Debit Office supplies inventory 1,000 / Credit Bank 1,000
+- Office supplies used :: Debit General administrative expenses 1,000 / Credit Office supplies inventory 1,000
+- Sale :: Debit Bank 8,000 / Credit Sales revenue 8,000
+- Closing stock, lowest profit :: Debit Finished goods inventory 1,200 / Credit Increase in inventories 1,200 (20 × 60)
+- Closing stock, highest profit :: Debit Finished goods inventory 1,300 / Credit Increase in inventories 1,300 (20 × 65)
+
+GKV P&L:
+- Lowest profit :: 8,000 + 1,200 − 3,000 − 2,000 − 1,000 − 1,000 = **2,200**
+- Highest profit :: 8,000 + 1,300 − 3,000 − 2,000 − 1,000 − 1,000 = **2,300**. All 1,000 of admin is still shown as an expense, and the 100 effect comes only through the higher inventory increase
+
+UKV entries (simplified: all 100 tables finished in the period, so no work-in-progress account; production costs go straight to Finished goods):
+- Materials bought :: Debit Raw materials inventory 3,000 / Credit Bank 3,000
+- Materials issued :: Debit Finished goods inventory 3,000 / Credit Raw materials inventory 3,000
+- Wages :: Debit Finished goods inventory 2,000 / Credit Bank 2,000
+- Energy :: Debit Finished goods inventory 1,000 / Credit Bank 1,000
+- Office supplies bought :: Debit Office supplies inventory 1,000 / Credit Bank 1,000
+- Office supplies used, lowest profit :: Debit General administrative expenses 1,000 / Credit Office supplies inventory 1,000
+- Office supplies used, highest profit :: Debit Finished goods inventory 500, Debit General administrative expenses 500 / Credit Office supplies inventory 1,000
+- Sale :: Debit Bank 8,000 / Credit Sales revenue 8,000
+- Goods sold, lowest profit :: Debit Production expenses 4,800 / Credit Finished goods inventory 4,800 (80 × 60)
+- Goods sold, highest profit :: Debit Production expenses 5,200 / Credit Finished goods inventory 5,200 (80 × 65)
+
+UKV P&L:
+- Lowest profit :: revenue 8,000 − production expenses 4,800 = gross profit 3,200 − admin 1,000 = **2,200**
+- Highest profit :: revenue 8,000 − production expenses 5,200 = gross profit 2,800 − admin 500 = **2,300**
+
+Main differences:
+- Classification :: GKV by nature (material, wages, energy …); UKV by function (production, administration, distribution)
+- Inventory changes :: GKV shows them as a separate P&L line; UKV hides them inside inventory and production expenses
+- Output measured :: GKV is based on everything produced in the period; UKV only on the units sold
+- Data needed :: GKV works from financial accounting by expense type; UKV needs functional cost allocation
+- Typical users :: GKV is traditional and widespread in German HGB practice, especially in SMEs. UKV is common in groups and internationally oriented firms, because it shows gross profit and functional costs directly
+- Profit :: identical under both
+
+Result check:
+- No optional inclusion :: closing inventory 1,200, profit 2,200 under GKV and UKV
+- 500 admin included :: closing inventory 1,300, profit 2,300 under GKV and UKV
+
+**Key point:** choosing GKV or UKV changes only the presentation, never the profit. The HGB valuation option changes profit by 100, because exactly 20 × 5 = 100 of the optional admin costs stays capitalised in closing inventory. The other 400 is expensed through production expenses for the goods sold.
+
+Two small slips in the handout: GKV entry 1 says Bank "increases on the CREDIT side", but a credit to Bank is a decrease. The entry numbering also skips no. 5. Neither changes the numbers.`,
 cards:[
 {q:R`Mandatory components of production costs (§ 255 para. 2 HGB)`, a:R`Direct material costs (raw materials), indirect material costs (auxiliary supplies), direct production costs (production wages), indirect production costs (operating supplies), special direct costs (production module).`},
 {q:R`Which production cost component is only an option on the slides?`, a:R`Administration costs (e.g. the porter).`},
@@ -726,7 +834,12 @@ cards:[
 {q:R`Garden Gnomes: unit cost if all options are capitalised?`, a:R`(raw material 15,000 + administration 3,000 + interest 1,000) / 190 = 100€. 90 in stock = 9,000; net income 25,000 under both methods.`},
 {q:R`Production company sells finished goods from stock — year-end correction?`, a:R`GKV: Debit Change in inventory / Credit Finished goods (book value). UKV: Debit Production expenses / Credit Finished goods.`},
 {q:R`Why do both P&L methods give the same profit?`, a:R`Because changes in inventory are valued at their acquisition/production costs.`},
-{q:R`Production stage 1: wages 40 cash, raw material 60 → entry?`, a:R`Debit Unfinished goods 100 / Credit Cash 40, Credit Raw material 60 (income-neutral).`}
+{q:R`Production stage 1: wages 40 cash, raw material 60 → entry?`, a:R`Debit Unfinished goods 100 / Credit Cash 40, Credit Raw material 60 (income-neutral).`},
+{q:R`ABC GmbH: 100 tables, materials 3,000, wages 2,000, energy 1,000, admin 1,000 (500 optional). Unit cost low/high?`, a:R`Low: 6,000 / 100 = 60. High: 6,500 / 100 = 65. Profit 2,200 vs 2,300 under BOTH GKV and UKV.`},
+{q:R`Why is electricity used in production an indirect cost?`, a:R`It is consumed by the machines and hall but cannot be economically traced to one product, so it is allocated as production overhead. Energy metered per product or order could be direct.`},
+{q:R`UKV, highest profit: office supplies of 1,000 consumed, 500 optional for production cost — entry?`, a:R`Debit Finished goods inventory 500, Debit General administrative expenses 500 / Credit Office supplies inventory 1,000.`},
+{q:R`Why does capitalising 500 of admin raise profit by only 100 (ABC GmbH)?`, a:R`Only the part stuck in closing inventory stays out of expenses: 20 unsold tables × 5 = 100. The other 400 goes into production expenses for the 80 sold.`},
+{q:R`GKV vs UKV in one line each (Cloer handout)`, a:R`GKV: expenses by nature, all production of the period, inventory change as its own line. UKV: expenses by function, only units sold (production expenses = COGS), shows gross profit. Same profit.`}
 ],
 quiz:[
 {q:R`Which cost is only optional in production costs according to the slides?`, opts:[R`Administration costs (porter)`,R`Production wages (direct)`,R`Raw materials (direct material)`,R`Operating supplies (indirect)`], correct:0, exp:R`Direct/indirect material and production costs and special direct costs are mandatory; administration costs are an option.`},
@@ -738,7 +851,13 @@ quiz:[
 {q:R`Under the cost of sales method (UKV), how is the use of raw materials in production booked?`, opts:[R`Debit Finished goods / Credit Raw material`,R`Debit Raw material expense / Credit Raw material`,R`Debit Change in inventory / Credit Raw material`,R`Debit Production expenses / Credit Raw material`], correct:0, exp:R`UKV treats production outlays as income-neutral (capitalised in finished goods); only the goods sold become production expenses at year-end.`},
 {q:R`Which method is cost-centre oriented and internationally preferred?`, opts:[R`Cost of sales method (UKV)`,R`Total cost method (GKV)`,R`Both equally`,R`Neither — both are cost-type oriented`], correct:0, exp:R`Exercise 9: GKV is cost-type oriented, UKV cost-centre oriented and internationally preferred.`},
 {q:R`Garden Gnomes: 190 produced at 100€, 100 sold. GKV adjustment at year-end?`, opts:[R`Debit Finished goods 9,000 / Credit Change in inventory 9,000`,R`Debit Production expenses 10,000 / Credit Finished goods 10,000`,R`Debit Change in inventory 9,000 / Credit Finished goods 9,000`,R`Debit Finished goods 19,000 / Credit Change in inventory 19,000`], correct:0, exp:R`GKV expensed all 190 units, so the 90 unsold units (9,000) are added back as an inventory increase. Debit Production expenses 10,000 is the UKV entry.`},
-{q:R`A company wants to show a HIGH profit. How does it value its finished goods?`, opts:[R`Use every capitalisation option (administration, interest on production debt)`,R`Only mandatory production costs`,R`At sales prices`,R`Include distribution costs as well`], correct:0, exp:R`Capitalising optional components moves expenses into inventory, raising profit. Distribution costs may never be capitalised; sales prices would violate the realisation principle.`}
+{q:R`A company wants to show a HIGH profit. How does it value its finished goods?`, opts:[R`Use every capitalisation option (administration, interest on production debt)`,R`Only mandatory production costs`,R`At sales prices`,R`Include distribution costs as well`], correct:0, exp:R`Capitalising optional components moves expenses into inventory, raising profit. Distribution costs may never be capitalised; sales prices would violate the realisation principle.`},
+{q:R`ABC GmbH (GKV): 20 of 100 tables unsold, mandatory production cost 60 per table. Year-end entry?`, opts:[R`Debit Finished goods inventory 1,200 / Credit Increase in inventories 1,200`,R`Debit Increase in inventories 1,200 / Credit Finished goods inventory 1,200`,R`Debit Production expenses 4,800 / Credit Finished goods inventory 4,800`,R`Debit Finished goods inventory 1,300 / Credit Increase in inventories 1,300`], correct:0, exp:R`GKV expensed all production by nature, so the 20 unsold tables (20 × 60) are added back as an increase in inventories. 4,800 is the UKV entry for the goods sold; 1,300 is the high-profit valuation at 65.`},
+{q:R`ABC GmbH (UKV, highest profit): what are the production expenses for the 80 tables sold?`, opts:[R`5,200`,R`4,800`,R`6,500`,R`5,600`], correct:0, exp:R`With the 500 admin option the unit cost is 6,500 / 100 = 65; 80 × 65 = 5,200. 4,800 is the lowest-profit figure (80 × 60).`},
+{q:R`ABC GmbH: profit with and without capitalising 500 of optional admin costs?`, opts:[R`2,300 vs 2,200 — under both GKV and UKV`,R`2,700 vs 2,200 — under both GKV and UKV`,R`2,300 under GKV, 2,200 under UKV`,R`2,200 vs 2,300 — the option lowers profit`], correct:0, exp:R`Only 20 × 5 = 100 of the optional costs stays in closing inventory, so profit rises by 100, not 500. GKV and UKV always give the same profit.`},
+{q:R`In the UKV, the course account "Production expenses" means…`, opts:[R`the production cost of the goods sold (= cost of sales / COGS)`,R`all production expenses incurred during the period, sold or not`,R`material, wage and energy expenses booked by nature as in the GKV`,R`the increase in finished goods inventory`], correct:0, exp:R`Cloer's handout: Production expenses only covers the production cost attributable to the units sold; in English reporting this is cost of sales or COGS.`},
+{q:R`Electricity consumed by the production hall and machines is…`, opts:[R`an indirect production cost (production overhead)`,R`a direct material cost, since it is consumed physically in production`,R`an optional administration cost`,R`a distribution cost that may never be capitalised in production cost`], correct:0, exp:R`It cannot be economically traced to one specific table, so it is allocated with a key as production overhead — part of mandatory production cost.`},
+{q:R`Which statement about GKV vs UKV is correct?`, opts:[R`GKV shows the change in inventories as its own P&L line; UKV does not`,R`UKV classifies expenses by nature, while GKV classifies them by function`,R`GKV is based only on the units sold, UKV on everything produced in the period`,R`They lead to different profits whenever closing inventory changes during the year`], correct:0, exp:R`GKV: by nature, whole production, separate inventory-change line. UKV: by function, units sold, inventory changes hidden in inventory and production expenses. Profit is identical.`}
 ]},
 
 {id:'bk-11', ch:'11', title:'Depreciation', examWeight:'Depreciation plan, straight-line vs geometric-declining with switch, rules for extraordinary depreciation',
@@ -1008,6 +1127,8 @@ R`AC exclude: interest (except production, § 255 III), imputed costs, distribut
 R`Total cost method GKV (§ 275 II): all production expenses + change in inventory · cost of sales method UKV (§ 275 III): Debit Finished goods during the year, Debit Production expenses for goods sold · same profit (lecture slides swap the names, tutorials don't)`]},
 {h:"Merchandise & depreciation", items:[
 R`Input of merchandise = OB + additions − CB · gross profit = sales − input · gross method: both in P&L · net method: only gross profit`,
+R`Handout: purchase → Debit Trading goods inventory + Input VAT / Credit Bank · sale of goods → Debit COGS / Credit Trading goods inventory · gross/net ≠ VAT · net method not allowed in HGB statements (§ 246 II); small/medium corporations may show "Rohergebnis" (§ 276)`,
+R`ABC GmbH handout: 100 tables, 80 sold · unit cost 60 (mandatory) or 65 (+500 admin option) · profit 2,200 / 2,300 under BOTH GKV and UKV · option effect = 20 × 5 = 100 in closing stock`,
 R`Plan: base, useful life, method (straight-line, geometric-declining, digital, performance) · switch when BV / remaining years ≥ declining amount`,
 R`Unscheduled: fixed assets permanent → must · financial assets temporary → may · current assets → must · reversal must (§ 253 V), capped at amortised cost`,
 R`Switch year t = n − 100/p + 1 · digital D = cost / (1 + … + n), year k = D × remaining years · performance: cost / total units × units used`]},
@@ -1064,3 +1185,26 @@ const BK_TRAIN = [
 {id:'t37', topic:'bk-12', text:'Landlord, 31.12.01: receives next year\'s rent of 12,000€ (no VAT).', lines:[['D','Bank','12,000'],['C','Deferred income','12,000']]},
 {id:'t38', topic:'bk-12', text:'Landlord, 02: release the rent received in advance (12,000€).', lines:[['D','Deferred income','12,000'],['C','Sales revenue','12,000']]}
 ];
+
+// Cloer handouts (Merchandise; Total Cost vs Cost of Sales Method) — hub account names in brackets: Input tax = Input VAT, VAT = VAT payable, Receivable from tax office = VAT receivable, Change in inventory = Increase in inventories
+BK_ACCOUNTS.push('Trading goods inventory','Cost of goods sold','Office supplies','General administrative expenses');
+BK_TRAIN.push(
+{id:'ho-1', topic:'bk-9', src:'Handout', text:'Calculators: 10 pieces bought at 50€ net + 19% VAT, paid by bank transfer.', lines:[['D','Trading goods inventory','500'],['D','Input tax','95'],['C','Bank','595']]},
+{id:'ho-2', topic:'bk-9', src:'Handout', text:'Calculators: 6 pieces sold at 80€ net + 19% VAT, paid by bank transfer.', lines:[['D','Bank','571.20'],['C','Sales revenue','480'],['C','VAT','91.20']]},
+{id:'ho-3', topic:'bk-9', src:'Handout', text:'Calculators: the 6 sold pieces (cost 50€ each) leave inventory.', lines:[['D','Cost of goods sold','300'],['C','Trading goods inventory','300']]},
+{id:'ho-4', topic:'bk-9', src:'Handout', text:'Year-end: offset input VAT (95€) against VAT payable (91.20€) — first step.', lines:[['D','VAT','91.20'],['C','Input tax','91.20']]},
+{id:'ho-5', topic:'bk-9', src:'Handout', text:'Year-end: transfer the remaining input VAT balance of 3.80€ to a VAT receivable.', lines:[['D','Receivable from tax office','3.80'],['C','Input tax','3.80']]},
+{id:'ho-6', topic:'bk-9', src:'Handout', text:'Gross method: close the cost of goods sold account (300€).', lines:[['D','P&L','300'],['C','Cost of goods sold','300']]},
+{id:'ho-7', topic:'bk-9', src:'Handout', text:'Gross method: close the sales revenue account (480€).', lines:[['D','Sales revenue','480'],['C','P&L','480']]},
+{id:'ho-8', topic:'bk-9', src:'Handout', text:'Net method: offset cost of goods sold (300€) against sales revenue.', lines:[['D','Sales revenue','300'],['C','Cost of goods sold','300']]},
+{id:'ho-9', topic:'bk-9', src:'Handout', text:'Net method: transfer the gross profit of 180€ to the P&L.', lines:[['D','Sales revenue','180'],['C','P&L','180']]},
+{id:'ho-10', topic:'bk-10', src:'Handout', text:'ABC GmbH (GKV): direct materials of 3,000€ are issued to production.', lines:[['D','Raw material expense','3,000'],['C','Raw materials','3,000']]},
+{id:'ho-11', topic:'bk-10', src:'Handout', text:'ABC GmbH (GKV): office supplies of 1,000€ are consumed by general administration.', lines:[['D','General administrative expenses','1,000'],['C','Office supplies','1,000']]},
+{id:'ho-12', topic:'bk-10', src:'Handout', text:'ABC GmbH (GKV, lowest profit): 20 unsold tables at 60€ production cost.', lines:[['D','Finished goods','1,200'],['C','Change in inventory','1,200']]},
+{id:'ho-13', topic:'bk-10', src:'Handout', text:'ABC GmbH (GKV, highest profit): 20 unsold tables at 65€ production cost.', lines:[['D','Finished goods','1,300'],['C','Change in inventory','1,300']]},
+{id:'ho-14', topic:'bk-10', src:'Handout', text:'ABC GmbH (UKV): direct materials of 3,000€ are issued to production.', lines:[['D','Finished goods','3,000'],['C','Raw materials','3,000']]},
+{id:'ho-15', topic:'bk-10', src:'Handout', text:'ABC GmbH (UKV): wages of 2,000€ are paid by bank and assigned to production.', lines:[['D','Finished goods','2,000'],['C','Bank','2,000']]},
+{id:'ho-16', topic:'bk-10', src:'Handout', text:'ABC GmbH (UKV, highest profit): office supplies of 1,000€ are consumed; 500€ is included in production cost.', lines:[['D','Finished goods','500'],['D','General administrative expenses','500'],['C','Office supplies','1,000']]},
+{id:'ho-17', topic:'bk-10', src:'Handout', text:'ABC GmbH (UKV, lowest profit): 80 tables sold at a production cost of 60€ each.', lines:[['D','Production expenses','4,800'],['C','Finished goods','4,800']]},
+{id:'ho-18', topic:'bk-10', src:'Handout', text:'ABC GmbH (UKV, highest profit): 80 tables sold at a production cost of 65€ each.', lines:[['D','Production expenses','5,200'],['C','Finished goods','5,200']]}
+);

@@ -8,7 +8,7 @@ const PLAN_EXAM_CB = new Date(2026,11,16); // written exam 16.12.2026 (slot 13:3
 const CB_SESSIONS = [
   {n:1, date:'Mon 19 Oct', title:'LS 1 · Consumer Decision Making 1', topic:'cb-1'},
   {n:2, date:'21–23 Oct', title:'Experiment part I on campus (no class) — Burg, Room Bangalore; part II online 2–15 Nov'},
-  {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', reading:'cb-r2'},
+  {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', topic:'cb-2', reading:'cb-r2'},
   {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', reading:'cb-r3'},
   {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', reading:'cb-r4'},
   {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee (Schloss Forum)'},
@@ -26,6 +26,10 @@ const CB_AREAS = [
   {id:'types', lec:'cb-1', label:'Types of decision making'},
   {id:'heur', lec:'cb-1', label:'Heuristics (habitual shortcuts)'},
   {id:'bias', lec:'cb-1', label:'Biases'},
+  {id:'illu', lec:'cb-2', label:'Cognitive illusions & defaults'},
+  {id:'choice', lec:'cb-2', label:'Hyperchoice & asymmetric dominance'},
+  {id:'cj', lec:'cb-2', label:'Customer journey & CJD'},
+  {id:'pers', lec:'cb-2', label:'Personas & synthetic personas'},
   {id:'irr', lec:'cb-r2', label:'Beliefs, goals & pressures'},
   {id:'sens', lec:'cb-r3', label:'Sensory marketing'},
   {id:'ab', lec:'cb-r4', label:'A/B tests & targeting'},
@@ -156,6 +160,152 @@ quiz:[
 {q:R`You stay in a terrible movie because the tickets were expensive. Which bias?`, opts:[R`Loss aversion`,R`Mere exposure effect`,R`Country of origin`,R`Sunk cost fallacy`], correct:3, exp:R`Sunk cost fallacy: past investments that cannot be recovered keep you going, although only future costs and benefits should count.`, area:'bias'},
 {q:R`A song you disliked at first grows on you after hearing it on the radio many times. Which bias?`, opts:[R`Mere exposure effect`,R`Loss aversion`,R`Sunk cost fallacy`,R`Higher-price heuristic`], correct:0, exp:R`Mere exposure: repeated exposure alone increases liking.`, area:'bias'},
 {q:R`How many points does the written exam carry, and how is the MC part scored?`, opts:[R`90 points; each MC question has 4 options and exactly one is right`,R`75 points; 24 MC questions with 5 statements, partial points`,R`60 points; every wrong tick gives minus points so that students stop guessing`,R`75 points; only all-correct answers earn points, otherwise zero`], correct:1, exp:R`Exam 75 = MC 60 (24 × 2.5, partial points 1.5/1/0.5/0.25, no minus points) + open questions 15. Experiment 7.5 and guest lectures 7.5 make the total of 90.`, area:'why'}
+]},
+
+/* ------------------------------------------------------------ LS 2 ------------------------------------------------------------ */
+{id:'cb-2', kind:'lec', ch:2, title:'Irrational Decision Making, Customer Journeys & Personas', date:'26 Oct 2026',
+examWeight:'Cognitive illusions and the default effect (organ donations, experts), hyperchoice (6 vs 24 flavours), asymmetric dominance (Rome/Paris, Economist, Tom & Jerry), customer journeys with their phases, touchpoints and the three CJD dimensions, and personas incl. synthetic personas',
+summary:R`**Learning outcomes of session 2:**
+- Cognitive illusions :: consumers face cognitive illusions and limitations; their "vision" is not always correct and they are often influenced by decisions of others
+- Hyperchoice :: consumers cannot handle hyperchoice, they feel overwhelmed when there are too many options
+- Irrational process :: consumer decision making is highly irrational and complex, and marketers can use this, for example through nudges
+- Customer journeys :: consumers go through customer journeys; companies need to understand them and consider all possible touchpoints to reach their target groups
+- Personas :: the basis of customer journeys are personas, distilled essences of real users
+
+**Are we in control of our decisions?** The session builds on the TED talk by Dan Ariely with the same title.
+
+**Visual illusions as a metaphor for rationality.**
+- Table illusion :: the vertical line on the left table looks much longer than the horizontal line on the right table, yet both are the same length
+- Colour illusion :: two tiles on a cube (one in the light, one in the shadow) look clearly different, yet the colours are identical
+- Why this matters :: vision is one of the best things we can do, a huge part of the brain is dedicated to it, we use it more hours a day than anything else and we are evolutionarily designed for it — and still we make predictable, repeatable mistakes
+
+**From visual to cognitive illusions.** If we make predictable mistakes in vision, what happens in areas we are not even good at, such as financial decisions? With cognitive illusions we probably make even more mistakes, and they are harder to see, because unlike visual illusions the error cannot simply be demonstrated. We think we make our decisions, but often others make them for us — we are not always in the driver’s seat.
+
+**Organ donations — the default effect.** The share of drivers who agree to donate organs differs hugely between similar countries: Denmark 4%, Netherlands 28%, United Kingdom 17%, Germany 12% versus Austria 100%, Belgium 98%, France, Hungary, Poland and Portugal 100% and Sweden 86%. The reason is not culture but the form:
+- Opt-in (countries on the left) :: "Check the box if you **want** to participate in the organ donor program" — people don’t check the box and therefore **don’t join**
+- Opt-out (countries on the right) :: "Check the box if you **don’t want** to participate" — people don’t check the box and therefore **join**
+- Lesson :: in both cases most people simply accept the pre-set option; whoever designs the form (the default) effectively makes the decision
+
+**Default bias for experts?** Experts are not immune.
+- One medicine :: a doctor has already referred a patient to surgery and then realises he forgot to try one medicine (ibuprofen) — he chooses option 1 and tries the medicine
+- Two medicines :: when he realises he forgot two types of medicine (ibuprofen and piroxicam), choosing between them becomes harder — and he sticks with option 2, the surgery
+- Lesson :: more options make the decision harder, so even experts fall back on the option already in place
+
+**Consumer hyperchoice.** Barry Schwartz ("The Paradox of Choice — Why More Is Less", 2005) describes the tasting experiment: Group I tried 6 different flavours, Group II tried 24. In the group with 6 flavours, 30% bought a product; in the group with 24 flavours, only 3% did. Too many options can lead to worse outcomes for marketers than a smaller number of choices — consumers feel overwhelmed and do not decide at all.
+
+**Asymmetric dominance (decoy effect).** Adding an option that is clearly worse than one alternative (but not clearly worse than the other) makes the dominating option more attractive.
+- Rome vs Paris :: two weekend trips are hard to compare because each is better on a different attribute; adding "Rome without coffee at breakfast" makes **Rome** more popular — not only compared to the worse Rome offer but also compared to Paris
+- The Economist :: web only USD 59 / print only USD 125 / print & web USD 125. MIT students (N=100) chose 16% web, 0% print, 84% print & web. Without the print-only option nobody wanted, the shares became 68% web and 32% print & web (52 percentage points shift). The "useless" middle option helped people understand what they wanted and pushed them to the expensive bundle
+- Tom & Jerry :: with a slightly uglier version of Jerry (Jerry’) next to Tom and Jerry, people prefer Jerry; with an uglier Tom (Tom’), they prefer Tom — "bring an ugly version of you to a party"
+
+**Behavioural economics and cognitive illusions.**
+- Physical world :: when we build the physical world, we understand our limitations
+- Designed systems :: when we design stock markets, health care systems and retirement plans, we forget that we are limited
+- Better design :: if we understood our cognitive limitations the way we understand our physical ones, we could design a better world
+
+Book recommendations on biases in decision making: "Thinking, Fast and Slow" (Daniel Kahneman) and "Predictably Irrational" (Dan Ariely). The reading for this session is the McKinsey report "Irrational consumption: How consumers really make decisions" (see Reading LS 2), discussed with two questions: what is its key message, and how does it align with the topics of the course so far?
+
+**Customer journey.**
+- Long journey :: the purchase is only one step of a long journey, and one negative experience can easily lead to a lost customer
+- Touchpoints :: customers have several touchpoints with the brand throughout the whole journey — before, during and after the purchase
+- Journey map :: a customer journey map visualises all touchpoints a user experiences; it tells the story of a customer’s experience
+
+**Definition:** the customer journey is the complete sum of experiences that customers go through when interacting with a company or brand. Instead of looking at just one part of a transaction, it documents the full experience of being a customer. It is a practical tool for marketers, combines the offline and online setting and gives a good overview of the customer’s interaction with the brand.
+
+**Digitisation** changed the customer journey and made the sum of experiences more complex: touchpoints now include advertising, influencer marketing, emails, websites, social media and loyalty rewards.
+
+**Phases and touchpoints of the customer journey:**
+=> Awareness (pre-sales: online display, PR, word of mouth, radio, TV, print, outdoor) → Consideration (pre-sales: search, paid content, email, website, social media, 3rd-party sites, direct mail) → Purchase (sales: web shop, app/mobile site, store, agent/broker) → After sales / services (web self-service, community, chat, social media, call centre) → Loyalty / expansion (email/newsletter, loyalty program, survey, mailings, offers in invoice, offers to customers)
+
+Touchpoints are digital or physical, and either **managed** (controlled by the firm, e.g. a newsletter) or **earned** (not controlled, e.g. word of mouth, social media, 3rd-party sites). The customer’s mood goes up and down along the journey.
+
+**Effective customer journey design (CJD) and its dimensions.** Kühnl, Jozic and Homburg (2019) identified three dimensions:
+- Thematic cohesion of touchpoints :: touchpoints share a common brand theme
+- Consistency of touchpoints :: uniform design of the brand across touchpoints
+- Context sensitivity of touchpoints :: touchpoints are responsive to users’ activity and goals
+
+**How to identify the scenarios for a customer journey:**
+- Internal analysis :: e.g. an internal company project → creation of a persona that represents the target group
+- User research :: customer interviews (in person, on the phone, via email or live chat)
+- Analytics :: website analytics show patterns that point to an area worth investigating (e.g. a sudden drop-off in conversions during checkout)
+
+**Personas.** Not every customer goes through the same customer journey, and personas help firms understand customer needs and goals.
+- Distilled essence :: personas are distilled essences of real users; they represent a target group of the company and can be seen as "ideal customers"
+- Fictional characters :: designers use them to reflect user types — who they are and what they do with products in relevant contexts
+- Created from data :: designers build personas from user data or internal analysis to understand characteristics, needs and goals and gain insight into user journeys
+- Number :: usually at least 2–5 personas are created
+
+**Persona template:** name, quote, age, gender, city, occupation, job title, yearly income, highest level of education, hobbies & interests, goals & motivations, pain points & obstacles, requirements on the product / solution, shopping behaviour & factors influencing purchasing.
+
+**Areas to consider when designing a persona:**
+- Demographics :: age, gender, income, education and location
+- Psychographics :: values, interests, motivations and lifestyle
+- Behaviour patterns :: online behaviour, purchase habits and brand interactions
+- Pain points :: challenges or problems customers face
+- Goals and needs :: what customers aim to achieve or solve
+- Motivation :: what motivates the person
+- Preferred communication channels :: how customers like to receive information (social media, email, etc.)
+- Buying decision factors :: what influences their purchasing decisions
+- Customer journey :: the steps from awareness to purchase
+
+**Why personas? Benefits in marketing:**
+- Shared understanding :: all teams understand the target customer
+- Content :: they help create personalised, relevant content
+- Products :: teams use them to develop customer-focused products
+- Efficiency :: they save time and resources by targeting the right audience
+- Focus :: marketing efforts concentrate on key audience segments
+- Alignment :: better fit between customer needs and marketing strategies
+
+**When? Development stages of personas:**
+- Early design stage (research & discovery) :: understand the target audience and guide design decisions; define user needs, motivations and goals before concept development, so the design is user-centred from the start
+- Ideation and prototyping :: evaluate how well design ideas meet the needs of different user types
+- Testing & iteration :: reference to check that the design matches real user expectations
+- Ongoing :: personas are often adjusted based on new data, user feedback, testing or market changes
+
+**Synthetic personas** are data-driven, algorithmically generated user archetypes that simulate real user behaviours, needs and characteristics without representing any actual individual. Unlike traditional personas (often based on interviews or qualitative observation), they are derived from large datasets using machine learning, clustering and simulation.
+
+**Common use cases:**
+- UX design (Microsoft) :: testing user journeys with synthetic populations — design and testing of Cortana, its AI assistant, to fine-tune responses, anticipate needs and adjust tone across user segments
+- Marketing (Amazon) :: targeting simulated audiences before a campaign — testing recommendation algorithms and simulating user journeys across thousands of scenarios, optimising personalisation without relying on real customer data
+- Product development (Unilever) :: predicting feature adoption — simulating how demographic and psychographic groups would respond to new hygiene products, useful where consumer research is limited or sensitive
+- AI training (Walmart) :: generating synthetic datasets — testing user journeys across e-commerce interfaces by simulating low-income shoppers, last-minute buyers or brand-loyal customers, enabling micro-segmentation for interface design and promotions
+
+**Why synthetic personas are exciting:**
+- Scalability & automation :: created quickly and at scale from vast behavioural or demographic datasets
+- Data-driven objectivity :: grounded in quantifiable patterns instead of the subjective biases of traditional personas
+- Scenario simulation :: simulate how user types react to new features, UI changes or pricing models, especially with agent-based modelling
+- Hyper-personalisation :: in recommender systems they help fine-tune personalisation by identifying nuanced segments
+- Privacy-respecting :: they do not correspond to real individuals, so they avoid many privacy and GDPR issues while staying behaviourally realistic
+
+Reading for the next session: "Note on Sensory Marketing: Shaping Consumer Perception and Behavior" (Krishna) — see Reading LS 3.`,
+cards:[
+{q:R`Default effect (organ donations)`, a:R`Opt-in countries (Denmark 4%, Germany 12%) vs opt-out countries (Austria 100%, Belgium 98%): people don’t check the box in either form, so the default decides.`},
+{q:R`Default bias for experts`, a:R`One forgotten medicine → the doctor tries it; two forgotten medicines → the harder choice makes him stick with the surgery already planned.`},
+{q:R`Hyperchoice experiment`, a:R`6 flavours → 30% bought; 24 flavours → 3% bought. Too many options overwhelm consumers.`},
+{q:R`Asymmetric dominance`, a:R`A decoy that is clearly worse than one option makes that option more attractive — also against the other alternative (Rome without coffee makes Rome win over Paris).`},
+{q:R`The Economist offer`, a:R`Web 59 / print 125 / print & web 125 → 16% / 0% / 84%. Without the print-only decoy: 68% web, 32% print & web.`},
+{q:R`Customer journey (definition)`, a:R`The complete sum of experiences that customers go through when interacting with a company or brand — before, during and after purchase, online and offline.`},
+{q:R`Phases of the customer journey`, a:R`Awareness → consideration (pre-sales) → purchase (sales) → after sales/services → loyalty/expansion (after-sales).`},
+{q:R`Three dimensions of effective CJD`, a:R`Thematic cohesion (common brand theme) · consistency (uniform design) · context sensitivity (responsive to users’ activity and goals).`},
+{q:R`Persona`, a:R`A fictional character that is the distilled essence of real users and represents a target group ("ideal customer"); usually at least 2–5 are created.`},
+{q:R`Synthetic personas`, a:R`Algorithmically generated archetypes from large datasets (machine learning, clustering, simulation) that represent no real individual. Benefits: scale, objectivity, simulation, hyper-personalisation, privacy.`}
+],
+quiz:[
+{q:R`What does the table illusion in session 2 stand for?`, opts:[R`Consumers judge products mainly by their shape, so packaging matters more than the price on the shelf`,R`We make predictable mistakes even in vision, our best skill — so likely more in cognitive decisions`,R`Visual illusions only affect people who are tired, so marketers should advertise in the morning`,R`Most consumers see colours differently, which is why brands test their logos in many countries`], correct:1, exp:R`Vision is one of the best things we can do and still we fail predictably. In areas we are worse at, like financial decisions, cognitive illusions are likely even stronger and harder to see.`, area:'illu'},
+{q:R`Why do far more drivers in Austria or France donate organs than in Germany or Denmark?`, opts:[R`Their citizens are more religious, and their religions encourage organ donation`,R`Their health systems pay donors a fee, which raises the share of people who sign up`,R`Their forms are opt-out: people who don’t check the box are donors by default`,R`They run large TV campaigns every year that remind drivers to sign the donor card`], correct:2, exp:R`In opt-in countries people don’t check the box and don’t join; in opt-out countries people don’t check the box and join. The default decides.`, area:'illu'},
+{q:R`Which share of drivers donate organs in Germany according to the slide?`, opts:[R`4%`,R`12%`,R`28%`,R`86%`], correct:1, exp:R`Germany 12%, Denmark 4%, Netherlands 28%, UK 17% (opt-in); Sweden 86%, Austria 100% (opt-out).`, area:'illu'},
+{q:R`In the doctor example, what happens when the doctor realises he forgot to check two medicines instead of one?`, opts:[R`He tries both medicines one after the other before he sends the patient to surgery`,R`He asks the patient to choose, because the decision is now too complex for him`,R`He picks the cheaper medicine, because price becomes the deciding factor`,R`He sticks with the surgery, because choosing between two medicines is harder`], correct:3, exp:R`With one forgotten medicine he tries it; with two, the harder choice pushes him back to the option already in place. Experts fall for the default too.`, area:'illu'},
+{q:R`What were the results of the hyperchoice experiment with 6 vs 24 flavours?`, opts:[R`6 flavours: 30% bought · 24 flavours: 3% bought`,R`6 flavours: 3% bought · 24 flavours: 30% bought`,R`6 flavours: 30% bought · 24 flavours: 60% bought`,R`Both groups bought about the same, around 30%`], correct:0, exp:R`More choice led to far fewer purchases: too many options overwhelm consumers.`, area:'choice'},
+{q:R`What is asymmetric dominance?`, opts:[R`One brand dominates a market so strongly that consumers no longer compare it with any competitor`,R`A worse decoy that is dominated by one option makes that option more attractive than the others`,R`Consumers choose the option with the most attributes, even if they need only a few of them`,R`Prices of premium options are raised so that the cheaper options look like bargains to the buyer`], correct:1, exp:R`The decoy is clearly worse than one option (Rome without coffee vs Rome), which makes this option win — also against the other alternative (Paris).`, area:'choice'},
+{q:R`In the Economist example, what happened when the print-only offer was removed?`, opts:[R`Nothing changed, because nobody had chosen the print-only offer in the first place`,R`Print & web rose from 84% to 100%, since students no longer had any distraction`,R`Web only rose from 16% to 68%, and print & web fell from 84% to 32%`,R`Web only fell to 0%, because the bundle now looked like the clearly better deal`], correct:2, exp:R`The print-only decoy (USD 125, same as the bundle) made print & web look like a bargain. Without it, the shares shifted by 52 percentage points to web only.`, area:'choice'},
+{q:R`What is the lesson of the Tom & Jerry example?`, opts:[R`People prefer faces they have seen before, so repetition makes a person more attractive`,R`Attractiveness is judged only on absolute standards and does not depend on any context`,R`Asking people whom they want to date creates social desirability in their answers`,R`A slightly uglier version of one person makes that person the preferred choice`], correct:3, exp:R`With Jerry’ (uglier Jerry) people prefer Jerry, with Tom’ they prefer Tom — asymmetric dominance: "bring an ugly version of you to a party".`, area:'choice'},
+{q:R`How does the course define the customer journey?`, opts:[R`The complete sum of experiences customers go through when interacting with a company or brand`,R`The route a customer takes through a store, measured from the entrance to the checkout`,R`The sequence of ads a customer sees before buying, planned in advance by the media agency`,R`The steps of the cognitive decision process, from need recognition to the purchase`], correct:0, exp:R`It documents the full experience of being a customer, not just one part of a transaction, and combines online and offline.`, area:'cj'},
+{q:R`Which touchpoints belong to the purchase phase of the customer journey?`, opts:[R`PR, word of mouth and outdoor advertising`,R`Web shop, app, store and agent/broker`,R`Loyalty program, survey and newsletter`,R`Call centre, chat and web self-service`], correct:1, exp:R`Purchase (sales): web shop, app/mobile site, store, agent/broker. PR and W-O-M = awareness; call centre and chat = after sales; loyalty program and newsletter = loyalty/expansion.`, area:'cj'},
+{q:R`A brand uses the same colours, logo and tone on its app, store and ads. Which CJD dimension is this?`, opts:[R`Thematic cohesion`,R`Context sensitivity`,R`Consistency`,R`Hyper-personalisation`], correct:2, exp:R`Consistency = uniform design of the brand across touchpoints. Thematic cohesion = a common brand theme; context sensitivity = responsive to users’ activity and goals.`, area:'cj'},
+{q:R`Which method identifies customer journey scenarios through a sudden drop-off in checkout conversions?`, opts:[R`Internal analysis`,R`User research`,R`Persona workshops`,R`Website analytics`], correct:3, exp:R`Analytics show patterns that point to areas to investigate, such as a drop-off during checkout. User research = interviews; internal analysis = e.g. creating a persona.`, area:'cj'},
+{q:R`What is a persona?`, opts:[R`A real customer who is interviewed for every new product the company launches`,R`A fictional character that is the distilled essence of real users of a target group`,R`A celebrity who represents the brand in advertising and on social media channels`,R`The statistical average of all customers in the company’s CRM database`], correct:1, exp:R`Personas are fictional characters built from user data or internal analysis; they represent a target group, an "ideal customer". Usually at least 2–5 are created.`, area:'pers'},
+{q:R`What distinguishes synthetic personas from traditional personas?`, opts:[R`They are generated from large datasets with machine learning and represent no real individual`,R`They are always based on in-depth interviews with a small number of real loyal customers`,R`They describe only one single customer in great detail, including the real name and address`,R`They can only be used in the early design stage, never later in testing or in iteration`], correct:0, exp:R`Synthetic personas are data-driven, algorithmically generated archetypes (machine learning, clustering, simulation). Traditional personas often come from interviews or observation.`, area:'pers'},
+{q:R`Which company used synthetic personas to design and test its AI assistant Cortana?`, opts:[R`Amazon`,R`Walmart`,R`Microsoft`,R`Unilever`], correct:2, exp:R`Microsoft (UX design). Amazon: recommendation algorithms (marketing); Unilever: hygiene products (product development); Walmart: e-commerce interfaces (AI training).`, area:'pers'}
 ]},
 
 /* ------------------------------------------------------------ READING LS 2 ------------------------------------------------------------ */
@@ -499,6 +649,48 @@ const CB_MC = [
  [R`Guest lecture points can be earned by watching a recording later.`, false, R`You must attend in person and scan the QR code.`],
  [R`Readings and company presentations are relevant for the exam.`, true, R`Stated on the admin slide.`],
  [R`Wrong statements in the MC part lead to minus points.`, false, R`0/5 correct gives 0 points — no minus points.`]]},
+{lec:'cb-2', area:'illu', q:R`Which statements about cognitive illusions and defaults are correct?`, s:[
+ [R`Cognitive illusions are harder to see than visual illusions, because the mistake cannot simply be demonstrated.`, true, R`Visual illusions can be shown easily; cognitive ones stay hidden.`],
+ [R`In opt-in countries such as Germany or Denmark, fewer than 30% of drivers donate organs.`, true, R`Denmark 4%, Netherlands 28%, UK 17%, Germany 12%.`],
+ [R`In opt-out countries, people actively check a box to join the organ donor program.`, false, R`In opt-out countries people don’t check the box — and are therefore donors by default.`],
+ [R`The large differences in organ donation are mainly explained by cultural differences between the countries.`, false, R`They are explained by the form design (default), not by culture.`],
+ [R`Experts such as doctors are not affected by the default effect, because they know the alternatives.`, false, R`The doctor example shows experts also fall back on the option already in place when the choice gets harder.`]]},
+{lec:'cb-2', area:'choice', q:R`Which statements about hyperchoice and asymmetric dominance are correct?`, s:[
+ [R`In the tasting experiment, 30% of those who tried 6 flavours bought a product, but only 3% of those who tried 24.`, true, R`The hyperchoice result.`],
+ [R`Too many options can lead to worse outcomes for marketers than a smaller number of choices.`, true, R`Consumers feel overwhelmed and do not decide.`],
+ [R`Adding "Rome without coffee" makes Rome more attractive only compared to the Rome offer without coffee.`, false, R`Rome becomes more popular not only compared to the decoy but also compared to Paris.`],
+ [R`In the Economist example, 84% of MIT students chose print & web when the print-only offer was shown.`, true, R`16% web, 0% print only, 84% print & web.`],
+ [R`An option that nobody chooses has no influence on the choices between the other options.`, false, R`The print-only decoy shifted 52 percentage points towards the bundle.`]]},
+{lec:'cb-2', area:'choice', q:R`Which statements about behavioural economics in session 2 are correct?`, s:[
+ [R`When we build the physical world, we understand our limitations.`, true, R`First point of the behavioural economics slide.`],
+ [R`When we design stock markets, health care systems and retirement plans, we tend to forget that we are limited.`, true, R`Second point of the slide.`],
+ [R`Understanding our cognitive limitations like our physical ones could help us design a better world.`, true, R`Third point of the slide.`],
+ [R`Nudges are small changes in how options are presented that marketers can use to influence choices.`, true, R`Learning outcome 3 and the McKinsey reading.`],
+ [R`Consumer decision making is described as mostly rational and simple, so nudges rarely work.`, false, R`It is described as highly irrational and complex — marketers can use this through nudges.`]]},
+{lec:'cb-2', area:'cj', q:R`Which statements about the customer journey are correct?`, s:[
+ [R`The customer journey is the complete sum of experiences customers go through when interacting with a company or brand.`, true, R`The course definition.`],
+ [R`The customer journey only covers the moment of purchase in the store or web shop.`, false, R`The purchase is only one step; touchpoints exist before, during and after purchase.`],
+ [R`A single negative experience can easily lead to a lost customer.`, true, R`From the first customer journey slide.`],
+ [R`Digitisation has made the customer journey simpler, because all touchpoints are now online.`, false, R`Digitisation made the sum of experiences more complex; the journey combines online and offline.`],
+ [R`Word of mouth and social media are examples of earned touchpoints.`, true, R`Earned touchpoints are not controlled by the firm; managed ones are.`]]},
+{lec:'cb-2', area:'cj', q:R`Which statements about effective customer journey design (CJD) are correct?`, s:[
+ [R`Kühnl, Jozic and Homburg identified three dimensions of effective CJD.`, true, R`Thematic cohesion, consistency, context sensitivity.`],
+ [R`Thematic cohesion means that touchpoints share a common brand theme.`, true, R`Dimension 1.`],
+ [R`Consistency means that touchpoints respond to the users’ activity and goals.`, false, R`That is context sensitivity. Consistency = uniform design of the brand across touchpoints.`],
+ [R`Customer interviews by phone or live chat are a form of user research to identify journey scenarios.`, true, R`User research; the other two ways are internal analysis and analytics.`],
+ [R`Loyalty programs and surveys are typical touchpoints of the awareness phase.`, false, R`They belong to the loyalty/expansion phase; awareness has PR, word of mouth, radio, TV, print, outdoor, online display.`]]},
+{lec:'cb-2', area:'pers', q:R`Which statements about personas are correct?`, s:[
+ [R`Personas are distilled essences of real users and can be seen as "ideal customers".`, true, R`They represent a target group.`],
+ [R`A company usually creates exactly one persona to keep its focus clear.`, false, R`Usually at least 2–5 personas are created.`],
+ [R`Psychographics in a persona cover values, interests, motivations and lifestyle.`, true, R`Demographics = age, gender, income, education, location.`],
+ [R`Personas are only useful in the early design stage and are never changed afterwards.`, false, R`They are also used in ideation/prototyping and testing/iteration and are adjusted with new data.`],
+ [R`Personas help all teams understand the target customer and save time and resources.`, true, R`Two of the listed benefits.`]]},
+{lec:'cb-2', area:'pers', q:R`Which statements about synthetic personas are correct?`, s:[
+ [R`Synthetic personas are algorithmically generated and do not represent any actual individual.`, true, R`The definition.`],
+ [R`They are typically derived from large datasets using machine learning, clustering and simulation.`, true, R`Unlike traditional personas based on interviews.`],
+ [R`Because they are based on real customers’ names and data, they raise more GDPR issues than traditional personas.`, false, R`The opposite: they avoid many privacy and GDPR issues.`],
+ [R`Unilever used synthetic personas to simulate how groups would respond to new hygiene products.`, true, R`Product development use case.`],
+ [R`Amazon used synthetic personas to design and test its AI assistant Cortana.`, false, R`Cortana = Microsoft. Amazon tested recommendation algorithms and simulated user journeys.`]]},
 {lec:'cb-r2', area:'irr', q:R`Which statements about the McKinsey report "Irrational consumption" are correct?`, s:[
  [R`Many marketers still work with a linear, "Pac-Mannish" view of the consumer decision journey.`, true, R`The authors’ criticism.`],
  [R`Nudges are small changes in how options are presented that influence choices.`, true, R`The definition in the report.`],
@@ -614,6 +806,8 @@ const CB_OPEN = [
 {lec:'cb-1', q:R`Explain why brands are increasingly interchangeable and what this means for competition.`, a:R`About 85% of products tested by Stiftung Warentest are rated "good", and 64% of German consumers perceive brands as interchangeable. Products of different brands (e.g. smartphones, coffee) look and perform almost the same. As a result consumers show less interest in product information, lower loyalty and become price-oriented. Competition therefore shifts from product competition to communication competition: brands differentiate through communication, meaning and emotional connection rather than through product features — which is why understanding consumers and creating customer insight is essential.`},
 {lec:'cb-1', q:R`Describe the three types of consumer decision making and place them on the continuum from impulsive to extensive buying decisions.`, a:R`Cognitive decisions are deliberate, rational and sequential; habitual decisions are behavioural, unconscious and automatic; affective decisions are emotional and instantaneous. Where a purchase lies depends on four dimensions: perceived product differences (low → impulsive, high → extensive), frequency of the same buying decision (high → impulsive, low → extensive), time pressure (high → impulsive, low → extensive) and involvement (low → impulsive, high → extensive). Katona orders impulsive, habitualised, limited and extensive decisions by increasing cognitive control; limited and extensive decisions are the cognitive buying decisions.`},
 {lec:'cb-1', q:R`Explain heuristics and two biases with one example each. Why should marketers know them?`, a:R`Heuristics are mental rules of thumb used in habitual decisions because we cannot run the full five-stage process (need → search → evaluation → purchase → post-purchase evaluation) for every choice. Examples: country of origin ("made in Germany" = quality), higher price = higher quality, familiar brand names, covariation (a solid door sound signals a well-built car). They are usually helpful but can cause errors. Biases: loss aversion — losing USD 10 hurts more than finding USD 10 pleases; sunk cost fallacy — staying in a bad movie because tickets were expensive; mere exposure — repeated exposure increases liking. Marketers who know them understand why consumers deviate from "rational" choice and can design offers, prices and communication accordingly.`},
+{lec:'cb-2', q:R`Explain the default effect and asymmetric dominance with one example each. How can marketers use them?`, a:R`Default effect: people tend to accept the pre-set option. In organ donation, opt-in countries (Germany 12%, Denmark 4%) have low donor rates, opt-out countries (Austria 100%, Belgium 98%) very high rates — in both cases people simply do not check the box. Even experts fall for it: a doctor who has to choose between two forgotten medicines sticks with the planned surgery. Asymmetric dominance: a decoy that is clearly worse than one option makes this option more attractive, also against other alternatives. The Economist offered web (USD 59), print (USD 125) and print & web (USD 125): 84% chose the bundle; without the print-only decoy only 32% did. Marketers can use this as nudges — set the desired option as default (e.g. pre-selected add-ons, auto-renewal) and add decoys that make the target product look like the best deal — while keeping the number of options small to avoid hyperchoice (6 flavours → 30% bought, 24 → 3%).`},
+{lec:'cb-2', q:R`What is a customer journey and how can a company design it effectively? Include the role of personas.`, a:R`The customer journey is the complete sum of experiences customers go through when interacting with a company or brand, before, during and after purchase, online and offline. It runs from awareness and consideration (pre-sales) to purchase (sales) and after sales/services and loyalty/expansion (after-sales), with managed and earned, digital and physical touchpoints (e.g. PR and word of mouth, website, store, call centre, loyalty program). Effective customer journey design has three dimensions: thematic cohesion (common brand theme), consistency (uniform brand design across touchpoints) and context sensitivity (touchpoints respond to users’ activity and goals). Scenarios are identified through internal analysis, user research (interviews) and analytics (e.g. drop-off at checkout). Because not every customer takes the same journey, firms build personas — fictional characters that are the distilled essence of real users of a target group (usually 2–5), covering demographics, psychographics, behaviour, pain points, goals, channels and buying factors. Synthetic personas generated from large datasets add scale, objectivity, simulation and privacy.`},
 {lec:'cb-r2', q:R`Using the McKinsey report, explain how beliefs, goals and pressures shape consumer decisions, with one example each.`, a:R`Beliefs: experience is filtered through beliefs — wine tastes better from an expensive bottle; "healthy = unpalatable" lowers satisfaction, so let people taste first and show health claims less prominently. Goals: the active goal decides what consumers notice — a media company raised conversion by showing subscription offers later in the day instead of the busy morning; activating an exercise goal raises sports-drink sales. Pressures: decision fatigue and time pressure change choices — in real stores shoppers chose an iconic product quickly although a lab test without time pressure favoured cheaper competitors. Lesson: test real products with real consumers in real situations.`},
 {lec:'cb-r3', q:R`What is sensory marketing and why is it more credible than advertising? Give three examples of how the senses affect consumers.`, a:R`Sensory marketing engages the consumers’ senses and affects their perception, judgment and behaviour, using subconscious cues given off by the product itself (Hershey’s Kiss). In advertising clutter, ads may be missed and are discounted as marketer claims; when the product speaks for itself, consumers draw their own inferences, which is more credible and needs no focused attention. Examples: sound — louder crunch makes chips taste fresher; smell — scent improves memory for brand information (pine-scented pencil); touch — mere touch creates ownership and raises willingness to buy (endowment effect); perceived efficacy — Listerine’s sting signals that it works.`},
 {lec:'cb-r4', q:R`Explain why targeting retention campaigns at high-churn-risk customers can backfire, and what firms should do instead.`, a:R`A/B tests often only report the average effect, which can hide that some customers react positively and others negatively (gift to arts members helped recent visitors but hurt inactive ones). Ascarza’s field experiments with over 14,000 customers showed little correlation between churn risk and sensitivity to the intervention; targeting the high-sensitivity group with the same budget would have cut churn by an additional 5% and 8%. Firms should move from prediction to prescription: combine A/B test results with customer data to find who responds most (telecom: heavy data users), and ask "For whom is this intervention most effective?"`},
@@ -638,6 +832,18 @@ R`Katona: impulsive → habitualised → limited → extensive (cognitive contro
 R`Extensive: high product differences, low frequency, low time pressure, high involvement`,
 R`Need recognition → information search → evaluation of alternatives → purchase → post-purchase evaluation`,
 R`Heuristics: covariation, country of origin, familiar brand names, higher prices · biases: loss aversion, mere exposure, sunk cost fallacy`]},
+{h:'LS 2 · Irrational decisions', items:[
+R`Visual illusions (tables, cube colours) → predictable errors even in vision → cognitive illusions are worse and harder to see; "we are not always in the driver’s seat"`,
+R`Organ donations: opt-in (DK 4, NL 28, UK 17, DE 12%) vs opt-out (AT 100, BE 98, FR/HU/PL/PT 100, SE 86%) → people don’t check the box → default decides · experts: 1 medicine → try it, 2 medicines → stick with surgery`,
+R`Hyperchoice (Schwartz, 2005): 6 flavours → 30% buy · 24 → 3%`,
+R`Asymmetric dominance: Rome w/o coffee → Rome beats Paris · Economist 59 web / 125 print / 125 both → 16/0/84%, without decoy 68/32% · Tom’/Jerry’ → "bring an ugly version of you"`,
+R`Physical world: we know our limits · designed systems (stock markets, health care, retirement): we forget them · books: Kahneman, Ariely`]},
+{h:'LS 2 · Customer journey & personas', items:[
+R`CJ = complete sum of experiences when interacting with a company/brand · purchase = one step · online + offline · digitisation → more complex`,
+R`Awareness → consideration (pre-sales) → purchase (sales) → after sales → loyalty/expansion · managed vs earned touchpoints, digital vs physical`,
+R`Effective CJD (Kühnl, Jozic & Homburg 2019): thematic cohesion · consistency · context sensitivity · scenarios: internal analysis, user research, analytics`,
+R`Persona = distilled essence of real users, "ideal customer", 2–5 · areas: demographics, psychographics, behaviour, pain points, goals, motivation, channels, buying factors, journey · when: discovery, ideation/prototyping, testing/iteration`,
+R`Synthetic personas: algorithmic, no real individual (ML, clustering, simulation) · Microsoft Cortana, Amazon recommendations, Unilever hygiene, Walmart e-commerce · scale, objectivity, simulation, hyper-personalisation, privacy`]},
 {h:'Reading LS 2 · Irrational consumption', items:[
 R`Not "Pac-Man" · nudges · beliefs (wine bottle, healthy = unpalatable → experience first, health claim on side panel; concrete floor = deal) · goals (paywall offer later in the day; activate vs appeal) · pressures (decision fatigue, time pressure; iconic product) · test real products, real consumers, real situations`]},
 {h:'Reading LS 3 · Sensory marketing', items:[
@@ -680,11 +886,28 @@ const CB_CASES = [
  ['Kai buys concert tickets the second the presale opens because he feels excited.', 't3', 'aff', 'Emotional and instantaneous — affective decision making.'],
  ['Each morning Emma takes the same yoghurt from the shelf without thinking.', 't3', 'hab', 'Behavioural, unconscious, automatic — habitual decision making.'],
  ['Moved by a touching advert, Leon donates on the spot.', 't3', 'aff', 'An emotional, immediate reaction — affective decision making.'],
- ['Before signing a mobile contract, Sophie lists her needs, compares tariffs in a table and decides.', 't3', 'cog', 'Deliberate and sequential evaluation of alternatives — cognitive decision making.']
+ ['Before signing a mobile contract, Sophie lists her needs, compares tariffs in a table and decides.', 't3', 'cog', 'Deliberate and sequential evaluation of alternatives — cognitive decision making.'],
+ ['A gym contract renews automatically unless members tick "cancel" — almost nobody ticks it.', 'ill', 'def', 'The pre-set option is simply accepted — default effect.'],
+ ['A software installer has the "add browser extension" box already checked, and most users install it.', 'ill', 'def', 'Users keep the pre-selected setting — default effect.'],
+ ['A shop cuts its range of olive oils from 30 to 8 and sells more olive oil than before.', 'ill', 'hyper', 'Fewer options make deciding easier — the store escaped hyperchoice.'],
+ ['Facing 40 nearly identical phone tariffs, Lisa gives up and buys none.', 'ill', 'hyper', 'Too many options overwhelm the consumer — hyperchoice.'],
+ ['A cinema sells small popcorn for 4 euro, medium for 7.50 and large for 8 — most people buy the large one.', 'ill', 'decoy', 'The medium size is a decoy dominated by the large — asymmetric dominance.'],
+ ['A café adds a coffee subscription that costs the same as the premium plan but offers less; premium sign-ups rise.', 'ill', 'decoy', 'A clearly worse option at the same price makes the premium plan look like the best deal — asymmetric dominance.'],
+ ['Tim sees an ad for a new e-bike on a billboard and on Instagram for the first time.', 'cjp', 'aw', 'First contact with the brand — awareness (pre-sales).'],
+ ['Before buying, Mia reads reviews on 3rd-party sites and compares models on the brand’s website.', 'cjp', 'con', 'Evaluating options — consideration (pre-sales).'],
+ ['Leon orders the shoes in the brand’s app.', 'cjp', 'pur', 'The transaction itself — purchase (sales).'],
+ ['After delivery, Julia uses the online chat because a size is wrong.', 'cjp', 'aft', 'Service after the purchase — after sales/services.'],
+ ['Three months later, Ben receives a personalised newsletter with an offer for loyalty members.', 'cjp', 'loy', 'Keeping and expanding the relationship — loyalty/expansion.'],
+ ['A bank uses the same logo, colours and tone of voice in its app, branches and TV ads.', 'cjd', 'cons', 'Uniform brand design across touchpoints — consistency.'],
+ ['All touchpoints of an outdoor brand tell one story: "adventure starts at your doorstep".', 'cjd', 'them', 'A common brand theme across touchpoints — thematic cohesion.'],
+ ['A travel app shows gate changes and lounge offers as soon as the user arrives at the airport.', 'cjd', 'ctx', 'The touchpoint reacts to the user’s activity and goals — context sensitivity.']
 ];
 const CB_CASE_OPTS = {
  hb:[['cov','Covariation'],['coo','Country of origin'],['brand','Familiar brand name'],['price','Higher-price heuristic'],['loss','Loss aversion'],['mere','Mere exposure effect'],['sunk','Sunk cost fallacy']],
  kat:[['imp','Impulsive'],['hab','Habitualised'],['lim','Limited'],['ext','Extensive']],
- t3:[['cog','Cognitive'],['hab','Habitual'],['aff','Affective']]
+ t3:[['cog','Cognitive'],['hab','Habitual'],['aff','Affective']],
+ ill:[['def','Default effect'],['hyper','Hyperchoice'],['decoy','Asymmetric dominance (decoy)']],
+ cjp:[['aw','Awareness'],['con','Consideration'],['pur','Purchase'],['aft','After sales / services'],['loy','Loyalty / expansion']],
+ cjd:[['them','Thematic cohesion'],['cons','Consistency'],['ctx','Context sensitivity']]
 };
-const CB_CASE_Q = {hb:'Which heuristic or bias is at work?', kat:'Which decision type (Katona)?', t3:'Which type of decision making?'};
+const CB_CASE_Q = {hb:'Which heuristic or bias is at work?', kat:'Which decision type (Katona)?', t3:'Which type of decision making?', ill:'Which effect is at work? (LS 2)', cjp:'Which customer journey phase? (LS 2)', cjd:'Which dimension of effective customer journey design? (LS 2)'};

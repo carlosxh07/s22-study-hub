@@ -312,7 +312,7 @@ P&L: input 1,800 | sales 2,250 → profit 450.`},
 sol:R`- Input :: Debit Input of merchandise 1,800 / Credit Merchandise 1,800
 - Offset :: Debit Sales revenue 1,800 / Credit Input of merchandise 1,800
 - Close sales :: Debit Sales revenue 450 / Credit P&L 450
-P&L shows only the gross profit of 450.`, warn:'In the handwritten notes the two labels are swapped: the diagram marked "gross method (1)" offsets on the sales account (= net method), the one marked "net method (2) — better, see input + output + margin" shows both in the P&L (= gross method). The slides and the textbook use the names as above.'}
+P&L shows only the gross profit of 450.`, warn:'In the handwritten notes the two labels are swapped: the diagram marked "gross method (1)" offsets on the sales account (= net method), the one marked "net method (2) — better, see input + output + margin" shows both in the P&L (= gross method). The slides and the textbook use the names as above, and Cloer\'s trading-goods handout confirms them: gross method = cost of goods sold and sales revenue closed separately to the P&L; net method = offset on the sales account first.'}
 ]}
 ];
 
