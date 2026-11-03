@@ -60,6 +60,7 @@ function msItems(){
   const tasks = (subj, list, key, page, label)=>{ const st = ls(key, {}); list.forEach(tu=>(tu.tasks||[]).forEach(k=>{ const v = st[tu.n+'-'+k.id]; if(v!=null) push({key:key+':'+tu.n+'-'+k.id, subj, kind:label, text:k.q||k.title||'', src:`${label} ${tu.n} · ${tu.title} · task ${k.id}`, page, score:+v}); })); };
   tasks('bk', BK_TUTS, 'bk-tut-state', 'bk-tut', 'TUT');
   tasks('bk', BK_CLASS, 'bk-class-state', 'bk-class', 'Class');
+  tasks('bk', BK_EXAM, 'bk-exam-state', 'bk-exam', 'Exam focus');
   tasks('st', ST_TUTS, 'st-tut-state', 'st-tut', 'TUT');
   // 7. Math II: old exam tasks (self-rated) and parts of the interactive past exams (best check)
   const bank = ls('m2-bank-state', {}), brate = {ok:1, half:.5, bad:0};
