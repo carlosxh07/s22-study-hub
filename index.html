@@ -1528,7 +1528,18 @@ Corporate finance — risk-free coupons and portfolio (coupon stripping), the st
 - Rank :: if $A^{-1}$ exists, $A$ is regular, all rows and columns are independent, and $rk(A) = n$ (3 for three assets)
 - When it is not possible :: if the payoff vectors are linearly dependent ($A$ singular), not every coupon can be generated
 
-Worked example (Exam 2025): $A = \begin{pmatrix}4&3&6\\3&2&4\\-2&-2&-6\end{pmatrix}$ gives $A^{-1} = \begin{pmatrix}-2&3&0\\5&-6&1\\-1&1&-0.5\end{pmatrix}$. Crisis coupon $(0,0,1)^T$ = column 3: buy 1 BMW, sell 0.5 SAP. Risk-free coupon $(1,1,1)^T$ = row sums $(1, 0, -0.5)^T$: buy 1 EON, sell 0.5 SAP. $rk(A) = 3$.`,
+Worked example (Exam 2025): $A = \begin{pmatrix}4&3&6\\3&2&4\\-2&-2&-6\end{pmatrix}$ gives $A^{-1} = \begin{pmatrix}-2&3&0\\5&-6&1\\-1&1&-0.5\end{pmatrix}$. Crisis coupon $(0,0,1)^T$ = column 3: buy 1 BMW, sell 0.5 SAP. Risk-free coupon $(1,1,1)^T$ = row sums $(1, 0, -0.5)^T$: buy 1 EON, sell 0.5 SAP. $rk(A) = 3$.
+
+**Exam hints from the lecture on 2 Nov (Rülke, from the recording).**
+- Exercise 4 :: coupon stripping exactly like the 2025 exam with new numbers, 16–18 points: inverting the 3×3 matrix with Gauss about 9 points, interpretation about 8 points, rank 1 point (always 3)
+- Interpretation :: crisis hedge = the matching column of $A^{-1}$; risk-free coupon $(1,1,1)^T$ = row sums of $A^{-1}$; plus = buy (long), minus = sell (short). A hedge is not the same as risk-free
+- Lecture example (slide 21) :: $A^{-1} = \begin{pmatrix}-5&3&-2\\-4&2&-1.5\\2&-1&1\end{pmatrix}$ → crisis: 5 EON short, 4 BMW short, 2 SAP long; risk-free: row sums $-4, -3.5, +2$
+- Pivot off the diagonal ("worst case") :: swap ROWS, never columns, because Gauss works on rows
+- Last pivot is 0 :: no inverse; write "linear dependence", rank = number of pivot steps
+- Not needed :: rules such as $(AB)^{-1}$ are "completely irrelevant" for the exam, and checking $A\cdot A^{-1} = I$ is not required
+- Production programme :: only 2×2 in the exam (ice cream and pizza) with the formulas given; only $x \to b = (I-D)x$ or $b \to x = (I-D)^{-1}b$. A negative $b$ means the good must be bought in. Interpreting $T$ is not exam-relevant
+- Production coefficient :: $d_{ij}$ = delivery from $i$ to $j$ divided by the output of the receiver $j$
+- Chapter 3 reminders :: Markov steady state (16–18 points): drop one equation and add "shares sum to 1"; internal prices: 3 cost centres with nice numbers`,
 cards:[
 {q:R`Definition of the inverse $A^{-1}$?`, a:R`The matrix with $A\cdot A^{-1} = A^{-1}\cdot A = I$. It exists only for regular quadratic matrices.`},
 {q:R`$(A\cdot B)^{-1} = ?$`, a:R`$B^{-1}\cdot A^{-1}$ — the order reverses.`},
@@ -6885,7 +6896,7 @@ const MK_SESSIONS = [
   {n:2, date:'Mon 19 Oct', title:'Understanding the Customer in B2C and B2B Settings', topic:'mk-2'},
   {n:3, date:'21–23 Oct', title:'Experiment participation (no class) — on campus, Burg, Room Bangalore'},
   {n:4, date:'Tue 27 Oct', title:'Marketing Strategy and Planning', topic:'mk-3'},
-  {n:5, date:'Wed 4 Nov', title:'Conceptualization of Products and Services'},
+  {n:5, date:'Wed 4 Nov', title:'Conceptualization of Products and Services — in class: Lecture 03 finished (competitor analysis, PESTEL case, PLC, BCG + exam hints, see Strategy and Planning)', topic:'mk-3'},
   {n:6, date:'Mon 9 Nov', title:'Marketing Communication and Campaigning (I/II)'},
   {n:7, date:'Wed 11 Nov', title:'Marketing Communication and Campaigning (II/II)'},
   {n:8, date:'Mon 16 Nov', title:'Distribution and Omnichannel Management'},
@@ -7321,7 +7332,34 @@ Note: the lessons-learned slide lists the maturity phases as "growth, stability 
 - Trends are lasting developments and therefore carry long-term strategic decisions.
 - PESTEL scans the macro environment, while Porter’s Five Forces analyze competition from an industry perspective: rivalry, new entrants, substitutes and the bargaining power of buyers and suppliers.
 - Along the product life cycle, introduction brings slow growth and low or negative profits, growth raises sales and profits, maturity slows and then erodes sales and profits, and in decline firms cut products, channels and prices.
-- The BCG Matrix classifies products by relative market share and market growth into stars, cash cows, question marks and poor dogs.`,
+- The BCG Matrix classifies products by relative market share and market growth 
+
+**In class 4 Nov — finishing lecture 3 (from the recording).**
+
+**Who is the real competitor? Lufthansa.** Ask who the firm really earns money with and which job it does for them. Lufthansa earns its profit mainly with international business travellers, not with first class (mostly private, served by Gulf carriers such as Qatar) or domestic flights (lost to FlixTrain and Eurowings). The job to be done is "get me to my meeting", so the core competitor of business class is a video call (Teams). Consequence: fewer but more important and more expensive flights, lounges and cabins redesigned as quiet work spaces. The tool is the same as in strategy class, but the market is defined from the **customer perspective** (a Rolex can be a watch or an investment good).
+
+**PESTEL applied: should a German carmaker invest in autonomous driving?** Rate each field like a traffic light.
+- Social / demographic (green) :: the ageing society wants to stay mobile but older people may no longer drive → autonomous taxis; busy business travellers want their own self-driving car to work on the road. Two different markets. Downside: older people have less buying power
+- Technological (yellow) :: chips and sensors are expensive and depend on US suppliers, there is no shared car-to-car (car-to-X) platform between brands, and 5G coverage is weak
+- Legal (red) :: fully autonomous driving is not allowed in Germany yet (assisted driving only); Waymo runs one predefined route in Munich; liability in accidents is unresolved
+- Ecological (two-sided) :: assisted driving saves fuel because the car drives without emotion, but servers and chip production use a lot of energy and CO2
+- Political and economic :: political support is needed; Germany could afford the investment but invests elsewhere
+- Rule of thumb :: invest only if at least two to three fields are yellow or green; if the product will not be legal for ten years, develop and test abroad instead of launching
+
+**Product life cycle — what Henkel wants to see.** Name the four phases (introduction, growth, maturity, decline), label the axes (x = time, y = sales and profit) and draw both curves.
+- Sales curve :: starts at zero, rises through introduction and growth, turns about a third into maturity and falls back towards zero in decline
+- Profit curve :: starts negative (development, rent, launch marketing), turns positive about a third into introduction or early growth, peaks at the end of growth, falls and turns negative again in decline (warranties, facelifts, more advertising to keep the product alive)
+- Portfolio :: a multi-product firm should have products in every phase and **cross-finance**: profits from mature and declining products fund new ones (iPhone money funds the Vision Pro)
+- Keep or kill a weak new product :: do not keep investing just because the CEO believes in it; observe users in product clinics, talk to 6 to 12 of them, then decide (Apple stopped its self-driving car)
+
+**BCG Matrix = the PLC as a portfolio.** Axes: market growth (high/low) and relative market share (low/high). Question marks = introduction (high growth, low share, need investment), stars (high growth, high share), cash cows (high share, low growth, earn the money), poor dogs. Porsche: the 911 (margin above 50%) and combustion SUVs earn the cash that funds electric models. Strategy must differ by market: Europe, US and China (China wants big, electric cars).
+
+**Exam hints from Henkel.**
+- Open questions are worth at most 10 points each (about 10 minutes); about half of the points are for simply naming things (phases, axes, fields)
+- "Name" = list the terms; "name and explain" = one sentence each; "apply" = a short case, e.g. name all six PESTEL fields and discuss two with one pro and one con
+- Answers beyond the requested number are not read: ask for two → only the first two count
+- MC: absolute wording ("always", "either … or", "cut X to fund Y") is usually wrong
+- Learn the intro and summary slides of each lecture; each lecture has about four core conceptsinto stars, cash cows, question marks and poor dogs.`,
 cards:[
 {q:R`Steps of the strategic planning process`, a:R`Status-quo analysis (internal: resources, competencies, capabilities; external: trends, market, external factors — against the business mission) → marketing planning (goal → strategy → program formulation) → implementation (4Ps) → controlling (feedback loop).`},
 {q:R`Internal vs external vs mixed perspective tools`, a:R`Internal: resources, competencies/capabilities. External: trends, external factors (PESTEL). Mixed: product life cycle, BCG Matrix.`},
@@ -7355,7 +7393,11 @@ quiz:[
 {q:R`"Absolute sales decline, consumers switch to other products, overcapacity arises" describes …`, opts:[R`the introduction stage`,R`growth maturity`,R`decaying maturity`,R`the growth stage`], correct:2, exp:R`Decaying maturity: absolute sales decline, switching begins, slowdown creates overcapacity.`, area:'plc'},
 {q:R`What are the axes of the BCG Matrix?`, opts:[R`Sales and profit over the product’s lifetime`,R`Market growth and relative market share`,R`Perceived price and perceived quality`,R`Market size and intensity of competition`], correct:1, exp:R`y-axis: market growth; x-axis: relative market share. Sales and profit over time is the product life cycle.`, area:'bcg'},
 {q:R`Which norm strategy belongs to question marks?`, opts:[R`Maintain`,R`Liquidate immediately`,R`Maintain or strengthen`,R`Strengthen or liquidate`], correct:3, exp:R`Question marks: strengthen/liquidate. Stars: maintain/strengthen. Cash cows: maintain. Poor dogs: liquidate.`, area:'bcg'},
-{q:R`In which direction does cross-financing in the BCG Matrix usually flow?`, opts:[R`From question marks to cash cows`,R`From cash cows to question marks`,R`From poor dogs to stars`,R`From stars to poor dogs`], correct:1, exp:R`Cash cows (high share, low growth) generate funds that finance question marks so they can become stars.`, area:'bcg'}
+{q:R`In which direction does cross-financing in the BCG Matrix usually flow?`, opts:[R`From question marks to cash cows`,R`From cash cows to question marks`,R`From poor dogs to stars`,R`From stars to poor dogs`], correct:1, exp:R`Cash cows (high share, low growth) generate funds that finance question marks so they can become stars.`, area:'bcg'},
+{q:R`Applying the job-to-be-done question, who is the core competitor of Lufthansa business class?`, opts:[R`Gulf carriers such as Qatar and Emirates`,R`Video calls such as Microsoft Teams`,R`Low-cost airlines such as Eurowings`,R`Long-distance trains such as FlixTrain`], correct:1, exp:R`Business travellers fly to get to a meeting; a video call does the same job, so firms cut flight budgets. Gulf carriers compete for first class, FlixTrain and Eurowings for domestic routes.`, area:'ext'},
+{q:R`In the autonomous-driving PESTEL case, which field did Henkel rate green?`, opts:[R`Legal, because Waymo is allowed to drive one route in Munich`,R`Technological, because German suppliers produce the chips`,R`Social, because an ageing society wants to stay mobile`,R`Ecological, because chip production is very energy-efficient`], correct:2, exp:R`Ageing society = growth driver (green). Tech is yellow (US-dependent chips, no car-to-X platform, weak 5G), legal is a barrier (not allowed in Germany yet), ecology is two-sided.`, area:'ext'},
+{q:R`Why does the profit curve of the product life cycle start below zero?`, opts:[R`Development, rent and launch marketing are paid before sales cover them`,R`Prices in the introduction stage are set below cost to win market share`,R`Warranties and facelifts are paid for during the introduction stage`,R`Competitors copy the product immediately and force prices down at launch`], correct:0, exp:R`Investments come first (development, facilities, big launch campaigns). Warranties and facelifts explain the falling profit later, in maturity and decline.`, area:'plc'},
+{q:R`What does Henkel mean by using the portfolio to cross-finance along the life cycle?`, opts:[R`Every product should finance its own marketing budget from its own sales`,R`Profits from mature products fund products in introduction or development`,R`Declining products should always receive the largest marketing budget`,R`New products are financed only with bank loans, never with internal cash`], correct:1, exp:R`A multi-product firm should have products in every phase; e.g. iPhone profits fund the Vision Pro. "Always" statements about budgets are wrong.`, area:'bcg'}
 ]}
 ];
 
@@ -7517,7 +7559,19 @@ const MK_MC = [
  [R`Cash cows have a high relative market share in a low-growth market.`, true, R`Norm strategy: maintain.`],
  [R`Stars should be liquidated.`, false, R`Stars: maintain/strengthen; poor dogs: liquidate.`],
  [R`Question marks have high market growth but low relative market share.`, true, R`Norm strategy: strengthen or liquidate.`],
- [R`Cross-financing means that cash cows finance question marks.`, true, R`So that question marks can become stars.`]]}
+ [R`Cross-financing means that cash cows finance question marks.`, true, R`So that question marks can become stars.`]]},
+{lec:'mk-3', area:'plc', q:R`Lecture example question (Henkel, 4 Nov): Regarding the stages of the product life cycle, which statements are correct?`, s:[
+ [R`In the introduction stage, profits are usually positive but low.`, false, R`Profits are negative at first, because development and launch costs come before sales.`],
+ [R`In the growth stage, investments in product quality improvements are cut to allow for higher investments in marketing communications.`, false, R`Either-or statement. Sometimes the product needs quality, sometimes marketing, not one at the cost of the other.`],
+ [R`During maturity, growth slows and new competitive forces emerge.`, true, R`Henkel: true.`],
+ [R`In the decline stage, sales and profits decline; in consequence, firms reduce marketing budgets and reduce prices further.`, false, R`Too general. Strong or luxury brands avoid price cuts and sometimes marketing budgets must rise. Henkel wanted to double-check this one with the TA, so it is the uncertain statement.`],
+ [R`In multi-product companies, the profits from products in the decline phase should always be used to increase the marketing budgets of products in the maturity phase.`, false, R`"Always" is always wrong. The money should go where the portfolio needs it, usually to products in development or introduction.`]]},
+{lec:'mk-3', area:'bcg', q:R`Lecture example question (Henkel, 4 Nov): Regarding the BCG Matrix, which statements are correct?`, s:[
+ [R`Poor dogs are high-growth products with a high market share that should always receive the largest investment budget.`, false, R`Poor dogs have low growth and low share. Henkel: "completely stupid".`],
+ [R`Stars operate in high-growth markets and have a high relative market share.`, true, R`Correct.`],
+ [R`Cash cows have a high relative market share in low-growth markets and generate cash for other units.`, true, R`Correct.`],
+ [R`Question marks have a low relative market share in high-growth markets and require careful investment decisions.`, true, R`Correct.`],
+ [R`The BCG Matrix uses relative market share and market growth to classify products or business units.`, true, R`Correct.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -7537,7 +7591,9 @@ const MK_OPEN = [
 {lec:'mk-3', q:R`Describe the strategic planning process and assign the analysis tools of the lecture to it.`, a:R`Status-quo analysis against the business mission: internal analysis (resources, competencies, capabilities; Resource-Based View) and external analysis (trends, PESTEL; Five Forces for the industry), plus the mixed perspective (product life cycle, BCG Matrix). Then marketing planning: goal formulation → strategy formulation → program formulation. Then implementation via product, price, promotion, place, and finally marketing controlling, which feeds back into the earlier steps.`},
 {lec:'mk-3', q:R`Would you give a 7-digit loan for a 600 m² tattoo studio on Zürich’s Bahnhofstrasse? Structure your answer with the lecture’s tools.`, a:R`Internal: does the founder have the resources (capital, team, brand, followers), competencies (artistic skill, reputation) and capabilities (running a large studio, steady quality) to fill 600 m²? External: trends (tattoos as mainstream, premium self-expression), PESTEL (economy and purchasing power in Zürich, legal hygiene rules, socio-demographics), Five Forces (rivalry of existing studios, low barriers for new entrants, substitutes, buyer power, supplier power of the landlord — top rent). Only if internal strengths match an attractive external situation is the loan justified; otherwise a smaller location first.`},
 {lec:'mk-3', q:R`Explain the BCG Matrix, its norm strategies and the idea of cross-financing.`, a:R`The BCG Matrix classifies products by relative market share (x) and market growth (y). Stars (high/high): maintain or strengthen. Cash cows (high share, low growth): maintain — they generate funds. Question marks (low share, high growth): strengthen or liquidate. Poor dogs (low/low): liquidate. Cross-financing: the surplus of cash cows is invested in promising question marks so they become stars, which later turn into cash cows when the market matures.`},
-{lec:'mk-3', q:R`Describe the four stages of the product life cycle and three strategies to sustain growth.`, a:R`Introduction: slow sales growth, negative or low profits, highest promotion-to-sales ratio (inform, induce trial, secure distribution), higher prices. Growth: rapid sales climb, profits rise as marketing costs spread over more volume. Maturity: sales growth slows, then absolute sales fall (switching, overcapacity) and profits decline through falling prices and refresh investments. Decline: technological advances, taste shifts and competition → overcapacity, price cuts, profit erosion → withdrawal or reduced ranges. Growth strategies: improve quality and add features/models; increase distribution coverage and enter new channels; lower prices for the next layer of price-sensitive buyers.`}
+{lec:'mk-3', q:R`Describe the four stages of the product life cycle and three strategies to sustain growth.`, a:R`Introduction: slow sales growth, negative or low profits, highest promotion-to-sales ratio (inform, induce trial, secure distribution), higher prices. Growth: rapid sales climb, profits rise as marketing costs spread over more volume. Maturity: sales growth slows, then absolute sales fall (switching, overcapacity) and profits decline through falling prices and refresh investments. Decline: technological advances, taste shifts and competition → overcapacity, price cuts, profit erosion → withdrawal or reduced ranges. Growth strategies: improve quality and add features/models; increase distribution coverage and enter new channels; lower prices for the next layer of price-sensitive buyers.`},
+{lec:'mk-3', q:R`A German carmaker considers investing in autonomous driving. Name all six PESTEL fields and discuss two of them with one pro and one con each. (Exam style as announced by Henkel on 4 Nov)`, a:R`Fields: political, economic, social/demographic, technological, ecological, legal. Social: pro: the ageing society wants to stay mobile but older people may no longer drive, which creates demand for autonomous taxis (and busy professionals want to work while being driven); con: older people have less buying power for expensive cars. Technological: pro: assistance systems already work and the technology keeps improving; con: chips and sensors are expensive and depend on US suppliers, there is no shared car-to-car platform and 5G coverage is weak. (Alternatives: legal: currently not allowed in Germany, liability unclear vs Waymo’s permitted route in Munich shows it can be approved; ecological: smoother driving saves energy vs high server and chip-production emissions.) Only discuss as many fields and arguments as asked; extra ones are not read.`},
+{lec:'mk-3', q:R`Draw and explain the product life cycle. Why does the profit curve start and end below zero, and what should a multi-product firm do with it?`, a:R`x-axis time, y-axis sales and profit; four phases: introduction, growth, maturity, decline. Sales start at zero, rise, turn during maturity and fall in decline. Profit starts negative because development, facilities and launch marketing are paid before sales cover them, turns positive in early growth, peaks at the end of growth and falls (and can turn negative) in maturity and decline because of price pressure, warranties, facelifts and the advertising needed to keep the product in the market. A multi-product firm should hold products in every phase and use the cash from mature products (cash cows) to finance new ones (question marks), e.g. iPhone profits fund the Vision Pro; this is the same logic as the BCG Matrix.`}
 ];
 
 const MK_CHEAT = [
@@ -7590,7 +7646,14 @@ R`Internal: resources (physical, financial, human, intangible), competencies (em
 R`Trend = direction with momentum & durability, more predictable than a fad · technological, sociological, ecological, economic`,
 R`PESTEL: political, economic, socio-demographic, technological, ecological, legal · Five Forces (industry): rivalry, new entrants, substitutes, supplier power, buyer power`,
 R`PLC: intro (slow sales, low/neg. profit, max promo ratio, high price) → growth (rapid sales, profits up; quality/features, channels, lower prices) → maturity (slowing, decaying, profits fall) → decline (overcapacity, price cuts, withdraw)`,
-R`BCG (share × growth): question marks strengthen/liquidate · stars maintain/strengthen · cash cows maintain · poor dogs liquidate · cross-finance cash cows → question marks`]}
+R`BCG (share × growth): question marks strengthen/liquidate · stars maintain/strengthen · cash cows maintain · poor dogs liquidate · cross-finance cash cows → question marks`]},
+{h:'L3 · In class 4 Nov (Henkel’s hints)', items:[
+R`Competitor = whoever does the same job for your profitable customers: Lufthansa business class vs Teams (job: get to the meeting)`,
+R`PESTEL exam: name 6 → explain in one sentence → apply (discuss 2 fields, 1 pro + 1 con) · invest if ≥ 2–3 fields yellow/green`,
+R`Autonomous driving: social green (ageing) · tech yellow (US chips, no car-to-X, 5G) · legal red (not allowed in DE) · eco two-sided`,
+R`PLC: axes time vs sales + profit · profit starts negative (development, rent, launch marketing), negative again late (warranties, facelifts, ads)`,
+R`Portfolio: products in every phase, cross-finance new ones from mature ones (iPhone → Vision Pro) = BCG logic`,
+R`Open questions ≤ 10 P (~10 min), ~50% for naming · extra items beyond the requested number are not read · MC: "always" / either-or = usually false`]}
 ];
 
 /* ============================================================ FUNDAMENTALS OF CONSUMER BEHAVIOR DATA (Prof. Dr. Franziska Krause, Fall Term 2026) ============================================================ */
@@ -7605,8 +7668,8 @@ const CB_SESSIONS = [
   {n:2, date:'21–23 Oct', title:'Experiment part I on campus (no class) — Burg, Room Bangalore; part II online 2–15 Nov'},
   {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', topic:'cb-2', reading:'cb-r2'},
   {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', reading:'cb-r3'},
-  {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', reading:'cb-r4'},
-  {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee (Schloss Forum)'},
+  {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', topic:'cb-4', reading:'cb-r4'},
+  {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee · ONLINE ONLY (moved 4 Nov), about 2–2.5 h, cameras on, QR code + student number for the points; link comes Mon/Tue'},
   {n:8, date:'Wed 11 Nov', title:'LS 5 · Consumer Learning', reading:'cb-r5'},
   {n:9, date:'Tue 17 Nov', title:'Guest talk: "The Case of Gaming: Using Customer Data to Define Strategy" — Hendrik Walter, Andreas Teller, Matthias Mück, OC&C (Schloss Forum)'},
   {n:10, date:'Wed 18 Nov', title:'LS 6 · Affect, Attitudes & Motivation', reading:'cb-r6'},
@@ -7625,6 +7688,9 @@ const CB_AREAS = [
   {id:'choice', lec:'cb-2', label:'Hyperchoice & asymmetric dominance'},
   {id:'cj', lec:'cb-2', label:'Customer journey & CJD'},
   {id:'pers', lec:'cb-2', label:'Personas & synthetic personas'},
+  {id:'mra', lec:'cb-4', label:'Marketing research & research types'},
+  {id:'caus', lec:'cb-4', label:'Correlation vs causation'},
+  {id:'abx', lec:'cb-4', label:'Experiments & A/B test design'},
   {id:'irr', lec:'cb-r2', label:'Beliefs, goals & pressures'},
   {id:'sens', lec:'cb-r3', label:'Sensory marketing'},
   {id:'ab', lec:'cb-r4', label:'A/B tests & targeting'},
@@ -7901,6 +7967,89 @@ quiz:[
 {q:R`What is a persona?`, opts:[R`A real customer who is interviewed for every new product the company launches`,R`A fictional character that is the distilled essence of real users of a target group`,R`A celebrity who represents the brand in advertising and on social media channels`,R`The statistical average of all customers in the company’s CRM database`], correct:1, exp:R`Personas are fictional characters built from user data or internal analysis; they represent a target group, an "ideal customer". Usually at least 2–5 are created.`, area:'pers'},
 {q:R`What distinguishes synthetic personas from traditional personas?`, opts:[R`They are generated from large datasets with machine learning and represent no real individual`,R`They are always based on in-depth interviews with a small number of real loyal customers`,R`They describe only one single customer in great detail, including the real name and address`,R`They can only be used in the early design stage, never later in testing or in iteration`], correct:0, exp:R`Synthetic personas are data-driven, algorithmically generated archetypes (machine learning, clustering, simulation). Traditional personas often come from interviews or observation.`, area:'pers'},
 {q:R`Which company used synthetic personas to design and test its AI assistant Cortana?`, opts:[R`Amazon`,R`Walmart`,R`Microsoft`,R`Unilever`], correct:2, exp:R`Microsoft (UX design). Amazon: recommendation algorithms (marketing); Unilever: hygiene products (product development); Walmart: e-commerce interfaces (AI training).`, area:'pers'}
+]},
+
+/* ------------------------------------------------------------ LS 4 ------------------------------------------------------------ */
+{id:'cb-4', kind:'lec', ch:4, title:'Marketing Analytics & A/B Testing', date:'4 Nov 2026',
+examWeight:'Goals and criteria of good marketing research, objectivity, reliability and validity, the three research types (exploratory, descriptive, causal) and their methods, correlation vs causation (third variable, spurious correlations), what makes a real experiment / A/B test and its limits — Google Analytics is NOT exam-relevant',
+summary:R`**Source:** built from the lecture recording (slides not uploaded yet). Prepares the guest talk on A/B testing (10 Nov) and goes with the reading "When A/B Testing Doesn’t Tell You the Whole Story".
+
+**Why marketing analytics?** Firms spend a lot on marketing, so analytics should improve decisions: pricing, segmentation and targeting, personas, campaign design and communication, positioning and product development. "What gets measured gets managed" (Peter Drucker). Analytics is mostly quantitative but can also be qualitative or use unstructured data.
+
+**What good marketing research is.** Marketing research identifies, collects, analyses and interprets information to improve decisions. It is:
+- Systematic :: planned in advance — what to measure, how, and how to analyse it
+- Objective :: free from personal bias; tricky when the people who built a product also evaluate it
+- Problem-defined :: a **management decision problem** ("Should the ad campaign be changed?") must be translated into a measurable **marketing research problem** ("Determine the effectiveness of the current campaign, e.g. with an A/B test")
+- Decision-oriented :: it ends in recommendations and ideas for improvement
+
+**Prerequisites of research.**
+- Objectivity :: results do not depend on the researcher, in collection, analysis and interpretation
+- Reliability :: the measurement is consistent and the study can be replicated with the same results; running a test several times is a good sign, not a weakness
+- External validity :: findings hold in the real world, e.g. the sample represents the target group
+- Internal validity :: what we manipulated really caused the effect, not a confounding (third) variable
+
+**Types of analytics.**
+- Descriptive :: what is happening (sales figures)
+- Diagnostic :: why did it happen
+- Predictive :: what will happen
+- Prescriptive :: so what — what should we do now
+
+**Primary vs secondary data.** Primary data are collected by the researcher for the question at hand (survey, experiment). Secondary data were collected by someone else (published reports, competitor data, old internal studies).
+
+**Three research types.** The problem gets more specific from left to right.
+- Exploratory :: ambiguous problem, no hypotheses ("sales are falling — why?"); expert talks, pilot surveys, secondary data, qualitative interviews, case studies
+- Descriptive :: problem is known, structured data; surveys, panels, observation (e.g. conversion rose after five new products — but nothing was manipulated)
+- Causal :: explicit problem with hypotheses ("Will buyers purchase more during a promotion?"); does X cause Y? The only method: **experiments**
+
+**Correlation is not causation.**
+- Third variable problem :: ice cream sales and sunburn rise together because both are driven by sun and heat; an unmeasured third variable is a confounding variable
+- Spurious correlations :: number of storks and population in Oldenburg, mozzarella consumption and PhDs awarded — high correlation, no causation
+- Lesson :: in real business data the difference is much harder to see, so causal claims need experiments
+
+**Experiments.** Manipulate the independent variable (e.g. price, button colour) on at least two levels — a control condition and a treatment condition — and measure the dependent variable (e.g. sales, conversion). Example outside marketing: alcohol (none vs a lot) on walking ability. The **A/B test** is the simplest experiment with two groups, cheap and easy, so firms run them daily (button colour → conversion rate).
+
+**Netflix.** Tests nearly all product changes with controlled A/B experiments: recommendation algorithms, user interface, content promotion, title scheduling, streaming algorithms, sign-up and payment. If every member is in about 20 experiments with three variants each, that gives 3.5 billion Netflix experiences — every user sees a unique Netflix. These are field experiments with real users; labs are used e.g. to pre-test new products. Krause’s own field study: telling customers who mixed their own cereal that no one had ever created this combination made them buy more often and spend more.
+
+**Upside-down homepage case.** Version A (normal) ran in the first half of the month, version B (upside down) in the second half; B showed higher engagement (clicks).
+- Possible explanations :: confusion creates more clicks (engagement is not always positive), novelty only works short-term, and third variables in the second half — a hit series, a campaign, holidays such as Christmas or Halloween, weather, more people staying home at the end of the month
+- Problem :: tests that do not run at the same time are **observation, not experiment**
+- Rules :: run the variants **simultaneously**, assign people **randomly**, use **large groups** so the groups are similar (age, gender, interests)
+- Correct result :: run in parallel, A performed better than B over the whole month
+
+**Limits of A/B testing** (also in the reading).
+- Short-term focus :: we see only one specific short-term outcome, never all the information (clicks vs time spent on the platform)
+- Missing metrics :: one metric can mislead, so use several
+- Averages hide heterogeneity :: customer groups react differently; a small average gain can hurt some segments
+- Baseline :: we test interventions but often miss the benchmark of what customers would do without them
+- No "why" :: experiments show that something works, not why — combine with other methods
+- Sample size :: with tiny traffic (10 views each) no conclusion is possible; at least about 50–80 people per group. Adding thousands more barely changes a large test
+
+**Evaluation.** t-tests or ANOVAs; the p-value shows how likely a result this strong would be by pure chance; below 0.05 the result is considered significant (the chance of being wrong is under 5%).
+
+**Online vs offline.** Online, randomisation is easy (show low and high prices to random visitors). In physical stores it is nearly impossible to show different prices to different customers at the same time, so firms test in different weeks and try to control confounding variables.
+
+**Google Analytics (not exam-relevant).** Free industry standard with four reports: audience (users, sessions, time on page, bounce rate, new vs returning), acquisition (organic, referral, direct), behaviour (how people navigate the site) and conversion (custom goals and funnels, e.g. where people drop out of the checkout).`,
+cards:[
+{q:R`Management decision problem vs marketing research problem`, a:R`Management: broad and not directly measurable ("Should the ad campaign be changed?"). Research: translated into something measurable ("Determine the effectiveness of the current campaign, e.g. via A/B test").`},
+{q:R`Reliability vs validity`, a:R`Reliability: consistent, replicable results. Validity: external = holds in the real world (representative sample); internal = the manipulation really caused the effect (no confounding variable).`},
+{q:R`Four types of analytics`, a:R`Descriptive (what happens), diagnostic (why), predictive (what will happen), prescriptive (so what — what should we do).`},
+{q:R`Three research types and their methods`, a:R`Exploratory (no hypotheses; expert talks, pilot surveys, secondary data, qualitative interviews, case studies) · descriptive (surveys, panels, observation) · causal (hypotheses; experiments only).`},
+{q:R`Third variable problem`, a:R`Two variables correlate because an unmeasured third (confounding) variable drives both — ice cream and sunburn both rise with sun.`},
+{q:R`What makes a valid experiment / A/B test?`, a:R`Independent variable on at least two levels (control vs treatment), variants run at the same time, random assignment, large enough groups (about 50–80+ per group); evaluate with t-test/ANOVA, p < 0.05.`},
+{q:R`Upside-down Netflix case: what went wrong?`, a:R`A and B ran in different halves of the month → observation, not experiment; third variables (new series, holidays, campaigns) could explain the result. Run them in parallel.`},
+{q:R`Limits of A/B testing`, a:R`Short-term focus, missing metrics, averages hide customer heterogeneity, missing baseline, no explanation of why, too little data.`}
+],
+quiz:[
+{q:R`Which criterion of good marketing research is at risk when the product developers evaluate their own product?`, opts:[R`Objectivity`,R`Reliability`,R`External validity`,R`Decision orientation`], correct:0, exp:R`Research must be free from personal bias; the people who built the product want it to succeed.`, area:'mra'},
+{q:R`A firm runs the same A/B test five times and gets the same result each time. What does this show?`, opts:[R`High reliability`,R`High external validity`,R`Low objectivity`,R`A third-variable problem`], correct:0, exp:R`Replicable results = reliability. Repeating a test is a strength, not a weakness.`, area:'mra'},
+{q:R`"Should the price of the product be reduced?" is an example of …`, opts:[R`a marketing research problem that can be measured directly`,R`a management decision problem that must be translated first`,R`a causal hypothesis that is ready to be tested in a lab`,R`a descriptive finding taken from a customer panel`], correct:1, exp:R`Management questions are broad; research has to turn them into something measurable, e.g. testing the effect of two price levels on sales.`, area:'mra'},
+{q:R`Which analytics type answers "so what — what should we do now?"`, opts:[R`Descriptive`,R`Diagnostic`,R`Predictive`,R`Prescriptive`], correct:3, exp:R`Descriptive = what happens, diagnostic = why, predictive = what will happen, prescriptive = what to do.`, area:'mra'},
+{q:R`Sales are falling and nobody knows why. The firm talks to experts and runs open interviews. Which research type is this?`, opts:[R`Causal`,R`Descriptive`,R`Exploratory`,R`Prescriptive`], correct:2, exp:R`Ambiguous problem, no hypotheses, qualitative methods = exploratory.`, area:'mra'},
+{q:R`Why do ice cream sales and sunburn rates correlate?`, opts:[R`Eating ice cream makes the skin more sensitive to the sun`,R`A third variable, sun and heat, drives both of them`,R`People with sunburn buy ice cream to cool down`,R`It is a spurious correlation without any common cause`], correct:1, exp:R`Third variable problem: the sun is the actual cause of both. Storks and babies would be a spurious correlation.`, area:'caus'},
+{q:R`Which method can establish cause and effect?`, opts:[R`A large representative survey`,R`A consumer panel over several years`,R`Observation of website conversions`,R`An experiment that manipulates X`], correct:3, exp:R`Only experiments manipulate the independent variable on at least two levels; surveys, panels and observation only show correlations.`, area:'caus'},
+{q:R`Netflix shows version A in the first half of the month and version B in the second half. Why is this not an experiment?`, opts:[R`The groups were too small for statistics`,R`The variants did not run at the same time`,R`Netflix did not measure the conversion rate`,R`Only two variants were compared with each other`], correct:1, exp:R`Tests that do not run simultaneously are observation; new series, holidays or campaigns in the second half could cause the difference.`, area:'abx'},
+{q:R`Which is NOT a limit of A/B testing named in the lecture?`, opts:[R`Averages hide differences between customers`,R`It shows that something works, not why`,R`It can never be randomised in online settings`,R`It focuses on short-term outcomes`], correct:2, exp:R`Online is where randomisation is easiest; in physical stores it is hard.`, area:'abx'},
+{q:R`According to Krause, when is an A/B test result usually considered trustworthy?`, opts:[R`When the treatment group is larger than the control group`,R`When the p-value is below 0.05 and each group is large enough`,R`When the test ran in two different months with similar weather`,R`When at least one group showed more clicks than the other one`], correct:1, exp:R`Evaluate with t-test or ANOVA; p < 0.05 and at least about 50–80 people per group.`, area:'abx'}
 ]},
 
 /* ------------------------------------------------------------ READING LS 2 ------------------------------------------------------------ */
@@ -8393,7 +8542,25 @@ const CB_MC = [
  [R`Credibility is the perception that the source has relevant expertise and gives an objective opinion.`, true, R`The article’s definition of credibility.`],
  [R`Higher transparency of a source raises its credibility, which raises the intention to follow it.`, true, R`The mediation chain of the article.`],
  [R`For objective tasks that need numerical precision, consumers may prefer AI.`, true, R`Algorithm aversion is strongest for subjective tasks; for objective ones AI can be preferred.`],
- [R`AI voice recommendations performed worse than text-based online reviews for search products.`, false, R`The opposite: for search products AI voice recommendations even beat text reviews.`]]}
+ [R`AI voice recommendations performed worse than text-based online reviews for search products.`, false, R`The opposite: for search products AI voice recommendations even beat text reviews.`]]},
+{lec:'cb-4', area:'mra', q:R`Lecture example question (Krause, 4 Nov): Which combinations correctly match the type of research with its primary purpose?`, s:[
+ [R`Exploratory research: measures market share trends over time.`, false, R`Exploratory research is open and qualitative; tracking trends over time is descriptive.`],
+ [R`Descriptive research: determines whether X causes Y.`, false, R`X causes Y is causal research.`],
+ [R`Causal research: tests the effect of a marketing intervention on an outcome.`, true, R`Exactly the purpose of causal research (influence of X on Y).`],
+ [R`Descriptive research: used to uncover unstructured consumer insights.`, false, R`Descriptive research uses structured data (surveys, panels); unstructured insights belong to exploratory research.`],
+ [R`Causal research: explores broad problems without hypotheses.`, false, R`Causal research is always specific and tests hypotheses; broad problems without hypotheses = exploratory.`]]},
+{lec:'cb-4', area:'abx', q:R`Which statements about experiments and A/B testing are correct?`, s:[
+ [R`An experiment sets the independent variable to at least two levels, e.g. a control and a treatment condition.`, true, R`The basic requirement for establishing causality.`],
+ [R`Running version A in the first half of the month and version B in the second half is a valid A/B test.`, false, R`Not simultaneous = observation; third variables can explain the difference.`],
+ [R`Participants should be randomly assigned so that the groups are similar in age, gender and interests.`, true, R`Random assignment with large groups avoids selection bias.`],
+ [R`A positive average effect means the change works for every customer segment.`, false, R`Averages hide heterogeneity; some segments may react negatively.`],
+ [R`A/B tests are usually easier to randomise online than in physical stores.`, true, R`Online you can show random visitors different versions; in a store this is nearly impossible.`]]},
+{lec:'cb-4', area:'caus', q:R`Which statements about correlation, causation and research quality are correct?`, s:[
+ [R`A confounding variable is an unmeasured third variable that influences both observed variables.`, true, R`Third variable problem (sun → ice cream and sunburn).`],
+ [R`A high correlation between storks and population in Oldenburg proves a causal relationship.`, false, R`Spurious correlation; correlation is not causation.`],
+ [R`Internal validity means that the manipulation, not a third variable, caused the measured effect.`, true, R`Definition of internal validity.`],
+ [R`External validity means that the study can be repeated with the same results.`, false, R`That is reliability; external validity = results hold in the real world / representative sample.`],
+ [R`Repeating an A/B test several times is a weakness, because it shows the first result was unclear.`, false, R`Repetition increases reliability and is a strength.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -8408,7 +8575,8 @@ const CB_OPEN = [
 {lec:'cb-r4', q:R`Explain why targeting retention campaigns at high-churn-risk customers can backfire, and what firms should do instead.`, a:R`A/B tests often only report the average effect, which can hide that some customers react positively and others negatively (gift to arts members helped recent visitors but hurt inactive ones). Ascarza’s field experiments with over 14,000 customers showed little correlation between churn risk and sensitivity to the intervention; targeting the high-sensitivity group with the same budget would have cut churn by an additional 5% and 8%. Firms should move from prediction to prescription: combine A/B test results with customer data to find who responds most (telecom: heavy data users), and ask "For whom is this intervention most effective?"`},
 {lec:'cb-r5', q:R`Explain with principles of consumer learning why Starbucks Rewards and the app create loyalty.`, a:R`Reinforcement: each purchase earns Stars and rewards, so buying at Starbucks is rewarded and repeated. Goals and status: visible progress towards the next level and Gold status (personalised card, more free items) keep customers collecting. Habit through convenience: prepaid app with auto-reload and Mobile Order & Pay reduce effort, so the routine sticks. Personalisation: tailored offers and suggestive selling based on purchase history. Consistency: the same drink and cup with the customer’s name in every store. Belonging and voice: My Starbucks Idea and social media make customers part of the brand. Result: 20% of U.S. payments via the app by July 2015 and over 20 million members — with the risk of over-relying on mobile shoppers.`},
 {lec:'cb-r6', q:R`Describe the emotional connection pathway and explain how a firm can use emotional motivators.`, a:R`Customers move from unconnected (−18% value vs highly satisfied) to highly satisfied (baseline) to perceiving brand differentiation (+13%) to fully connected (+52%). Moving satisfied customers to full connection can return three times as much as moving unconnected ones to satisfied. Firms should identify the emotional motivators (e.g. belonging, freedom, thrill, security) of their most valuable customers, knowing they vary by category, segment and journey stage, and act on them across all functions — the fashion retailer chose store locations near "Fashion Flourishers", introduced buy online/pick up in store (freedom) and selfie slide shows (belonging), and made emotional connection a KPI. Start: inventory and quantify motivators, analyse best customers, commit the whole firm.`},
-{lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`}
+{lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`},
+{lec:'cb-4', q:R`A retailer wants to know whether a new website design increases sales. Explain why a survey is not enough and how to set up a proper A/B test, including two of its limits.`, a:R`A survey or observation is descriptive and can only show correlations; a third (confounding) variable such as a holiday, a campaign or the weather could drive both the new design’s use and sales (ice cream and sunburn both depend on the sun). Only an experiment establishes causality. Setup: translate the management problem ("should we change the design?") into a research problem (effect of design on conversion), set the independent variable (design) to two levels — control (old) and treatment (new) — run both at the same time, assign visitors randomly, use large enough groups (at least about 50–80 per group), measure the dependent variable (conversion, sales) and evaluate with a t-test or ANOVA (p < 0.05). Limits: the average effect can hide that some segments react negatively (heterogeneity); it shows only short-term outcomes on the chosen metric and does not explain why the effect occurs.`}
 ];
 
 const CB_CHEAT = [
@@ -8439,6 +8607,15 @@ R`Awareness → consideration (pre-sales) → purchase (sales) → after sales �
 R`Effective CJD (Kühnl, Jozic & Homburg 2019): thematic cohesion · consistency · context sensitivity · scenarios: internal analysis, user research, analytics`,
 R`Persona = distilled essence of real users, "ideal customer", 2–5 · areas: demographics, psychographics, behaviour, pain points, goals, motivation, channels, buying factors, journey · when: discovery, ideation/prototyping, testing/iteration`,
 R`Synthetic personas: algorithmic, no real individual (ML, clustering, simulation) · Microsoft Cortana, Amazon recommendations, Unilever hygiene, Walmart e-commerce · scale, objectivity, simulation, hyper-personalisation, privacy`]},
+{h:'LS 4 · Marketing analytics', items:[
+R`Good research: systematic, objective, problem-defined (management decision problem → measurable research problem), decision-oriented`,
+R`Prerequisites: objectivity · reliability (replicable) · validity: external (real world, representative) + internal (no confounding variable)`,
+R`Analytics: descriptive (what) → diagnostic (why) → predictive (what will) → prescriptive (so what) · primary vs secondary data`,
+R`Exploratory (no hypotheses; experts, pilots, interviews, cases) · descriptive (surveys, panels, observation) · causal (hypotheses; experiments only)`,
+R`Correlation ≠ causation: third variable (ice cream & sunburn ← sun) · spurious (storks & births, mozzarella & PhDs)`,
+R`Experiment: IV on ≥ 2 levels (control vs treatment), simultaneous, random assignment, large groups (≥ 50–80 each), t-test/ANOVA p < 0.05`,
+R`A/B limits: short-term, missing metrics, averages hide heterogeneity, missing baseline, no "why", too little data · Netflix: 20 experiments × 3 variants = 3.5 bn experiences`,
+R`Google Analytics NOT in exam · guest talk 10 Nov online only`]},
 {h:'Reading LS 2 · Irrational consumption', items:[
 R`Not "Pac-Man" · nudges · beliefs (wine bottle, healthy = unpalatable → experience first, health claim on side panel; concrete floor = deal) · goals (paywall offer later in the day; activate vs appeal) · pressures (decision fatigue, time pressure; iconic product) · test real products, real consumers, real situations`]},
 {h:'Reading LS 3 · Sensory marketing', items:[
@@ -17047,7 +17224,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261103111835';
+const HUB_BUILD = '20261104144838';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{

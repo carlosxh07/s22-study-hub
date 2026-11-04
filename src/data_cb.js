@@ -10,8 +10,8 @@ const CB_SESSIONS = [
   {n:2, date:'21–23 Oct', title:'Experiment part I on campus (no class) — Burg, Room Bangalore; part II online 2–15 Nov'},
   {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', topic:'cb-2', reading:'cb-r2'},
   {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', reading:'cb-r3'},
-  {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', reading:'cb-r4'},
-  {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee (Schloss Forum)'},
+  {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', topic:'cb-4', reading:'cb-r4'},
+  {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee · ONLINE ONLY (moved 4 Nov), about 2–2.5 h, cameras on, QR code + student number for the points; link comes Mon/Tue'},
   {n:8, date:'Wed 11 Nov', title:'LS 5 · Consumer Learning', reading:'cb-r5'},
   {n:9, date:'Tue 17 Nov', title:'Guest talk: "The Case of Gaming: Using Customer Data to Define Strategy" — Hendrik Walter, Andreas Teller, Matthias Mück, OC&C (Schloss Forum)'},
   {n:10, date:'Wed 18 Nov', title:'LS 6 · Affect, Attitudes & Motivation', reading:'cb-r6'},
@@ -30,6 +30,9 @@ const CB_AREAS = [
   {id:'choice', lec:'cb-2', label:'Hyperchoice & asymmetric dominance'},
   {id:'cj', lec:'cb-2', label:'Customer journey & CJD'},
   {id:'pers', lec:'cb-2', label:'Personas & synthetic personas'},
+  {id:'mra', lec:'cb-4', label:'Marketing research & research types'},
+  {id:'caus', lec:'cb-4', label:'Correlation vs causation'},
+  {id:'abx', lec:'cb-4', label:'Experiments & A/B test design'},
   {id:'irr', lec:'cb-r2', label:'Beliefs, goals & pressures'},
   {id:'sens', lec:'cb-r3', label:'Sensory marketing'},
   {id:'ab', lec:'cb-r4', label:'A/B tests & targeting'},
@@ -306,6 +309,89 @@ quiz:[
 {q:R`What is a persona?`, opts:[R`A real customer who is interviewed for every new product the company launches`,R`A fictional character that is the distilled essence of real users of a target group`,R`A celebrity who represents the brand in advertising and on social media channels`,R`The statistical average of all customers in the company’s CRM database`], correct:1, exp:R`Personas are fictional characters built from user data or internal analysis; they represent a target group, an "ideal customer". Usually at least 2–5 are created.`, area:'pers'},
 {q:R`What distinguishes synthetic personas from traditional personas?`, opts:[R`They are generated from large datasets with machine learning and represent no real individual`,R`They are always based on in-depth interviews with a small number of real loyal customers`,R`They describe only one single customer in great detail, including the real name and address`,R`They can only be used in the early design stage, never later in testing or in iteration`], correct:0, exp:R`Synthetic personas are data-driven, algorithmically generated archetypes (machine learning, clustering, simulation). Traditional personas often come from interviews or observation.`, area:'pers'},
 {q:R`Which company used synthetic personas to design and test its AI assistant Cortana?`, opts:[R`Amazon`,R`Walmart`,R`Microsoft`,R`Unilever`], correct:2, exp:R`Microsoft (UX design). Amazon: recommendation algorithms (marketing); Unilever: hygiene products (product development); Walmart: e-commerce interfaces (AI training).`, area:'pers'}
+]},
+
+/* ------------------------------------------------------------ LS 4 ------------------------------------------------------------ */
+{id:'cb-4', kind:'lec', ch:4, title:'Marketing Analytics & A/B Testing', date:'4 Nov 2026',
+examWeight:'Goals and criteria of good marketing research, objectivity, reliability and validity, the three research types (exploratory, descriptive, causal) and their methods, correlation vs causation (third variable, spurious correlations), what makes a real experiment / A/B test and its limits — Google Analytics is NOT exam-relevant',
+summary:R`**Source:** built from the lecture recording (slides not uploaded yet). Prepares the guest talk on A/B testing (10 Nov) and goes with the reading "When A/B Testing Doesn’t Tell You the Whole Story".
+
+**Why marketing analytics?** Firms spend a lot on marketing, so analytics should improve decisions: pricing, segmentation and targeting, personas, campaign design and communication, positioning and product development. "What gets measured gets managed" (Peter Drucker). Analytics is mostly quantitative but can also be qualitative or use unstructured data.
+
+**What good marketing research is.** Marketing research identifies, collects, analyses and interprets information to improve decisions. It is:
+- Systematic :: planned in advance — what to measure, how, and how to analyse it
+- Objective :: free from personal bias; tricky when the people who built a product also evaluate it
+- Problem-defined :: a **management decision problem** ("Should the ad campaign be changed?") must be translated into a measurable **marketing research problem** ("Determine the effectiveness of the current campaign, e.g. with an A/B test")
+- Decision-oriented :: it ends in recommendations and ideas for improvement
+
+**Prerequisites of research.**
+- Objectivity :: results do not depend on the researcher, in collection, analysis and interpretation
+- Reliability :: the measurement is consistent and the study can be replicated with the same results; running a test several times is a good sign, not a weakness
+- External validity :: findings hold in the real world, e.g. the sample represents the target group
+- Internal validity :: what we manipulated really caused the effect, not a confounding (third) variable
+
+**Types of analytics.**
+- Descriptive :: what is happening (sales figures)
+- Diagnostic :: why did it happen
+- Predictive :: what will happen
+- Prescriptive :: so what — what should we do now
+
+**Primary vs secondary data.** Primary data are collected by the researcher for the question at hand (survey, experiment). Secondary data were collected by someone else (published reports, competitor data, old internal studies).
+
+**Three research types.** The problem gets more specific from left to right.
+- Exploratory :: ambiguous problem, no hypotheses ("sales are falling — why?"); expert talks, pilot surveys, secondary data, qualitative interviews, case studies
+- Descriptive :: problem is known, structured data; surveys, panels, observation (e.g. conversion rose after five new products — but nothing was manipulated)
+- Causal :: explicit problem with hypotheses ("Will buyers purchase more during a promotion?"); does X cause Y? The only method: **experiments**
+
+**Correlation is not causation.**
+- Third variable problem :: ice cream sales and sunburn rise together because both are driven by sun and heat; an unmeasured third variable is a confounding variable
+- Spurious correlations :: number of storks and population in Oldenburg, mozzarella consumption and PhDs awarded — high correlation, no causation
+- Lesson :: in real business data the difference is much harder to see, so causal claims need experiments
+
+**Experiments.** Manipulate the independent variable (e.g. price, button colour) on at least two levels — a control condition and a treatment condition — and measure the dependent variable (e.g. sales, conversion). Example outside marketing: alcohol (none vs a lot) on walking ability. The **A/B test** is the simplest experiment with two groups, cheap and easy, so firms run them daily (button colour → conversion rate).
+
+**Netflix.** Tests nearly all product changes with controlled A/B experiments: recommendation algorithms, user interface, content promotion, title scheduling, streaming algorithms, sign-up and payment. If every member is in about 20 experiments with three variants each, that gives 3.5 billion Netflix experiences — every user sees a unique Netflix. These are field experiments with real users; labs are used e.g. to pre-test new products. Krause’s own field study: telling customers who mixed their own cereal that no one had ever created this combination made them buy more often and spend more.
+
+**Upside-down homepage case.** Version A (normal) ran in the first half of the month, version B (upside down) in the second half; B showed higher engagement (clicks).
+- Possible explanations :: confusion creates more clicks (engagement is not always positive), novelty only works short-term, and third variables in the second half — a hit series, a campaign, holidays such as Christmas or Halloween, weather, more people staying home at the end of the month
+- Problem :: tests that do not run at the same time are **observation, not experiment**
+- Rules :: run the variants **simultaneously**, assign people **randomly**, use **large groups** so the groups are similar (age, gender, interests)
+- Correct result :: run in parallel, A performed better than B over the whole month
+
+**Limits of A/B testing** (also in the reading).
+- Short-term focus :: we see only one specific short-term outcome, never all the information (clicks vs time spent on the platform)
+- Missing metrics :: one metric can mislead, so use several
+- Averages hide heterogeneity :: customer groups react differently; a small average gain can hurt some segments
+- Baseline :: we test interventions but often miss the benchmark of what customers would do without them
+- No "why" :: experiments show that something works, not why — combine with other methods
+- Sample size :: with tiny traffic (10 views each) no conclusion is possible; at least about 50–80 people per group. Adding thousands more barely changes a large test
+
+**Evaluation.** t-tests or ANOVAs; the p-value shows how likely a result this strong would be by pure chance; below 0.05 the result is considered significant (the chance of being wrong is under 5%).
+
+**Online vs offline.** Online, randomisation is easy (show low and high prices to random visitors). In physical stores it is nearly impossible to show different prices to different customers at the same time, so firms test in different weeks and try to control confounding variables.
+
+**Google Analytics (not exam-relevant).** Free industry standard with four reports: audience (users, sessions, time on page, bounce rate, new vs returning), acquisition (organic, referral, direct), behaviour (how people navigate the site) and conversion (custom goals and funnels, e.g. where people drop out of the checkout).`,
+cards:[
+{q:R`Management decision problem vs marketing research problem`, a:R`Management: broad and not directly measurable ("Should the ad campaign be changed?"). Research: translated into something measurable ("Determine the effectiveness of the current campaign, e.g. via A/B test").`},
+{q:R`Reliability vs validity`, a:R`Reliability: consistent, replicable results. Validity: external = holds in the real world (representative sample); internal = the manipulation really caused the effect (no confounding variable).`},
+{q:R`Four types of analytics`, a:R`Descriptive (what happens), diagnostic (why), predictive (what will happen), prescriptive (so what — what should we do).`},
+{q:R`Three research types and their methods`, a:R`Exploratory (no hypotheses; expert talks, pilot surveys, secondary data, qualitative interviews, case studies) · descriptive (surveys, panels, observation) · causal (hypotheses; experiments only).`},
+{q:R`Third variable problem`, a:R`Two variables correlate because an unmeasured third (confounding) variable drives both — ice cream and sunburn both rise with sun.`},
+{q:R`What makes a valid experiment / A/B test?`, a:R`Independent variable on at least two levels (control vs treatment), variants run at the same time, random assignment, large enough groups (about 50–80+ per group); evaluate with t-test/ANOVA, p < 0.05.`},
+{q:R`Upside-down Netflix case: what went wrong?`, a:R`A and B ran in different halves of the month → observation, not experiment; third variables (new series, holidays, campaigns) could explain the result. Run them in parallel.`},
+{q:R`Limits of A/B testing`, a:R`Short-term focus, missing metrics, averages hide customer heterogeneity, missing baseline, no explanation of why, too little data.`}
+],
+quiz:[
+{q:R`Which criterion of good marketing research is at risk when the product developers evaluate their own product?`, opts:[R`Objectivity`,R`Reliability`,R`External validity`,R`Decision orientation`], correct:0, exp:R`Research must be free from personal bias; the people who built the product want it to succeed.`, area:'mra'},
+{q:R`A firm runs the same A/B test five times and gets the same result each time. What does this show?`, opts:[R`High reliability`,R`High external validity`,R`Low objectivity`,R`A third-variable problem`], correct:0, exp:R`Replicable results = reliability. Repeating a test is a strength, not a weakness.`, area:'mra'},
+{q:R`"Should the price of the product be reduced?" is an example of …`, opts:[R`a marketing research problem that can be measured directly`,R`a management decision problem that must be translated first`,R`a causal hypothesis that is ready to be tested in a lab`,R`a descriptive finding taken from a customer panel`], correct:1, exp:R`Management questions are broad; research has to turn them into something measurable, e.g. testing the effect of two price levels on sales.`, area:'mra'},
+{q:R`Which analytics type answers "so what — what should we do now?"`, opts:[R`Descriptive`,R`Diagnostic`,R`Predictive`,R`Prescriptive`], correct:3, exp:R`Descriptive = what happens, diagnostic = why, predictive = what will happen, prescriptive = what to do.`, area:'mra'},
+{q:R`Sales are falling and nobody knows why. The firm talks to experts and runs open interviews. Which research type is this?`, opts:[R`Causal`,R`Descriptive`,R`Exploratory`,R`Prescriptive`], correct:2, exp:R`Ambiguous problem, no hypotheses, qualitative methods = exploratory.`, area:'mra'},
+{q:R`Why do ice cream sales and sunburn rates correlate?`, opts:[R`Eating ice cream makes the skin more sensitive to the sun`,R`A third variable, sun and heat, drives both of them`,R`People with sunburn buy ice cream to cool down`,R`It is a spurious correlation without any common cause`], correct:1, exp:R`Third variable problem: the sun is the actual cause of both. Storks and babies would be a spurious correlation.`, area:'caus'},
+{q:R`Which method can establish cause and effect?`, opts:[R`A large representative survey`,R`A consumer panel over several years`,R`Observation of website conversions`,R`An experiment that manipulates X`], correct:3, exp:R`Only experiments manipulate the independent variable on at least two levels; surveys, panels and observation only show correlations.`, area:'caus'},
+{q:R`Netflix shows version A in the first half of the month and version B in the second half. Why is this not an experiment?`, opts:[R`The groups were too small for statistics`,R`The variants did not run at the same time`,R`Netflix did not measure the conversion rate`,R`Only two variants were compared with each other`], correct:1, exp:R`Tests that do not run simultaneously are observation; new series, holidays or campaigns in the second half could cause the difference.`, area:'abx'},
+{q:R`Which is NOT a limit of A/B testing named in the lecture?`, opts:[R`Averages hide differences between customers`,R`It shows that something works, not why`,R`It can never be randomised in online settings`,R`It focuses on short-term outcomes`], correct:2, exp:R`Online is where randomisation is easiest; in physical stores it is hard.`, area:'abx'},
+{q:R`According to Krause, when is an A/B test result usually considered trustworthy?`, opts:[R`When the treatment group is larger than the control group`,R`When the p-value is below 0.05 and each group is large enough`,R`When the test ran in two different months with similar weather`,R`When at least one group showed more clicks than the other one`], correct:1, exp:R`Evaluate with t-test or ANOVA; p < 0.05 and at least about 50–80 people per group.`, area:'abx'}
 ]},
 
 /* ------------------------------------------------------------ READING LS 2 ------------------------------------------------------------ */
@@ -798,7 +884,25 @@ const CB_MC = [
  [R`Credibility is the perception that the source has relevant expertise and gives an objective opinion.`, true, R`The article’s definition of credibility.`],
  [R`Higher transparency of a source raises its credibility, which raises the intention to follow it.`, true, R`The mediation chain of the article.`],
  [R`For objective tasks that need numerical precision, consumers may prefer AI.`, true, R`Algorithm aversion is strongest for subjective tasks; for objective ones AI can be preferred.`],
- [R`AI voice recommendations performed worse than text-based online reviews for search products.`, false, R`The opposite: for search products AI voice recommendations even beat text reviews.`]]}
+ [R`AI voice recommendations performed worse than text-based online reviews for search products.`, false, R`The opposite: for search products AI voice recommendations even beat text reviews.`]]},
+{lec:'cb-4', area:'mra', q:R`Lecture example question (Krause, 4 Nov): Which combinations correctly match the type of research with its primary purpose?`, s:[
+ [R`Exploratory research: measures market share trends over time.`, false, R`Exploratory research is open and qualitative; tracking trends over time is descriptive.`],
+ [R`Descriptive research: determines whether X causes Y.`, false, R`X causes Y is causal research.`],
+ [R`Causal research: tests the effect of a marketing intervention on an outcome.`, true, R`Exactly the purpose of causal research (influence of X on Y).`],
+ [R`Descriptive research: used to uncover unstructured consumer insights.`, false, R`Descriptive research uses structured data (surveys, panels); unstructured insights belong to exploratory research.`],
+ [R`Causal research: explores broad problems without hypotheses.`, false, R`Causal research is always specific and tests hypotheses; broad problems without hypotheses = exploratory.`]]},
+{lec:'cb-4', area:'abx', q:R`Which statements about experiments and A/B testing are correct?`, s:[
+ [R`An experiment sets the independent variable to at least two levels, e.g. a control and a treatment condition.`, true, R`The basic requirement for establishing causality.`],
+ [R`Running version A in the first half of the month and version B in the second half is a valid A/B test.`, false, R`Not simultaneous = observation; third variables can explain the difference.`],
+ [R`Participants should be randomly assigned so that the groups are similar in age, gender and interests.`, true, R`Random assignment with large groups avoids selection bias.`],
+ [R`A positive average effect means the change works for every customer segment.`, false, R`Averages hide heterogeneity; some segments may react negatively.`],
+ [R`A/B tests are usually easier to randomise online than in physical stores.`, true, R`Online you can show random visitors different versions; in a store this is nearly impossible.`]]},
+{lec:'cb-4', area:'caus', q:R`Which statements about correlation, causation and research quality are correct?`, s:[
+ [R`A confounding variable is an unmeasured third variable that influences both observed variables.`, true, R`Third variable problem (sun → ice cream and sunburn).`],
+ [R`A high correlation between storks and population in Oldenburg proves a causal relationship.`, false, R`Spurious correlation; correlation is not causation.`],
+ [R`Internal validity means that the manipulation, not a third variable, caused the measured effect.`, true, R`Definition of internal validity.`],
+ [R`External validity means that the study can be repeated with the same results.`, false, R`That is reliability; external validity = results hold in the real world / representative sample.`],
+ [R`Repeating an A/B test several times is a weakness, because it shows the first result was unclear.`, false, R`Repetition increases reliability and is a strength.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -813,7 +917,8 @@ const CB_OPEN = [
 {lec:'cb-r4', q:R`Explain why targeting retention campaigns at high-churn-risk customers can backfire, and what firms should do instead.`, a:R`A/B tests often only report the average effect, which can hide that some customers react positively and others negatively (gift to arts members helped recent visitors but hurt inactive ones). Ascarza’s field experiments with over 14,000 customers showed little correlation between churn risk and sensitivity to the intervention; targeting the high-sensitivity group with the same budget would have cut churn by an additional 5% and 8%. Firms should move from prediction to prescription: combine A/B test results with customer data to find who responds most (telecom: heavy data users), and ask "For whom is this intervention most effective?"`},
 {lec:'cb-r5', q:R`Explain with principles of consumer learning why Starbucks Rewards and the app create loyalty.`, a:R`Reinforcement: each purchase earns Stars and rewards, so buying at Starbucks is rewarded and repeated. Goals and status: visible progress towards the next level and Gold status (personalised card, more free items) keep customers collecting. Habit through convenience: prepaid app with auto-reload and Mobile Order & Pay reduce effort, so the routine sticks. Personalisation: tailored offers and suggestive selling based on purchase history. Consistency: the same drink and cup with the customer’s name in every store. Belonging and voice: My Starbucks Idea and social media make customers part of the brand. Result: 20% of U.S. payments via the app by July 2015 and over 20 million members — with the risk of over-relying on mobile shoppers.`},
 {lec:'cb-r6', q:R`Describe the emotional connection pathway and explain how a firm can use emotional motivators.`, a:R`Customers move from unconnected (−18% value vs highly satisfied) to highly satisfied (baseline) to perceiving brand differentiation (+13%) to fully connected (+52%). Moving satisfied customers to full connection can return three times as much as moving unconnected ones to satisfied. Firms should identify the emotional motivators (e.g. belonging, freedom, thrill, security) of their most valuable customers, knowing they vary by category, segment and journey stage, and act on them across all functions — the fashion retailer chose store locations near "Fashion Flourishers", introduced buy online/pick up in store (freedom) and selfie slide shows (belonging), and made emotional connection a KPI. Start: inventory and quantify motivators, analyse best customers, commit the whole firm.`},
-{lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`}
+{lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`},
+{lec:'cb-4', q:R`A retailer wants to know whether a new website design increases sales. Explain why a survey is not enough and how to set up a proper A/B test, including two of its limits.`, a:R`A survey or observation is descriptive and can only show correlations; a third (confounding) variable such as a holiday, a campaign or the weather could drive both the new design’s use and sales (ice cream and sunburn both depend on the sun). Only an experiment establishes causality. Setup: translate the management problem ("should we change the design?") into a research problem (effect of design on conversion), set the independent variable (design) to two levels — control (old) and treatment (new) — run both at the same time, assign visitors randomly, use large enough groups (at least about 50–80 per group), measure the dependent variable (conversion, sales) and evaluate with a t-test or ANOVA (p < 0.05). Limits: the average effect can hide that some segments react negatively (heterogeneity); it shows only short-term outcomes on the chosen metric and does not explain why the effect occurs.`}
 ];
 
 const CB_CHEAT = [
@@ -844,6 +949,15 @@ R`Awareness → consideration (pre-sales) → purchase (sales) → after sales �
 R`Effective CJD (Kühnl, Jozic & Homburg 2019): thematic cohesion · consistency · context sensitivity · scenarios: internal analysis, user research, analytics`,
 R`Persona = distilled essence of real users, "ideal customer", 2–5 · areas: demographics, psychographics, behaviour, pain points, goals, motivation, channels, buying factors, journey · when: discovery, ideation/prototyping, testing/iteration`,
 R`Synthetic personas: algorithmic, no real individual (ML, clustering, simulation) · Microsoft Cortana, Amazon recommendations, Unilever hygiene, Walmart e-commerce · scale, objectivity, simulation, hyper-personalisation, privacy`]},
+{h:'LS 4 · Marketing analytics', items:[
+R`Good research: systematic, objective, problem-defined (management decision problem → measurable research problem), decision-oriented`,
+R`Prerequisites: objectivity · reliability (replicable) · validity: external (real world, representative) + internal (no confounding variable)`,
+R`Analytics: descriptive (what) → diagnostic (why) → predictive (what will) → prescriptive (so what) · primary vs secondary data`,
+R`Exploratory (no hypotheses; experts, pilots, interviews, cases) · descriptive (surveys, panels, observation) · causal (hypotheses; experiments only)`,
+R`Correlation ≠ causation: third variable (ice cream & sunburn ← sun) · spurious (storks & births, mozzarella & PhDs)`,
+R`Experiment: IV on ≥ 2 levels (control vs treatment), simultaneous, random assignment, large groups (≥ 50–80 each), t-test/ANOVA p < 0.05`,
+R`A/B limits: short-term, missing metrics, averages hide heterogeneity, missing baseline, no "why", too little data · Netflix: 20 experiments × 3 variants = 3.5 bn experiences`,
+R`Google Analytics NOT in exam · guest talk 10 Nov online only`]},
 {h:'Reading LS 2 · Irrational consumption', items:[
 R`Not "Pac-Man" · nudges · beliefs (wine bottle, healthy = unpalatable → experience first, health claim on side panel; concrete floor = deal) · goals (paywall offer later in the day; activate vs appeal) · pressures (decision fatigue, time pressure; iconic product) · test real products, real consumers, real situations`]},
 {h:'Reading LS 3 · Sensory marketing', items:[

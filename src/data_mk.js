@@ -9,7 +9,7 @@ const MK_SESSIONS = [
   {n:2, date:'Mon 19 Oct', title:'Understanding the Customer in B2C and B2B Settings', topic:'mk-2'},
   {n:3, date:'21–23 Oct', title:'Experiment participation (no class) — on campus, Burg, Room Bangalore'},
   {n:4, date:'Tue 27 Oct', title:'Marketing Strategy and Planning', topic:'mk-3'},
-  {n:5, date:'Wed 4 Nov', title:'Conceptualization of Products and Services'},
+  {n:5, date:'Wed 4 Nov', title:'Conceptualization of Products and Services — in class: Lecture 03 finished (competitor analysis, PESTEL case, PLC, BCG + exam hints, see Strategy and Planning)', topic:'mk-3'},
   {n:6, date:'Mon 9 Nov', title:'Marketing Communication and Campaigning (I/II)'},
   {n:7, date:'Wed 11 Nov', title:'Marketing Communication and Campaigning (II/II)'},
   {n:8, date:'Mon 16 Nov', title:'Distribution and Omnichannel Management'},
@@ -445,7 +445,34 @@ Note: the lessons-learned slide lists the maturity phases as "growth, stability 
 - Trends are lasting developments and therefore carry long-term strategic decisions.
 - PESTEL scans the macro environment, while Porter’s Five Forces analyze competition from an industry perspective: rivalry, new entrants, substitutes and the bargaining power of buyers and suppliers.
 - Along the product life cycle, introduction brings slow growth and low or negative profits, growth raises sales and profits, maturity slows and then erodes sales and profits, and in decline firms cut products, channels and prices.
-- The BCG Matrix classifies products by relative market share and market growth into stars, cash cows, question marks and poor dogs.`,
+- The BCG Matrix classifies products by relative market share and market growth 
+
+**In class 4 Nov — finishing lecture 3 (from the recording).**
+
+**Who is the real competitor? Lufthansa.** Ask who the firm really earns money with and which job it does for them. Lufthansa earns its profit mainly with international business travellers, not with first class (mostly private, served by Gulf carriers such as Qatar) or domestic flights (lost to FlixTrain and Eurowings). The job to be done is "get me to my meeting", so the core competitor of business class is a video call (Teams). Consequence: fewer but more important and more expensive flights, lounges and cabins redesigned as quiet work spaces. The tool is the same as in strategy class, but the market is defined from the **customer perspective** (a Rolex can be a watch or an investment good).
+
+**PESTEL applied: should a German carmaker invest in autonomous driving?** Rate each field like a traffic light.
+- Social / demographic (green) :: the ageing society wants to stay mobile but older people may no longer drive → autonomous taxis; busy business travellers want their own self-driving car to work on the road. Two different markets. Downside: older people have less buying power
+- Technological (yellow) :: chips and sensors are expensive and depend on US suppliers, there is no shared car-to-car (car-to-X) platform between brands, and 5G coverage is weak
+- Legal (red) :: fully autonomous driving is not allowed in Germany yet (assisted driving only); Waymo runs one predefined route in Munich; liability in accidents is unresolved
+- Ecological (two-sided) :: assisted driving saves fuel because the car drives without emotion, but servers and chip production use a lot of energy and CO2
+- Political and economic :: political support is needed; Germany could afford the investment but invests elsewhere
+- Rule of thumb :: invest only if at least two to three fields are yellow or green; if the product will not be legal for ten years, develop and test abroad instead of launching
+
+**Product life cycle — what Henkel wants to see.** Name the four phases (introduction, growth, maturity, decline), label the axes (x = time, y = sales and profit) and draw both curves.
+- Sales curve :: starts at zero, rises through introduction and growth, turns about a third into maturity and falls back towards zero in decline
+- Profit curve :: starts negative (development, rent, launch marketing), turns positive about a third into introduction or early growth, peaks at the end of growth, falls and turns negative again in decline (warranties, facelifts, more advertising to keep the product alive)
+- Portfolio :: a multi-product firm should have products in every phase and **cross-finance**: profits from mature and declining products fund new ones (iPhone money funds the Vision Pro)
+- Keep or kill a weak new product :: do not keep investing just because the CEO believes in it; observe users in product clinics, talk to 6 to 12 of them, then decide (Apple stopped its self-driving car)
+
+**BCG Matrix = the PLC as a portfolio.** Axes: market growth (high/low) and relative market share (low/high). Question marks = introduction (high growth, low share, need investment), stars (high growth, high share), cash cows (high share, low growth, earn the money), poor dogs. Porsche: the 911 (margin above 50%) and combustion SUVs earn the cash that funds electric models. Strategy must differ by market: Europe, US and China (China wants big, electric cars).
+
+**Exam hints from Henkel.**
+- Open questions are worth at most 10 points each (about 10 minutes); about half of the points are for simply naming things (phases, axes, fields)
+- "Name" = list the terms; "name and explain" = one sentence each; "apply" = a short case, e.g. name all six PESTEL fields and discuss two with one pro and one con
+- Answers beyond the requested number are not read: ask for two → only the first two count
+- MC: absolute wording ("always", "either … or", "cut X to fund Y") is usually wrong
+- Learn the intro and summary slides of each lecture; each lecture has about four core conceptsinto stars, cash cows, question marks and poor dogs.`,
 cards:[
 {q:R`Steps of the strategic planning process`, a:R`Status-quo analysis (internal: resources, competencies, capabilities; external: trends, market, external factors — against the business mission) → marketing planning (goal → strategy → program formulation) → implementation (4Ps) → controlling (feedback loop).`},
 {q:R`Internal vs external vs mixed perspective tools`, a:R`Internal: resources, competencies/capabilities. External: trends, external factors (PESTEL). Mixed: product life cycle, BCG Matrix.`},
@@ -479,7 +506,11 @@ quiz:[
 {q:R`"Absolute sales decline, consumers switch to other products, overcapacity arises" describes …`, opts:[R`the introduction stage`,R`growth maturity`,R`decaying maturity`,R`the growth stage`], correct:2, exp:R`Decaying maturity: absolute sales decline, switching begins, slowdown creates overcapacity.`, area:'plc'},
 {q:R`What are the axes of the BCG Matrix?`, opts:[R`Sales and profit over the product’s lifetime`,R`Market growth and relative market share`,R`Perceived price and perceived quality`,R`Market size and intensity of competition`], correct:1, exp:R`y-axis: market growth; x-axis: relative market share. Sales and profit over time is the product life cycle.`, area:'bcg'},
 {q:R`Which norm strategy belongs to question marks?`, opts:[R`Maintain`,R`Liquidate immediately`,R`Maintain or strengthen`,R`Strengthen or liquidate`], correct:3, exp:R`Question marks: strengthen/liquidate. Stars: maintain/strengthen. Cash cows: maintain. Poor dogs: liquidate.`, area:'bcg'},
-{q:R`In which direction does cross-financing in the BCG Matrix usually flow?`, opts:[R`From question marks to cash cows`,R`From cash cows to question marks`,R`From poor dogs to stars`,R`From stars to poor dogs`], correct:1, exp:R`Cash cows (high share, low growth) generate funds that finance question marks so they can become stars.`, area:'bcg'}
+{q:R`In which direction does cross-financing in the BCG Matrix usually flow?`, opts:[R`From question marks to cash cows`,R`From cash cows to question marks`,R`From poor dogs to stars`,R`From stars to poor dogs`], correct:1, exp:R`Cash cows (high share, low growth) generate funds that finance question marks so they can become stars.`, area:'bcg'},
+{q:R`Applying the job-to-be-done question, who is the core competitor of Lufthansa business class?`, opts:[R`Gulf carriers such as Qatar and Emirates`,R`Video calls such as Microsoft Teams`,R`Low-cost airlines such as Eurowings`,R`Long-distance trains such as FlixTrain`], correct:1, exp:R`Business travellers fly to get to a meeting; a video call does the same job, so firms cut flight budgets. Gulf carriers compete for first class, FlixTrain and Eurowings for domestic routes.`, area:'ext'},
+{q:R`In the autonomous-driving PESTEL case, which field did Henkel rate green?`, opts:[R`Legal, because Waymo is allowed to drive one route in Munich`,R`Technological, because German suppliers produce the chips`,R`Social, because an ageing society wants to stay mobile`,R`Ecological, because chip production is very energy-efficient`], correct:2, exp:R`Ageing society = growth driver (green). Tech is yellow (US-dependent chips, no car-to-X platform, weak 5G), legal is a barrier (not allowed in Germany yet), ecology is two-sided.`, area:'ext'},
+{q:R`Why does the profit curve of the product life cycle start below zero?`, opts:[R`Development, rent and launch marketing are paid before sales cover them`,R`Prices in the introduction stage are set below cost to win market share`,R`Warranties and facelifts are paid for during the introduction stage`,R`Competitors copy the product immediately and force prices down at launch`], correct:0, exp:R`Investments come first (development, facilities, big launch campaigns). Warranties and facelifts explain the falling profit later, in maturity and decline.`, area:'plc'},
+{q:R`What does Henkel mean by using the portfolio to cross-finance along the life cycle?`, opts:[R`Every product should finance its own marketing budget from its own sales`,R`Profits from mature products fund products in introduction or development`,R`Declining products should always receive the largest marketing budget`,R`New products are financed only with bank loans, never with internal cash`], correct:1, exp:R`A multi-product firm should have products in every phase; e.g. iPhone profits fund the Vision Pro. "Always" statements about budgets are wrong.`, area:'bcg'}
 ]}
 ];
 
@@ -641,7 +672,19 @@ const MK_MC = [
  [R`Cash cows have a high relative market share in a low-growth market.`, true, R`Norm strategy: maintain.`],
  [R`Stars should be liquidated.`, false, R`Stars: maintain/strengthen; poor dogs: liquidate.`],
  [R`Question marks have high market growth but low relative market share.`, true, R`Norm strategy: strengthen or liquidate.`],
- [R`Cross-financing means that cash cows finance question marks.`, true, R`So that question marks can become stars.`]]}
+ [R`Cross-financing means that cash cows finance question marks.`, true, R`So that question marks can become stars.`]]},
+{lec:'mk-3', area:'plc', q:R`Lecture example question (Henkel, 4 Nov): Regarding the stages of the product life cycle, which statements are correct?`, s:[
+ [R`In the introduction stage, profits are usually positive but low.`, false, R`Profits are negative at first, because development and launch costs come before sales.`],
+ [R`In the growth stage, investments in product quality improvements are cut to allow for higher investments in marketing communications.`, false, R`Either-or statement. Sometimes the product needs quality, sometimes marketing, not one at the cost of the other.`],
+ [R`During maturity, growth slows and new competitive forces emerge.`, true, R`Henkel: true.`],
+ [R`In the decline stage, sales and profits decline; in consequence, firms reduce marketing budgets and reduce prices further.`, false, R`Too general. Strong or luxury brands avoid price cuts and sometimes marketing budgets must rise. Henkel wanted to double-check this one with the TA, so it is the uncertain statement.`],
+ [R`In multi-product companies, the profits from products in the decline phase should always be used to increase the marketing budgets of products in the maturity phase.`, false, R`"Always" is always wrong. The money should go where the portfolio needs it, usually to products in development or introduction.`]]},
+{lec:'mk-3', area:'bcg', q:R`Lecture example question (Henkel, 4 Nov): Regarding the BCG Matrix, which statements are correct?`, s:[
+ [R`Poor dogs are high-growth products with a high market share that should always receive the largest investment budget.`, false, R`Poor dogs have low growth and low share. Henkel: "completely stupid".`],
+ [R`Stars operate in high-growth markets and have a high relative market share.`, true, R`Correct.`],
+ [R`Cash cows have a high relative market share in low-growth markets and generate cash for other units.`, true, R`Correct.`],
+ [R`Question marks have a low relative market share in high-growth markets and require careful investment decisions.`, true, R`Correct.`],
+ [R`The BCG Matrix uses relative market share and market growth to classify products or business units.`, true, R`Correct.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -661,7 +704,9 @@ const MK_OPEN = [
 {lec:'mk-3', q:R`Describe the strategic planning process and assign the analysis tools of the lecture to it.`, a:R`Status-quo analysis against the business mission: internal analysis (resources, competencies, capabilities; Resource-Based View) and external analysis (trends, PESTEL; Five Forces for the industry), plus the mixed perspective (product life cycle, BCG Matrix). Then marketing planning: goal formulation → strategy formulation → program formulation. Then implementation via product, price, promotion, place, and finally marketing controlling, which feeds back into the earlier steps.`},
 {lec:'mk-3', q:R`Would you give a 7-digit loan for a 600 m² tattoo studio on Zürich’s Bahnhofstrasse? Structure your answer with the lecture’s tools.`, a:R`Internal: does the founder have the resources (capital, team, brand, followers), competencies (artistic skill, reputation) and capabilities (running a large studio, steady quality) to fill 600 m²? External: trends (tattoos as mainstream, premium self-expression), PESTEL (economy and purchasing power in Zürich, legal hygiene rules, socio-demographics), Five Forces (rivalry of existing studios, low barriers for new entrants, substitutes, buyer power, supplier power of the landlord — top rent). Only if internal strengths match an attractive external situation is the loan justified; otherwise a smaller location first.`},
 {lec:'mk-3', q:R`Explain the BCG Matrix, its norm strategies and the idea of cross-financing.`, a:R`The BCG Matrix classifies products by relative market share (x) and market growth (y). Stars (high/high): maintain or strengthen. Cash cows (high share, low growth): maintain — they generate funds. Question marks (low share, high growth): strengthen or liquidate. Poor dogs (low/low): liquidate. Cross-financing: the surplus of cash cows is invested in promising question marks so they become stars, which later turn into cash cows when the market matures.`},
-{lec:'mk-3', q:R`Describe the four stages of the product life cycle and three strategies to sustain growth.`, a:R`Introduction: slow sales growth, negative or low profits, highest promotion-to-sales ratio (inform, induce trial, secure distribution), higher prices. Growth: rapid sales climb, profits rise as marketing costs spread over more volume. Maturity: sales growth slows, then absolute sales fall (switching, overcapacity) and profits decline through falling prices and refresh investments. Decline: technological advances, taste shifts and competition → overcapacity, price cuts, profit erosion → withdrawal or reduced ranges. Growth strategies: improve quality and add features/models; increase distribution coverage and enter new channels; lower prices for the next layer of price-sensitive buyers.`}
+{lec:'mk-3', q:R`Describe the four stages of the product life cycle and three strategies to sustain growth.`, a:R`Introduction: slow sales growth, negative or low profits, highest promotion-to-sales ratio (inform, induce trial, secure distribution), higher prices. Growth: rapid sales climb, profits rise as marketing costs spread over more volume. Maturity: sales growth slows, then absolute sales fall (switching, overcapacity) and profits decline through falling prices and refresh investments. Decline: technological advances, taste shifts and competition → overcapacity, price cuts, profit erosion → withdrawal or reduced ranges. Growth strategies: improve quality and add features/models; increase distribution coverage and enter new channels; lower prices for the next layer of price-sensitive buyers.`},
+{lec:'mk-3', q:R`A German carmaker considers investing in autonomous driving. Name all six PESTEL fields and discuss two of them with one pro and one con each. (Exam style as announced by Henkel on 4 Nov)`, a:R`Fields: political, economic, social/demographic, technological, ecological, legal. Social: pro: the ageing society wants to stay mobile but older people may no longer drive, which creates demand for autonomous taxis (and busy professionals want to work while being driven); con: older people have less buying power for expensive cars. Technological: pro: assistance systems already work and the technology keeps improving; con: chips and sensors are expensive and depend on US suppliers, there is no shared car-to-car platform and 5G coverage is weak. (Alternatives: legal: currently not allowed in Germany, liability unclear vs Waymo’s permitted route in Munich shows it can be approved; ecological: smoother driving saves energy vs high server and chip-production emissions.) Only discuss as many fields and arguments as asked; extra ones are not read.`},
+{lec:'mk-3', q:R`Draw and explain the product life cycle. Why does the profit curve start and end below zero, and what should a multi-product firm do with it?`, a:R`x-axis time, y-axis sales and profit; four phases: introduction, growth, maturity, decline. Sales start at zero, rise, turn during maturity and fall in decline. Profit starts negative because development, facilities and launch marketing are paid before sales cover them, turns positive in early growth, peaks at the end of growth and falls (and can turn negative) in maturity and decline because of price pressure, warranties, facelifts and the advertising needed to keep the product in the market. A multi-product firm should hold products in every phase and use the cash from mature products (cash cows) to finance new ones (question marks), e.g. iPhone profits fund the Vision Pro; this is the same logic as the BCG Matrix.`}
 ];
 
 const MK_CHEAT = [
@@ -714,5 +759,12 @@ R`Internal: resources (physical, financial, human, intangible), competencies (em
 R`Trend = direction with momentum & durability, more predictable than a fad · technological, sociological, ecological, economic`,
 R`PESTEL: political, economic, socio-demographic, technological, ecological, legal · Five Forces (industry): rivalry, new entrants, substitutes, supplier power, buyer power`,
 R`PLC: intro (slow sales, low/neg. profit, max promo ratio, high price) → growth (rapid sales, profits up; quality/features, channels, lower prices) → maturity (slowing, decaying, profits fall) → decline (overcapacity, price cuts, withdraw)`,
-R`BCG (share × growth): question marks strengthen/liquidate · stars maintain/strengthen · cash cows maintain · poor dogs liquidate · cross-finance cash cows → question marks`]}
+R`BCG (share × growth): question marks strengthen/liquidate · stars maintain/strengthen · cash cows maintain · poor dogs liquidate · cross-finance cash cows → question marks`]},
+{h:'L3 · In class 4 Nov (Henkel’s hints)', items:[
+R`Competitor = whoever does the same job for your profitable customers: Lufthansa business class vs Teams (job: get to the meeting)`,
+R`PESTEL exam: name 6 → explain in one sentence → apply (discuss 2 fields, 1 pro + 1 con) · invest if ≥ 2–3 fields yellow/green`,
+R`Autonomous driving: social green (ageing) · tech yellow (US chips, no car-to-X, 5G) · legal red (not allowed in DE) · eco two-sided`,
+R`PLC: axes time vs sales + profit · profit starts negative (development, rent, launch marketing), negative again late (warranties, facelifts, ads)`,
+R`Portfolio: products in every phase, cross-finance new ones from mature ones (iPhone → Vision Pro) = BCG logic`,
+R`Open questions ≤ 10 P (~10 min), ~50% for naming · extra items beyond the requested number are not read · MC: "always" / either-or = usually false`]}
 ];

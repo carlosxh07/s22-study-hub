@@ -248,7 +248,18 @@ Corporate finance — risk-free coupons and portfolio (coupon stripping), the st
 - Rank :: if $A^{-1}$ exists, $A$ is regular, all rows and columns are independent, and $rk(A) = n$ (3 for three assets)
 - When it is not possible :: if the payoff vectors are linearly dependent ($A$ singular), not every coupon can be generated
 
-Worked example (Exam 2025): $A = \begin{pmatrix}4&3&6\\3&2&4\\-2&-2&-6\end{pmatrix}$ gives $A^{-1} = \begin{pmatrix}-2&3&0\\5&-6&1\\-1&1&-0.5\end{pmatrix}$. Crisis coupon $(0,0,1)^T$ = column 3: buy 1 BMW, sell 0.5 SAP. Risk-free coupon $(1,1,1)^T$ = row sums $(1, 0, -0.5)^T$: buy 1 EON, sell 0.5 SAP. $rk(A) = 3$.`,
+Worked example (Exam 2025): $A = \begin{pmatrix}4&3&6\\3&2&4\\-2&-2&-6\end{pmatrix}$ gives $A^{-1} = \begin{pmatrix}-2&3&0\\5&-6&1\\-1&1&-0.5\end{pmatrix}$. Crisis coupon $(0,0,1)^T$ = column 3: buy 1 BMW, sell 0.5 SAP. Risk-free coupon $(1,1,1)^T$ = row sums $(1, 0, -0.5)^T$: buy 1 EON, sell 0.5 SAP. $rk(A) = 3$.
+
+**Exam hints from the lecture on 2 Nov (Rülke, from the recording).**
+- Exercise 4 :: coupon stripping exactly like the 2025 exam with new numbers, 16–18 points: inverting the 3×3 matrix with Gauss about 9 points, interpretation about 8 points, rank 1 point (always 3)
+- Interpretation :: crisis hedge = the matching column of $A^{-1}$; risk-free coupon $(1,1,1)^T$ = row sums of $A^{-1}$; plus = buy (long), minus = sell (short). A hedge is not the same as risk-free
+- Lecture example (slide 21) :: $A^{-1} = \begin{pmatrix}-5&3&-2\\-4&2&-1.5\\2&-1&1\end{pmatrix}$ → crisis: 5 EON short, 4 BMW short, 2 SAP long; risk-free: row sums $-4, -3.5, +2$
+- Pivot off the diagonal ("worst case") :: swap ROWS, never columns, because Gauss works on rows
+- Last pivot is 0 :: no inverse; write "linear dependence", rank = number of pivot steps
+- Not needed :: rules such as $(AB)^{-1}$ are "completely irrelevant" for the exam, and checking $A\cdot A^{-1} = I$ is not required
+- Production programme :: only 2×2 in the exam (ice cream and pizza) with the formulas given; only $x \to b = (I-D)x$ or $b \to x = (I-D)^{-1}b$. A negative $b$ means the good must be bought in. Interpreting $T$ is not exam-relevant
+- Production coefficient :: $d_{ij}$ = delivery from $i$ to $j$ divided by the output of the receiver $j$
+- Chapter 3 reminders :: Markov steady state (16–18 points): drop one equation and add "shares sum to 1"; internal prices: 3 cost centres with nice numbers`,
 cards:[
 {q:R`Definition of the inverse $A^{-1}$?`, a:R`The matrix with $A\cdot A^{-1} = A^{-1}\cdot A = I$. It exists only for regular quadratic matrices.`},
 {q:R`$(A\cdot B)^{-1} = ?$`, a:R`$B^{-1}\cdot A^{-1}$ — the order reverses.`},
