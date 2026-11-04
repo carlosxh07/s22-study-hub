@@ -8932,7 +8932,12 @@ R`Growing annuity: $PV = \frac{C_1}{r-g}\left[1-\left(\frac{1+g}{1+r}\right)^T\r
 R`Delayed stream: value it one period before its first payment, then discount from there`,
 R`Bond: $P = \frac{C}{y}\left[1-\frac{1}{(1+y)^T}\right] + \frac{F}{(1+y)^T}$ · coupon rate > y → premium, = → par, < → discount`,
 R`Current yield $= C/P$ · YTM = the $y$ that solves the price equation · yearly coupons with a semiannual quote $q$: $(1+q/2)^2-1$`,
-R`Modified duration $D/(1+y)$ · $\frac{\Delta P}{P} \approx -\frac{D}{1+y}\Delta y$ (Δy = 0.01 per point) · big changes: reprice`]}
+R`Modified duration $D/(1+y)$ · $\frac{\Delta P}{P} \approx -\frac{D}{1+y}\Delta y$ (Δy = 0.01 per point) · big changes: reprice`]},
+{h:'Class 4 (forward rates, inflation, stocks)', items:[
+R`Bond → cash flows: coupon = rate × face (÷ 2 if semiannual) · last payment = coupon + face`,
+R`Forward: $(1+r_b)^b = (1+r_a)^a(1+f_{a,b})^{b-a}$ · semiannual: halve rates, double exponents · continuous: $f = (b\,r_b - a\,r_a)/(b-a)$`,
+R`Real rate: $(1+\text{nominal})/(1+\text{inflation}) - 1$ (110 vs 3% → 6.80%)`,
+R`Stock return $R = (P_1 - P_0 + D_1)/P_0$ · value $P_0 = D_1/(r-g)$ ($r>g$), constant dividend $D/r$`]}
 ];
 
 /* ---------- lectures (Prof. Karapandža's class slides, content only) ---------- */
@@ -9334,6 +9339,111 @@ quiz:[
 {q:R`Austria's 100-year bond fell from about €140 to €30 between 2020 and 2025. Why?`, opts:[R`Austria missed coupon payments`,R`Inflation reduced the face value`,R`Yields rose about 3 points at a duration of about 73 years`,R`The coupon was cut from 0.85% to 0.37% in the restructuring`], correct:2, exp:R`Every payment was made. The yield rose from 0.37% to 3.25%; with D ≈ 73 the first point already halves the price. The duration shrinks as yields rise, so later points cost less.`},
 {q:R`Assets €10bn, debt €9bn, equity €1bn. Asset values fall by 5%. What happens to equity?`, opts:[R`It falls by 5% to €0.95bn`,R`It falls by 50% to €0.5bn`,R`It stays at €1bn, because debt is fixed`,R`It falls by 10% to €0.9bn`], correct:1, exp:R`Assets €9.5bn − debt €9bn = equity €0.5bn: a small asset loss is a large equity loss. That is why regulators ask banks how sensitive they are to rates — and why SVB failed.`},
 {q:R`Silicon Valley Bank's bonds lost about USD 15bn in 2022. What caused the loss?`, opts:[R`The issuers defaulted on their payments`,R`Interest rates rose, so the bond prices fell`,R`The bank sold the bonds at par`,R`Inflation lowered the coupons`], correct:1, exp:R`The bonds never defaulted — their prices fell when rates rose. With equity of only ≈ USD 16bn, depositors withdrew USD 42bn in one day and the bank was closed.`}
+]},
+/* ------------------------------------------------------------ CLASS 4 ------------------------------------------------------------ */
+// Built from the lecture recording of 4 Nov 2026 (no slides yet) — check against the Class 4 slides once uploaded.
+{id:'dt-c4', ch:4, title:'Forward Rates, Inflation & Stocks', date:'Class 4', drills:['fwd','rates','bond','ret'],
+examWeight:'From the recording of 4 Nov (slides not yet uploaded): bond description → cash-flow timeline (certain exam task), semiannual quotes, the forward-rate thought experiment in annual, semiannual and continuous units, why companies borrow and lock in rates, inflation and real vs nominal, why the ECB targets 2%, negative bond yields, what a share is (limited liability), IPO vs secondary market, trading traps (single-dealer markets, trading hours, FX, delayed prices), holding-period return with dividends, stock splits and buybacks, price = discounted dividends and the growing-perpetuity (Gordon) model',
+summary:R`**Built from the lecture recording (4 Nov).** The slides for this class are not uploaded yet — check the numbers against them later.
+
+**Where you stand.** With discounting, present values and bond pricing you can already solve roughly 30–40% of a past exam (all in Canvas). Karapandža: being correct is not enough — be **quick**, so practise until it is automatic.
+
+**Exam task, 100% certain: bond description → cash flows.** Four inputs:
+- Maturity :: the date of the last payment
+- Face value :: the largest part of the last payment
+- Coupon rate :: in percent **of the face value**
+- Frequency :: annual or semiannual (twice a year)
+
+Example: face value 1,000, coupon rate 10%, semiannual → 10% × 1,000 / 2 = **50 every six months**, and 1,050 at maturity. Annual coupons would be 100 once a year. Those are the only two rules. The timeline shows what the bond **pays you**; the price you pay today is the discounted value of those payments (so it is only known once you have calculated it).
+
+**Pricing with a semiannual quote.** US government bond rates are almost always "nominal annual, compounded semiannually": 4.25% means 2.125% per half-year. So 6 months is discounted with $1.02125$, 1 year with $1.02125^2$, 1.5 years with $1.02125^3$ — never with $1.0425$. With continuous compounding the same 6-month payment would be $50/e^{0.0425\times0.5}$. **4% without a compounding frequency means nothing** — always ask in which units the rate is quoted.
+
+**Why companies borrow.** Microsoft: about USD 750bn of assets (not market value), roughly 300-something billion of it debt — close to half. Having no debt is not optimal: with taxes, debt saves tax (in a world without taxes it would not matter; the optimal capital structure comes in later courses). Two forms: loans and bonds, and **forward contracts** — fixing today the rate on a loan you will take later. Lufthansa needs EUR 100m in two years: sign today at, say, 7%, or wait and carry the **interest-rate risk**. The forward rate is the market's current expectation — the first financial derivative of the course.
+
+**The forward-rate thought experiment.** The yield curve tells you the rate from today to year 2 and from today to year 3 — but not from year 2 to year 3. Two ways to leave your money in the bank for 3 years:
+- One contract :: 3 years at the 3-year rate → $(1+r_3)^3$
+- Two contracts :: 2 years at the 2-year rate, plus a contract signed **today** to reinvest for year 3 → $(1+r_2)^2(1+f_{2,3})$
+
+Both oblige you to the same thing, so they must be equal: $(1+r_3)^3 = (1+r_2)^2(1+f_{2,3})$. Only $f$ is unknown. Example: $r_2 = 4\%$, $r_3 = 5\%$ → $f_{2,3} = 1.05^3/1.04^2 - 1 = 7.03\%$.
+
+Same logic for any gap, e.g. year 2 to year 7, in whatever units the data come in:
+- Annual :: $(1+r_7)^7 = (1+r_2)^2(1+f_{2,7})^5$
+- Semiannual :: $(1+r_7/2)^{14} = (1+r_2/2)^4(1+f_{2,7}/2)^{10}$
+- Continuous :: $e^{7r_7} = e^{2r_2}\,e^{5f_{2,7}}$, so $f_{2,7} = (7r_7 - 2r_2)/5$
+
+**Inflation = the average increase in prices.** It cuts what your money can buy. Your salary rises from 100 to 110 (+10% nominal) while prices rise 3%: real increase $1.10/1.03 - 1 = 6.80\%$ — you can buy 6.8% more apples, not 10%. Karapandža's caveat: official figures (e.g. 2.8%) depend on which basket is measured, and every government prefers a low number.
+
+**Why the ECB targets 2%, not 0%.** The ECB's mandate is price stability, done as inflation targeting at 2%. Targeting misses up and down; aim at 0% and you regularly land in **deflation**. Falling prices make people delay purchases (the car is 2% cheaper next year), spending stalls and the economy stagnates. His critique: 2% a year is 2% poorer every year — over 30 years that adds up.
+
+**Compare money through time in real terms.** Microsoft was worth USD 604bn in 1999 — in today's money more than Apple's "record" 800bn later. Adjusted for inflation, the Dutch East India Company (VOC, 1600s) is by far the most valuable company ever, more than double Nvidia today; PetroChina's IPO (≈ 1.2 trillion) beats today's "record" IPOs. Long-run averages also mislead: over 100 years Japan looks like a high-inflation country, although it had almost none (even deflation) for the last 50.
+
+**Protecting yourself against inflation.** Invest at a return above inflation. Government bonds (UK example): nominal and real returns move together, but for long stretches **real** returns were negative — more pounds, less stuff. Bonds are a weak inflation hedge.
+
+**Negative nominal yields (Germany, Netherlands, Nordics, roughly 2015–2020).** Lend the state EUR 100, get back less. Why would anyone buy? **Regulation**: banks must hold part of their deposits in AAA government bonds in the same currency — a forced buyer, so the seller sets the price. Karapandža calls it "taxation without legislation". Side effects: loans at negative rates (he took a EUR 1,000 loan in class and repaid 980), banks charging companies negative deposit rates. In a free market nobody would accept less than the safe-deposit box gives (0%).
+
+**What a share is.** Ownership of a company with **limited liability** — the worst case is losing what you paid; you never pay the company's debts (the big change of the early 17th century). A bond = lending to the company: contractual coupons and face value. A share = dividends and a later sale price, **nothing guaranteed**.
+- Which is riskier? :: The share, for the same company — bonds usually rank before shares in bankruptcy (assets sold, debt repaid first, shareholders get the rest)
+- But :: read the contract — German high-yield bonds existed where bondholders ranked **after** shareholders
+
+**How shares are traded.**
+- Primary market (IPO) :: new shares sold by the company to investors after a roadshow and an auction — like buying a new car at the dealer; the company gets the money
+- Listing rules :: e.g. uniform accounting standards (IFRS in Germany for listed firms, not German GAAP), so 130m in earnings really means more than 100m
+- Secondary market :: the stock exchange (NYSE, Nasdaq, Xetra) matches buyers and sellers; the company receives **nothing** from these trades
+
+History: NYSE floor auctions with hand signals until 2007; Nasdaq 1971 as the first electronic dealer market (slow dial-up, days to fill an order). Today ≈ 300,000 trades per second — a signal needs 0.02 s from New York to Frankfurt, so the price on your screen is already old.
+
+**Traps for retail investors (the industry is "there to get you" — read the contract):**
+- Fake shares :: "Alibaba" in a German app is usually a special-purpose vehicle (Cayman Islands) that tracks the price; in bankruptcy you get nothing
+- Single-dealer market :: app brokers route orders to one dealer instead of an auction exchange (Trade Republic → LS Exchange of Lang & Schwarz, Scalable → gettex with Baader Bank) and receive **payment for order flow**; the dealer keeps the spread
+- Trading hours :: only trade while the stock's main exchange is open — US stocks after 15:30 German time, Mercedes during Xetra hours (9:00–17:30); outside those hours spreads can reach ≈ 10%
+- FX :: a US stock shown in euros still costs a conversion spread (2–4%)
+- Prices :: free quotes are usually delayed 10–15 minutes and come from one venue; the price you pay is set by bid and ask at execution
+- Taxes in Germany :: withheld by the broker (capital gains, solidarity surcharge, church tax), which is why foreign brokers are impractical
+
+**US reporting is criminal law.** In the 10-K (annual report to the SEC) the CEO and CFO are personally liable: misstating a few million can mean around 20 years in prison. In Germany it is an offence you can insure against. Karapandža's story: a fund manager who only ever showed his "predictions" after the fact ended up in prison.
+
+**Return on a share** = price gain plus dividend, over the price you paid:
+$$R = \frac{P_1 - P_0 + D_1}{P_0}$$
+Pay 100, price 110, dividend 5 → $(110 - 100 + 5)/100 = 15\%$. Watch the data: charts are usually adjusted for **stock splits** (1 share → 2, price halves, your stake is unchanged) and **share buybacks** (fewer shares, more value per share), sometimes also for dividends — so an old chart price is not the price traded on that day.
+
+**What a share should be worth: discounted cash flows.** Dividends look like coupons, the sale price like a face value — only nothing is fixed, and the discount rate $r$ must match the company's **risk**.
+$$P_0 = \frac{D_1}{1+r} + \frac{P_1}{1+r} = \frac{D_1}{1+r} + \frac{D_2}{(1+r)^2} + \frac{P_2}{(1+r)^2} = \dots$$
+Push the horizon out and the far-away price matters less and less, the dividends more and more. Companies live forever, so:
+- Constant dividend :: $P_0 = D/r$ (perpetuity)
+- Dividend growing at $g$ forever :: $P_0 = \frac{D_1}{r-g}$ (growing perpetuity, $r > g$), e.g. $D_1 = 3$, $r = 8\%$, $g = 4\%$ → 75
+
+Why dividends and not prices: dividends are stable and predictable, prices are not (a known puzzle). Companies pay ever fewer dividends and bet on growth, which makes valuing them harder. Next: risk.`,
+cards:[
+{q:R`Bond: face value 1,000, coupon rate 10%, semiannual, 3 years — the cash flows?`, a:R`50 every six months (10% × 1,000 / 2), and 1,050 at the end (year 3). Annual coupons would be 100 once a year.`},
+{q:R`A US government rate of 4.25% — how do you discount a payment in 1.5 years?`, a:R`Nominal annual, compounded semiannually → 2.125% per half-year: divide by $1.02125^3$. Continuous instead: $e^{0.0425\times1.5}$.`},
+{q:R`Forward rate from year 2 to year 3 (annual rates)`, a:R`$(1+r_3)^3 = (1+r_2)^2(1+f_{2,3})$ — one 3-year contract = a 2-year contract plus a forward signed today. $r_2 = 4\%$, $r_3 = 5\%$ → 7.03%.`},
+{q:R`Forward rate from year 2 to year 7, continuous and semiannual`, a:R`Continuous: $e^{7r_7} = e^{2r_2}e^{5f}$ → $f = (7r_7 - 2r_2)/5$. Semiannual: $(1+r_7/2)^{14} = (1+r_2/2)^4(1+f/2)^{10}$.`},
+{q:R`Salary +10% nominal, inflation 3% — real increase?`, a:R`$1.10/1.03 - 1 = 6.80\%$ (not 7%).`},
+{q:R`Why does the ECB target 2% and not 0%?`, a:R`It misses its target both ways; at 0% it would often hit deflation → people delay purchases → stagnation. A 2% target keeps a buffer.`},
+{q:R`Why were German government bond yields negative (≈ 2015–2020)?`, a:R`Regulation forced banks to hold AAA government bonds in their own currency — a forced buyer lets the seller set the price. "Taxation without legislation."`},
+{q:R`Primary vs secondary market`, a:R`Primary = IPO, the company sells new shares and gets the money. Secondary = stock exchange, investors trade with each other; the company gets nothing.`},
+{q:R`Share vs bond of the same company — which is riskier, and the catch?`, a:R`The share: nothing is guaranteed and bonds usually rank first in bankruptcy. Catch: the contract decides the ranking — read it.`},
+{q:R`Holding-period return: buy at 100, price 110, dividend 5`, a:R`$R = (P_1 - P_0 + D_1)/P_0 = (110 - 100 + 5)/100 = 15\%$.`},
+{q:R`Dividend discount model`, a:R`$P_0 = \sum D_t/(1+r)^t$ (+ far-away price that matters less and less). Constant: $D/r$. Growing forever: $D_1/(r-g)$, $r > g$.`},
+{q:R`Retail trading rules from Karapandža`, a:R`Trade only while the main exchange is open (US stocks after 15:30) · watch FX spreads · free quotes are delayed · check it is the real share, not an SPV · read the contract.`}
+],
+quiz:[
+{q:R`A bond has a face value of 1,000, a coupon rate of 8% paid semiannually and matures in 2 years. What does it pay?`, opts:[R`80 per year, 1,080 at the end`,R`40 every six months, 1,040 at the end`,R`8 every six months, 1,008 at the end`,R`40 every six months, 1,000 at the end`], correct:1, exp:R`Coupon = 8% × 1,000 / 2 = 40 every half-year; the last payment is coupon + face = 1,040. 80 once a year would be annual coupons.`},
+{q:R`A US government bond rate is quoted at 4.25% (nominal annual, semiannual compounding). With which factor do you discount a payment in one year?`, opts:[R`$1.0425$`,R`$1.02125$`,R`$1.02125^2$`,R`$e^{0.0425}$`], correct:2, exp:R`4.25% means 2.125% per half-year; one year = two half-years → $1.02125^2$. $e^{0.0425}$ would be continuous compounding.`},
+{q:R`The 2-year spot rate is 4% and the 3-year spot rate 5% (annual compounding). What is the forward rate from year 2 to year 3?`, opts:[R`5.00%`,R`6.00%`,R`7.03%`,R`9.00%`], correct:2, exp:R`$(1+r_3)^3 = (1+r_2)^2(1+f)$ → $f = 1.05^3/1.04^2 - 1 = 1.157625/1.0816 - 1 = 7.03\%$.`},
+{q:R`Why must $(1+r_3)^3 = (1+r_2)^2(1+f_{2,3})$ hold?`, opts:[R`Because forward rates are set by the central bank`,R`Because both routes oblige you to leave your money in the bank for 3 years`,R`Because spot rates are always equal across maturities`,R`Because the yield curve is always upward-sloping`], correct:1, exp:R`One 3-year contract and "2-year contract + forward signed today" are the same commitment, so they must pay the same — only $f$ is unknown.`},
+{q:R`With continuous compounding, which equation gives the forward rate from year 2 to year 7?`, opts:[R`$e^{7r_7} = e^{2r_2}e^{5f}$`,R`$e^{7r_7} = e^{2r_2}e^{7f}$`,R`$(1+r_7)^7 = (1+r_2)^2(1+f)^5$`,R`$7r_7 = 2r_2 + 7f$`], correct:0, exp:R`Years 2 to 7 are 5 years: $e^{7r_7} = e^{2r_2}e^{5f}$, so $f = (7r_7 - 2r_2)/5$. Option c is the annual-compounding version.`},
+{q:R`Your salary rises from 100 to 110 while inflation is 3%. What is your real salary increase?`, opts:[R`10.00%`,R`7.00%`,R`6.80%`,R`13.30%`], correct:2, exp:R`$1.10/1.03 - 1 = 6.80\%$. Subtracting (10% − 3% = 7%) is only an approximation.`},
+{q:R`Why does the ECB target 2% inflation rather than 0%?`, opts:[R`Because 2% makes everyone richer each year`,R`Because missing a 0% target would often mean deflation, and people would delay purchases`,R`Because governments must repay their debts at 2%`,R`Because inflation below 2% cannot be measured`], correct:1, exp:R`Targeting is imprecise. Aim at 0% and you regularly fall into deflation: things get cheaper, people wait, spending stalls, the economy stagnates.`},
+{q:R`Why could German government bonds have negative nominal yields around 2015–2020?`, opts:[R`Because Germany was close to default`,R`Because inflation was negative for years`,R`Because regulation forced banks to hold AAA government bonds — a forced buyer`,R`Because German bonds paid no coupons`], correct:2, exp:R`Banks had to hold part of their deposits in AAA government bonds in their own currency. Without the rule, nobody would accept less than the 0% of a safe-deposit box.`},
+{q:R`What does limited liability mean for a shareholder?`, opts:[R`The company must pay a minimum dividend`,R`The worst case is losing the money paid for the share; you never pay the company's debts`,R`Shareholders are repaid before bondholders in bankruptcy`,R`The share price cannot fall below the IPO price`], correct:1, exp:R`You own part of the company but are not liable for what it does — the most you can lose is your investment.`},
+{q:R`You sell a SpaceX share on Nasdaq to another investor. What does SpaceX receive?`, opts:[R`The full sale price`,R`The difference to the IPO price`,R`A small exchange fee`,R`Nothing — it is a secondary-market trade between two investors`], correct:3, exp:R`Only in the primary market (IPO) does the company sell shares and receive money. On the exchange, investors trade with each other.`},
+{q:R`Which statement about stocks and bonds of the same company is right?`, opts:[R`Bondholders are always repaid before shareholders, whatever the contract says`,R`The share is typically riskier, but the contract decides who is repaid first`,R`Dividends are fixed in the share contract like coupons`,R`Bonds are riskier because coupons can be cancelled`], correct:1, exp:R`Usually bonds rank first in bankruptcy, so the share is riskier — but contracts can say otherwise (German high-yield bonds ranked after shareholders). Read the contract.`},
+{q:R`You buy a share at 100. A year later it trades at 110 and paid a dividend of 5. What is your return?`, opts:[R`5%`,R`10%`,R`15%`,R`15.5%`], correct:2, exp:R`$R = (P_1 - P_0 + D_1)/P_0 = (110 - 100 + 5)/100 = 15\%$.`},
+{q:R`A company announces a 1-for-2 stock split; one share cost 100. What happens?`, opts:[R`You own twice as much of the company`,R`Each share now costs about 50 and your stake is unchanged`,R`The company receives new money`,R`The dividend per share doubles`], correct:1, exp:R`One share becomes two, the price halves, your percentage ownership stays the same. Charts are usually adjusted for splits, so old chart prices are not the prices traded then.`},
+{q:R`A share pays a dividend of 3 next year, growing 4% a year forever; the risk-appropriate rate is 8%. Fundamental value?`, opts:[R`37.50`,R`75.00`,R`78.00`,R`25.00`], correct:1, exp:R`Growing perpetuity: $P_0 = D_1/(r-g) = 3/(0.08 - 0.04) = 75$. $3/0.08 = 37.50$ ignores growth.`},
+{q:R`Why does Karapandža value shares through dividends rather than a far-away sale price?`, opts:[R`Because prices are always lower than dividends`,R`Because the further out the horizon, the less the price matters, and dividends are stable and predictable`,R`Because dividends are guaranteed by law`,R`Because shares cannot be sold after 50 years`], correct:1, exp:R`$P_0 = \sum D_t/(1+r)^t + P_T/(1+r)^T$; as T grows, the discounted price shrinks and the value rests on dividends, which are much more predictable than prices.`},
+{q:R`You want to buy US stocks through a German app. When should you trade, according to Karapandža?`, opts:[R`Early in the morning, before the US opens`,R`Around noon German time`,R`After 15:30 German time, while the US exchange is open`,R`Late in the evening, when spreads are smallest`], correct:2, exp:R`Trade while the stock's main exchange is open — then arbitrage keeps the single-dealer price close; outside those hours spreads can reach about 10%.`}
 ]}
 ];
 
@@ -17224,7 +17334,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261104144838';
+const HUB_BUILD = '20261104172654';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{
