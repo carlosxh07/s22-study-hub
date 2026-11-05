@@ -340,7 +340,29 @@ with $\lambda > 0$ and $e \approx 2.718$.
 - Emergency room example :: patients arriving between 6 and 7 p.m. with $\lambda = 6.9$: $P(X = 6) = 0.151$, $P(X = 7) = 0.149$, $P(X = 5) = 0.131$
 - Poisson approximation to the binomial :: use $P(X=x) \approx e^{-np}\frac{(np)^x}{x!}$ only if $n \ge 100$ and $np \le 10$
 
-Careful, two slide typos: the Poisson-approximation slide prints "np ≥ 10" — the condition is $np \le 10$ (rare events, small $p$). The ER table prints 0.0131 for $x = 5$; the correct value is 0.131.`,
+Careful, two slide typos: the Poisson-approximation slide prints "np ≥ 10" — the condition is $np \le 10$ (rare events, small $p$). The ER table prints 0.0131 for $x = 5$; the correct value is 0.131.
+
+**In class 5 Nov: how to think about the binomial coefficient.** The hardest part of the course, says the lecturer, and it returns throughout finance (an asset manager succeeding three years in a row). Draw the tree or picture the Galton board: each ball goes right (success) or left (failure).
+- The powers :: $p^x(1-p)^{n-x}$ is the probability of **one** path with $x$ rights and $n-x$ lefts
+- The coefficient :: $\binom{n}{x}$ counts **how many paths** end there
+- The edges :: all failures or all successes is one path only, so $\binom{n}{0} = \binom{n}{n} = 1$
+- One step in :: one success has $n$ paths, so $\binom{n}{1} = n$ (for $n = 4$ the row is 1, 4, 6, 4, 1: Pascal's triangle)
+- Your anchor :: the lottery. $49 \cdot 48 \cdots 44$ means you divide 49! by 43!, and because the order of the 6 balls does not matter you also divide by 6!. So $\binom{49}{6} = \frac{49!}{43!\,6!}$. If you forget the formula, rebuild it from here
+
+Why the standard deviation looks as it does: more trials let the balls spread further, and $p(1-p)$ is largest at $p = 0.5$. With $p$ near 0 or 1 nearly all balls land on one side. So variance $= np(1-p)$, and $\sigma$ is its root. The formula is on the exam formula sheet, but with many formulas on one page you have to recognise the right one.
+
+**Worked in class: guessing on TUT 5, exercise 2 (5.80).** $n = 15$, $p = 0.2$.
+- At least 5 correct :: use the complement. $P(X \ge 5) = 1 - P(X \le 4) = 1 - 0.8358 = 0.1643$, because the 16 outcomes from 0 to 15 sum to 1. "Below 5" means 0, 1, 2, 3, 4
+- Pass (40% = 6 correct) :: reuse (a). $P(X \ge 6) = P(X \ge 5) - P(X = 5) = 0.1643 - 0.1032 = 0.0611$
+- "A" (80% = 12 correct) :: only four terms, $P(12) + P(13) + P(14) + P(15) \approx 0.000001$. Here you do not need the complement
+- Mean and standard deviation :: $\mu = 3$, $\sigma = \sqrt{2.4} \approx 1.55$
+
+**Exam hints from the lecture.**
+- A task like this is likely in the exam, with about 8 to 12 points for the whole exercise (his estimate)
+- Write the setup down, e.g. $1 - \sum_{x=0}^{4} P(X = x)$, and then the calculation. The more steps you write, the fewer mistakes you make
+- He wants as little time pressure as possible. The exam is training: redo the exercises yourself rather than reading the solutions
+- Learn $\binom{n}{x}$ on your calculator (classmates in the lecture: SHIFT + ÷, nCr). Without it you can still compute it from the factorials
+- There is no shortcut for a binomial sum at this stage. With 100 or 1,000 questions it becomes unworkable, and that is why the normal approximation exists`,
 cards:[
 {q:R`Discrete random variable`, a:R`A quantitative variable whose value depends on chance and whose possible values can be listed.`},
 {q:R`Mean of a discrete random variable`, a:R`$\mu = \sum x\,P(X=x)$, also called expected value. Long-run average of many independent observations.`},
@@ -363,7 +385,11 @@ quiz:[
 {q:R`Poisson with λ = 4. Standard deviation?`, opts:[R`2`,R`4`,R`16`,R`0.5`], correct:0, exp:R`σ = √λ = 2.`},
 {q:R`Poisson with λ = 2. P(X = 0)?`, opts:[R`0.135`,R`0.271`,R`0.000`,R`0.500`], correct:0, exp:R`e^−2 · 2⁰/0! = 0.135.`},
 {q:R`When may a binomial be approximated by a Poisson distribution?`, opts:[R`n ≥ 100 and np ≤ 10`,R`n ≥ 30 and np ≥ 10`,R`np ≥ 5 and n(1−p) ≥ 5`,R`Only when p = 0.5 exactly`], correct:0, exp:R`Rare events: many trials, small expected count. (np ≥ 5 and n(1−p) ≥ 5 is the normal approximation.)`},
-{q:R`Drawing 20 from 10,000 items without replacement: is the count of defectives binomial?`, opts:[R`Approximately, since 20 ≤ 5% of 10,000`,R`Exactly, as there is no replacement`,R`No, it is always Poisson`,R`Only if the defect rate is 0.5`], correct:0, exp:R`Without replacement it is approximately binomial if the sample is at most 5% of the population.`}
+{q:R`Drawing 20 from 10,000 items without replacement: is the count of defectives binomial?`, opts:[R`Approximately, since 20 ≤ 5% of 10,000`,R`Exactly, as there is no replacement`,R`No, it is always Poisson`,R`Only if the defect rate is 0.5`], correct:0, exp:R`Without replacement it is approximately binomial if the sample is at most 5% of the population.`},
+{q:R`Four trials, success probability p. Why is the coefficient of P(X = 1) equal to 4?`, opts:[R`Because p is multiplied four times`,R`Because the single success can happen on any of the 4 trials, so 4 paths end there`,R`Because the mean is 4p`,R`Because all outcomes are equally likely`], correct:1, exp:R`$\binom{n}{x}$ counts the paths. One success among 4 trials has 4 possible positions. The power terms give the probability of one such path.`},
+{q:R`n = 15, p = 0.2. You already know P(X ≥ 5) = 0.1643 and P(X = 5) = 0.1032. What is P(X ≥ 6)?`, opts:[R`0.2675`,R`0.8357`,R`0.0611`,R`0.1032`], correct:2, exp:R`"5 or more" minus exactly 5 leaves "6 or more": 0.1643 − 0.1032 = 0.0611.`},
+{q:R`n = 15. To find P(X ≥ 5) with the fewest terms, which sum do you use?`, opts:[R`1 − [P(0) + P(1) + P(2) + P(3) + P(4)]`,R`1 − [P(0) + P(1) + P(2) + P(3) + P(4) + P(5)]`,R`P(5) + P(6) + P(7) + P(8)`,R`1 − P(5)`], correct:0, exp:R`The complement of "at least 5" is "at most 4": x = 0 to 4. Including P(5) would give P(X ≥ 6).`},
+{q:R`With the same number of trials, for which p is the binomial spread largest?`, opts:[R`p = 0.1`,R`p = 0.9`,R`p = 0.2`,R`p = 0.5`], correct:3, exp:R`$\sigma = \sqrt{np(1-p)}$ and $p(1-p)$ is largest at $p = 0.5$: the balls go evenly to both sides.`}
 ]},
 
 {id:'st-6', ch:6, title:'The Normal Distribution', examWeight:'Table II areas, z-scores, percentiles (inverse), z_α, normal approximation with continuity correction',
@@ -411,7 +437,38 @@ Example: the IQ that marks the top 10%: area to the left 0.90 → $z = 1.28$ →
 **Normal approximation to the binomial.**
 => Find n and p → Check (np ≥ 5 and n(1 − p) ≥ 5) → Parameters (μ = np, σ = √(np(1 − p))) → Continuity correction (±0.5, then normal-curve area)
 
-Continuity correction: each binomial value $x$ is the bar from $x - 0.5$ to $x + 0.5$. So $P(X = 8) \approx$ area between 7.5 and 8.5, $P(X \le 8) \approx$ area left of 8.5, $P(X \ge 8) \approx$ area right of 7.5.`,
+Continuity correction: each binomial value $x$ is the bar from $x - 0.5$ to $x + 0.5$. So $P(X = 8) \approx$ area between 7.5 and 8.5, $P(X \le 8) \approx$ area left of 8.5, $P(X \ge 8) \approx$ area right of 7.5.
+
+**In class 5 Nov: think in standard deviations.** Every normal distribution differs only in $\mu$ and $\sigma$, so one table is enough. The lecturer's grandmother story: a grandchild scores 120 on an IQ test. She asks only two questions: what is the mean, and how big is one standard deviation? With $\mu = 100$ and $\sigma = 16$: $z = 20/16 = 1.25$, area to the left $0.8944$, so the child is in about the top 11%. Without a table: half the people are below the mean and about another third are between $\mu$ and $\mu + \sigma$, so one standard deviation above the mean already beats about 84%.
+
+- Finding $\sigma$ on a sketch :: the **inflection point** (Wendepunkt), where the curve changes from bending down to bending up, sits exactly one standard deviation from the mean
+- A single value :: for a continuous variable, one exact value has probability 0. Only areas have a probability
+- The tails :: the curve never touches the axis (asymptotic), so very extreme values are possible but very rare
+- Significance :: beyond about 2 standard deviations (5% in the two tails together) is what is later called significant. Beyond 3 is only about 0.3%
+- $z$-scores in practice :: results are often reported only in standard deviations from the mean (his example: excess-mortality charts during Corona)
+- Why everything looks normal :: traits built from many small effects, such as genes, act like many trials on the Galton board
+
+**Reading Table II: the table always gives the area to the left.**
+- Left of $z = -1.23$ :: 0.1093, about 11%
+- Left of $z = +1.23$ :: 0.8907
+- Right of $z = 0.85$ :: $1 - 0.8023 = 0.1977$
+- Between two values :: left area of the larger minus left area of the smaller
+- $z_{0.025}$ :: the area to the right is 2.5%, so the left area is 97.5%, so $z = 1.96$. By symmetry you can also find 0.0250 on the negative side at $-1.96$
+- $z_{0.05}$ :: left area 0.95 lies between 1.64 and 1.65, so 1.645. Either two-digit value is precise enough for him
+
+**Both directions, always with a sketch.** Draw the curve, shade the area, add a $z$-axis under it, and check that the result fits the sketch.
+- From $x$ to area :: IQ between 115 and 140: $z = 15/16 = 0.94$ and $z = 40/16 = 2.50$, so $0.9938 - 0.8264 = 0.1674$
+- From area to $x$ :: 90th percentile: find 0.90 inside the table, $z = 1.28$, then solve the formula for $x$: $x = \mu + z\sigma = 100 + 1.28 \cdot 16 = 120.48$. Interpretation: 90% score 120.48 or lower, 10% score higher
+
+Exercises on this chapter are variations of these moves. Learn the empirical-rule numbers (68, 95, 99.7) by heart.
+
+**Not needed for the exam, he said:** the normal-score table and the adjusted-income example of the normal probability plot ("I'm not going to ask about it"). In practice, check normality with a histogram against a normal curve. The formal test comes next semester in econometrics.
+
+**Normal approximation: started, to be finished next week.** Ten true/false questions, guessing, $p = 0.5$.
+- Exact :: $P(X = 7) = \binom{10}{7}0.5^{10} = 0.1172$ and $P(X = 8) = \binom{10}{8}0.5^{10} = 0.0439$, sum $0.1611$
+- Approximation (calculated here, the lecture stopped at the set-up) :: $\mu = 5$, $\sigma = \sqrt{2.5} = 1.58$, area from 6.5 to 8.5: $z = 0.95$ and $2.21$, so $0.9864 - 0.8289 = 0.1575$
+
+Careful, a few things were said loosely in the recording. Beyond 3 standard deviations is 0.3%, not 0.03%. One tail beyond 5 standard deviations is about 1 in 3.5 million, and beyond 4 about 1 in 32,000. An IQ of 85 has $z = -15/16 = -0.94$.`,
 cards:[
 {q:R`Two basic properties of density curves`, a:R`Always on or above the horizontal axis; total area under the curve = 1.`},
 {q:R`Standard normal distribution`, a:R`Normal with mean 0 and standard deviation 1. Any normal $x$ becomes standard normal via $z = (x-\mu)/\sigma$.`},
@@ -433,7 +490,11 @@ quiz:[
 {q:R`IQ μ = 100, σ = 16. Which IQ marks the 90th percentile?`, opts:[R`About 120.5`,R`About 126.3`,R`About 116.0`,R`About 110.0`], correct:0, exp:R`Left area 0.90 → z = 1.28 → 100 + 1.28 · 16 = 120.48.`},
 {q:R`A normal probability plot of a sample is clearly curved. Conclusion?`, opts:[R`The variable is not approximately normal`,R`The variable is exactly normal`,R`The sample size is too large`,R`The mean equals the median`], correct:0, exp:R`Only a roughly linear plot supports normality.`},
 {q:R`Binomial n = 40, p = 0.1. Normal approximation allowed?`, opts:[R`No, np = 4 is below 5`,R`Yes, n is at least 30`,R`Yes, n(1 − p) = 36 ≥ 5`,R`No, p must be exactly 0.5`], correct:0, exp:R`Both np and n(1−p) must be at least 5.`},
-{q:R`Normal approximation: P(X ≥ 30) uses the area…`, opts:[R`to the right of 29.5`,R`to the right of 30.5`,R`to the left of 30.5`,R`between 29.5 and 30.5`], correct:0, exp:R`The bar for x = 30 starts at 29.5, so "30 or more" starts there.`}
+{q:R`Normal approximation: P(X ≥ 30) uses the area…`, opts:[R`to the right of 29.5`,R`to the right of 30.5`,R`to the left of 30.5`,R`between 29.5 and 30.5`], correct:0, exp:R`The bar for x = 30 starts at 29.5, so "30 or more" starts there.`},
+{q:R`IQ μ = 100, σ = 16. A child scores 120. Which share scores lower?`, opts:[R`About 68%`,R`About 89%`,R`About 75%`,R`About 97.5%`], correct:1, exp:R`z = 20/16 = 1.25, Table II gives 0.8944. So the child is in about the top 11%.`},
+{q:R`Where on a normal curve can you read off one standard deviation?`, opts:[R`At the peak`,R`Where the curve touches the axis`,R`At the inflection point`,R`At the first quartile`], correct:2, exp:R`The curvature changes at μ ± σ. The curve never touches the axis.`},
+{q:R`X is normally distributed. What is P(X = 1/3) for one exact value?`, opts:[R`0`,R`The height of the curve at that value`,R`1 divided by the number of values`,R`It cannot be determined without σ`], correct:0, exp:R`For a continuous variable, only areas have a probability. A single point has no area.`},
+{q:R`Table II gives the area to the left. To find the IQ of the 90th percentile (μ = 100, σ = 16), you…`, opts:[R`compute z = (90 − 100)/16 and read its area`,R`find 0.90 inside the table, read z = 1.28, then x = 100 + 1.28 · 16`,R`find 0.10 inside the table and use z = −1.28 with x = 100 + 1.28 · 16`,R`multiply 100 by 0.90`], correct:1, exp:R`Inverse problem: from area to z, then back-transform. x = 120.48, so 90% score at most that and 10% score more.`}
 ]},
 
 {id:'st-7', ch:7, title:'Sampling Distribution of the Sample Mean', examWeight:'μ of x̄, σ/√n, when x̄ is normal, central limit theorem; probabilities for x̄',
@@ -585,7 +646,13 @@ R`Percentile: area → $z$ → $x = \mu + z\sigma$ · Binomial approx: $np, n(1-
 {h:"Sampling distribution & CIs", items:[
 R`$\mu_{\bar x} = \mu$ · $\sigma_{\bar x} = \sigma/\sqrt n$ · normal $x$ → normal $\bar x$ · large $n$ → CLT`,
 R`z-interval ($\sigma$ known): $\bar x \pm z_{\alpha/2}\sigma/\sqrt n$ · $E = z_{\alpha/2}\sigma/\sqrt n$ · $n = (z_{\alpha/2}\sigma/E)^2$ ↑`,
-R`t-interval ($\sigma$ unknown): $\bar x \pm t_{\alpha/2} s/\sqrt n$, $df = n - 1$`]}
+R`t-interval ($\sigma$ unknown): $\bar x \pm t_{\alpha/2} s/\sqrt n$, $df = n - 1$`]},
+{h:'In class 5 Nov (binomial → normal)', items:[
+R`Binomial: $p^x(1-p)^{n-x}$ = one path · $\binom{n}{x}$ = number of paths · $\binom{n}{0} = \binom{n}{n} = 1$, $\binom{n}{1} = n$`,
+R`"At least 5" = $1 - P(X \le 4)$ · $P(X \ge 6) = P(X \ge 5) - P(X = 5)$`,
+R`Table II = area to the LEFT · right = 1 − left · between = left(big) − left(small)`,
+R`$x \to z$: $z = (x-\mu)/\sigma$ · area $\to x$: $x = \mu + z\sigma$ · $z_{0.05} = 1.645$, $z_{0.025} = 1.96$, 90th percentile $z = 1.28$`,
+R`Inflection point = $\mu \pm \sigma$ · 68 / 95 / 99.7 · always sketch and check`]}
 ];
 
 /* ============================================================ TABLE IV (t) — exactly as in the handout ============================================================ */
