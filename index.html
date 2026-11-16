@@ -6964,8 +6964,8 @@ const MK_SESSIONS = [
   {n:3, date:'21–23 Oct', title:'Experiment participation (no class) — on campus, Burg, Room Bangalore'},
   {n:4, date:'Tue 27 Oct', title:'Marketing Strategy and Planning', topic:'mk-3'},
   {n:5, date:'Wed 4 Nov', title:'Conceptualization of Products and Services — in class: Lecture 03 finished (competitor analysis, PESTEL case, PLC, BCG + exam hints, see Strategy and Planning)', topic:'mk-3'},
-  {n:6, date:'Mon 9 Nov', title:'Marketing Communication and Campaigning (I/II)'},
-  {n:7, date:'Wed 11 Nov', title:'Marketing Communication and Campaigning (II/II)'},
+  {n:6, date:'Mon 9 Nov', title:'Conceptualizing Products and Services (Lectures 04 + 05)', topic:'mk-4'},
+  {n:7, date:'Wed 11 Nov', title:'Marketing Communication and Campaigning (Lecture 06)', topic:'mk-6'},
   {n:8, date:'Mon 16 Nov', title:'Distribution and Omnichannel Management'},
   {n:9, date:'Fri 20 Nov', title:'Guest talk: Daniel Hagemeier, multiple entrepreneur & CEO of group.one (15:30–17:00, New Forum)'},
   {n:10, date:'Mon 23 Nov', title:'Setting and Managing Prices'},
@@ -6993,7 +6993,22 @@ const MK_AREAS = [
   {id:'ext', lec:'mk-3', label:'Trends & PESTEL'},
   {id:'five', lec:'mk-3', label:'Porter’s Five Forces'},
   {id:'plc', lec:'mk-3', label:'Product life cycle'},
-  {id:'bcg', lec:'mk-3', label:'BCG Matrix'}
+  {id:'bcg', lec:'mk-3', label:'BCG Matrix'},
+  {id:'prod', lec:'mk-4', label:'Products vs services & product components'},
+  {id:'ans', lec:'mk-4', label:'Ansoff Matrix'},
+  {id:'impr', lec:'mk-4', label:'Product improvement & differentiation'},
+  {id:'port', lec:'mk-4', label:'Portfolio dimensions & product lines'},
+  {id:'mod', lec:'mk-4', label:'Modification, diversification & bundling'},
+  {id:'svc', lec:'mk-5', label:'Service characteristics & relevance'},
+  {id:'sdiff', lec:'mk-5', label:'Service differentiation'},
+  {id:'sq', lec:'mk-5', label:'Service quality'},
+  {id:'dig', lec:'mk-5', label:'New service realities (digital age)'},
+  {id:'proc', lec:'mk-6', label:'Communication process & modern communication'},
+  {id:'aida', lec:'mk-6', label:'AIDA'},
+  {id:'camp', lec:'mk-6', label:'Campaign steps, audience & objectives'},
+  {id:'msg', lec:'mk-6', label:'Message & budget'},
+  {id:'media', lec:'mk-6', label:'Media, media plan & measurement (CPM)'},
+  {id:'imc', lec:'mk-6', label:'Integrated marketing communications & 6 Cs'}
 ];
 
 const MK_TOPICS = [
@@ -7465,6 +7480,293 @@ quiz:[
 {q:R`In the autonomous-driving PESTEL case, which field did Henkel rate green?`, opts:[R`Legal, because Waymo is allowed to drive one route in Munich`,R`Technological, because German suppliers produce the chips`,R`Social, because an ageing society wants to stay mobile`,R`Ecological, because chip production is very energy-efficient`], correct:2, exp:R`Ageing society = growth driver (green). Tech is yellow (US-dependent chips, no car-to-X platform, weak 5G), legal is a barrier (not allowed in Germany yet), ecology is two-sided.`, area:'ext'},
 {q:R`Why does the profit curve of the product life cycle start below zero?`, opts:[R`Development, rent and launch marketing are paid before sales cover them`,R`Prices in the introduction stage are set below cost to win market share`,R`Warranties and facelifts are paid for during the introduction stage`,R`Competitors copy the product immediately and force prices down at launch`], correct:0, exp:R`Investments come first (development, facilities, big launch campaigns). Warranties and facelifts explain the falling profit later, in maturity and decline.`, area:'plc'},
 {q:R`What does Henkel mean by using the portfolio to cross-finance along the life cycle?`, opts:[R`Every product should finance its own marketing budget from its own sales`,R`Profits from mature products fund products in introduction or development`,R`Declining products should always receive the largest marketing budget`,R`New products are financed only with bank loans, never with internal cash`], correct:1, exp:R`A multi-product firm should have products in every phase; e.g. iPhone profits fund the Vision Pro. "Always" statements about budgets are wrong.`, area:'bcg'}
+]},
+{id:'mk-4', ch:4, title:'Conceptualizing Products', date:'Nov 2026',
+examWeight:'Product vs service, the six product components, the Ansoff Matrix, the five starting points for product improvement, the four portfolio dimensions (width, length, depth, consistency), line filling vs stretching, product modification, diversification and bundling — Henkel’s own example MC questions on this lecture ask about portfolio dimensions and product modification',
+summary:R`**Learning goals of lecture 4:** distinguish products from services and know the components of a product, use the Ansoff Matrix to structure product-market growth, identify starting points for product improvements, describe the product portfolio in terms of width, length, depth and consistency, and explain and apply product modification.
+
+**Opening question: why is every Advent calendar more expensive than the sum of its parts?** ("#productsandservices"). The chocolates inside are only the example. The point is that customers do not pay for the parts but for the whole offering: packaging and design, the ritual of opening one door per day, the surprise and the brand. The added value sits in the components around the core product.
+
+**Product vs service.**
+- Product :: a marketable commodity that aims to create value for target customers; can be tangible (food, apparel, furniture) or intangible (music, software); storable; buying it gives the consumer ownership rights
+- Service :: an act one entity performs for another that is essentially intangible and does not result in the ownership of anything; also creates value, but cannot be stored; production and consumption occur simultaneously
+
+**Components of a product** (from the core outwards):
+- Product :: the core product itself
+- Additional features :: extras beyond the core function
+- Packaging / design of the point of sale
+- Basic services :: services that come with the product as standard
+- Additional services :: value-added services on top
+- Brand :: the outer layer that carries image and meaning
+
+The slide example is the SWISS Business Class offering in the airline industry: the seat and flight are the product, everything around it (lounge, food, service, brand) are the further components.
+
+**The product–market growth framework: Ansoff Matrix.** Two axes: current vs new products and current vs new customers.
+- Market penetration :: current products for current customers
+- Market development :: current products for new customers
+- Product development :: new products for current customers
+- Diversification :: new products for new customers
+
+Weber example on the slide: the gas grill for camping (Weber Traveler), the gas grill at home (Weber eSpirit), the digital grill (Weber Pulse) and the indoor/electric grill (Weber Q 1400) show how one brand moves through the fields.
+
+**Starting points for product improvements** — five kinds of added value:
+- Functional added value :: improving the core function of the product (e.g. 7 seats in a car)
+- Processual added value :: simplifying or accelerating processes to save time, money and resources (e.g. ParkNow)
+- Economic added value :: monetary benefit, e.g. lower cost from reduced fuel consumption thanks to lighter material
+- Emotional added value :: positive feelings through purchase and use (joyful driving, pride of owning)
+- Social added value :: social prestige through ownership (e.g. access to a community)
+
+**The product portfolio** encompasses all products a company offers, including its product categories and product lines. The four product-mix dimensions let a company expand its business:
+- Width :: the number of different product lines the company carries (P&G: e.g. fabric care, oral care, skin and personal care)
+- Length :: the total number of items or brands within a product line
+- Depth :: the number of variants offered of each product or brand in a line
+- Consistency :: how closely related the product lines are in end use, production requirements and distribution channels
+
+**Product line.** A group of related products sold by the same company. Companies develop a basic platform and modules that can be added to meet different requirements and lower production costs; the aim is to induce up-selling and cross-selling.
+- Line filling :: adding more items within the existing range — to reach incremental profits, satisfy the desire for variety and plug holes to keep out competitors
+- Line stretching :: extending the line beyond its current range, either as a down-market stretch (cheaper) or an up-market stretch (premium)
+
+**Product modification** changes the characteristics and properties of an existing product **without changing its core function**. Three reasons:
+- Quality improvement :: increases functional performance through a "new and improved" product
+- Feature improvement :: adds size, weight, materials, supplements or accessories that expand performance, versatility, safety or convenience
+- Style improvement :: increases the aesthetic appeal
+
+**Product differentiation** is about standing apart in the customer’s mind; well-differentiated products create competitive advantages. Attributes to differentiate on:
+- Core functionality
+- Features, form and style
+- Performance quality
+- Conformance quality
+- Durability
+- Reliability
+
+**Product diversification** means adding new products to the range:
+- Concentric :: new products with technological or marketing synergies with existing lines, even though they appeal to a different customer group
+- Horizontal :: complementary products, even though they may need a different manufacturing process
+
+**Product bundling** combines several products into a bundle sold at a lower price:
+- Pure bundling :: the products can be bought only as a bundle (Microsoft 365: Word, Excel, PowerPoint only as part of the bundle)
+- Mixed bundling :: the products can be bought individually or as a bundle (McDonald’s burger, fries and drink alone or as a discounted menu)
+- Mixed components :: selected products can only be bought in a bundle (Gillette razors often only in a starter set with blades and foam)
+
+**Possibly not exam-relevant: product elimination and complexity.** The slide carries Henkel’s own note that it can be removed because Consumer Behaviour covers hyperchoice. Content: the optimum number of variants is 3; beyond three, customers no longer see the variants as differentiating, while complexity costs rise exponentially.
+
+**Lessons learned (Henkel’s summary slide):**
+- A product is storable, tangible or intangible and transfers ownership; a service is intangible, not storable and grants no ownership
+- The Ansoff Matrix sorts growth options into market penetration, market development, product development and diversification
+- Product improvements start from functional, processual, economic, emotional and social added value
+- The portfolio is described by width (number of lines), length (number of products), depth (variants per product) and consistency (how closely the lines are related)
+- Modification changes characteristics without changing the core function: quality, feature or style improvement`,
+cards:[
+{q:R`Product vs service`, a:R`Product: tangible or intangible, storable, ownership rights. Service: intangible act, not storable, no ownership, produced and consumed at the same time.`},
+{q:R`Six components of a product`, a:R`Product (core), additional features, packaging/design of POS, basic services, additional (value-added) services, brand.`},
+{q:R`Ansoff Matrix — four fields`, a:R`Current products/current customers: market penetration. Current products/new customers: market development. New products/current customers: product development. New/new: diversification.`},
+{q:R`Five starting points for product improvement`, a:R`Functional (core function), processual (save time/money/resources), economic (monetary benefit), emotional (positive feelings), social (prestige, community).`},
+{q:R`Portfolio: width, length, depth, consistency`, a:R`Width = number of product lines. Length = number of items/brands in a line. Depth = variants per product. Consistency = how closely related the lines are (end use, production, distribution).`},
+{q:R`Line filling vs line stretching`, a:R`Filling: more items within the existing range (incremental profit, variety, keep competitors out). Stretching: beyond the current range, down-market or up-market.`},
+{q:R`Product modification and its three reasons`, a:R`Change characteristics without changing the core function: quality improvement (functional performance), feature improvement (size, materials, accessories → versatility, safety, convenience), style improvement (aesthetics).`},
+{q:R`Differentiation attributes`, a:R`Core functionality; features, form and style; performance quality; conformance quality; durability; reliability.`},
+{q:R`Concentric vs horizontal diversification`, a:R`Concentric: technological/marketing synergies, different customers. Horizontal: complementary products, possibly a different manufacturing process.`},
+{q:R`Pure vs mixed bundling vs mixed components`, a:R`Pure: only as a bundle (Microsoft 365). Mixed: individually or as a bundle (McDonald’s menu). Mixed components: selected products only in a bundle (Gillette starter set).`}
+],
+quiz:[
+{q:R`Which feature distinguishes a product from a service in the lecture?`, opts:[R`A product is always tangible and can therefore be touched before it is bought`,R`A product is storable and its purchase transfers ownership rights to the consumer`,R`A product cannot create value without a service`,R`A product is produced and consumed at the same time`], correct:1, exp:R`Products can be tangible or intangible, but they are storable and their purchase gives ownership rights. Simultaneous production and consumption describes services.`, area:'prod'},
+{q:R`Which is the outermost component in the lecture’s product model?`, opts:[R`Additional features`,R`Basic services`,R`Brand`,R`Packaging`], correct:2, exp:R`From the core outwards: product, additional features, packaging/design of POS, basic services, additional services, brand.`, area:'prod'},
+{q:R`A grill maker sells its existing gas grill to campers, a group it never targeted before. Which Ansoff field is this?`, opts:[R`Market penetration`,R`Product development`,R`Diversification`,R`Market development (current product, new customers)`], correct:3, exp:R`Current product, new customers = market development.`, area:'ans'},
+{q:R`Which Ansoff field combines new products with new customers?`, opts:[R`Market development`,R`Diversification`,R`Product development`,R`Market penetration`], correct:1, exp:R`New products for new customers = diversification.`, area:'ans'},
+{q:R`A parking app that saves drivers time and effort delivers mainly which added value?`, opts:[R`Processual added value`,R`Emotional added value`,R`Social added value through prestige and community`,R`Functional added value through a better core function`], correct:0, exp:R`Processual added value simplifies or accelerates processes to save time, money and resources (ParkNow).`, area:'impr'},
+{q:R`Lower running costs from lighter material that reduces fuel consumption are an example of …`, opts:[R`functional added value`,R`social added value`,R`economic added value`,R`emotional added value`], correct:2, exp:R`Economic added value = a monetary benefit for the customer.`, area:'impr'},
+{q:R`What does product-mix width measure?`, opts:[R`The number of variants of each product`,R`The number of different product lines`,R`The number of items within one line`,R`How closely the lines are related`], correct:1, exp:R`Width = number of product lines; length = items in a line; depth = variants; consistency = relatedness.`, area:'port'},
+{q:R`A shampoo brand offered in 12 scents and sizes has a large …`, opts:[R`width`,R`consistency`,R`length`,R`depth`], correct:3, exp:R`Depth = the number of variants offered of each product or brand.`, area:'port'},
+{q:R`Adding a cheaper entry model below the current range is …`, opts:[R`line filling`,R`an up-market stretch`,R`a down-market stretch`,R`horizontal diversification`], correct:2, exp:R`Line stretching goes beyond the current range; downward = down-market stretch.`, area:'port'},
+{q:R`Which change is NOT a product modification in the lecture’s sense?`, opts:[R`A "new and improved" version with better performance`,R`Moving the product into a new category with a new core function`,R`Adding accessories and materials that increase safety or convenience`,R`A new design that raises aesthetic appeal`], correct:1, exp:R`Modification changes characteristics without changing the core function.`, area:'mod'},
+{q:R`McDonald’s sells burger, fries and drink separately or as a cheaper menu. Which bundling form?`, opts:[R`Pure bundling`,R`Mixed components`,R`Horizontal bundling`,R`Mixed bundling`], correct:3, exp:R`Individually or as a bundle = mixed bundling.`, area:'mod'},
+{q:R`A firm adds complementary products that need a different manufacturing process. This is …`, opts:[R`horizontal diversification`,R`concentric diversification based on technological synergies`,R`line filling within the existing range`,R`market penetration`], correct:0, exp:R`Horizontal = complementary products; concentric = technological or marketing synergies with existing lines.`, area:'mod'}
+]},
+{id:'mk-5', ch:5, title:'Conceptualizing Services', date:'Nov 2026',
+examWeight:'The four service characteristics (intangibility, inseparability, variability, perishability), service differentiation, the five components of service quality and the new service realities in the digital age — Henkel’s example MC questions cover exactly these three blocks',
+summary:R`**Learning goals of lecture 5:** explain why services are gaining relevance, know the distinctive characteristics of services, know the criteria for differentiating services, explain the components of service quality, and discuss the new service realities in the digital age.
+
+**Opening question: why is a cosmetic treatment not always the same?** ("#productsandservices"). The result depends on who treats you, when, where and how — that is the variability of services. App-based technological support is one answer: it standardizes parts of the service.
+
+**Increasing relevance of services.** The global services market is growing strongly (roughly 8 % a year; Henkel’s lessons-learned slide says no exact numbers are required). Growth driver: technological advances; Asia-Pacific is the largest region, North America the fastest growing. Services are transactions between buyer and seller without transferring physical goods; they use resources, experience, skill, ingenuity and intelligence.
+
+**Distinctive characteristics of services:**
+- Intangibility :: services cannot be seen, tasted, felt, heard or smelled before they are bought — you only see the result of cosmetic surgery after undergoing it
+- Inseparability :: physical goods are manufactured, stored, distributed and consumed later; services are produced and consumed simultaneously — a haircut
+- Variability :: quality depends on who provides the service and when, where and to whom — target: uniform guest experiences
+- Perishability :: a service cannot be stored — restaurants charge guests for missed reservations
+
+**Differentiation through services:**
+- Ease of ordering :: how simple it is for the customer to place an order, covering all aspects of the interaction
+- Speed and timing of delivery :: speed, accuracy and care of bringing the product or service to the customer
+- Installation, training and consulting :: making a product operational at its planned location; a selling point for novices and complex products (heavy equipment)
+- Maintenance and repair :: keeping purchased products in good working order, especially in B2B
+- Returns :: a nuisance for everyone involved but unavoidable, especially online — handling them well differentiates
+
+**Components of service quality.** Service quality rests on the premise that customer perceptions and expectations change over time: the customer compares what they expected with what actually happened. When expectations about what a company will deliver rise, the overall perception of quality can also improve — and the same performance can be judged differently at different times. The five components:
+- Reliability :: performing the promised service dependably and accurately (on time, error-free records)
+- Responsiveness :: willingness to help customers and provide prompt service
+- Assurance :: knowledge and courtesy of employees and their ability to convey trust and confidence
+- Empathy :: caring, individualized attention to the customer
+- Tangibles :: appearance of physical facilities, equipment, personnel and communication materials
+
+**The new service realities in the digital age:**
+- Increasing role of technology :: raises service quality and makes service workers more productive, but changes the role and relevance of service workers
+- Customer empowerment :: customers arrive with higher, more sophisticated prior knowledge; customer and staff act at eye level
+- Customer co-production :: customers take an active role in service delivery — downside: errors become more likely because customers differ in professionalism
+- Satisfying employees as well as customers :: a positive employee attitude is essential; training, appreciation and involvement raise employees’ willingness to engage
+
+**Possibly not exam-relevant** (these slides carry Henkel’s note that they can be removed):
+- The service aspect of an offering :: five categories from pure tangible good, tangible good with accompanying services, hybrid offering, major service with accompanying minor goods and services, to pure service
+- Service blueprint :: maps a service process (example overnight hotel stay: arrive, check-in, room, room service, check-out) with the physical evidence and the staff actions behind each step, to find pain points
+- Ensuring service quality despite variability :: hire and train well (competence, courtesy, credibility, reliability, responsiveness, communication skills), standardize the service process (blueprinting, fix pain points, zero-defects culture), monitor satisfaction (surveys, complaint systems, mystery shopping)
+
+**Lessons learned (Henkel’s summary slide):**
+- Services are intangible, inseparable, variable and perishable, so they cannot be stored or judged before purchase
+- The services market grows at roughly 8–8.7 % a year (no exact numbers required)
+- Perceived service quality compares expectation with experience; because expectations shift, the same performance can be judged differently over time
+- Technology raises quality and productivity but changes the service worker’s role; customers know more and co-produce`,
+cards:[
+{q:R`Four characteristics of services (with examples)`, a:R`Intangibility (result of cosmetic surgery only visible afterwards), inseparability (haircut produced and consumed at once), variability (quality depends on who, when, where, to whom), perishability (cannot be stored → no-show fees).`},
+{q:R`Five ways to differentiate through services`, a:R`Ease of ordering; speed and timing of delivery; installation, training and consulting; maintenance and repair; returns.`},
+{q:R`Five components of service quality`, a:R`Reliability (dependable, accurate), responsiveness (prompt help), assurance (knowledge, courtesy, trust), empathy (individual attention), tangibles (facilities, equipment, staff appearance).`},
+{q:R`Why can the same service be judged differently over time?`, a:R`Perceived quality = experience compared with expectations, and expectations change over time.`},
+{q:R`Four new service realities in the digital age`, a:R`Increasing role of technology (quality and productivity up, worker role changes); customer empowerment (more prior knowledge, eye level); customer co-production (active role, more errors); satisfying employees as well as customers.`}
+],
+quiz:[
+{q:R`"A haircut is executed and consumed at the same time" illustrates …`, opts:[R`intangibility, because the result cannot be seen beforehand`,R`perishability`,R`inseparability`,R`variability, because quality depends on the hairdresser`], correct:2, exp:R`Inseparability: production and consumption happen simultaneously.`, area:'svc'},
+{q:R`Why do some restaurants charge guests for missed reservations?`, opts:[R`Because services are variable`,R`Because services are perishable and an empty table cannot be sold later`,R`Because services are intangible`,R`Because services are inseparable`], correct:1, exp:R`An unused table cannot be stored and sold later — perishability.`, area:'svc'},
+{q:R`Which characteristic explains why a hotel chain aims for uniform guest experiences?`, opts:[R`Variability`,R`Perishability`,R`Intangibility`,R`Inseparability`], correct:0, exp:R`Quality depends on who provides the service and when, where and to whom — firms try to reduce that variability.`, area:'svc'},
+{q:R`Which is NOT one of the lecture’s service differentiators?`, opts:[R`Ease of ordering`,R`Maintenance and repair`,R`Returns`,R`Brand heritage`], correct:3, exp:R`The five: ease of ordering; speed and timing of delivery; installation, training and consulting; maintenance and repair; returns.`, area:'sdiff'},
+{q:R`"The ability to perform the promised service dependably and accurately" is …`, opts:[R`assurance`,R`reliability`,R`responsiveness`,R`empathy`], correct:1, exp:R`Reliability = dependable and accurate, e.g. on time and with error-free records.`, area:'sq'},
+{q:R`The appearance of facilities, equipment and staff belongs to which quality component?`, opts:[R`Assurance`,R`Responsiveness`,R`Tangibles`,R`Empathy`], correct:2, exp:R`Tangibles = the physical, visible side of the service.`, area:'sq'},
+{q:R`Which statement on perceived service quality matches the lecture?`, opts:[R`It depends only on the objective performance`,R`It compares the customer’s expectations with what actually happened during the service`,R`It cannot change once a customer has formed an opinion`,R`It is measured only by price paid`], correct:1, exp:R`Customers compare what they expected with what occurred; expectations shift over time.`, area:'sq'},
+{q:R`What is the downside of customer co-production?`, opts:[R`Customers lose all prior knowledge`,R`Service workers become irrelevant`,R`Errors become more likely because customers differ in their level of professionalism`,R`Technology can no longer be used to support the service encounter at all`], correct:2, exp:R`Customers take an active role, so error probability rises with varying professionalism.`, area:'dig'},
+{q:R`Customer empowerment in the digital age means …`, opts:[R`customers enter encounters with more and more sophisticated prior knowledge`,R`customers no longer need any service staff`,R`firms fully control the information customers see`,R`customers co-produce every service alone without any contact with staff members`], correct:0, exp:R`Empowered customers know more beforehand; customer and staff act at eye level.`, area:'dig'}
+]},
+{id:'mk-6', ch:6, title:'Marketing Communication and Campaigning', date:'Nov 2026',
+examWeight:'Traditional vs digital communication (bowling vs pinball), the four characteristics of modern communication, AIDA, the seven campaign steps with objectives, message, four budget methods, media channels, reach/frequency/impact, supply- vs demand-side measurement, CPM and the 6 Cs of IMC — a list-heavy lecture, ideal MC and open-question material',
+summary:R`**Learning goals of lecture 6:** understand how digitalization and the characteristics of modern communication shape the communication process (bowling vs pinball), know the AIDA concept, know and explain the seven steps of developing a communication campaign, and know and understand the 6 Cs of integrated marketing communications.
+
+**Opening point: you cannot not communicate.** Every action (or silence) of a brand sends a message, so the question is never whether a company communicates, but what it communicates.
+
+**The traditional communication process:**
+=> Sender → Encoding → Message via media → Decoding → Receiver → Response → Feedback
+
+Noise disturbs every step between sender and receiver.
+
+**Digital communication: pinball, not bowling.**
+- Bowling (traditional) :: the company rolls its marketing activities through traditional media straight at the customer; one direction, no interaction
+- Pinball (digital) :: company activities, social media and customer reactions bounce off each other; other customers react too, so communication is interactive and multi-directional and the company no longer controls the path
+
+**Four characteristics of modern communication:**
+- Fragmentation :: the number of media on offer and used by a single user keeps growing over time
+- Interaction :: customers respond and talk back
+- Democratization :: everyone can publish and influence
+- Individualization :: messages are tailored to the individual
+
+**The AIDA concept.** The sender moves the receiver through four stages:
+=> Attention → Interest → Desire → Action
+
+AIDA works as a funnel and filter: along the way up to 97 % of the addressed customers get lost.
+
+**Seven steps of developing a communication campaign:**
+=> Identify the audience → Determine objectives → Craft the message → Determine the budget → Decide on the media → Measure performance → Manage integrated communication
+
+**Step 1 — identifying the audience:**
+- Target group (whom to talk to) :: current users, potential users, deciders, influencers; individuals, groups, particular publics or the general public
+- Relevant characteristics :: characteristics of customer segments, experience with the product/service, degree of involvement or interest
+- Media use :: the "typical day" (preferred channels), preferred mode of information (text, audio-visual …), need for cognition (how much detail)
+
+**Step 2 — determining objectives** (they build on each other: need → awareness → attitude → purchase):
+- Establish need for the category :: satisfy a perceived discrepancy between the current and the desired motivational state
+- Build strong brand awareness :: the customer can recognize or recall the brand in sufficient detail
+- Build brand attitude :: help customers evaluate the brand’s perceived ability to meet a currently relevant need
+- Influence brand purchase intention :: move customers to decide to buy or take purchase-related action
+
+**Step 3 — crafting the message:**
+- Message strategy (what to say?) :: appeals, themes or ideas that tie into the brand positioning and establish points of parity or points of difference
+- Creative strategy (how to say it?) :: informational appeals (product attributes and services, e.g. quality or value) or transformational appeals (non-product benefits, e.g. image transfer)
+- Message source (who should say it?) :: credibility, trustworthiness, reach, popularity, brand congruity
+
+**Step 4 — determining the budget** (four methods):
+- Affordable method :: managers invest what they think they can afford — communication is not seen as a strategic investment, the annual budget is uncertain and long-range planning is difficult
+- Percentage of sales :: budget = a set percentage of current or expected sales — set by available funds instead of market opportunities, no logical basis for the specific percentage, reinforces trends
+- Competitive parity :: aim for a share of voice equal to competitors — ignores differences in image, reputation and resources, and risks communication wars
+- Objective-and-task :: (1) define objectives, (2) identify the tasks, (3) estimate their costs — e.g. awareness or image goals, a market-share goal, the number of prospects to win
+
+**Step 5 — deciding on the media:**
+- Personal channels (direct interaction, tailored engagement) :: personal selling; word-of-mouth marketing (peer recommendations, viral, buzz); direct and database marketing (phone, personalised e-mail, mail)
+- Nonpersonal channels (mass reach, brand atmosphere) :: advertising (TV, print, radio, outdoor, digital display); online and interactive marketing (websites, search, social media); sales promotion (coupons, contests, premiums, samples); events and experiences (sports, arts, trade shows); public relations and publicity
+- Hybrid bridge :: influencer marketing links digital mass reach with authentic, trusted peer recommendation
+- Strategic media choice :: match the channel to the buyer-readiness stage — nonpersonal channels for broad awareness, influencer and hybrid channels for trust, personal channels for conviction and closing the purchase
+
+**Developing a media plan.** Media selection looks for the most cost-effective way to deliver the desired number and type of exposures to the target audience:
+- Reach :: how many people are exposed at least once — matters most for new products, brand extensions, rarely bought items and broad or undefined target markets
+- Frequency :: how often they are exposed within a period — matters most with strong competition, complex messages, resistant consumers and frequent purchases
+- Impact :: the quality or effectiveness of each exposure
+
+**Step 6 — measuring performance.** Communication effectiveness can be measured from two sides:
+- Supply side :: media coverage, e.g. seconds the brand is clearly visible on TV — downside: equating coverage with exposure ignores content and quality
+- Demand side :: the effect of the campaign — potential customers reached, recognition and recall of the ad, attitude towards the ad or product, persuasion changes
+
+**Cost per thousand (CPM)** — how expensive is it to reach 1,000 contacts with a medium?
+- Formula :: CPM = c / C × 1,000
+- c :: the cost of using the medium
+- C :: the reach (number of contacts realized with this medium)
+
+**Step 7 — managing integrated marketing communications (IMC).** IMC ensures that a company’s communication activities are consistent with one another and reach the communication goals effectively and cost-efficiently. Four directions of integration:
+- Horizontal :: coordinate all relevant marketing actions with the campaign for maximum customer impact
+- Vertical :: align communication objectives with the higher-level goals of the marketing strategy
+- Internal :: share information from different departments with the communication team
+- External :: coordinate with external collaborators
+
+**The 6 Cs (integration check):**
+- Coverage :: how far each and overlapping communication tools reach the designated target group
+- Contribution :: the inherent ability of a communication to create the desired response
+- Commonality :: how far common associations are reinforced across options (channels share the same meaning)
+- Complementarity :: how far different associations and linkages are emphasized across options
+- Conformability :: how well IMC messages work for target groups with different involvement levels
+- Cost :: the most cost-effective and cost-efficient programme
+
+The Merck example shows one campaign carried consistently through mass media, social media, fairs, events and outdoor, corporate architecture and samples or give-aways.
+
+**Lessons learned (Henkel’s summary slide):**
+- Digital communication has moved from a one-way, non-interactive process to an interactive, multi-directional "pinball process"
+- Modern communication: fragmentation, interaction, democratization, individualization
+- AIDA moves the receiver from attention through interest and desire to action; as a funnel it loses up to 97 % of addressed customers
+- Seven campaign steps: audience, objectives, message, budget, media, measuring performance, managing IMC
+- 6 Cs: coverage, contribution, commonality, complementarity, conformability, cost`,
+cards:[
+{q:R`Traditional communication process`, a:R`Sender → encoding → message (media) → decoding → receiver → response → feedback; noise disturbs the whole process.`},
+{q:R`Bowling vs pinball`, a:R`Bowling: one-way from company via traditional media to the customer. Pinball: company, social media, customers and other customers interact multi-directionally; the firm no longer controls the path.`},
+{q:R`Four characteristics of modern communication`, a:R`Fragmentation, interaction, democratization, individualization.`},
+{q:R`AIDA`, a:R`Attention → interest → desire → action; funnel and filter, up to 97 % of addressed customers get lost.`},
+{q:R`Seven steps of a communication campaign`, a:R`Identify audience → determine objectives → craft message → determine budget → decide on media → measure performance → manage integrated communication.`},
+{q:R`Four communication objectives`, a:R`Establish need for the category → build brand awareness → build brand attitude → influence purchase intention.`},
+{q:R`Message: three questions`, a:R`Message strategy = what to say (appeals tied to positioning, points of parity/difference). Creative strategy = how (informational vs transformational appeals). Message source = who (credibility, trustworthiness, reach, popularity, brand congruity).`},
+{q:R`Four budget methods and one weakness each`, a:R`Affordable (not strategic, uncertain budget); percentage of sales (funds not opportunities, no logical %, reinforces trends); competitive parity (ignores differences, communication wars); objective-and-task (objectives → tasks → costs).`},
+{q:R`Reach vs frequency vs impact`, a:R`Reach: people exposed at least once (new products, extensions, rare purchases, broad markets). Frequency: exposures per period (strong competition, complex message, resistance, frequent purchases). Impact: quality of each exposure.`},
+{q:R`CPM`, a:R`Cost per thousand = cost of the medium / reach × 1,000.`},
+{q:R`Supply- vs demand-side measurement`, a:R`Supply: media coverage (e.g. seconds on screen) — ignores content and quality. Demand: effect of the campaign (reach of potential customers, recognition/recall, attitude, persuasion).`},
+{q:R`Four directions of IMC`, a:R`Horizontal (all marketing actions), vertical (with overall marketing strategy), internal (departments share information), external (coordination with collaborators).`},
+{q:R`6 Cs of IMC`, a:R`Coverage, contribution, commonality, complementarity, conformability, cost.`}
+],
+quiz:[
+{q:R`What does the "pinball" metaphor describe?`, opts:[R`One-way communication from firm to customer through mass media`,R`Interactive, multi-directional communication between firm, social media, customers and other customers`,R`A campaign that bounces between TV, print and radio to maximise reach and frequency`,R`The loss of customers along the AIDA funnel`], correct:1, exp:R`Digital communication bounces between company, social media and customers; traditional = bowling.`, area:'proc'},
+{q:R`Which is NOT one of the four characteristics of modern communication?`, opts:[R`Fragmentation`,R`Democratization`,R`Centralization`,R`Individualization`], correct:2, exp:R`The four: fragmentation, interaction, democratization, individualization.`, area:'proc'},
+{q:R`Up to what share of addressed customers can get lost along the AIDA process?`, opts:[R`About 50 % of them`,R`Up to 97 %`,R`About 10 % of them`,R`Up to 75 % of them`], correct:1, exp:R`Lessons-learned slide: AIDA works as funnel and filter, up to 97 % get lost.`, area:'aida'},
+{q:R`Which step comes directly after crafting the message?`, opts:[R`Deciding on the media`,R`Identifying the audience`,R`Determining the budget`,R`Measuring performance`], correct:2, exp:R`Audience → objectives → message → budget → media → measuring → managing IMC.`, area:'camp'},
+{q:R`Which objective means helping customers evaluate the brand’s ability to meet a currently relevant need?`, opts:[R`Build brand attitude`,R`Build brand awareness`,R`Establish need for the category`,R`Influence purchase intention`], correct:0, exp:R`Brand attitude = evaluation of the brand’s perceived ability to meet a relevant need.`, area:'camp'},
+{q:R`An ad that transfers a lifestyle image rather than describing product features uses …`, opts:[R`an informational appeal based on product attributes`,R`a transformational appeal`,R`competitive parity in share of voice`,R`the message source`], correct:1, exp:R`Transformational appeals focus on non-product benefits such as image transfer.`, area:'msg'},
+{q:R`Which budget method risks communication wars?`, opts:[R`Affordable method`,R`Percentage of sales`,R`Objective-and-task`,R`Competitive parity`], correct:3, exp:R`Matching competitors’ share of voice ignores differences between firms and can escalate.`, area:'msg'},
+{q:R`Which budget method defines objectives first, then tasks, then costs?`, opts:[R`Objective-and-task`,R`Percentage of sales`,R`Competitive parity`,R`Affordable method`], correct:0, exp:R`(1) objectives, (2) tasks, (3) cost estimate.`, area:'msg'},
+{q:R`Frequency matters most when …`, opts:[R`a brand extension is launched to a broad market`,R`the product is rarely bought`,R`competition is strong, the message is complex and consumers resist it`,R`the target market is broad, undefined and only reached once`], correct:2, exp:R`Reach matters for new products, extensions, rare purchases and broad markets; frequency for strong competition, complex messages, resistant consumers and frequent purchases.`, area:'media'},
+{q:R`A TV spot costs 30,000 and reaches 600,000 contacts. What is the CPM?`, opts:[R`5`,R`20`,R`50`,R`500`], correct:2, exp:R`CPM = 30,000 / 600,000 × 1,000 = 50.`, area:'media'},
+{q:R`Why is supply-side measurement criticised?`, opts:[R`It is too expensive to collect`,R`It equates media coverage with advertising exposure and ignores the content and quality of the message`,R`It only measures purchase intention and ignores the media coverage that was bought`,R`It cannot be used for TV`], correct:1, exp:R`Supply side counts coverage (e.g. seconds on screen) but says nothing about the message’s effect.`, area:'media'},
+{q:R`Aligning communication objectives with the overarching marketing strategy is which IMC direction?`, opts:[R`Horizontal`,R`Internal`,R`External`,R`Vertical`], correct:3, exp:R`Vertical = with higher-level goals; horizontal = with all marketing actions; internal = departments; external = collaborators.`, area:'imc'},
+{q:R`"Different channels share the same meaning" describes which C?`, opts:[R`Complementarity`,R`Commonality`,R`Coverage`,R`Conformability`], correct:1, exp:R`Commonality = common associations reinforced across options; complementarity = different associations emphasized.`, area:'imc'},
+{q:R`Which C asks whether messages work for target groups with different involvement levels?`, opts:[R`Conformability`,R`Contribution`,R`Cost, i.e. the most cost-efficient programme`,R`Coverage of the designated target group`], correct:0, exp:R`Conformability = works across involvement levels.`, area:'imc'}
 ]}
 ];
 
@@ -7638,7 +7940,85 @@ const MK_MC = [
  [R`Stars operate in high-growth markets and have a high relative market share.`, true, R`Correct.`],
  [R`Cash cows have a high relative market share in low-growth markets and generate cash for other units.`, true, R`Correct.`],
  [R`Question marks have a low relative market share in high-growth markets and require careful investment decisions.`, true, R`Correct.`],
- [R`The BCG Matrix uses relative market share and market growth to classify products or business units.`, true, R`Correct.`]]}
+ [R`The BCG Matrix uses relative market share and market growth to classify products or business units.`, true, R`Correct.`]]},
+{lec:'mk-4', area:'port', q:R`Lecture example question (Henkel, Lecture 04 slides): When it comes to changes in the product portfolio, which of the following statements are correct?`, s:[
+ [R`Product mix width refers to the number of different product lines.`, true, R`Width = number of product lines.`],
+ [R`Product mix length refers to the number of products within one line.`, true, R`Length = total number of items or brands within a line.`],
+ [R`Product line depth describes the number of variants of a product within a line.`, true, R`Depth = variants per product or brand.`],
+ [R`Consistency refers to whether all variants of a product line can be sold at a comparable price level.`, false, R`Consistency = how closely related the lines are in end use, production requirements and distribution channels — not price.`],
+ [R`A company’s product mix width must always be equal to its depth.`, false, R`"Always" + an invented rule: the dimensions are independent.`]]},
+{lec:'mk-4', area:'mod', q:R`Lecture example question (Henkel, Lecture 04 slides): Which of the following statements correctly describe product modification?`, s:[
+ [R`Feature improvement changes the core function of the product by moving it into a completely new product category.`, false, R`Modification never changes the core function; feature improvement adds size, materials, accessories.`],
+ [R`Product modification means changing the characteristics and properties of an existing product without changing its core function.`, true, R`Definition from the slide.`],
+ [R`Style improvement primarily adds technical accessories that increase the product’s safety or convenience.`, false, R`That is feature improvement; style improvement raises aesthetic appeal.`],
+ [R`Quality improvement aims to increase functional performance, for example through a "new and improved" product version.`, true, R`Definition of quality improvement.`],
+ [R`Product modification always requires replacing the existing product with a completely new product line.`, false, R`"Always" + new line contradicts "existing product".`]]},
+{lec:'mk-5', area:'svc', q:R`Lecture example question (Henkel, Lecture 05 slides): Which of the following statements correctly describe the typical characteristics of services?`, s:[
+ [R`Perishability: Services cannot be stored for later sale or use.`, true, R`Correct definition.`],
+ [R`Intangibility: Services cannot be seen, tasted, or touched before they are bought.`, true, R`Correct definition.`],
+ [R`Variability: Service quality is largely independent of the person or brand who or that provides it.`, false, R`The opposite: quality depends on who provides it and when, where, to whom.`],
+ [R`Inseparability: Production and consumption of services typically occur simultaneously.`, true, R`Correct definition.`],
+ [R`Since empathy is a human trait and cannot be learned, it should not be considered as a distinct dimension of service quality.`, false, R`Empathy is one of the five components of service quality.`]]},
+{lec:'mk-5', area:'sq', q:R`Lecture example question (Henkel, Lecture 05 slides): In relation to service quality and its components, which of the following statements are correct?`, s:[
+ [R`Assurance refers to the knowledge and courtesy of employees and their ability to convey trust and confidence during the service encounter.`, true, R`Correct definition of assurance.`],
+ [R`Tangibles mainly describe the emotional warmth of employees and their ability to make customers feel personally understood.`, false, R`That is empathy; tangibles = physical appearance of facilities, equipment, staff.`],
+ [R`Because customers’ expectations can change over time, the same service performance may be evaluated differently at different points in time.`, true, R`Core premise of service quality on the slide.`],
+ [R`Reliability refers to the ability to perform the promised service dependably and accurately, for example by providing the service at the promised time and keeping error-free records.`, true, R`Correct definition of reliability.`],
+ [R`Responsiveness refers to the physical appearance of facilities, equipment, and employees during the service encounter.`, false, R`That is tangibles; responsiveness = willingness to help and prompt service.`]]},
+{lec:'mk-5', area:'dig', q:R`Lecture example question (Henkel, Lecture 05 slides): Referring to new service realities in the digital age, which of the following statements are correct?`, s:[
+ [R`Technology in services only improves productivity but does not influence service quality.`, false, R`Technology raises both quality and productivity.`],
+ [R`Customer empowerment means that customers usually enter service encounters with higher and more sophisticated prior knowledge.`, true, R`Definition from the slide.`],
+ [R`Customer co-production reduces the probability of service errors because customers always act professionally.`, false, R`The opposite: errors become more likely; "always" is a warning sign.`],
+ [R`In the digital age, service workers become irrelevant because technology fully replaces the human service role.`, false, R`Their role and relevance change; they are not replaced.`],
+ [R`Employee satisfaction is less relevant in digital services because customer experience is mainly shaped by technology.`, false, R`Satisfying employees as well as customers is one of the four new realities.`]]},
+{lec:'mk-4', area:'ans', q:R`Which statements about the Ansoff Matrix and product improvement are correct?`, s:[
+ [R`Selling an existing product to a new customer group is market development.`, true, R`Current product, new customers.`],
+ [R`Diversification combines new products with current customers.`, false, R`That is product development; diversification = new products, new customers.`],
+ [R`Market penetration means selling current products to current customers.`, true, R`Correct.`],
+ [R`Social added value arises from prestige through ownership, e.g. access to a community.`, true, R`Correct.`],
+ [R`Economic added value means positive feelings during use, such as the joy of driving.`, false, R`That is emotional added value; economic = monetary benefit.`]]},
+{lec:'mk-4', area:'mod', q:R`Which statements about product lines, diversification and bundling are correct?`, s:[
+ [R`Line filling adds items within the existing range, e.g. to keep competitors out.`, true, R`Correct.`],
+ [R`An up-market stretch extends the line beyond its current range towards premium.`, true, R`Line stretching goes beyond the range, up or down.`],
+ [R`Concentric diversification adds complementary products that always need the same manufacturing process.`, false, R`Concentric = technological or marketing synergies; complementary products = horizontal, possibly a different process.`],
+ [R`With pure bundling, the products can only be bought as a bundle.`, true, R`Correct (Microsoft 365).`],
+ [R`With mixed bundling, products can only be bought individually.`, false, R`Mixed bundling = individually or as a bundle.`]]},
+{lec:'mk-5', area:'sdiff', q:R`Which statements about differentiation through services are correct?`, s:[
+ [R`Ease of ordering covers all aspects of the customer’s interaction when placing an order.`, true, R`Correct.`],
+ [R`Installation, training and consulting are a true selling point for technology novices and complex products.`, true, R`Correct.`],
+ [R`Maintenance and repair are irrelevant in business-to-business settings.`, false, R`They matter especially in B2B.`],
+ [R`Returns are unavoidable, especially for online purchases, so handling them can differentiate a firm.`, true, R`Correct.`],
+ [R`Speed and timing of delivery refer only to how fast the product arrives, not to accuracy or care.`, false, R`Speed, accuracy and care of the delivery process.`]]},
+{lec:'mk-6', area:'proc', q:R`Which statements about modern marketing communication are correct?`, s:[
+ [R`Digital communication follows a pinball rather than a bowling logic.`, true, R`Interactive and multi-directional.`],
+ [R`Fragmentation means that the number of media offered and used by a single user grows.`, true, R`Correct.`],
+ [R`In the traditional communication process, noise only affects the feedback loop.`, false, R`Noise disturbs the whole process between sender and receiver.`],
+ [R`Democratization and individualization are characteristics of modern communication.`, true, R`Together with fragmentation and interaction.`],
+ [R`In the pinball logic the company fully controls how its message travels.`, false, R`Customers and other customers react and redirect it.`]]},
+{lec:'mk-6', area:'camp', q:R`Which statements about the steps of a communication campaign are correct?`, s:[
+ [R`The campaign starts with identifying the audience.`, true, R`Step 1.`],
+ [R`Determining the budget comes before crafting the message.`, false, R`Message (step 3) comes before budget (step 4).`],
+ [R`Need for cognition describes how much detail the target group wants.`, true, R`Part of analysing media use.`],
+ [R`Building brand awareness means fostering the customer’s ability to recognize or recall the brand.`, true, R`Correct.`],
+ [R`Managing integrated communication is the final step.`, true, R`Step 7.`]]},
+{lec:'mk-6', area:'msg', q:R`Which statements about message and budget are correct?`, s:[
+ [R`Creative strategy answers the question "what to say?".`, false, R`Message strategy = what; creative strategy = how; message source = who.`],
+ [R`Credibility, trustworthiness and brand congruity are criteria for the message source.`, true, R`Also reach and popularity.`],
+ [R`With the percentage-of-sales method, the budget is set by available funds rather than market opportunities.`, true, R`Correct weakness.`],
+ [R`The affordable method treats communication as a strategic investment.`, false, R`It does NOT see communication as a strategic investment.`],
+ [R`Competitive parity aims for a share of voice equal to competitors.`, true, R`Correct.`]]},
+{lec:'mk-6', area:'media', q:R`Which statements about media planning and measurement are correct?`, s:[
+ [R`Reach matters most for new products and broad or undefined target markets.`, true, R`Correct.`],
+ [R`Frequency describes the quality or effectiveness of each exposure.`, false, R`That is impact; frequency = how often within a period.`],
+ [R`CPM is calculated as the cost of the medium divided by its reach, times 1,000.`, true, R`CPM = c / C × 1,000.`],
+ [R`Recognition and recall of an ad are demand-side measures.`, true, R`Demand side measures the effect.`],
+ [R`Influencer marketing bridges digital mass reach and trusted peer recommendation.`, true, R`Hybrid channel on the slide.`]]},
+{lec:'mk-6', area:'imc', q:R`Which statements about integrated marketing communications are correct?`, s:[
+ [R`Vertical integration aligns communication objectives with the higher-level marketing strategy.`, true, R`Correct.`],
+ [R`External integration means sharing information between internal departments.`, false, R`That is internal integration; external = with collaborators.`],
+ [R`Complementarity means that different associations are emphasized across communication options.`, true, R`Correct.`],
+ [R`Coverage is the inherent ability of a communication to create the desired response.`, false, R`That is contribution; coverage = reach of the designated target group.`],
+ [R`Cost is one of the 6 Cs.`, true, R`Coverage, contribution, commonality, complementarity, conformability, cost.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -7660,7 +8040,15 @@ const MK_OPEN = [
 {lec:'mk-3', q:R`Explain the BCG Matrix, its norm strategies and the idea of cross-financing.`, a:R`The BCG Matrix classifies products by relative market share (x) and market growth (y). Stars (high/high): maintain or strengthen. Cash cows (high share, low growth): maintain — they generate funds. Question marks (low share, high growth): strengthen or liquidate. Poor dogs (low/low): liquidate. Cross-financing: the surplus of cash cows is invested in promising question marks so they become stars, which later turn into cash cows when the market matures.`},
 {lec:'mk-3', q:R`Describe the four stages of the product life cycle and three strategies to sustain growth.`, a:R`Introduction: slow sales growth, negative or low profits, highest promotion-to-sales ratio (inform, induce trial, secure distribution), higher prices. Growth: rapid sales climb, profits rise as marketing costs spread over more volume. Maturity: sales growth slows, then absolute sales fall (switching, overcapacity) and profits decline through falling prices and refresh investments. Decline: technological advances, taste shifts and competition → overcapacity, price cuts, profit erosion → withdrawal or reduced ranges. Growth strategies: improve quality and add features/models; increase distribution coverage and enter new channels; lower prices for the next layer of price-sensitive buyers.`},
 {lec:'mk-3', q:R`A German carmaker considers investing in autonomous driving. Name all six PESTEL fields and discuss two of them with one pro and one con each. (Exam style as announced by Henkel on 4 Nov)`, a:R`Fields: political, economic, social/demographic, technological, ecological, legal. Social: pro: the ageing society wants to stay mobile but older people may no longer drive, which creates demand for autonomous taxis (and busy professionals want to work while being driven); con: older people have less buying power for expensive cars. Technological: pro: assistance systems already work and the technology keeps improving; con: chips and sensors are expensive and depend on US suppliers, there is no shared car-to-car platform and 5G coverage is weak. (Alternatives: legal: currently not allowed in Germany, liability unclear vs Waymo’s permitted route in Munich shows it can be approved; ecological: smoother driving saves energy vs high server and chip-production emissions.) Only discuss as many fields and arguments as asked; extra ones are not read.`},
-{lec:'mk-3', q:R`Draw and explain the product life cycle. Why does the profit curve start and end below zero, and what should a multi-product firm do with it?`, a:R`x-axis time, y-axis sales and profit; four phases: introduction, growth, maturity, decline. Sales start at zero, rise, turn during maturity and fall in decline. Profit starts negative because development, facilities and launch marketing are paid before sales cover them, turns positive in early growth, peaks at the end of growth and falls (and can turn negative) in maturity and decline because of price pressure, warranties, facelifts and the advertising needed to keep the product in the market. A multi-product firm should hold products in every phase and use the cash from mature products (cash cows) to finance new ones (question marks), e.g. iPhone profits fund the Vision Pro; this is the same logic as the BCG Matrix.`}
+{lec:'mk-3', q:R`Draw and explain the product life cycle. Why does the profit curve start and end below zero, and what should a multi-product firm do with it?`, a:R`x-axis time, y-axis sales and profit; four phases: introduction, growth, maturity, decline. Sales start at zero, rise, turn during maturity and fall in decline. Profit starts negative because development, facilities and launch marketing are paid before sales cover them, turns positive in early growth, peaks at the end of growth and falls (and can turn negative) in maturity and decline because of price pressure, warranties, facelifts and the advertising needed to keep the product in the market. A multi-product firm should hold products in every phase and use the cash from mature products (cash cows) to finance new ones (question marks), e.g. iPhone profits fund the Vision Pro; this is the same logic as the BCG Matrix.`},
+{lec:'mk-4', q:R`Explain the four dimensions of a product portfolio and illustrate them with an example company.`, a:R`Width = number of product lines (P&G: fabric care, oral care, skin and personal care). Length = number of items or brands within a line (several brands within hair care). Depth = number of variants of each product (one shampoo in many scents and sizes). Consistency = how closely the lines are related in end use, production and distribution (P&G’s lines are all household goods sold through the same retailers → high consistency).`},
+{lec:'mk-4', q:R`Use the Ansoff Matrix to describe four growth options for a grill manufacturer.`, a:R`Market penetration: sell more of the current gas grill to current customers (promotions, accessories). Market development: sell the current grill to new customers, e.g. campers. Product development: new products for current customers, e.g. a digital grill with app. Diversification: new products for new customers, e.g. an indoor electric grill for city apartments.`},
+{lec:'mk-4', q:R`Name the five starting points for product improvement and give one example each.`, a:R`Functional (better core function: 7 seats), processual (save time/money/resources: ParkNow parking app), economic (monetary benefit: lower fuel consumption from lighter material), emotional (positive feelings: joy of driving, pride of owning), social (prestige through ownership: access to a community).`},
+{lec:'mk-5', q:R`Explain the four characteristics of services and the consequence of each for marketing.`, a:R`Intangibility: services cannot be seen or tested before purchase → provide tangible cues and trust signals. Inseparability: produced and consumed at the same time → the provider is part of the service. Variability: quality depends on who, when, where and to whom → standardize, train staff, aim for uniform experiences. Perishability: services cannot be stored → manage demand, e.g. no-show fees for missed reservations.`},
+{lec:'mk-5', q:R`Name and define the five components of service quality, and explain why the same service can be judged differently over time.`, a:R`Reliability (dependable, accurate delivery as promised), responsiveness (willingness to help, prompt service), assurance (knowledge, courtesy, conveying trust and confidence), empathy (caring, individual attention), tangibles (appearance of facilities, equipment, staff, materials). Perceived quality compares expectations with experience; expectations change over time, so the same performance can be rated differently later.`},
+{lec:'mk-6', q:R`Describe the seven steps of developing a communication campaign.`, a:R`(1) Identify the audience: target group, its characteristics and media use. (2) Determine objectives: category need, brand awareness, brand attitude, purchase intention. (3) Craft the message: what to say (message strategy), how (informational vs transformational), who (source credibility etc.). (4) Determine the budget: affordable, percentage of sales, competitive parity, objective-and-task. (5) Decide on the media: personal, nonpersonal and hybrid channels; media plan with reach, frequency, impact. (6) Measure performance: supply vs demand side, CPM. (7) Manage integrated communication: horizontal, vertical, internal, external; check with the 6 Cs.`},
+{lec:'mk-6', q:R`Compare the four methods for setting the communication budget and recommend one.`, a:R`Affordable: spend what seems affordable — not strategic, uncertain budget, hard to plan long term. Percentage of sales: fixed % of current or expected sales — driven by funds, not opportunities, no logical basis for the %, reinforces trends (less sales → less advertising). Competitive parity: match competitors’ share of voice — ignores differences in image, reputation, resources; risk of communication wars. Objective-and-task: define objectives, identify tasks, estimate costs — the only method that starts from what communication should achieve, so it is the most logical recommendation.`},
+{lec:'mk-6', q:R`Explain AIDA and the 6 Cs of integrated marketing communications.`, a:R`AIDA: the receiver passes attention → interest → desire → action; it is a funnel and filter in which up to 97 % of addressed customers get lost. 6 Cs check whether communication is integrated: coverage (reach of the target group), contribution (ability to create the desired response), commonality (shared meaning across channels), complementarity (different associations across options), conformability (works across involvement levels), cost (most cost-effective programme).`}
 ];
 
 const MK_CHEAT = [
@@ -7720,7 +8108,28 @@ R`PESTEL exam: name 6 → explain in one sentence → apply (discuss 2 fields, 1
 R`Autonomous driving: social green (ageing) · tech yellow (US chips, no car-to-X, 5G) · legal red (not allowed in DE) · eco two-sided`,
 R`PLC: axes time vs sales + profit · profit starts negative (development, rent, launch marketing), negative again late (warranties, facelifts, ads)`,
 R`Portfolio: products in every phase, cross-finance new ones from mature ones (iPhone → Vision Pro) = BCG logic`,
-R`Open questions ≤ 10 P (~10 min), ~50% for naming · extra items beyond the requested number are not read · MC: "always" / either-or = usually false`]}
+R`Open questions ≤ 10 P (~10 min), ~50% for naming · extra items beyond the requested number are not read · MC: "always" / either-or = usually false`]},
+{h:'L4 · Products', items:[
+R`Product: tangible/intangible, storable, ownership · service: intangible act, not storable, no ownership, produced = consumed`,
+R`Components: product → features → packaging/POS → basic services → additional services → brand`,
+R`Ansoff: penetration (old/old) · market development (old product, new customers) · product development (new product, old customers) · diversification (new/new)`,
+R`Improvement: functional · processual · economic · emotional · social added value`,
+R`Portfolio: width = # lines · length = # items in a line · depth = # variants · consistency = relatedness of lines`,
+R`Line filling (within range) vs stretching (down-/up-market) · modification = no core change: quality, feature, style`,
+R`Diversification: concentric (synergies) vs horizontal (complementary) · bundling: pure, mixed, mixed components`]},
+{h:'L5 · Services', items:[
+R`Intangibility · inseparability · variability · perishability`,
+R`Differentiate via ordering ease, delivery speed/timing, installation/training/consulting, maintenance/repair, returns`,
+R`Quality: reliability · responsiveness · assurance · empathy · tangibles · perceived = experience vs expectation (shifts over time)`,
+R`Digital: technology (quality + productivity, worker role changes) · empowerment · co-production (more errors) · satisfy employees too`]},
+{h:'L6 · Communication', items:[
+R`Bowling (one-way) → pinball (multi-directional) · fragmentation, interaction, democratization, individualization`,
+R`AIDA: attention → interest → desire → action · funnel, up to 97 % lost`,
+R`7 steps: audience → objectives → message → budget → media → measure → manage IMC`,
+R`Objectives: category need → awareness → attitude → purchase intention · message: what / how (informational vs transformational) / who`,
+R`Budget: affordable · % of sales · competitive parity · objective-and-task`,
+R`Reach (new, broad) · frequency (competition, complex, frequent purchase) · impact · CPM = c / C × 1,000`,
+R`IMC: horizontal, vertical, internal, external · 6 Cs: coverage, contribution, commonality, complementarity, conformability, cost`]}
 ];
 
 /* ============================================================ FUNDAMENTALS OF CONSUMER BEHAVIOR DATA (Prof. Dr. Franziska Krause, Fall Term 2026) ============================================================ */
@@ -17401,7 +17810,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261105141513';
+const HUB_BUILD = '20261116143311';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{
