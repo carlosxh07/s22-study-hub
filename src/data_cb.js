@@ -9,7 +9,7 @@ const CB_SESSIONS = [
   {n:1, date:'Mon 19 Oct', title:'LS 1 · Consumer Decision Making 1', topic:'cb-1'},
   {n:2, date:'21–23 Oct', title:'Experiment part I on campus (no class) — Burg, Room Bangalore; part II online 2–15 Nov'},
   {n:3, date:'Mon 26 Oct', title:'LS 2 · Irrational Decision Making 2, Personas & Customer Journeys', topic:'cb-2', reading:'cb-r2'},
-  {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', reading:'cb-r3'},
+  {n:4, date:'Fri 30 Oct', title:'LS 3 · Perception & Sensory Marketing', topic:'cb-3', reading:'cb-r3'},
   {n:5, date:'Wed 4 Nov', title:'LS 4 · Marketing Analytics', topic:'cb-4', reading:'cb-r4'},
   {n:'6+7', date:'Tue 10 Nov', title:'Guest talk: "The Power of A and B testing" — Florian Knieß, co-founder & CRO/CMO, Aybee · ONLINE ONLY (moved 4 Nov), about 2–2.5 h, cameras on, QR code + student number for the points; link comes Mon/Tue'},
   {n:8, date:'Wed 11 Nov', title:'LS 5 · Consumer Learning', reading:'cb-r5'},
@@ -38,7 +38,12 @@ const CB_AREAS = [
   {id:'ab', lec:'cb-r4', label:'A/B tests & targeting'},
   {id:'star', lec:'cb-r5', label:'Loyalty & learning (Starbucks)'},
   {id:'emo', lec:'cb-r6', label:'Emotional motivators'},
-  {id:'ai', lec:'cb-r7', label:'AI vs human recommendations'}
+  {id:'ai', lec:'cb-r7', label:'AI vs human recommendations'},
+  {id:'perc', lec:'cb-3', label:'Perception: sensation & three stages'},
+  {id:'senses', lec:'cb-3', label:'Sight, smell, touch, sound'},
+  {id:'multi', lec:'cb-3', label:'Multi-sensory, Lambda hypothesis & thresholds'},
+  {id:'fop', lec:'cb-3', label:'Front-of-pack claims & labels'},
+  {id:'dig', lec:'cb-4', label:'Analytics types, data & digital analytics'}
 ];
 
 const CB_TOPICS = [
@@ -312,6 +317,111 @@ quiz:[
 ]},
 
 /* ------------------------------------------------------------ LS 4 ------------------------------------------------------------ */
+{id:'cb-3', kind:'lec', ch:3, title:'Perception & Sensory Marketing', date:'30 Oct 2026',
+examWeight:'Perception vs sensation, the three stages exposure → attention → interpretation, how each sense works in marketing (mechanisms + examples), multi-sensory marketing and the Lambda hypothesis, the three perception levels, and front-of-pack claims: effectiveness vs ingredient claims, promotion vs prevention / presence vs absence focus, why absence- and prevention-focused labels work best (loss aversion, negativity bias, framing, heuristics), the four labeling archetypes — goes together with the reading "Sensory Marketing"',
+summary:R`**Source:** slides of LS 3 (uploaded on Canvas). Goes with the reading "Note on Sensory Marketing: Shaping Consumer Perception and Behavior" (Krishna).
+
+**Learning outcomes:**
+- Perception is a three-stage process :: exposure → attention → interpretation
+- Perception translates raw stimuli into meaning
+- Sensory cues :: sensations shape the product experience, and sensory marketing specifically targets positive sensations
+- Product claims :: consumers are influenced by different front-of-package (FOP) labels, and their design shapes how products are perceived
+
+**Perception** is the process by which people select, organize and interpret sensations.
+- Sensation :: the immediate response of our sensory receptors (eyes, ears, nose, mouth, fingers, skin) to basic stimuli such as light, colour or sound
+- Perception :: adds meaning to these raw sensations; the brain receives external stimuli (sensory inputs) on several channels
+
+**The stages of perception.** Sensory stimuli (sights, sounds, smells, tastes, textures) reach our sensory receptors (eyes, ears, nose, mouth, skin), then:
+=> Exposure (stimulus comes within range of the receptors) → Attention (how much processing is devoted to it) → Interpretation (the meaning we assign to it)
+
+**Sensory marketing.** Companies think carefully about how sensations shape the product experience, because our senses help us decide which products to choose. All five senses can play a role, some are generally more important than others, and their importance depends on boundary conditions such as the product type.
+
+**Reading discussion questions (group work):** why do companies use sensory marketing and how does it create value for marketers and consumers; which senses targeted you in two own experiences and how did that change your perception or behaviour; can sensory marketing backfire?
+
+**Sight — the power of visual cues.**
+- Mechanisms :: colours, shapes and visual design steer attention and product perceptions; visual cues create expectations about quality, taste and brand personality; distinctive visual elements make brands easier to recognise and recall
+- Examples :: Coca-Cola’s red and bottle shape, Tiffany Blue, Apple’s minimalist product and store design; the colour-psychology slide links colours to common associations of familiar brands
+- Takeaway :: visual design does not just make products attractive, it shapes what consumers expect from them
+
+**Smell — the emotional power of scent.**
+- Mechanisms :: scents evoke emotions and autobiographical memories; ambient scent influences store evaluations and the shopping experience; signature scents build a distinctive brand identity
+- Examples :: Abercrombie & Fitch store fragrance, Singapore Airlines’ signature scent, hotel lobby fragrances
+- Takeaway :: scents influence consumers even when they are not the focus of attention
+
+**Touch — how physical sensations shape judgments.**
+- Mechanisms :: weight, texture and material influence perceived quality; handling a product increases psychological ownership; touch reduces uncertainty about product attributes
+- Examples :: Apple Stores let customers freely handle the products (→ psychological ownership); fabric texture drives evaluations in fashion retail
+- Takeaway :: consumers judge products not only by how they look but by how they feel
+
+**Sound — how music shapes behaviour.**
+- Mechanisms :: music tempo influences the pace of behaviour; genre activates associations and influences choices; sonic logos strengthen recognition and memory
+- Examples :: Intel’s five-note sonic logo, Netflix’s "ta-dum", supermarket background music
+- Takeaway :: sound shapes emotions, brand perceptions and behaviour, often without consumers noticing
+
+**Multi-sensory marketing** combines at least two senses. More senses are usually associated with more impact: higher intensity and longer attention.
+
+**But more is not always better — the Lambda hypothesis.** Consumer response (enjoyment, time in store, purchase likelihood) follows an inverted U over the level of sensory stimulation (intensity, complexity, number of cues):
+- Too little stimulation (boredom) :: low arousal → less attention, lower engagement, weaker memory — e.g. a plain, uninviting store with minimal cues and short visits
+- Optimal stimulation :: a moderate level maximises positive responses → high attention and engagement, positive emotions, better recall and preferences — e.g. a carefully curated, coherent atmosphere
+- Too much stimulation (overstimulation) :: excessive or incongruent cues → distraction and discomfort, higher cognitive load, less enjoyment, possible avoidance — e.g. very bright colours, loud music, strong scents and crowds
+
+**Sensory stimuli and perception thresholds.** Marketing stimuli differ in their sensory qualities; many compete for attention and most are not noticed or understood. A stimulus must reach a certain intensity before receptors can detect it, and people differ in their thresholds. Three levels:
+- No perception :: the stimulus is not detected or processed — a scent below the physiological detection threshold
+- Conscious perception :: the consumer consciously notices the stimulus — the distinctive scent when entering a store
+- Unconscious perception :: the information is processed without awareness — a briefly shown visual cue that is processed but not consciously recognised
+
+**From sensory cues to product claims: front-of-packaging (FOP).** Care products such as shampoos carry many claims on the front of the pack.
+
+**Label credibility.** Consumers judge credibility from explicit and implicit factors, which are individual and sometimes even contradictory; each can enhance or diminish credibility and they change over repeated exposure (iterations over time):
+- Explicit factors :: claim-induced, packaging-induced, brand-induced
+- Implicit factors :: beliefs about market players, about marketing strategies and about the category
+
+**Categorisation of labels and claims** (two types, each with two dimensions):
+- Effectiveness claims :: promotion-focused vs prevention-focused, and before vs after use — "preserves skin’s moisture", "moisturizing" (promotion) vs "anti dry skin", "non-drying" (prevention)
+- Ingredient claims :: presence-focus vs absence-focus, and artificial vs natural ingredient — "with hyaluronic acid", "with aloe vera" (presence) vs "free from silicones", "free from essential oils" (absence)
+
+**Key finding:** absence- and prevention-focused labels have the **highest impact on buying intention and purchase behaviour**. Why? Four psychological mechanisms:
+- Loss aversion :: people are more motivated to avoid negative outcomes than to gain comparable positive ones — "non-drying" stresses preventing dry skin rather than gaining moisture
+- Negativity bias :: potentially harmful ingredients or negative outcomes get more attention than positive attributes — "free from silicones" suggests silicones are undesirable or harmful
+- Framing effect :: the same benefit is evaluated differently depending on how it is presented — "moisturizing" (promotion) vs "non-drying" (prevention)
+- Heuristics :: consumers rely on simple label cues for quick judgments instead of evaluating all information — "free from silicones" is read as "safer" or "healthier"
+
+**Four archetypes of product labeling** perform significantly differently in real consumer ratings, so marketers must pick the right (number of) claims for their product:
+- Humble bargain :: cheap product with few claims (slide example 2.35 €)
+- Labeling peacock :: many prominent labels and claims (3.95 €)
+- Claim champion :: claims and seals as the core of the pack (4.45 €)
+- Quiet premium :: expensive product with almost no claims (9.95 €)
+
+**Three stakeholders from practice:**
+- Consumers :: FOP claims play a vital role in in-store decisions — in front of a drugstore shampoo shelf, consumers face 711 products with 1,686 individual claims and labels
+- Policy :: the EU Green Claims Directive (2023) aims at transparency — about 230 sustainability labels and 100 green energy labels exist in the EU with very different transparency, and 53 % of green claims are vague, misleading or unfounded
+- Industry :: the global cosmetics and personal care market is worth about 575 billion €; L’Oréal, Unilever and P&G make 19–30 % of their revenue in the EU, so using FOP labels effectively and in line with regulation is crucial; sustainability and ESG have become a strong influence`,
+cards:[
+{q:R`Sensation vs perception`, a:R`Sensation: immediate response of the sensory receptors to basic stimuli (light, colour, sound). Perception: selecting, organizing and interpreting sensations — it adds meaning.`},
+{q:R`Three stages of perception`, a:R`Exposure (stimulus within range of the receptors) → attention (processing devoted to it) → interpretation (meaning assigned).`},
+{q:R`Sight in sensory marketing`, a:R`Colours, shapes, design steer attention and create expectations about quality, taste, brand personality; aid recognition and recall (Coca-Cola red, Tiffany Blue, Apple). Design shapes expectations.`},
+{q:R`Smell in sensory marketing`, a:R`Evokes emotions and autobiographical memories, shapes store evaluations, builds a signature identity (Abercrombie & Fitch, Singapore Airlines, hotel lobbies). Works even without attention.`},
+{q:R`Touch in sensory marketing`, a:R`Weight, texture, material → perceived quality; handling → psychological ownership; reduces uncertainty (Apple Stores, fabric in fashion).`},
+{q:R`Sound in sensory marketing`, a:R`Tempo sets the pace of behaviour, genre activates associations, sonic logos aid recognition (Intel, Netflix "ta-dum", supermarket music). Often unnoticed.`},
+{q:R`Lambda hypothesis`, a:R`Inverted U: too little stimulation → boredom (less attention, engagement, memory); moderate → optimal (attention, positive emotions, recall); too much/incongruent → overstimulation (discomfort, cognitive load, avoidance).`},
+{q:R`Three levels of perception`, a:R`No perception (below detection threshold), conscious perception (noticed), unconscious perception (processed without awareness).`},
+{q:R`Effectiveness vs ingredient claims`, a:R`Effectiveness: promotion- vs prevention-focused × before vs after use ("moisturizing" vs "non-drying"). Ingredient: presence vs absence focus × artificial vs natural ("with aloe vera" vs "free from silicones").`},
+{q:R`Why do absence-/prevention-focused labels work best?`, a:R`Loss aversion, negativity bias, framing effect, heuristics ("free from" = safer/healthier).`},
+{q:R`Four labeling archetypes`, a:R`Humble bargain, labeling peacock, claim champion, quiet premium — they perform differently, so pick the right (number of) claims.`}
+],
+quiz:[
+{q:R`What does perception add to sensation?`, opts:[R`A stronger signal at the sensory receptors`,R`Meaning, through selecting, organizing and interpreting sensations`,R`A faster and stronger reaction of the eyes, ears, nose and skin to light and sound`,R`A higher detection threshold for weak stimuli`], correct:1, exp:R`Sensation = raw receptor response; perception adds the meaning.`, area:'perc'},
+{q:R`Which is the correct order of the perception stages?`, opts:[R`Attention → exposure → interpretation (attention comes first)`,R`Exposure → interpretation → attention`,R`Exposure → attention → interpretation (meaning is assigned last)`,R`Interpretation → attention → exposure`], correct:2, exp:R`A stimulus first comes into range (exposure), then gets processing (attention), then meaning (interpretation).`, area:'perc'},
+{q:R`"The extent to which processing activity is devoted to a particular stimulus" defines …`, opts:[R`attention`,R`exposure`,R`interpretation`,R`sensation`], correct:0, exp:R`Attention = processing devoted to a stimulus.`, area:'perc'},
+{q:R`Apple Stores let customers freely handle the devices. Which mechanism does this mainly use?`, opts:[R`A sonic logo that strengthens memory`,R`Psychological ownership through touch`,R`Ambient scent that evokes memories`,R`Unconscious perception of brief visual cues`], correct:1, exp:R`Physical interaction increases psychological ownership and reduces uncertainty.`, area:'senses'},
+{q:R`Which takeaway belongs to scent?`, opts:[R`It shapes what consumers expect from a product`,R`It sets the pace of shopping behaviour`,R`It influences consumers even when they do not focus on it`,R`It reduces uncertainty about product attributes such as weight and material`], correct:2, exp:R`Scent works even when it is not the main focus of attention.`, area:'senses'},
+{q:R`Netflix’s "ta-dum" and Intel’s five notes are examples of …`, opts:[R`ambient music that slows shoppers down`,R`sonic logos that strengthen recognition and memory`,R`multi-sensory overstimulation that raises the cognitive load of listeners`,R`prevention-focused claims`], correct:1, exp:R`Sonic logos strengthen brand recognition and memory.`, area:'senses'},
+{q:R`According to the Lambda hypothesis, what happens with very bright colours, loud music and strong scents at once?`, opts:[R`Optimal experience with the best recall`,R`Boredom and low arousal`,R`No change at all, because more senses always mean more impact and longer attention`,R`Overstimulation with discomfort and possible avoidance`], correct:3, exp:R`Excessive or incongruent cues → sensory overload, higher cognitive load, less enjoyment, avoidance.`, area:'multi'},
+{q:R`A scent below the physiological detection threshold leads to …`, opts:[R`no perception, because the receptors do not detect it at all`,R`unconscious perception`,R`conscious perception`,R`interpretation without exposure`], correct:0, exp:R`Below threshold = not detected at all. Unconscious perception = processed without awareness.`, area:'multi'},
+{q:R`"Free from silicones" is which kind of claim?`, opts:[R`Promotion-focused effectiveness claim`,R`Presence-focused ingredient claim`,R`Absence-focused ingredient claim (it names what is not inside)`,R`Prevention-focused effectiveness claim`], correct:2, exp:R`Ingredient claim stating what is NOT in the product = absence focus.`, area:'fop'},
+{q:R`Why can "non-drying" sell better than "moisturizing"?`, opts:[R`Because loss aversion makes avoiding a negative outcome more motivating`,R`Because consumers ignore all negative information on labels`,R`Because promotion-focused claims are always forbidden by the EU Green Claims Directive`,R`Because it uses fewer words and is easier to print`], correct:0, exp:R`Prevention framing taps loss aversion; the same benefit is framed differently.`, area:'fop'},
+{q:R`A cheap deodorant with only one small claim fits which labeling archetype?`, opts:[R`Labeling peacock`,R`Claim champion`,R`Quiet premium`,R`Humble bargain (low price, few claims)`], correct:3, exp:R`Humble bargain = low price, few claims; quiet premium = high price, few claims.`, area:'fop'}
+]},
 {id:'cb-4', kind:'lec', ch:4, title:'Marketing Analytics & A/B Testing', date:'4 Nov 2026',
 examWeight:'Goals and criteria of good marketing research, objectivity, reliability and validity, the three research types (exploratory, descriptive, causal) and their methods, correlation vs causation (third variable, spurious correlations), what makes a real experiment / A/B test and its limits — Google Analytics is NOT exam-relevant',
 summary:R`**Source:** built from the lecture recording (slides not uploaded yet). Prepares the guest talk on A/B testing (10 Nov) and goes with the reading "When A/B Testing Doesn’t Tell You the Whole Story".
@@ -370,7 +480,75 @@ summary:R`**Source:** built from the lecture recording (slides not uploaded yet)
 
 **Online vs offline.** Online, randomisation is easy (show low and high prices to random visitors). In physical stores it is nearly impossible to show different prices to different customers at the same time, so firms test in different weeks and try to control confounding variables.
 
-**Google Analytics (not exam-relevant).** Free industry standard with four reports: audience (users, sessions, time on page, bounce rate, new vs returning), acquisition (organic, referral, direct), behaviour (how people navigate the site) and conversion (custom goals and funnels, e.g. where people drop out of the checkout).`,
+**Google Analytics (not exam-relevant).** Free industry standard with four reports: audience (users, sessions, time on page, bounce rate, new vs returning), acquisition (organic, referral, direct), behaviour (how people navigate the site) and conversion (custom goals and funnels, e.g. where people drop out of the checkout).
+
+**Checked against the LS 4 slides (uploaded on Canvas) — additional slide content:**
+
+**Learning outcomes on the slides:** marketing research is the systematic and objective identification, collection, analysis, dissemination and use of information; it must be objective, reliable and valid; it improves decisions in areas like product development, segmentation and pricing; insights come from exploratory, descriptive and causal research (experiments are a common tool in consumer behaviour); companies use A/B tests and continuous experimentation because it has economic value; Google Analytics is a powerful tool for customer insights and reports.
+
+**Why marketing analytics is important (slide list):**
+- Shows the picture of the company’s marketing efforts (budget, spending)
+- Maximises ROI and identifies areas of improvement
+- Shows the impact of marketing activities
+- Portrays customer insights and improves customer understanding (target audience identification)
+- Helps to understand and monitor trends over time
+- Facilitates marketing decisions and future actions (e.g. changing the market proposition)
+
+**Definition of marketing research:** the identification, collection, analysis, dissemination and use of information to improve decision making about the identification and solution of problems and opportunities in marketing. Four characteristics:
+- Systematic :: systematic planning at all stages of the research process
+- Objective :: free from personal or political biases — "Find it and tell it like it is!"
+- Uses information :: define the problem, determine the information needed, identify sources, choose collection and analysis methods
+- Assists decision making :: findings, implications and recommendations in a useful format
+
+**Management decision problem vs marketing research problem:**
+- Management decision problem :: what the decision maker has to do · action oriented · focuses on symptoms
+- Marketing research problem :: what information is needed and how to obtain it · information oriented · focuses on underlying causes
+- Examples :: "Should a new product be introduced?" → determine preferences and purchase intentions · "Should the campaign be changed?" → determine its effectiveness (A/B testing) · "Should the price be increased?" → determine price elasticity and the impact of price levels on sales and profits
+
+**Data.** Information, especially facts or numbers, collected to be examined and used to help decision makers.
+- Data types :: structured (e.g. Excel) vs unstructured (e.g. pictures)
+- Metric / numerical :: ratio (age, income) and interval (IQ scores)
+- Non-metric / categorical :: ordinal (purchase frequency) and nominal (gender, regions)
+- Data analytics :: examining datasets to draw conclusions, increasingly with specialised software
+
+**Requirements as defined on the slides:**
+- Objectivity :: results independent of the researcher — in data collection, analysis and interpretation
+- Reliability :: formal accuracy; results replicable and free from measurement error; errors arise when environmental conditions change or the measurement tool is imprecise
+- Validity :: substantial accuracy; internal validity = exclusion of confounding factors, external validity = representative results
+
+**Key moments for market insights:**
+- Past (looking back) :: past behaviour, consumption patterns over time, historical market data, statistics and trends
+- Present (real time) :: tracking consumer behaviour in real time
+- Future (looking forward) :: predicting behaviour, trend forecasting, statistical modelling
+
+The four analytics types run from information to insight to action: descriptive (what happened?), diagnostic (why is it happening?), predictive (what is likely to happen?), prescriptive (what to do, what is required?).
+
+**Primary vs secondary research:**
+- Primary :: collected by the company itself or a research firm for a specific purpose — experimental or non-experimental (quantitative vs qualitative)
+- Secondary :: already compiled and often widely available, not collected for this purpose — usually more time- and cost-effective; internal or external data
+
+**Research types on the slides (Malhotra):**
+- Exploratory :: objective = discovering ideas and insights; flexible, versatile, front end of the research design; methods: expert surveys, pilot surveys, qualitative secondary data, qualitative research
+- Descriptive :: objective = describing market characteristics or functions; prior specific hypotheses, preplanned and structured; methods: quantitative secondary data, surveys, panels, observations, case studies
+- Causal :: objective = cause-and-effect relationships; prior hypotheses, manipulation of one or more independent variables, control of other mediating variables; method: experiment
+
+**Causality vs correlation (slide definitions):**
+- Causality :: cause-and-effect — one variable directly leads to a change in another, "A causes B" (directional); smoking → higher lung-cancer risk; "if x, then y" (more advertising → more sales; user experience → conversion; price change → revenue)
+- Correlation :: a statistical association that measures the degree of relationship but does not imply causation; ice cream sales and drowning both rise because of hot weather
+- Consequences of wrong insights :: financial risk — budgets in ineffective channels or target groups, lost market share through wrong advertising or pricing, fines after data-security breaches
+
+**Experiments** deliberately manipulate the environment or impose a treatment to measure the effect of one variable on another (e.g. testing different promotional strategies). **A/B testing** compares two or more versions of a webpage or app in real time to see which performs better, to optimise user experience and key metrics: conversion rate, click-through rate, lower bounce rate, lower cart abandonment. Netflix also uses A/B tests in software deployment to catch bugs quickly.
+
+**Reading discussion — when does A/B testing not tell the whole story?**
+- Customer heterogeneity :: an average positive effect can hide negative effects in some segments
+- Short-term focus :: immediate conversions may not reflect long-term customer value
+- Wrong metrics :: more clicks do not necessarily mean higher satisfaction or profitability
+- No "why" :: tests show which version performs better, not why
+- Unintended consequences :: one KPI improves while other outcomes suffer
+
+**Digital analytics** (definition): measuring, collecting, analysing and reporting the behaviour of website visitors to understand and optimise web usage. Use cases: performance measurement (traffic, leads, sales), user insights (preferences, demographics, segmentation), campaign effectiveness (channels, content), trend identification and ROI analysis — needed for optimised strategies and budget allocation; many touchpoints of the customer journey can be measured.
+
+**Google Analytics details from the slides** (the lecture said GA is not exam-relevant): free, industry standard (98 % of sites), simple, customisable, integrates with other Google products. Audience report: users (unique users with at least one session), session (interactions in a time frame, ends after about 30 minutes of inactivity), pageviews, pages per session, average session duration, bounce rate (left from the entrance page with only one pageview), new vs returning visitors. Acquisition: organic, referral, direct. Behaviour: which pages and actions, how visitors move. Conversion: goal completions and funnels (where do people drop out?). Also demographics (age, gender, interests) as a basis for segmentation.`,
 cards:[
 {q:R`Management decision problem vs marketing research problem`, a:R`Management: broad and not directly measurable ("Should the ad campaign be changed?"). Research: translated into something measurable ("Determine the effectiveness of the current campaign, e.g. via A/B test").`},
 {q:R`Reliability vs validity`, a:R`Reliability: consistent, replicable results. Validity: external = holds in the real world (representative sample); internal = the manipulation really caused the effect (no confounding variable).`},
@@ -902,7 +1080,37 @@ const CB_MC = [
  [R`A high correlation between storks and population in Oldenburg proves a causal relationship.`, false, R`Spurious correlation; correlation is not causation.`],
  [R`Internal validity means that the manipulation, not a third variable, caused the measured effect.`, true, R`Definition of internal validity.`],
  [R`External validity means that the study can be repeated with the same results.`, false, R`That is reliability; external validity = results hold in the real world / representative sample.`],
- [R`Repeating an A/B test several times is a weakness, because it shows the first result was unclear.`, false, R`Repetition increases reliability and is a strength.`]]}
+ [R`Repeating an A/B test several times is a weakness, because it shows the first result was unclear.`, false, R`Repetition increases reliability and is a strength.`]]},
+{lec:'cb-3', area:'perc', q:R`Which statements about perception are correct?`, s:[
+ [R`Perception is the process by which people select, organize and interpret sensations.`, true, R`Course definition.`],
+ [R`Sensation is the immediate response of sensory receptors to basic stimuli.`, true, R`Correct.`],
+ [R`Interpretation is the first stage of perception.`, false, R`Exposure → attention → interpretation; interpretation comes last.`],
+ [R`Exposure occurs when a stimulus comes within the range of someone’s sensory receptors.`, true, R`Correct.`],
+ [R`Attention refers to the meaning we assign to sensory stimuli.`, false, R`That is interpretation; attention = processing devoted to a stimulus.`]]},
+{lec:'cb-3', area:'senses', q:R`Which statements about the senses in marketing are correct?`, s:[
+ [R`Visual cues create expectations about quality, taste and brand personality.`, true, R`Sight mechanism.`],
+ [R`Scents only influence consumers when they consciously focus on them.`, false, R`Scents work even when they are not the main focus.`],
+ [R`Handling a product can increase psychological ownership.`, true, R`Touch mechanism (Apple Stores).`],
+ [R`Music tempo can influence the pace of consumer behaviour.`, true, R`Sound mechanism.`],
+ [R`Signature scents can contribute to a distinctive brand identity.`, true, R`Abercrombie & Fitch, Singapore Airlines, hotels.`]]},
+{lec:'cb-3', area:'multi', q:R`Which statements about multi-sensory marketing are correct?`, s:[
+ [R`Multi-sensory marketing combines at least two senses.`, true, R`Definition.`],
+ [R`According to the Lambda hypothesis, consumer response always rises with more sensory stimulation.`, false, R`Inverted U: moderate stimulation is optimal; too much leads to overload.`],
+ [R`Understimulation can lead to low arousal, less attention and weaker memory.`, true, R`Left side of the lambda curve.`],
+ [R`Unconscious perception means that information is processed without awareness of the stimulus.`, true, R`Correct.`],
+ [R`All people have the same threshold of perception.`, false, R`People have different thresholds.`]]},
+{lec:'cb-3', area:'fop', q:R`Which statements about front-of-pack labels and claims are correct?`, s:[
+ [R`Absence- and prevention-focused labels have the highest impact on buying intention and purchase behaviour.`, true, R`Key finding of the lecture.`],
+ [R`"With aloe vera" is an absence-focused ingredient claim.`, false, R`It names what IS in the product = presence focus.`],
+ [R`The negativity bias can make "free from silicones" suggest that silicones are harmful.`, true, R`Negative attributes get more attention.`],
+ [R`Consumers always evaluate all product information before using label cues.`, false, R`They use heuristics: simple label cues for quick judgments.`],
+ [R`Brand-induced credibility is an explicit factor of label credibility.`, true, R`Explicit: claim-, packaging-, brand-induced. Implicit: beliefs about market players, strategies, category.`]]},
+{lec:'cb-4', area:'dig', q:R`Which statements from the LS 4 slides are correct?`, s:[
+ [R`A management decision problem is action oriented and focuses on symptoms.`, true, R`The research problem is information oriented and focuses on underlying causes.`],
+ [R`Purchase frequency is an example of nominal data.`, false, R`Purchase frequency is ordinal; gender and regions are nominal.`],
+ [R`Secondary data is usually more time- and cost-effective than primary data.`, true, R`Correct.`],
+ [R`Predictive analytics answers "why is something happening?"`, false, R`That is diagnostic; predictive = what is likely to happen.`],
+ [R`Reliability means results are replicable and free from measurement error.`, true, R`Formal accuracy.`]]}
 ];
 
 // open-answer part (15 points): self-written practice questions with model answers
@@ -918,7 +1126,9 @@ const CB_OPEN = [
 {lec:'cb-r5', q:R`Explain with principles of consumer learning why Starbucks Rewards and the app create loyalty.`, a:R`Reinforcement: each purchase earns Stars and rewards, so buying at Starbucks is rewarded and repeated. Goals and status: visible progress towards the next level and Gold status (personalised card, more free items) keep customers collecting. Habit through convenience: prepaid app with auto-reload and Mobile Order & Pay reduce effort, so the routine sticks. Personalisation: tailored offers and suggestive selling based on purchase history. Consistency: the same drink and cup with the customer’s name in every store. Belonging and voice: My Starbucks Idea and social media make customers part of the brand. Result: 20% of U.S. payments via the app by July 2015 and over 20 million members — with the risk of over-relying on mobile shoppers.`},
 {lec:'cb-r6', q:R`Describe the emotional connection pathway and explain how a firm can use emotional motivators.`, a:R`Customers move from unconnected (−18% value vs highly satisfied) to highly satisfied (baseline) to perceiving brand differentiation (+13%) to fully connected (+52%). Moving satisfied customers to full connection can return three times as much as moving unconnected ones to satisfied. Firms should identify the emotional motivators (e.g. belonging, freedom, thrill, security) of their most valuable customers, knowing they vary by category, segment and journey stage, and act on them across all functions — the fashion retailer chose store locations near "Fashion Flourishers", introduced buy online/pick up in store (freedom) and selfie slide shows (belonging), and made emotional connection a KPI. Start: inventory and quantify motivators, analyse best customers, commit the whole firm.`},
 {lec:'cb-r7', q:R`When should a company use AI and when human recommenders? Explain the mechanism.`, a:R`It depends on the product type. For search products with standardised, comparable attributes (electronics) consumers prefer AI, which processes large amounts of data and is seen as transparent and credible. For experience products (spa, gourmet meals) consumers follow a highly experienced human expert, because of algorithm aversion and uniqueness neglect in subjective decisions. Mechanism: perceived transparency (complete, reliable information) increases credibility (expertise and trust), which increases the intention to follow the recommendation.`},
-{lec:'cb-4', q:R`A retailer wants to know whether a new website design increases sales. Explain why a survey is not enough and how to set up a proper A/B test, including two of its limits.`, a:R`A survey or observation is descriptive and can only show correlations; a third (confounding) variable such as a holiday, a campaign or the weather could drive both the new design’s use and sales (ice cream and sunburn both depend on the sun). Only an experiment establishes causality. Setup: translate the management problem ("should we change the design?") into a research problem (effect of design on conversion), set the independent variable (design) to two levels — control (old) and treatment (new) — run both at the same time, assign visitors randomly, use large enough groups (at least about 50–80 per group), measure the dependent variable (conversion, sales) and evaluate with a t-test or ANOVA (p < 0.05). Limits: the average effect can hide that some segments react negatively (heterogeneity); it shows only short-term outcomes on the chosen metric and does not explain why the effect occurs.`}
+{lec:'cb-4', q:R`A retailer wants to know whether a new website design increases sales. Explain why a survey is not enough and how to set up a proper A/B test, including two of its limits.`, a:R`A survey or observation is descriptive and can only show correlations; a third (confounding) variable such as a holiday, a campaign or the weather could drive both the new design’s use and sales (ice cream and sunburn both depend on the sun). Only an experiment establishes causality. Setup: translate the management problem ("should we change the design?") into a research problem (effect of design on conversion), set the independent variable (design) to two levels — control (old) and treatment (new) — run both at the same time, assign visitors randomly, use large enough groups (at least about 50–80 per group), measure the dependent variable (conversion, sales) and evaluate with a t-test or ANOVA (p < 0.05). Limits: the average effect can hide that some segments react negatively (heterogeneity); it shows only short-term outcomes on the chosen metric and does not explain why the effect occurs.`},
+{lec:'cb-3', q:R`Explain the three stages of perception and how a store could use two different senses to influence consumers — including one risk.`, a:R`Perception = selecting, organizing and interpreting sensations: exposure (stimulus in range of the receptors) → attention (processing devoted to it) → interpretation (meaning assigned). Sight: colours and design create expectations about quality and brand personality and aid recognition (Tiffany Blue, Apple’s minimalist stores). Scent: an ambient or signature scent evokes emotions and memories and improves store evaluations, even without conscious attention (Abercrombie & Fitch). Risk (Lambda hypothesis): too many or incongruent cues cause overstimulation — discomfort, cognitive load, less enjoyment, avoidance; too few cause boredom. The goal is a moderate, coherent level.`},
+{lec:'cb-3', q:R`Why do absence- and prevention-focused front-of-pack claims influence buying more than presence- and promotion-focused ones? Give examples.`, a:R`Effectiveness claims can be promotion-focused ("moisturizing") or prevention-focused ("non-drying"); ingredient claims can be presence-focused ("with aloe vera") or absence-focused ("free from silicones"). Absence/prevention claims work best because of loss aversion (avoiding dry skin motivates more than gaining moisture), the negativity bias ("free from silicones" makes silicones look harmful and draws attention), the framing effect (the same benefit is judged differently depending on presentation) and heuristics (shoppers facing 711 shampoos with 1,686 claims use "free from" as a quick cue for "safer/healthier").`}
 ];
 
 const CB_CHEAT = [
@@ -971,7 +1181,19 @@ R`Stars, Green/Gold levels, Mobile Order & Pay, personalisation, consistency (sa
 {h:'Reading LS 6 · Customer emotions', items:[
 R`300+ emotional motivators · pathway −18% → baseline → +13% → +52% · satisfied → fully connected = 3× return · varies by category, segment, journey; across the whole experience · Fashion Flourishers (belonging, thrill, freedom) · start: inventory → best customers → firm-wide`]},
 {h:'Reading LS 7 · Humans or AI', items:[
-R`Algorithm aversion · uniqueness neglect · search products → AI, experience products → experienced human · transparency → credibility → intention to follow`]}
+R`Algorithm aversion · uniqueness neglect · search products → AI, experience products → experienced human · transparency → credibility → intention to follow`]},
+{h:'LS 3 · Perception & sensory marketing', items:[
+R`Sensation = raw receptor response · perception = select, organize, interpret (adds meaning)`,
+R`Exposure → attention → interpretation`,
+R`Sight: expectations, recognition (Coca-Cola, Tiffany, Apple) · smell: emotions, memories, works unnoticed · touch: quality, psychological ownership · sound: tempo, associations, sonic logos`,
+R`Multi-sensory ≥ 2 senses · Lambda: boredom ← optimal → overstimulation · no / conscious / unconscious perception`,
+R`Claims: effectiveness (promotion vs prevention) · ingredient (presence vs absence) · absence/prevention win: loss aversion, negativity bias, framing, heuristics`,
+R`Credibility: explicit (claim, packaging, brand) vs implicit (beliefs about players, strategies, category) · archetypes: humble bargain, labeling peacock, claim champion, quiet premium`]},
+{h:'LS 4 · Slide extras', items:[
+R`Management problem: action, symptoms · research problem: information, causes`,
+R`Data: structured vs unstructured · metric (ratio, interval) vs non-metric (ordinal, nominal)`,
+R`Reliability = formal accuracy · validity = substantial accuracy (internal: no confounds, external: representative)`,
+R`Past / present / future · descriptive → diagnostic → predictive → prescriptive · primary vs secondary (cheaper)`]}
 ];
 
 
