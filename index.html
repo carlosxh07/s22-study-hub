@@ -10471,6 +10471,69 @@ quiz:[
 {q:R`In an N-stock variance box, how often does each covariance term appear?`, opts:[R`Once`,R`N times`,R`Twice`,R`Never — only variances count`], correct:2, exp:R`The box is symmetric: $w_iw_j\sigma_{ij}$ appears at (i, j) and (j, i).`},
 {q:R`On a day when Nvidia’s CEO resigns, Nvidia falls 4.3% and AMD rises 5.9%. A half-half portfolio earns +0.8%. This shows that …`, opts:[R`market risk can be diversified away`,R`unique risk can be diversified away`,R`portfolios increase risk`,R`correlation is always −1`], correct:1, exp:R`A shock to one firm sits only in its own box — unique risk. A shock to all firms (5 Nov) is market risk.`},
 {q:R`1 invested in US stocks at the end of 1926 grew to about … by 2025, versus about 25 in Treasury bills.`, opts:[R`160`,R`1,600`,R`16,000`,R`160,000`], correct:2, exp:R`About 16,000 — with much higher year-to-year swings.`}
+]},
+/* ------------------------------------------------------------ OLDER PRACTICE EXAMS ------------------------------------------------------------ */
+// MockupExam (1).pdf and exam2012 (1).pdf from Canvas (online since July 2026) — older exam layout, worked solutions recomputed; key errors flagged.
+{id:'dt-cx', ch:'X', title:'Older Exams: Mockup & 2012 (worked)', date:'Practice', drills:['pvadd','fwd','bond','proj','rates','port','capm'],
+examWeight:'Two older Karapandža exams with posted solutions, both on Canvas since July: same task types as the newer exams (PV/FV, market value with a P/E distractor, forward rates, duration, bond off the curve, project NPV with segments, rate conversions, 3-stock portfolio, CAPM and Fama–French). Solve on paper first, then compare. The 2012 key gets the portfolio standard deviation wrong (flagged below)',
+summary:R`**How to use this page:** cover the solution lines, solve each task on paper in exam time, then compare. Both exams follow the classic layout (mark the answer **and** show why). Tasks are summarised; the numbers are the original ones.
+
+**Mockup exam — tasks and worked solutions**
+- Q1 (3 P) PV ↔ FV :: PV of 1 in n years at r is 0.3855 → $(1+r)^n = 1/0.3855$ → FV of 1 = **2.594** (answer b)
+- Q2 (2 P) Market value :: GE: 10.3bn shares × 37.10 = **382bn**; the P/E of 18.3 is a distractor (answer c)
+- Q3 (3 P) Forward rate from period 3 to 4 :: it is extracted from the 3- and 4-year spot rates (**II only**); it cannot be observed directly and the 1- and 2-year rates are not enough
+- Q4 (3 P) "Duration equals maturity for any bond" :: **false** — only for zero-coupon bonds
+- Q5 (11 P) Bond off the curve :: 1,000 face, 5% semiannual coupons (25), 3 years; half-year discounting with averaged missing maturities (1.5 y = average of 1 y and 2 y, 2.5 y = average of 2 y and 3 y). PV of the first 5 coupons **124.61**; PV of the last payment $1025/(1+0.0037/2)^6$ = **1,013.70**; price **1,138.31**
+- Q6 (13 P) Project AAA, invest 1,000, r = 6% :: 151.63 in years 1–3; then −10% a year from year 4 (136.47) to year 20 (25.29); then 25.29 forever. PV years 1–3 **405.31**; years 4–20 as a shrinking annuity $\frac{136.467}{0.06+0.10}\left(1-\left(\frac{0.9}{1.06}\right)^{17}\right)\frac{1}{1.06^3}$ = **671.78**; from year 21 $\frac{25.29}{0.06}\cdot\frac{1}{1.06^{20}}$ = **131.43**; NPV **+208.51**
+- Q7 (3 P) Annual → continuous :: $e^r = 1.15$ → $r = \ln 1.15$ = **13.98%**
+- Q8 (3 P) Continuous → semiannual :: $e^{0.08} = (1+r/2)^2$ → $r = 2(e^{0.04}-1)$ = **8.16%**
+- Q9 (11 P) 3-stock value-weighted portfolio :: values 150/350/400m → weights **16.67% / 38.89% / 44.44%**; expected return **20.05%**; variance = sum of the 3 × 3 box = 0.0398 → σ = **19.95%**
+- Q10 (1 P) Highest average risk premium 1900–2006 :: **common stocks**
+- Q11 (1 P) Beta of US government bonds :: **zero** (the course treats them as risk-free)
+- Q12 (2 P) With a risk-free asset the investor’s job is to :: **invest in the market portfolio and borrow or lend at the risk-free rate** (I and III)
+- Q13 (2 P) CAPM :: β 2.2, risk-free 5.5%, market risk premium 8% → 5.5 + 2.2 · 8 = **23.1%**
+- Q14 (2 P) Fama–French :: 5 + 1.4 · 7 + 0.4 · 3.7 − 1.1 · 5.2 = **10.6%**
+
+**Exam 2012 — tasks and worked solutions**
+- Q1 (3 P) PV ↔ FV :: PV of 1 is 0.2 → FV of 1 = 1/0.2 = **5**
+- Q2 (2 P) Market value :: Google 328.59m shares × 667.97 = **219.5bn** (P/E 20.92 and EPS 31.92 are distractors; the question says "GE" by mistake)
+- Q3 (6 P) Lufthansa forward loan :: spot rates 1 y 0.18%, 2 y 0.30%, 3 y 0.38%, 5 y 0.73% (annual); borrow in 3 years for 1 year → the 4-year rate is the average of 3 y and 5 y (0.555%): $(1.0038)^3(1+f) = (1.00555)^4$ → **1.08%**. For 2 years: $(1.0038)^3(1+f)^2 = (1.0073)^5$ → **1.26%**
+- Q4 (3 P) Which bond is more rate-sensitive :: zero-coupon AAA (2 years → duration 2) vs coupon bond BBB with duration 1.5 → **AAA** (larger duration)
+- Q5 (11 P) Bond off the curve :: 1,000 face, 10% semiannual (50), 3 years; half-year rates 0.15%, 0.18%, 0.24% (avg), 0.30%, 0.34% (avg), 0.38%. PV first 5 coupons **248.97**; PV last payment $1050/1.0019^6$ = **1,038.11**; price **1,287.08**
+- Q6 (13 P) Project AAA, invest 5,000, r = 15% :: 300, 0, 600, 400 in years 1–4 → **884.08**; 800 a year in years 5–28 (24 payments) $\left(\frac{800}{0.15}-\frac{800}{0.15}\frac{1}{1.15^{24}}\right)\frac{1}{1.15^4}$ = **2,942.82**; 1,000 in year 29 growing 10% forever $\frac{1000}{0.15-0.10}\cdot\frac{1}{1.15^{28}}$ = **399.48**; NPV **−773.62** → reject
+- Q7 (3 P) Continuous → daily :: $e^{0.07} = (1+r/365)^{365}$ → $r = 365(e^{0.07/365}-1)$ = **7.00%** (6.9993%)
+- Q8 (11 P) 3-stock value-weighted portfolio :: values 216.3/229.2/223.4bn → weights **32.3% / 34.3% / 33.4%**; expected return **11.02%**; σ — see the flag below
+- Q10 (2 P) More stocks in the portfolio :: **unique risk decreases and approaches zero** (market risk stays)
+- Q12 (2 P) An underpriced stock plots :: **above** the security market line (it offers more return than its risk requires)
+- Q13 (2 P) CAPM :: β 0.98, risk-free 0.5%, market return 4% → 0.5 + 0.98 · (4 − 0.5) = **3.93%** (careful: here the market RETURN is given, so subtract the risk-free rate first)
+- Q14 Fama–French :: risk-free 0.5%, market premium 2.5%, SMB 3.7%, HML 5.2%. Apple (β 1.21, 0.8, 0.21) → **7.58%**; MSFT (β 1.17, 0.78, 0.30) → **7.87%** (no key posted — computed here)
+
+**Flag — 2012 Q8 c, the posted standard deviation is wrong.** The key’s 3 × 3 matrix does not match the inputs and sums to a variance of 0.0379 → σ = 19.46%. With weights 0.323/0.343/0.334, σ = 7%/8%/12% and ρ = 0.7/0.7/0.4 the box gives variance **0.00589** → σ = **7.67%**. Sanity check: a portfolio of stocks with σ of 7–12% cannot have σ 19.5%; with positive correlations below 1 it must lie below the weighted average σ (9.0%).
+
+**Typical traps in these old exams:** distractor data (P/E, EPS, duration); missing curve points → average the neighbours; semiannual quotes → divide by 2 and count half-years; CAPM with the market return instead of the market risk premium; segment discounting (an annuity starting in year 5 is valued at year 4, a perpetuity starting in year 29 at year 28).`,
+cards:[
+{q:R`PV of 1 is 0.3855 — FV of 1?`, a:R`$(1+r)^n = 1/0.3855 = 2.594$.`},
+{q:R`Missing maturity on the curve (e.g. 1.5 years)`, a:R`Use the average of the neighbouring maturities (1 y and 2 y).`},
+{q:R`Annuity of 800 in years 5–28 at 15% — PV today?`, a:R`$(800/0.15)(1 - 1/1.15^{24})$ gives the value at year 4; divide by $1.15^4$ → 2,942.82.`},
+{q:R`Growing perpetuity from year 29 (1,000, g 10%, r 15%)`, a:R`$1000/(0.15-0.10) = 20{,}000$ at year 28 → $/1.15^{28}$ = 399.48.`},
+{q:R`CAPM with the market RETURN given`, a:R`$r = r_f + \beta(r_m - r_f)$: 0.5 + 0.98 · 3.5 = 3.93%.`},
+{q:R`Fama–French three-factor model`, a:R`$r = r_f + \beta \cdot MRP + b_{SMB} \cdot SMB + b_{HML} \cdot HML$: 5 + 1.4·7 + 0.4·3.7 − 1.1·5.2 = 10.6%.`},
+{q:R`Underpriced stock and the SML`, a:R`Plots above the security market line — more expected return than its beta requires.`}
+],
+quiz:[
+{q:R`The PV of 1 received in n years at rate r is 0.2. What is the FV of 1 invested today at r for n years?`, opts:[R`5`,R`10`,R`1`,R`Not enough information`], correct:0, exp:R`$(1+r)^n = 1/0.2 = 5$.`},
+{q:R`Google has 328.59m shares at 667.97, P/E 20.92 and EPS 31.92. Approximate market value?`, opts:[R`About 336bn`,R`About 382bn`,R`About 219.5bn`,R`None of the above`], correct:2, exp:R`Shares × price = 219.5bn; P/E and EPS are distractors.`},
+{q:R`A forward rate from period 3 to period 4 can be …`, opts:[R`observed directly in the market place`,R`extracted from the 3- and 4-year spot rates`,R`extracted from the 1- and 2-year spot rates`,R`observed and extracted from 1- and 2-year rates`], correct:1, exp:R`$(1+r_4)^4 = (1+r_3)^3(1+f_{3,4})$ — only II.`},
+{q:R`"The duration of any bond is the same as its maturity."`, opts:[R`True`,R`False — only for zero-coupon bonds`], correct:1, exp:R`Coupons before maturity pull the duration below the maturity.`},
+{q:R`Zero-coupon bond AAA matures in 2 years; coupon bond BBB matures in 4 years with duration 1.5. Which price is more sensitive to rate changes?`, opts:[R`AAA`,R`BBB`,R`Equally sensitive`,R`Not enough data`], correct:0, exp:R`AAA’s duration = maturity = 2 > 1.5.`},
+{q:R`15% nominal annual with annual compounding equals which continuously compounded rate?`, opts:[R`15.00%`,R`13.98%`,R`16.18%`,R`14.49%`], correct:1, exp:R`$r = \ln(1.15) = 13.98\%$.`},
+{q:R`8% continuously compounded equals which nominal annual rate with semiannual compounding?`, opts:[R`8.00%`,R`8.33%`,R`7.85%`,R`8.16%`], correct:3, exp:R`$2(e^{0.04} - 1) = 8.16\%$.`},
+{q:R`As the number of stocks in a portfolio increases …`, opts:[R`unique risk decreases and approaches zero`,R`market risk decreases`,R`unique risk becomes equal to market risk`,R`total risk approaches zero`], correct:0, exp:R`Diversification removes unique risk; market risk remains.`},
+{q:R`An underpriced stock (cheaper than stocks of equal risk) plots …`, opts:[R`below the security market line`,R`on the security market line`,R`above the security market line`,R`on the y-axis`], correct:2, exp:R`It offers a higher expected return than its beta requires → above the SML.`},
+{q:R`β = 2.2, risk-free 5.5%, market risk premium 8%. Expected return?`, opts:[R`15.8%`,R`14.3%`,R`35.2%`,R`23.1%`], correct:3, exp:R`5.5 + 2.2 · 8 = 23.1%.`},
+{q:R`β = 0.98, risk-free 0.5%, market return 4%. Expected return?`, opts:[R`3.43%`,R`3.92%`,R`4.42%`,R`3.93%`], correct:3, exp:R`0.5 + 0.98 · (4 − 0.5) = 3.93%. The market return is given, not the premium.`},
+{q:R`Risk-free 5%, β 1.4, MRP 7%, SMB 3.7% (loading 0.4), HML 5.2% (loading −1.1). Fama–French expected return?`, opts:[R`22.3%`,R`7.8%`,R`10.6%`,R`None of the above`], correct:2, exp:R`5 + 9.8 + 1.48 − 5.72 = 10.56 ≈ 10.6%.`},
+{q:R`Which portfolio had the highest average risk premium 1900–2006?`, opts:[R`Common stocks`,R`Government bonds`,R`Treasury bills`], correct:0, exp:R`Stocks carry the highest risk and the highest average premium.`}
 ]}
 ];
 
@@ -18361,7 +18424,7 @@ navTo('home');
 /* ============================================================ AUTO-UPDATE ============================================================ */
 // Every open (and every return to the tab) asks the server for the newest index.html, bypassing all caches.
 // If a newer build is online, the page reloads itself; progress, highlights and plan ticks live in localStorage and stay.
-const HUB_BUILD = '20261116144243';
+const HUB_BUILD = '20261116144428';
 let hubHiddenAt = 0;
 async function hubCheckUpdate(silent){
   try{
