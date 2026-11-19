@@ -338,7 +338,7 @@ Bond example "Hugo Ross AG" (5 years, 3 % interest, nominal 100):
 - 31.12.00, 1.15 USD per EUR :: bank debt €2.61 m
 - 31.12.01, 1.05 USD per EUR :: higher value → €2.86 m
 - 31.12.02, 1.30 USD per EUR :: stays at €2.61 m, not €2.31 m — never below the initial amount
-- Exception § 256a HGB :: remaining maturity within one year → unrealised gains may be realised
+- Exception § 256a HGB :: remaining maturity within one year → the spot rate **must** be used, so the unrealised gain is realised (no choice, said the lecturer on 19 Nov)
 
 **Provisions — initial measurement.** (a) Burden probable and precisely quantifiable → settlement amount. (b) Burden certain or probable, amount unclear but estimable → settlement amount based on a reasonable commercial assessment:
 - Prudence principle, without deliberate over- or undervaluation
@@ -385,13 +385,41 @@ With partial use of profit, the management and supervisory boards approve the st
 
 Management can thus equalise the retained earnings available for dividends via releases from and allocations to reserves.
 
-With total use of profit — basically not possible for a stock company, because the shareholders' meeting decides on dividends; possible for a GmbH depending on the timing of the approval. The dividend is then shown under liabilities, no longer in equity.`,
+With total use of profit — basically not possible for a stock company, because the shareholders' meeting decides on dividends; possible for a GmbH depending on the timing of the approval. The dividend is then shown under liabilities, no longer in equity.
+
+**In class 19 Nov: what the lecturer stressed.**
+
+Recap impairment: impairment = extraordinary depreciation, for practically all assets. Non-current assets only for a permanent decrease, current assets also for a temporary one. If the reason disappears, reverse it, fully or partly, at most up to the book value you would have had without the impairment.
+
+**Onerous contract, his steel example.** November 2026: order 100 t of steel at €1,000/t, delivery and payment May 2027. Nothing is booked in November: a pending contract is assumed to be balanced.
+- 31.12.2026, price rises to €1,100/t :: book nothing. The gain is unrealised (realisation principle)
+- 31.12.2026, price falls to €900/t :: provision for onerous contracts of (1,000 − 900) × 100 t = **€10,000**. Classic example of the imparity principle
+- The only provision where you book just the difference. Every other provision is the full settlement amount
+
+**FX loan, why § 256a matters.** USD 3 m, 10 years, rate 1.15 → €2.61 m. Dollar stronger (1.05) → €2.86 m (higher of cost or market). Dollar weaker (1.30) → stays €2.61 m. But once the remaining maturity is within one year, § 256a **requires** the spot rate (1.30 → €2.31 m): an unrealised gain is realised. He calls it the only exception to prudence he can think of, introduced to move closer to IFRS. Practical tip: at year end, always check the remaining maturity of FX loans. Higher of cost or market for debts is in practice only an FX topic.
+
+**Full amount, now.**
+- Lawsuit, 70 % lose €1 m :: provision **€1 m**, not 0.7 × €1 m. The expected value is possible only under IFRS
+- Obligation of €1 m in 5 years :: provide the whole (discounted) amount now. Do not build it up with €200 k per year
+- Insurance will pay the €30 k damage :: book the provision anyway, no offsetting. The claim against the insurer is an asset only with written confirmation from the insurer. The provision is booked much earlier than the receivable
+- Judgement :: in a strong year management may estimate more generously (Dr expense / Cr provision lowers profit), but no deliberate over- or undervaluation, and the auditor has a say
+
+**Warranty, exam-style calculation.** Voluntary extra warranty = constructive obligation. 1,000 trucks sold, 3 % come back, repair cost €50 each: 30 × 50 = **€1,500**. Use the cost of repair, not the sales price.
+
+**Settling a provision of €10,000** (Dr expense / Cr provision was booked last year):
+- Settled for €7,000 :: Dr provision 10,000 / Cr cash 7,000 / Cr other income 3,000
+- Settled for €13,000 :: Dr provision 10,000 / Dr expense 3,000 / Cr cash 13,000. Only the extra 3,000 hits this year's P&L
+- Say "other income": "extraordinary income" no longer exists, even if old tutorial sheets still use it
+
+**His routine:** always write a journal entry starting with the debit side, even if you think of the credit first. Accounting is routine.
+
+**Smaller points:** trade payables and receivables include VAT (only asset capitalisation excludes it). Long-term debts are not discounted, even interest-free ones. Only provisions over one year are, at the Bundesbank rate (without discounting, pension provisions would be about three times higher). Internal-obligation provisions under § 249 he skipped ("nonsense"). He also skipped the bond discount/premium slide (§ 250) and told the class to forget it, so it is low priority. Not relevant: pension calculations, deferred taxes, hedge accounting.`,
 cards:[
 {q:R`Three criteria for a liability`, a:R`Obligation (legal, contractual, constructive), economic burden (probable, more likely than not), quantifiable (reliable estimate). All three needed.`},
 {q:R`Contingent liability vs provision vs debt`, a:R`Up to 50 % (remote/possible): contingent liability, notes only. Above 50 % (probable): provision if reliably measurable. Virtually certain: debt.`},
 {q:R`§ 249 HGB provisions (external / internal)`, a:R`External: uncertain liabilities, warranty without legal obligation, onerous contracts. Internal: omitted maintenance made up within 3 months, omitted waste disposal made up within 12 months. No other provisions allowed.`},
 {q:R`Onerous contract provision`, a:R`Expected future loss from a pending transaction (no party has performed yet); imparity principle. Coffee case: (9.50 − 7.80) × 10,000 kg = 17,000 USD.`},
-{q:R`Measurement of debts`, a:R`Settlement amount (nominal), no discounting even if interest-free; subsequently higher-of-cost-or-market (exception § 256a: maturity ≤ 1 year).`},
+{q:R`Measurement of debts`, a:R`Settlement amount (nominal), no discounting even if interest-free; subsequently higher-of-cost-or-market (exception § 256a: maturity ≤ 1 year → spot rate must be used).`},
 {q:R`Measurement of provisions`, a:R`Settlement amount by reasonable commercial assessment, future prices, complete amount (onerous: only the loss), discounted if maturity > 1 year; reassessed each year end, released if reason gone.`},
 {q:R`Bond issued at 98 / at 102 (nominal 100, 5 years)`, a:R`At 98: debt 100; 2 as interest expense or (option § 250 III) deferred expense released 0.4 p.a. At 102: debt 100 + deferred income 2, released 0.4 p.a. into interest.`},
 {q:R`Four functions of equity`, a:R`Working function, liability function, buffer for losses (negative → overindebtedness), profit distribution.`},
@@ -406,7 +434,13 @@ quiz:[
 {q:R`Hugo Ross faces a claim: 70 % chance of losing and paying €1 m, 30 % of winning with no payment. Provision under German GAAP?`, opts:[R`€1.0 m`,R`€0.7 m`,R`€0.3 m`,R`None, just a notes disclosure`], correct:0, exp:R`The burden is probable (> 50 %), so a provision is required at the most likely settlement amount — the full €1 m, not the expected value.`},
 {q:R`A company caused damage of about €30 k; its liability insurance should reimburse it, but nothing has been paid by year end. What is recognised?`, opts:[R`Provision €30 k; no netting with the insurance claim`,R`No provision, because the insurance company will pay it`,R`Provision €30 k and an insurance receivable of the same €30 k`,R`Provision of zero after offsetting both`], correct:0, exp:R`No offsetting: the obligation is shown in full. The reimbursement is only recognised once virtually certain (realisation principle).`},
 {q:R`An interest-free loan of €500 k is repayable in 4 years. At which value is it recognised?`, opts:[R`€500 k, not discounted`,R`Present value of €500 k`,R`€500 k less a deferred expense`,R`Present value, increased each year until repayment`], correct:0, exp:R`Debts are measured at their settlement amount; unlike provisions, long-term interest-free debts are not discounted.`},
-{q:R`A USD 3 m loan was recognised at €2.61 m (1.15 USD per EUR). At year end the rate is 1.30 USD per EUR; maturity 8 years. Balance sheet value?`, opts:[R`€2.61 m`,R`€2.31 m`,R`€2.86 m`,R`€3.00 m`], correct:0, exp:R`Higher-of-cost-or-market: the debt may not fall below its initial amount; the unrealised gain is not recognised. § 256a only allows it for maturities within one year.`},
+{q:R`A USD 3 m loan was recognised at €2.61 m (1.15 USD per EUR). At year end the rate is 1.30 USD per EUR; maturity 8 years. Balance sheet value?`, opts:[R`€2.61 m`,R`€2.31 m`,R`€2.86 m`,R`€3.00 m`], correct:0, exp:R`Higher-of-cost-or-market: the debt may not fall below its initial amount; the unrealised gain is not recognised. Only for maturities within one year does § 256a require the spot rate.`},
+{q:R`Nov 2026: 100 t of steel ordered at €1,000/t for May 2027. At 31.12.2026 the price is €1,100/t. What is booked?`, opts:[R`Nothing; the gain is unrealised`,R`Other income of €10,000`,R`An asset of €10,000`,R`A provision of €10,000`], correct:0, exp:R`Pending contract, the price moved in your favour: realisation principle, book nothing.`},
+{q:R`Same steel order, but at 31.12.2026 the price is €900/t. What is booked?`, opts:[R`Provision for onerous contracts €10,000`,R`Provision €100,000 (full contract value)`,R`Liability €90,000`,R`Nothing, the contract is pending`], correct:0, exp:R`Imparity principle: anticipate the loss. Only the difference: (1,000 − 900) × 100 t = €10,000.`},
+{q:R`USD 3 m loan, initially €2.61 m. At year end the rate is 1.30 USD per EUR and the loan is repaid in 6 months. Balance sheet value?`, opts:[R`€2.31 m (spot rate, § 256a)`,R`€2.61 m`,R`€2.86 m`,R`€3.00 m`], correct:0, exp:R`Remaining maturity within one year → § 256a requires the spot rate: 3 / 1.30 = €2.31 m, realising the gain.`},
+{q:R`1,000 toy trucks sold with a voluntary extra warranty; 3 % come back, repair costs €50 each (sales price €200). Provision?`, opts:[R`€1,500`,R`€6,000`,R`€50,000`,R`None, there is no legal obligation`], correct:0, exp:R`Constructive obligation. 30 trucks × €50 repair cost = €1,500. Use the cost, not the sales price.`},
+{q:R`A provision of €10,000 is settled for €7,000. Journal entry?`, opts:[R`Dr provision 10,000 / Cr cash 7,000 / Cr other income 3,000`,R`Dr provision 7,000 / Cr cash 7,000`,R`Dr expense 7,000 / Cr cash 7,000`,R`Dr provision 10,000 / Cr cash 7,000 / Cr extraordinary income 3,000`], correct:0, exp:R`Release the whole provision, the unused 3,000 is other income. "Extraordinary income" no longer exists.`},
+{q:R`A provision of €10,000 is settled for €13,000. Journal entry?`, opts:[R`Dr provision 10,000 / Dr expense 3,000 / Cr cash 13,000`,R`Dr expense 13,000 / Cr cash 13,000`,R`Dr provision 13,000 / Cr cash 13,000`,R`Dr provision 10,000 / Cr cash 10,000`], correct:0, exp:R`The provision covers 10,000 (expensed last year); the extra 3,000 is this year's expense.`},
 {q:R`A bond with nominal 100 (5 years) is issued at 102. How is the premium treated?`, opts:[R`Deferred income of 2, released 0.4 per year`,R`Interest income of 2 in the year the bond is issued`,R`Debt recognised at 102 and kept at that amount`,R`Capital reserve of 2, like a share premium (agio)`], correct:0, exp:R`Debt at settlement amount 100; the premium is deferred and released pro rata over the maturity (realisation principle).`},
 {q:R`What does the capital reserve mainly contain?`, opts:[R`Premiums (agio) paid by shareholders`,R`Accumulated, undistributed profits of prior years`,R`Number of shares × nominal value per share`,R`Reserves required by the articles of association`], correct:0, exp:R`Capital reserves = additional payments by shareholders, especially the agio. Accumulated profits are other revenue reserves; shares × nominal value is subscribed capital.`},
 {q:R`Net profit €800 k, loss carry forward €100 k, transfer to revenue reserves €300 k. Retained earnings (Bilanzgewinn)?`, opts:[R`€400 k`,R`€600 k`,R`€500 k`,R`€1,000 k`], correct:0, exp:R`800 − 100 − 300 = 400 (net profit ± carry forward + releases − transfers to reserves).`},
@@ -775,8 +809,9 @@ R`Current: strict lower-of-cost-or-market (also temporary) · fair value: procur
 {h:"Liabilities & equity", items:[
 R`Liability = obligation (legal/contractual/constructive) + probable burden + quantifiable · ≤ 50 % contingent (notes) · > 50 % provision · virtually certain debt`,
 R`§ 249 exhaustive: uncertain liabilities · warranty w/o legal obligation · onerous contracts · maintenance ≤ 3 months · waste disposal ≤ 12 months`,
-R`Debts: settlement amount, no discounting, higher-of-cost-or-market (§ 256a ≤ 1 year) · provisions: settlement amount at future prices, discount > 1 year, release if reason gone`,
+R`Debts: settlement amount, no discounting, higher-of-cost-or-market (§ 256a ≤ 1 year: spot rate mandatory) · provisions: settlement amount at future prices, discount > 1 year, release if reason gone`,
 R`Bond discount: expense or deferred expense (§ 250 III) · premium: deferred income, release pro rata`,
+R`In class 19 Nov: onerous = only the difference · otherwise full amount now (70 % → €1 m) · no offsetting with insurance · warranty = cases × cost · settle 10k for 7k: Dr prov 10 / Cr cash 7 / Cr other income 3 · always start with debit`,
 R`Equity: subscribed capital · capital reserves (agio) · revenue reserves (legal § 150 AktG, controlling entity, statutory, other) · carry forward · net profit`,
 R`Bilanzgewinn = net profit ± carry forward + releases from reserves − transfers to revenue reserves`]},
 {h:"P&L, notes, cash flow", items:[

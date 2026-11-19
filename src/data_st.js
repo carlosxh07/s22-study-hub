@@ -524,7 +524,31 @@ Summary of the sampling distribution of $\bar x$:
 
 To find a probability for $\bar x$, standardize with the standard error:
 $$z = \frac{\bar x - \mu}{\sigma/\sqrt n}$$
-Example: IQ, $n = 16$: $P(\bar x > 104)$: $z = (104-100)/4 = 1.00$, area $1 - 0.8413 = 0.1587$.`,
+Example: IQ, $n = 16$: $P(\bar x > 104)$: $z = (104-100)/4 = 1.00$, area $1 - 0.8413 = 0.1587$.
+
+**In class 19 Nov: $\bar x$ is itself a random variable.** The lecturer calls this the hardest idea of the chapter. Each sample you draw gives a different $\bar x$, so $\bar x$ has its own distribution.
+- $n = 1$ :: one draw, so $\bar x$ has exactly the same distribution as the population
+- Larger $n$ :: draws to the left and to the right cancel out, so $\bar x$ centres on $\mu$ ($\mu_{\bar x} = \mu$) and its spread shrinks by $\sqrt n$
+- Why it gets precise :: with 5 people you can still pick extreme cases by chance. Picking 30 extreme cases in a row is practically impossible
+
+**His example: age at death of 80-year-olds.** Strongly right-skewed (most die in the first years, a few reach 100), population mean about 85.
+- $n = 2$ or $n = 10$ :: $\bar x$ is still skewed
+- $n = 30$ :: $\bar x$ looks almost normal, centred on 85, much narrower
+- Uniform population (all values equally likely) :: symmetric, so $\bar x$ becomes normal faster than for a skewed population
+- Rule :: the closer the population is to normal, the faster $\bar x$ becomes normal. Above $n = 30$ it is fine even for very asymmetric populations. For $n = 10$ you cannot assume it
+- Income :: right-skewed (10% hold 90% of the money), yet means of samples above 30 are normal
+
+This is the **central limit theorem** (Zentraler Grenzwertsatz): whatever the population looks like, $\bar x$ is normal in the limit ($n \to \infty$), in practice from about 30. Exam-style task: sketch $\bar x$ for $n = 2$, 10 and 30 for a given population. Rough lines are enough. Careful when sketching: the inflection point at $\pm 1\sigma$ only holds for a **normal** curve. A uniform density has none.
+
+**Worked in class: TUT 7, additional exercise** (only on the solution slides, not on the sheet). IQ: $\mu = 100$, $\sigma = 7$, $n = 25$. Probability that the sample mean does not exceed 103.5?
+- Standard error :: $\sigma_{\bar x} = 7/\sqrt{25} = 7/5 = 1.4$
+- Standardise :: $z = (103.5 - 100)/1.4 = 2.5$
+- Table II :: $P(\bar x \le 103.5) = P(z \le 2.5) = 0.9938$
+- Sanity check :: 2.5 standard errors above the mean, so exceeding it is rare (0.62%). For one single person 103.5 is only half a $\sigma$ above 100, which is very likely to be exceeded. A group of 25 almost never manages it
+
+Why standardise at all: subtracting $\mu$ moves the centre to 0, dividing by the right standard deviation ($\sigma_{\bar x}$, not $\sigma$) measures in standard deviations, so the one standard-normal table works ("think like the grandmother").
+
+Next step in the lecture: in practice $\sigma$ is unknown and has to be estimated from the sample, which adds a little uncertainty (→ chapter 8, $t$). After the break: finish TUT 7, repeat TUT 6 (not hard, but the set and $\alpha$ notation confuses), and revisit the probability concepts from chapters 4 and 5.`,
 cards:[
 {q:R`Sampling error`, a:R`The error from using a sample to estimate a population characteristic, e.g. $\bar x$ instead of $\mu$.`},
 {q:R`Sampling distribution of the sample mean`, a:R`The distribution of $\bar x$ over all possible samples of a given size.`},
@@ -543,7 +567,12 @@ quiz:[
 {q:R`A population is normal. Samples of size 3 are taken. The distribution of x̄ is…`, opts:[R`normal`,R`approximately normal only`,R`unknown, n is too small`,R`skewed`], correct:0, exp:R`Normal populations give normal x̄ for every sample size.`},
 {q:R`IQ μ = 100, σ = 16, n = 16. P(x̄ > 104)?`, opts:[R`0.1587`,R`0.4013`,R`0.8413`,R`0.0228`], correct:0, exp:R`σ_x̄ = 4, z = 1.00, right area 0.1587. (0.4013 would ignore √n.)`},
 {q:R`Five basketball players (μ = 80). Samples of size 2 without replacement — how many possible samples?`, opts:[R`10`,R`25`,R`20`,R`5`], correct:0, exp:R`₅C₂ = 10.`},
-{q:R`What does the central limit theorem NOT say?`, opts:[R`That x is normal for large samples`,R`That x̄ is roughly normal for large n`,R`That the approximation improves with n`,R`That it holds for any population shape`], correct:0, exp:R`The CLT is about the sample mean x̄, not about the variable x itself.`}
+{q:R`What does the central limit theorem NOT say?`, opts:[R`That x is normal for large samples`,R`That x̄ is roughly normal for large n`,R`That the approximation improves with n`,R`That it holds for any population shape`], correct:0, exp:R`The CLT is about the sample mean x̄, not about the variable x itself.`},
+{q:R`IQ μ = 100, σ = 7, sample n = 25. P(x̄ ≤ 103.5)?`, opts:[R`0.9938`,R`0.6915`,R`0.0062`,R`0.9332`], correct:0, exp:R`σ_x̄ = 7/5 = 1.4, z = 3.5/1.4 = 2.5, Table II gives 0.9938. 0.6915 would use σ = 7 instead of 1.4.`},
+{q:R`A sample of size n = 1 is drawn. What does the distribution of x̄ look like?`, opts:[R`Exactly like the population distribution`,R`Normal, centred on μ`,R`Uniform`,R`It has no distribution, x̄ is a fixed number`], correct:0, exp:R`With one draw, x̄ is just that draw. It only centres and narrows as n grows.`},
+{q:R`Population: age at death of 80-year-olds, strongly right-skewed. Samples of n = 10. Which statement fits the lecture?`, opts:[R`x̄ is still noticeably skewed; you cannot assume normality yet`,R`x̄ is exactly normal`,R`x̄ is as skewed as the population`,R`x̄ is uniform`], correct:0, exp:R`It gets more symmetric with n, but for a very skewed population only from about n = 30 is it close to normal.`},
+{q:R`Which population makes x̄ approach normality fastest?`, opts:[R`A symmetric (e.g. uniform) one`,R`A strongly right-skewed one`,R`A reverse-J-shaped one`,R`It makes no difference`], correct:0, exp:R`The closer the population is to normal (symmetric at least), the faster x̄ becomes normal.`},
+{q:R`On a sketch, where is the inflection point of a uniform density?`, opts:[R`There is none; μ ± σ at the inflection point holds only for normal curves`,R`At μ ± σ`,R`At μ`,R`At the two ends`], correct:0, exp:R`Lecture remark: only a normal curve changes curvature at exactly one σ.`}
 ]},
 
 {id:'st-8', ch:8, title:'Confidence Intervals for One Population Mean', examWeight:'z-interval (σ known), t-interval (σ unknown), margin of error, required sample size, interpretation',
@@ -652,7 +681,12 @@ R`Binomial: $p^x(1-p)^{n-x}$ = one path · $\binom{n}{x}$ = number of paths · $
 R`"At least 5" = $1 - P(X \le 4)$ · $P(X \ge 6) = P(X \ge 5) - P(X = 5)$`,
 R`Table II = area to the LEFT · right = 1 − left · between = left(big) − left(small)`,
 R`$x \to z$: $z = (x-\mu)/\sigma$ · area $\to x$: $x = \mu + z\sigma$ · $z_{0.05} = 1.645$, $z_{0.025} = 1.96$, 90th percentile $z = 1.28$`,
-R`Inflection point = $\mu \pm \sigma$ · 68 / 95 / 99.7 · always sketch and check`]}
+R`Inflection point = $\mu \pm \sigma$ · 68 / 95 / 99.7 · always sketch and check`]},
+{h:'In class 19 Nov (central limit theorem)', items:[
+R`$\bar x$ is a random variable · $n = 1$: same as population · $\mu_{\bar x} = \mu$ · $\sigma_{\bar x} = \sigma/\sqrt n$`,
+R`CLT: any population → $\bar x$ normal from about $n = 30$ · symmetric populations faster · $n = 10$ not enough if skewed`,
+R`$z = (\bar x - \mu)/(\sigma/\sqrt n)$ · IQ $\sigma = 7$, $n = 25$: $\sigma_{\bar x} = 1.4$, $z = 2.5$, $P = 0.9938$`,
+R`Inflection point at $\pm\sigma$ only for normal curves`]}
 ];
 
 /* ============================================================ TABLE IV (t) — exactly as in the handout ============================================================ */
