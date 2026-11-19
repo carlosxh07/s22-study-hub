@@ -251,7 +251,12 @@ R`Modified duration $D/(1+y)$ · $\frac{\Delta P}{P} \approx -\frac{D}{1+y}\Delt
 R`Bond → cash flows: coupon = rate × face (÷ 2 if semiannual) · last payment = coupon + face`,
 R`Forward: $(1+r_b)^b = (1+r_a)^a(1+f_{a,b})^{b-a}$ · semiannual: halve rates, double exponents · continuous: $f = (b\,r_b - a\,r_a)/(b-a)$`,
 R`Real rate: $(1+\text{nominal})/(1+\text{inflation}) - 1$ (110 vs 3% → 6.80%)`,
-R`Stock return $R = (P_1 - P_0 + D_1)/P_0$ · value $P_0 = D_1/(r-g)$ ($r>g$), constant dividend $D/r$`]}
+R`Stock return $R = (P_1 - P_0 + D_1)/P_0$ · value $P_0 = D_1/(r-g)$ ($r>g$), constant dividend $D/r$`]},
+{h:'Class 7 in class (IRR, utility, risk)', items:[
+R`NPV +1 on 1bn = good (beats best alternative) · IRR needs a benchmark · as many IRRs as sign changes · mutually exclusive → NPV`,
+R`Incremental cash flows (cannibalisation) · forget sunk costs · nominal with nominal, real with real · EAC: solve for C, never PV ÷ n`,
+R`Concave = risk-averse (diminishing marginal utility) · convex = risk-loving · stocks pay more → people are risk-averse · equity premium puzzle`,
+R`Returns: fat tails, not normal · N stocks: N own-risk boxes vs $N^2-N$ covariance boxes → unique risk diversifies away, market risk stays`]}
 ];
 
 /* ---------- lectures (Prof. Karapandža's class slides, content only) ---------- */
@@ -996,7 +1001,45 @@ $\sigma_p^2 = w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\rho\sigma_1\sigma_2$ (
 
 **Market risk vs unique risk — Nvidia’s two Thursdays (November 2026):**
 - 5 Nov, fears about AI spending :: 431 of the S&P 500 fall — Nvidia −9.3%, AMD −17.3%, S&P 500 −4.4%; half Nvidia, half AMD → −13.3%: a portfolio does not help against a shock to all firms (**market risk**)
-- 12 Nov, Nvidia’s CEO resigns :: Nvidia −4.3%, AMD +5.9%, S&P 500 −0.4%; half/half → +0.8%: a shock to one firm sits only in its own box and is diversified away (**unique risk**)`,
+- 12 Nov, Nvidia’s CEO resigns :: Nvidia −4.3%, AMD +5.9%, S&P 500 −0.4%; half/half → +0.8%: a shock to one firm sits only in its own box and is diversified away (**unique risk**)
+
+**In class (recording of the 13 Nov lecture): what Karapandža added to the slides.**
+
+*Where you stand:* with this class the present-value part is done. You can now solve every PV problem in the past exams, well over half of an exam.
+
+**Why IRR is so popular and still risky.** People like to think in percent, because a percentage is easy to compare with bonds or stocks. NPV is harder to grasp: an NPV of +1 on a billion-dollar project is **good**, because it means 1 more than the best alternative with similar risk, not "1 profit". In his experience, the more senior the person, the less they get this. You will be asked for an IRR anyway ("76% chance your boss wants it"), so always check the NPV as well.
+- IRR still needs a benchmark :: 28.08% is bad if the best alternative of similar risk pays 30%, great if it pays 10%. The benchmark is the same rate you would discount with for the NPV
+- Multiple IRRs :: you get as many solutions as the cash-flow stream changes sign. Excel shows just one, and Mac and PC can show different ones (his example: −11% vs +44%). All of them solve the equation, so the IRR alone cannot tell you whether to invest
+- Only positive or only negative cash flows :: the NPV curve never crosses zero, so there is no IRR. This hardly happens in practice
+- Mutually exclusive projects :: 2 floors or 10 floors on one plot. The smaller building can have the higher IRR, while the bigger one earns more money today. NPV gives the right answer
+- One rate for all periods :: IRR uses the same rate in every year. NPV can discount each year at its own rate, as with bonds
+
+**Put everything into the cash flow.** "Boeing had incidents, buy Airbus" is not an argument on its own. Turn it into numbers, for example lower expected sales. The same goes for a marketing campaign or a brand: estimate it as a cash flow.
+- Incremental :: iPhone 19 is worth its **extra** cash flow for Apple: minus lost iPhone 18 sales, plus new accessories. A new airline route can empty other routes that passengers used before. Network effects are hard to measure and sometimes need simulation
+- Sunk costs :: money already spent does not change whether to spend more. His examples are the Berlin airport ("we already spent billions") and Stuttgart 21, which in his view cost about as much as building a company like SpaceX
+- Inflation :: an NPV is in today's money, so inflation cannot change it, as long as you stay consistent: nominal cash flows with the nominal rate, real cash flows with the real rate. Never mix them
+
+**Equivalent annual cost: why not just divide?** Machine A's PV of 28.37 spread over 4 payments (today and years 1–3) is **not** 28.37/4 = 7.09 a year. Dividing ignores that a payment later is worth less today. Solve for the constant C with the same PV: 7.72. Brealey–Myers put the first C at year 1, his slides also put one C today. Both work as long as you treat both machines the same way.
+
+**Utility: why people dislike risk.** 5 for sure or a fair 50/50 on 0 or 10? The class split roughly half and half. With 5 **million** against 0 or 10 million almost nobody gambles. A UCLA economist ran this with real millions on TV game shows: with big stakes, people take the safe amount.
+- Utility function :: turns an amount of consumption ("cookies") into units of happiness. Economists use consumption, not money, because what counts is what money buys
+- Concave ($\sqrt{c}$) = risk-averse :: one more cookie helps a poor person a lot and a rich person only a little (diminishing marginal utility). This fits real people
+- Convex ($c^2$) = risk-loving :: the extra cookie helps the rich more (from 100 to 121 vs from 0 to 1)
+- Straight line = risk-neutral :: safe and risky give the same utility
+
+**Standard deviation as a "baby measure" of risk.** A normal distribution is fixed by two numbers, mean $\mu$ and standard deviation $\sigma$. A wider distribution makes extreme outcomes more likely. With a concave utility, two outcomes in the tails give less happiness than one in the middle, so wider means riskier. A better measure of risk comes next class. (He described $\sigma$ as the width "at half the height". For a normal curve that width is about $2.35\sigma$; on a sketch, $\sigma$ is the distance from the mean to the inflection point.)
+
+**Why hold stocks at all?** They swing much more than bonds, but around a **higher average**. Over 100 years the gap is enormous. Over short windows, though, stocks often leave you with less, and someone who started in 1926 still had less ten years later. With a long horizon and while you are young, stocks make sense.
+- Evidence that people are risk-averse :: if people loved risk, they would accept **lower** returns on stocks. Stocks pay more, so investors pay to avoid risk. Otherwise nobody would hold bonds
+- Equity premium puzzle (Mehra and Prescott, 1980s) :: given measured risk aversion, stocks have paid **more** than they should. Some sub-periods (around the dot-com crash, 2008, COVID) show no puzzle, but on average it remains
+- Market risk premium (stocks minus bonds) :: differs by country. Countries with higher premiums tended to have more volatile markets, but not one to one. Be careful with 100-year averages: Japanese stocks have paid little for decades
+- Crash days :: there were days when the **whole** market fell 10–15% at once
+
+**Returns are not normal.** They are skewed with **fat tails**, so extreme days, good and bad, happen far more often than a normal curve predicts. He recommends *The Black Swan* (Nassim Taleb). Most of the money is made or lost on those few extreme days: missing the best or the worst ones changes your result far more than ordinary days. The course still uses the normal curve because it is simple.
+
+**Correlation.** +1 means they always move in the same direction, −1 means always opposite, 0 means one tells you nothing about the other. Two stocks with the same $\sigma$ that move exactly opposite: 50/50 and your money barely moves. Two that move together: no risk reduction.
+
+**Preview of diversification.** With N stocks the variance box has N diagonal boxes (each firm's own risk) and $N^2 - N$ covariance boxes. With 10 stocks that is 10 against 90. Firm-specific risk ("the CEO's affair") disappears with many stocks. The covariance part does not. The two Thursdays show both cases (half Nvidia, half AMD: −13% on 5 Nov, about +1% on 12 Nov). Next class quantifies this.`,
 cards:[
 {q:R`Risk averse, neutral, loving — the lottery`, a:R`Safe 5 vs 0/10 at 50%. $\sqrt c$: 2.24 vs 1.58 → safe (averse). $c/2$: 2.5 vs 2.5 → indifferent (neutral). $c^2$: 25 vs 50 → lottery (loving).`},
 {q:R`Variance and standard deviation`, a:R`Variance = average squared deviation from the mean; σ = √variance. Coin toss +40, +10, +10, −20 → mean 10, variance 450, σ 21.2%.`},
@@ -1015,6 +1058,16 @@ quiz:[
 {q:R`Same two stocks, correlation −1.0. Portfolio σ?`, opts:[R`About 4%`,R`About 21.3%`,R`About 22.4%`,R`Zero`], correct:0, exp:R`Variance 0.0502 − 4·0.6·0.4·0.22·0.23 ≈ 0.0016 → σ ≈ 4%.`},
 {q:R`In an N-stock variance box, how often does each covariance term appear?`, opts:[R`Once`,R`N times`,R`Twice`,R`Never — only variances count`], correct:2, exp:R`The box is symmetric: $w_iw_j\sigma_{ij}$ appears at (i, j) and (j, i).`},
 {q:R`On a day when Nvidia’s CEO resigns, Nvidia falls 4.3% and AMD rises 5.9%. A half-half portfolio earns +0.8%. This shows that …`, opts:[R`market risk can be diversified away`,R`unique risk can be diversified away`,R`portfolios increase risk`,R`correlation is always −1`], correct:1, exp:R`A shock to one firm sits only in its own box — unique risk. A shock to all firms (5 Nov) is market risk.`},
+{q:R`A project costs 1 billion and has an NPV of +1. What does that mean?`, opts:[R`It earns 1 more than the best alternative with similar risk, so take it`,R`It makes a profit of only 1, so reject it`,R`Its IRR is 0%`,R`It is risk-free`], correct:0, exp:R`NPV is value added over the opportunity cost of capital. Any positive NPV beats the best comparable alternative.`},
+{q:R`A project's IRR is 28.08%. Is it a good project?`, opts:[R`It depends on the return of the best alternative with similar risk`,R`Yes, any IRR above 0% is good`,R`Yes, because it is above 10%`,R`No, IRR above 25% signals an error`], correct:0, exp:R`IRR still needs a benchmark: bad if the alternative pays 30%, great if it pays 10%.`},
+{q:R`A cash-flow stream changes sign three times. How many IRRs can it have?`, opts:[R`Up to three`,R`Exactly one`,R`None`,R`Always two`], correct:0, exp:R`As many solutions as sign changes. Excel reports just one, so check the NPV.`},
+{q:R`Machine A: PV of costs 28.37, paid as equal amounts today and in years 1–3 (r = 6%). Why is 28.37/4 = 7.09 wrong as its annual cost?`, opts:[R`It ignores the time value of money; the correct C is 7.72`,R`It should be divided by 3, giving 9.46`,R`It is correct; EAC is always PV divided by the number of payments`,R`EAC only applies to revenues`], correct:0, exp:R`Payments later are worth less today, so the constant C must be higher: solving the annuity equation gives 7.72.`},
+{q:R`Apple decides whether to launch a new iPhone. Which cash flow counts?`, opts:[R`The change in Apple's total cash flow, net of lost sales of the old model`,R`Only the revenue of the new model`,R`The new model's revenue plus last year's R&D spending`,R`The old model's cash flow`], correct:0, exp:R`Incremental basis: include cannibalisation and incidental effects, ignore sunk costs.`},
+{q:R`Stocks have paid more on average than bonds for 100 years. According to the lecture, what does this show?`, opts:[R`Investors are risk-averse and pay to avoid risk`,R`Investors are risk-loving`,R`Stocks are less risky than bonds`,R`Markets are inefficient, so bonds should be avoided`], correct:0, exp:R`If people loved risk they would accept lower returns on stocks. The extra return is the price of risk.`},
+{q:R`What is the equity premium puzzle?`, opts:[R`Stocks have paid more than measured risk aversion can explain`,R`Stocks have paid less than bonds`,R`Bond returns are higher in recessions`,R`Dividends are less stable than prices`], correct:0, exp:R`Mehra and Prescott (1980s): given how risk-averse people are, the historical stock premium is too large.`},
+{q:R`Why does a concave utility function describe risk aversion?`, opts:[R`One more unit adds less happiness the more you already have, so a sure amount beats a fair gamble`,R`Utility rises faster as consumption grows`,R`Utility is the same for every amount`,R`It makes the expected value of a lottery higher`], correct:0, exp:R`Diminishing marginal utility: two outcomes in the tails give less utility than one in the middle (√5 = 2.24 > 1.58).`},
+{q:R`What does "fat tails" in stock returns mean?`, opts:[R`Extreme gains and losses happen more often than a normal distribution predicts`,R`Returns are always positive`,R`The standard deviation is zero`,R`Most returns lie exactly at the mean`], correct:0, exp:R`Real returns are skewed with fat tails (Black Swan). The normal curve is used only because it is simple.`},
+{q:R`A portfolio holds 10 stocks. How many boxes in its variance box are covariance terms?`, opts:[R`90`,R`10`,R`100`,R`45`], correct:0, exp:R`10 × 10 = 100 boxes, 10 on the diagonal (own risk), 90 covariance boxes. With more stocks the covariances dominate.`},
 {q:R`1 invested in US stocks at the end of 1926 grew to about … by 2025, versus about 25 in Treasury bills.`, opts:[R`160`,R`1,600`,R`16,000`,R`160,000`], correct:2, exp:R`About 16,000 — with much higher year-to-year swings.`}
 ]},
 /* ------------------------------------------------------------ OLDER PRACTICE EXAMS ------------------------------------------------------------ */
