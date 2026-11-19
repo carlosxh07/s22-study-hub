@@ -62,6 +62,7 @@ function msItems(){
   tasks('bk', BK_CLASS, 'bk-class-state', 'bk-class', 'Class');
   tasks('bk', BK_EXAM, 'bk-exam-state', 'bk-exam', 'Exam focus');
   tasks('st', ST_TUTS, 'st-tut-state', 'st-tut', 'TUT');
+  tasks('st', ST_EXAMS, 'st-exam-state', 'st-exams', 'Past exam');
   // 7. Math II: old exam tasks (self-rated) and parts of the interactive past exams (best check)
   const bank = ls('m2-bank-state', {}), brate = {ok:1, half:.5, bad:0};
   M2_BANK.forEach(b=>{ if(bank[b.id]!=null) push({key:'m2b:'+b.id, subj:'m2', kind:'Exam bank', text:`${b.exam} · Ex. ${b.n}: ${b.title}`, src:'150 old exam tasks (self-rated)', page:'m2-bank', score:brate[bank[b.id]]}); });
