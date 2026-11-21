@@ -114,7 +114,7 @@ let bkMockSel = null;
 function bkCalcOpenMock(){ bkCalcKind = 'mock'; navTo('bk-calc'); const pg = document.getElementById('page-bk-calc'); if(pg && pg.__show) pg.__show(); }
 function buildBKMock(){
   registerPage('bk-mock', (div)=>{
-    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · Cloer's mock exam 21.11.</div><h2>Mock Exam</h2><p>The official mock with Cloer's model solutions. Write your answer, reveal, rate yourself: the hub adds up your estimated points out of 135.</p></div>
+    div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('doc')} Practice · Cloer's mock exam 21.11.</div><h2>Mock Exam</h2><p>The official mock. Solutions use Cloer's entries, explained step by step with the reason for every debit and credit. Write your answer, reveal, rate yourself: the hub adds up your estimated points out of 135.</p></div>
       <div class="page-body">
         <div class="bk-tut-intro glass">${bkRich(BK_MOCK_FORMAT)}</div>
         <div class="bk-score-row"><span class="bk-live bk-mo-live"></span><button class="btn ghost" onclick="bkCalcOpenMock()">Same tasks with new numbers →</button><button class="btn ghost bk-mo-reset">Reset ratings</button></div>
@@ -135,7 +135,7 @@ function buildBKMock(){
         ${c.tasks.map(k=>{ const key = c.n+'-'+k.id; return `<div class="drill-card glass bk-tut-task" data-key="${key}">
           <div class="bk-tut-q">${tutQ(bkRich(k.q))} <span class="qtag">${k.pts} P</span></div>
           <textarea class="bk-tut-ans" rows="5" placeholder="Debit / Soll … — Credit / Haben … and your calculation (saved on this device)">${esc(answers[key]||'')}</textarea>
-          <div class="ans-actions"><button class="btn" data-a="sol">Show model solution</button></div>
+          <div class="ans-actions"><button class="btn" data-a="sol">Show explained solution</button></div>
           <div class="bk-tut-sol" hidden>${bkRich(k.sol)}${rateRow(key)}</div>
         </div>`; }).join('')}`;
     };
@@ -143,7 +143,7 @@ function buildBKMock(){
     body.addEventListener('click', ev=>{
       const task = ev.target.closest('.bk-tut-task'); if(!task) return;
       const key = task.dataset.key, b = ev.target.closest('[data-a],[data-rate]'); if(!b) return;
-      if(b.dataset.a==='sol'){ const sol = task.querySelector('.bk-tut-sol'); sol.hidden = !sol.hidden; b.textContent = sol.hidden ? 'Show model solution' : 'Hide model solution'; }
+      if(b.dataset.a==='sol'){ const sol = task.querySelector('.bk-tut-sol'); sol.hidden = !sol.hidden; b.textContent = sol.hidden ? 'Show explained solution' : 'Hide solution'; }
       if(b.dataset.rate!=null){ const st = bkMockState(); st[key] = +b.dataset.rate; lsSet('bk-mock-state', st); task.querySelectorAll('[data-rate]').forEach(x=>x.classList.toggle('active', x===b)); drawChips(); }
     });
     chips.addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; show(+c.dataset.n); window.scrollTo({top:0, behavior:'smooth'}); });
