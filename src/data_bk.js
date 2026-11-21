@@ -65,7 +65,11 @@ Main areas of general business administration (nine): marketing, production and 
 - General business administration :: general principles that apply to all businesses, regardless of sector or legal form
 - Specialised business administration :: applies these findings to specific sectors, functions or types of business
 
-The German "Allgemeine BWL" (Wöhe) has no real equivalent in the Anglo-Saxon world; the closest is Nickels/McHugh/McHugh, Understanding Business.`,
+The German "Allgemeine BWL" (Wöhe) has no real equivalent in the Anglo-Saxon world; the closest is Nickels/McHugh/McHugh, Understanding Business.
+From Cloer's mock exam (21.11.):
+- General entrepreneurial risk :: must **not** be included as an imputed cost; it is compensated by the entrepreneur's profit. Only **specific operating risks** (fire, bad debts, warranty) may be imputed risk costs
+- Imputed rent of a sole proprietor :: cost without expense → no financial-accounting entry at all
+- Collecting a receivable :: cash inflow, but no income or earnings (asset exchange); only a cash discount deducted by the customer is an expense`,
 cards:[
 {q:R`What does accounting model?`, a:R`The business reality, reduced to financial movements and movements of goods in the form of money and service flows. The company is a black box between purchase market, sales market, equity/debt providers and the government.`},
 {q:R`Three company types and an example each`, a:R`Trading company: sells goods without processing (supermarket, car dealer). Industrial company: processes raw, auxiliary and operating materials into new products (automobile manufacturer). Service provider: uses external factors of the client (tax advisor, cab driver).`},
@@ -97,7 +101,9 @@ quiz:[
 {q:R`The greenhouse of a tulip grower burns down. What is recognised?`, opts:[R`An expense, but no cost`,R`An expense and a cost`,R`An expenditure and an expense`,R`A cost, but no expense`], correct:0, exp:R`Equity falls (expense). A fire is not an operational use of resources, so it is no cost; cash and financial assets do not change.`},
 {q:R`A tulip grower includes a flat rate for fire risk in its prices. What is it?`, opts:[R`An imputed cost (cost, but no expense)`,R`An expense and a cost at once`,R`An expenditure without expense`,R`Nothing at all in any accounting area`], correct:0, exp:R`Calculatory risk costs ("other costs") exist only in cost accounting: no cash, no financial asset and no equity change.`},
 {q:R`According to Coase, why do firms exist?`, opts:[R`Coordinating inside the firm can be cheaper than via the market`,R`They transform factors of production into goods`,R`They are required by the commercial code`,R`They maximise shareholder value by definition`], correct:0, exp:R`Coase sees the firm as a venue for reducing transaction costs. Transforming factors of production is Gutenberg's definition.`},
-{q:R`Which is NOT one of the nine main areas of general business administration on the amendment slide?`, opts:[R`Economic policy`,R`Controlling`,R`Taxation`,R`Strategic management`], correct:0, exp:R`The nine areas: marketing, production & operations, corporate finance, (external) accounting, controlling, organisation, HRM, strategic management, taxation.`}
+{q:R`Which is NOT one of the nine main areas of general business administration on the amendment slide?`, opts:[R`Economic policy`,R`Controlling`,R`Taxation`,R`Strategic management`], correct:0, exp:R`The nine areas: marketing, production & operations, corporate finance, (external) accounting, controlling, organisation, HRM, strategic management, taxation.`},
+{q:R`An entrepreneur wants to include the general entrepreneurial risk as an imputed cost. Is that permissible?`, opts:[R`No, only specific operating risks may be imputed`,R`Yes, as part of the calculatory risks`,R`Yes, but only for corporations`,R`Only if it is also booked as an expense`], correct:0, exp:R`General entrepreneurial risk is compensated by profit. Imputed risk costs cover only specific risks such as fire or bad debts (Cloer's mock, Task 1).`},
+{q:R`A trade receivable of 9,500€ is collected by bank, the customer deducts 2% discount. What is recognised?`, opts:[R`Cash inflow 9,310 and an expense of 190`,R`Income and earnings of 9,500`,R`Earnings of 9,310 and a cost of 190`,R`Nothing, it is only an asset exchange`], correct:0, exp:R`The collection is an asset exchange (no new income/earnings). Only the 190 discount is an expense (Cloer's mock, Task 1b).`}
 ]},
 
 {id:'bk-2', ch:'3.1', title:'Merchants, Inventory & Stocktaking', examWeight:'Merchant test, the four inventory timing procedures with their roll-forward formulas, and the valuation simplifications (fixed value, group average, FIFO/LIFO) with calculations — Amendment 3',
@@ -182,7 +188,10 @@ The central tasks of external accounting so far: qualification as merchant, stoc
 Excursus banking law: banks play a decisive role in corporate financing in Germany (in the USA private investors play a stronger role).
 - Three-pillar model :: cooperative banks, public-law banks (savings banks), private banks
 - Three categories of banking transactions :: financing, investment, payment transactions
-- Also covered :: the concept of a credit institution and banking supervision`,
+- Also covered :: the concept of a credit institution and banking supervision
+From Cloer's mock exam (21.11.), current affairs:
+- UniCredit and Commerzbank :: the German major bank targeted by UniCredit's acquisition strategy is **Commerzbank AG**. UniCredit has built up a substantial stake and pursues a potential combination/takeover; it is **not** a completed full purchase
+- Cooperative (purpose and governance) :: member-owned, its purpose is to promote its members through joint business operations; democratic participation, generally one member = one vote`,
 cards:[
 {q:R`Which provision obliges merchants to keep records?`, a:R`§ 238 HGB. Who is a merchant follows from § 1 HGB.`},
 {q:R`Three ways to qualify as a merchant`, a:R`By virtue of operations (§ 1 HGB, commercial business), by virtue of registration (commercial register, §§ 2, 3, 5 HGB) and by virtue of legal form (§ 6 HGB: corporations, registered cooperatives).`},
@@ -219,7 +228,8 @@ quiz:[
 {q:R`Same feed case, FIFO. What is the value of the remaining stock?`, opts:[R`800€`,R`700€`,R`775€`,R`7,750€`], correct:0, exp:R`FIFO: the first purchases are used first, so the remaining 1,000 kg are valued at the last price 0.80€.`},
 {q:R`Which procedure is regulated in § 240 para. 3 HGB?`, opts:[R`Permanent valuation (Festbewertung)`,R`Group valuation (Gruppenbewertung)`,R`Consumption sequence (FIFO/LIFO)`,R`Sample stocktaking (Stichprobe)`], correct:0, exp:R`§ 240 para. 3: permanent valuation; § 240 para. 4: group valuation; § 256: consumption sequence; § 241 para. 1: sample stocktaking.`},
 {q:R`How often must assets under permanent valuation be physically counted?`, opts:[R`Every three years`,R`Every business year`,R`Never again`,R`Every five years`], correct:0, exp:R`Fixed values are allowed if quantity and value stay constant, but a physical count is required every three years.`},
-{q:R`Inventory: assets 452,450, long-term liabilities 255,000, short-term 25,500. Gross equity?`, opts:[R`171,950`,R`197,450`,R`427,450`,R`280,500`], correct:0, exp:R`452,450 ./. (255,000 + 25,500) = 171,950.`}
+{q:R`Inventory: assets 452,450, long-term liabilities 255,000, short-term 25,500. Gross equity?`, opts:[R`171,950`,R`197,450`,R`427,450`,R`280,500`], correct:0, exp:R`452,450 ./. (255,000 + 25,500) = 171,950.`},
+{q:R`Which German major bank is the target of UniCredit's acquisition strategy, and what is the status?`, opts:[R`Commerzbank; substantial stake, takeover not completed`,R`Deutsche Bank; full takeover completed`,R`Commerzbank; full takeover already completed`,R`DZ Bank; merger of the cooperative banks`], correct:0, exp:R`UniCredit holds a substantial stake in Commerzbank AG and pursues a potential combination; it is not a completed full purchase (Cloer's mock, Task 8).`}
 ]},
 
 {id:'bk-3', ch:'3.2', title:'Balance Sheet & the Four Transaction Types', examWeight:'Recognise asset exchange, liability exchange, extension and contraction and redraw the balance sheet',

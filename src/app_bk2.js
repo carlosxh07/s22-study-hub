@@ -31,7 +31,7 @@ Annual depreciation = ${bkE(AC-rv,0)} / ${n} = **${bkE(a)}€**.
 Book value end of year ${k} = ${bkE(AC,0)} − ${k} × ${bkE(a)} = **${bkE(bv)}€**.
 Booking every year: Debit Depreciation ${bkE(a)} / Credit Machinery ${bkE(a)}.`};
 }},
-{id:'geo', label:'Geometric-declining depreciation', topic:'bk-11', gen(){
+{id:'geo', noexam:true, label:'Geometric-declining depreciation (not in exam)', topic:'bk-11', gen(){
   const AC = bkRnd(10, 80)*1000, p = bkPick([20, 25, 30]), k = bkRnd(2, 4);
   let bv = AC; const rows = []; for(let t=1;t<=k;t++){ const d = bv*p/100; rows.push([t, d, bv-d]); bv -= d; }
   return {q:`Acquisition costs ${bkE(AC,0)}€, geometric-declining (book value) depreciation of ${p}% per year. Find the depreciation in year ${k} and the book value at the end of year ${k}.`,
@@ -42,7 +42,7 @@ Year|Depreciation|Book value
 ${rows.map(r=>`${r[0]}|${bkE(r[1])}|${bkE(r[2])}`).join('\n')}]]
 The book value never reaches zero with this method. (Currently not allowed for tax purposes.)`};
 }},
-{id:'switch', label:'Switch from declining to straight-line', topic:'bk-11', gen(){
+{id:'switch', noexam:true, label:'Switch declining → straight-line (not in exam)', topic:'bk-11', gen(){
   const [n, p] = bkPick([[10,25],[8,25],[10,20],[5,40],[8,20],[12,25]]), AC = bkRnd(10, 60)*1000;
   const t = n - 100/p + 1; let bv = AC; for(let y=1;y<t;y++) bv -= bv*p/100; const sl = bv/(n-t+1);
   return {q:`Acquisition costs ${bkE(AC,0)}€, useful life ${n} years, declining depreciation of ${p}%. In which year is the switch to straight-line optimal, and what is the straight-line amount from then on?`,
@@ -51,7 +51,7 @@ The book value never reaches zero with this method. (Currently not allowed for t
 Book value at the end of year ${t-1}: ${bkE(AC,0)} × ${(1-p/100).toFixed(2)}^${t-1} = ${bkE(bv)}.
 Straight-line on the remaining ${n-t+1} years: ${bkE(bv)} / ${n-t+1} = **${bkE(sl)}€** per year, so the book value reaches 0 at the end of year ${n}.`};
 }},
-{id:'digital', label:'Digital (sum-of-the-years) & performance-related', topic:'bk-11', gen(){
+{id:'digital', noexam:true, label:'Digital & performance-related (not in exam)', topic:'bk-11', gen(){
   if(Math.random()<.5){
     const AC = bkRnd(20, 120)*1000, rv = bkPick([0, 2000, 5000]), n = bkPick([4,5,6,10]), k = bkRnd(1, 3);
     const S = n*(n+1)/2, D = (AC-rv)/S, a = D*(n-k+1);
@@ -97,20 +97,21 @@ In the next year the deferral is released into ${who==='tenant'?'expense':'earni
 }}
 ];
 
+let bkCalcKind = 'mock';
 function bkCalcStats(){ return ls('bk-calc-stats', {}); }
 function buildBKCalc(){
   registerPage('bk-calc', (div)=>{
     div.innerHTML = `<div class="page-header"><div class="eyebrow">${icon('calc')} Practice</div><h2>Number Drills</h2><p>The calculations behind the booking entries, with fresh numbers: acquisition costs, every depreciation method, VAT payable, cash discount and deferrals. Solve on paper, type the results (rounded to cents), check — one try, then the full solution with the booking entries.</p></div>
       <div class="page-body">
-        <div class="chip-row bk-ckinds"><button class="chip" data-k="mixed">Mixed</button>${BK_CALC_KINDS.map(k=>`<button class="chip" data-k="${k.id}">${esc(k.label)}</button>`).join('')}</div>
+        <div class="chip-row bk-ckinds"><button class="chip" data-k="mock">Mock exam mix</button><button class="chip" data-k="mixed">Mixed (exam-relevant)</button>${BK_CALC_KINDS.filter(k=>k.mock).concat(BK_CALC_KINDS.filter(k=>!k.mock)).map(k=>`<button class="chip" data-k="${k.id}">${esc(k.label)}</button>`).join('')}</div>
         <div class="bk-score-row"><span class="bk-live bk-c-live"></span><button class="btn ghost bk-c-reset">Reset session</button></div>
         <div class="drill-card glass bk-c-card"></div>
       </div>`;
     const card = div.querySelector('.bk-c-card');
-    let kind = 'mixed', cur, curK, done, ok = 0, n = 0;
+    let kind = bkCalcKind, cur, curK, done, ok = 0, n = 0;
     const live = ()=>{ const v = curK && bkCalcStats()[curK.id]; div.querySelector('.bk-c-live').textContent = `This session: ${ok}/${n}` + (v ? ` · ${curK.label}: ${v.ok}/${v.n} overall` : ''); };
     const next = ()=>{
-      curK = kind==='mixed' ? bkPick(BK_CALC_KINDS) : BK_CALC_KINDS.find(k=>k.id===kind); cur = curK.gen(); done = false;
+      curK = kind==='mock' ? bkPick(BK_CALC_KINDS.filter(k=>k.mock)) : kind==='mixed' ? bkPick(BK_CALC_KINDS.filter(k=>!k.noexam)) : BK_CALC_KINDS.find(k=>k.id===kind); cur = curK.gen(); done = false;
       const t = BK_TOPICS.find(x=>x.id===curK.topic);
       card.innerHTML = `<div class="qtag">${esc(curK.label)} · Ch. ${t.ch}</div><div class="bk-task">${mathText(cur.q)}</div>
         <div class="drill-fields">${cur.fields.map(f=>`<label>${esc(f)} <input type="text" inputmode="decimal"></label>`).join('')}</div>
@@ -130,10 +131,11 @@ function buildBKCalc(){
     };
     card.addEventListener('click', ev=>{ const b = ev.target.closest('[data-d]'); if(!b) return; if(b.dataset.d==='check') check(); else next(); });
     card.addEventListener('keydown', ev=>{ if(ev.key==='Enter'){ if(done) next(); else check(); } });
-    div.querySelector('.bk-ckinds').addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; kind = c.dataset.k; div.querySelectorAll('.bk-ckinds .chip').forEach(x=>x.classList.toggle('active', x===c)); next(); });
+    div.querySelector('.bk-ckinds').addEventListener('click', ev=>{ const c = ev.target.closest('.chip'); if(!c) return; kind = bkCalcKind = c.dataset.k; div.querySelectorAll('.bk-ckinds .chip').forEach(x=>x.classList.toggle('active', x===c)); next(); });
     div.querySelector('.bk-c-reset').addEventListener('click', ()=>{ ok = 0; n = 0; next(); });
-    div.querySelector('.bk-ckinds .chip').classList.add('active');
+    div.querySelectorAll('.bk-ckinds .chip').forEach(x=>x.classList.toggle('active', x.dataset.k===kind));
     next();
+    div.__show = ()=>{ if(kind!==bkCalcKind){ kind = bkCalcKind; div.querySelectorAll('.bk-ckinds .chip').forEach(x=>x.classList.toggle('active', x.dataset.k===kind)); next(); } };
   });
 }
 

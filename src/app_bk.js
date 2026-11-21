@@ -309,7 +309,7 @@ function buildBKTrainer(){
       if(sels.some(s=>!s.value)){ const fb = card.querySelector('.ans-feedback'); fb.className = 'ans-feedback show warn'; fb.textContent = 'Pick an account for every line first.'; return; }
       checked = true;
       let ok = true;
-      sels.forEach((s,k)=>{ const good = s.value===x.lines[k][1]; if(!good) ok = false; s.disabled = true; s.closest('tr').classList.add(good?'ok':'bad'); if(!good) s.parentElement.querySelector('.bk-sol').textContent = '→ ' + x.lines[k][1]; });
+      sels.forEach((s,k)=>{ const good = bkAccEq(s.value, x.lines[k][1]); if(!good) ok = false; s.disabled = true; s.closest('tr').classList.add(good?'ok':'bad'); if(!good) s.parentElement.querySelector('.bk-sol').textContent = '→ ' + x.lines[k][1]; });
       done++; if(ok) right++;
       const st = bkTrainState(); st[x.id] = ok ? 1 : 0; lsSet('bk-train-state', st);
       const fb = card.querySelector('.ans-feedback'); fb.className = 'ans-feedback show '+(ok?'good':'warn');

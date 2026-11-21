@@ -12,7 +12,8 @@ const BK_EXAM_STYLE = R`**How Cloer will probably ask**
 - **Booking entries in English** (Debit … / Credit …): "Das darf nie schiefgehen in der Klausur." Account names are given in the exam.
 - **"Why?" questions:** the answer is usually a principle (prudence, imparity, completeness, accrual).
 - **Number cases:** garden gnomes (Germania GmbH), washing machine, rent December–May, pension, litigation.
-- The level goes up, but he gives more help than before (and grades generously).`;
+- The level goes up, but he gives more help than before (and grades generously).
+- **Mock exam 21.11.:** 135 min / 135 P, open response, 7 number cases + 2 theory tasks (banking, legal form). Practise it on the Mock Exam page and in Number Drills → "Mock exam mix".`;
 
 const BK_EXAM = [
 {n:1, tier:'must', date:'03.11.', topic:'bk-1', title:'One-word questions: pagatoric, completeness, uno actu',
